@@ -1,6 +1,9 @@
 import 'package:family_pet/genaral/app_strings/app_strings.dart';
 import 'package:family_pet/genaral/app_theme_date.dart';
 import 'package:family_pet/genaral/components/component_helpers.dart';
+import 'package:family_pet/resources/invite_relatives/views/invite_relatives_page.dart';
+import 'package:family_pet/resources/list_of_relatives/views/list_relatives_page.dart';
+import 'package:family_pet/resources/signup/views/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -120,9 +123,12 @@ class ProfileViewPage extends StatelessWidget {
             Container(
               color: AppThemeData.color_black_5,
               child: ListTile(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ListRelativesPage()));
+                },
                 minLeadingWidth: 0,
                 title: Text(
-                  AppStrings.of(context).TEXT_PROFILE_BUTTON_ADD_RELATIVES +
+                  AppStrings.of(context).TEXT_PROFILE_LIST_RELATIVES +
                       "   (30)",
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
@@ -133,6 +139,9 @@ class ProfileViewPage extends StatelessWidget {
             Container(
               color: AppThemeData.color_black_5,
               child: ListTile(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>InviteRelativePage()));
+                },
                 minLeadingWidth: 0,
                 leading: Icon(
                   Icons.add,
@@ -159,6 +168,9 @@ class ProfileViewPage extends StatelessWidget {
             Container(
               color: AppThemeData.color_black_5,
               child: ListTile(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpPage()));
+                },
                 minLeadingWidth: 0,
                 leading: Icon(
                   Icons.add,

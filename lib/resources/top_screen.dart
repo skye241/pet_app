@@ -5,7 +5,7 @@ import 'package:family_pet/resources/album/views/album_page.dart';
 import 'package:family_pet/resources/interests/views/interests_page.dart';
 import 'package:family_pet/resources/news/views/news_page.dart';
 import 'package:family_pet/resources/personal_profiles/views/profiles_page.dart';
-import 'package:family_pet/resources/pick_medias/views/pick_media_page.dart';
+import 'package:family_pet/resources/pick_media/views/pick_media_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

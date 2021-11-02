@@ -123,6 +123,38 @@ String get TEXT_PROFILE_BUTTON_CHANGE_LANGUAGES;
 String get TEXT_PROFILE_BUTTON_POLICY_AND_PROTECTED;
 // *** End - Profile ***//
 
+// *** Start - ListRelatives ***//
+    String get TEXT_LISTRELATIVES_TITLE;
+    String get TEXT_LISTRELATIVES_LABEL_FRIEND;
+    String get TEXT_LISTRELATIVES_LABEL_FAMILY;
+// *** End - ListRelatives ***//
+
+// *** Start - InviteRelatives ***//
+  String get TEXT_INVITERELATIVES_TITLE;
+  String get TEXT_INVITERELATIVES_LABEL_MAIN;
+  String get TEXT_INVITERELATIVES_ALBUM;
+  String get TEXT_INVITERELATIVES_BUTTON_INVITE_FAMILY;
+  String get TEXT_INVITERELATIVES_BUTTON_INVITE_FRIEND;
+  String get TEXT_INVITERELATIVES_BUTTON_SHARE;
+  String get TEXT_INVITERELATIVES_BUTTON_COPY_URL;
+// *** End - InviteRelatives ***//
+
+
+// *** Start - SignUP ***//
+  String get TEXT_SIGNUP_TITLE;
+  String get TEXT_SIGNUP_LABEL_EMAIL;
+  String get TEXT_SIGNUP_LABEL_PASSWORD;
+  String get TEXT_SIGNUP_BUTTON_SIGNUP;
+  String get TEXT_SIGNUP_LABEL_OTHER_REGISTER;
+// *** End - SignUp ***//
+
+// *** Start - SIGNIN - LOGIN ***//
+  String get TEXT_SIGNIN_TITLE;
+  String get TEXT_SIGNIN_LABEL_EMAIL;
+  String get TEXT_SIGNIN_LABEL_PASSWORD;
+  String get TEXT_SIGNIN_BUTTON_SIGNIN;
+  String get TEXT_SIGNIN_LABEL_OTHER_REGISTER;
+// *** End - SIGNIN - LOGIN ***//
 
 
 }

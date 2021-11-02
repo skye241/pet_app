@@ -3,14 +3,15 @@ import 'package:family_pet/genaral/app_strings/app_strings.dart';
 import 'package:family_pet/genaral/app_theme_date.dart';
 import 'package:family_pet/genaral/components/component_helpers.dart';
 import 'package:family_pet/genaral/librarys/file_storages/file_storage.dart';
-import 'package:family_pet/resources/pick_medias/blocs/interfaces/i_pick_media_bloc.dart';
-import 'package:family_pet/resources/pick_medias/blocs/pick_media_bloc.dart';
+import 'package:family_pet/resources/pick_media/blocs/interfaces/i_pick_media_bloc.dart';
+import 'package:family_pet/resources/pick_media/blocs/pick_media_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:video_player/video_player.dart';
 
 class PickMediaPage extends StatefulWidget {
-  PickMediaPage({Key? key}) : super(key: key);
+  PickMediaPage({Key? key,this.listFilePick}) : super(key: key);
+  Function(List<String>)? listFilePick;
 
   @override
   _PickMediaPageState createState() => _PickMediaPageState();
@@ -182,10 +183,11 @@ class _PickMediaPageState extends State<PickMediaPage>
     mapVideoController.values.forEach((element) {
       element.dispose();
     });
+    _animationIconUp.dispose();
     super.dispose();
   }
 
-  Widget _groupLevel2(Map<int, Map<int, List<File>>> map, int year) {
+  Widget _groupLevel2(Map<int, Map<int, List<File>>> map, int year,) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 19),
       child: Column(
@@ -206,7 +208,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                         ComponentHelper.radius(),
                       ],
                     ),
-                    _groupLevel1(e.value, e.key),
+                    _groupLevel1(e.value, e.key,),
                   ],
                 ))
             .toList(),
@@ -214,7 +216,7 @@ class _PickMediaPageState extends State<PickMediaPage>
     );
   }
 
-  Widget _groupLevel1(Map<int, List<File>> map, int month) {
+  Widget _groupLevel1(Map<int, List<File>> map, int month,{bool isSelect=false}) {
     return Column(
       children: map.entries
           .map((e) => Container(
@@ -247,7 +249,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return _itemPickMedia(e.value[index], false);
+                        return _itemPickMedia(e.value[index], isSelect);
                       },
                       itemCount: e.value.length,
                     )

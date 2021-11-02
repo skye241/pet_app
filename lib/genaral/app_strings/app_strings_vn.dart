@@ -140,4 +140,64 @@ class _AppStringsVn extends AppStrings{
   @override
   String get TEXT_PROFILE_LABEL_PET => "Thú cưng";
 
+  @override
+  String get TEXT_LISTRELATIVES_LABEL_FAMILY => "Gia đình";
+
+  @override
+  String get TEXT_LISTRELATIVES_LABEL_FRIEND => "Bạn bè";
+
+  @override
+  String get TEXT_LISTRELATIVES_TITLE => "Danh sách người thân";
+
+  @override
+  String get TEXT_INVITERELATIVES_ALBUM => "Album";
+
+  @override
+  String get TEXT_INVITERELATIVES_BUTTON_COPY_URL => "Coppy URL";
+
+  @override
+  String get TEXT_INVITERELATIVES_BUTTON_INVITE_FAMILY => "Mời gia đình";
+
+  @override
+  String get TEXT_INVITERELATIVES_BUTTON_INVITE_FRIEND => "Mời bạn bè";
+
+  @override
+  String get TEXT_INVITERELATIVES_BUTTON_SHARE => "Share";
+
+  @override
+  String get TEXT_INVITERELATIVES_LABEL_MAIN => "Gửi lời mời tới gai đình và bạn bè";
+
+  @override
+  String get TEXT_INVITERELATIVES_TITLE => "Mời người quen";
+
+  @override
+  String get TEXT_SIGNIN_BUTTON_SIGNIN => "Đăng nhập";
+
+  @override
+  String get TEXT_SIGNIN_LABEL_EMAIL => "Địa chỉ email";
+
+  @override
+  String get TEXT_SIGNIN_LABEL_OTHER_REGISTER => "Hoặc đăng nhập bằng";
+
+  @override
+  String get TEXT_SIGNIN_LABEL_PASSWORD => "Mật khẩu";
+
+  @override
+  String get TEXT_SIGNIN_TITLE => "Đăng nhập";
+
+  @override
+  String get TEXT_SIGNUP_BUTTON_SIGNUP => "Đăng ký";
+
+  @override
+  String get TEXT_SIGNUP_LABEL_EMAIL => "Địa chỉ email";
+
+  @override
+  String get TEXT_SIGNUP_LABEL_OTHER_REGISTER => "Hoặc đăng ký bằng";
+
+  @override
+  String get TEXT_SIGNUP_LABEL_PASSWORD => "Mật khẩu";
+
+  @override
+  String get TEXT_SIGNUP_TITLE => "Đăng ký tài khoản";
+
 }

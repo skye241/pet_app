@@ -160,4 +160,84 @@ class _AppStringsEn extends AppStrings{
   // TODO: implement TEXT_PROFILE_TITLE_PROFILE
   String get TEXT_PROFILE_LABEL_PET => throw UnimplementedError();
 
+  @override
+  // TODO: implement TEXT_LISTRELATIVES_LABEL_FAMILY
+  String get TEXT_LISTRELATIVES_LABEL_FAMILY => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_LISTRELATIVES_LABEL_FRIEND
+  String get TEXT_LISTRELATIVES_LABEL_FRIEND => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_LISTRELATIVES_TITLE
+  String get TEXT_LISTRELATIVES_TITLE => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_INVITERELATIVES_ALBUM
+  String get TEXT_INVITERELATIVES_ALBUM => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_INVITERELATIVES_BUTTON_COPY_URL
+  String get TEXT_INVITERELATIVES_BUTTON_COPY_URL => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_INVITERELATIVES_BUTTON_INVITE_FAMILY
+  String get TEXT_INVITERELATIVES_BUTTON_INVITE_FAMILY => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_INVITERELATIVES_BUTTON_INVITE_FRIEND
+  String get TEXT_INVITERELATIVES_BUTTON_INVITE_FRIEND => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_INVITERELATIVES_BUTTON_SHARE
+  String get TEXT_INVITERELATIVES_BUTTON_SHARE => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_INVITERELATIVES_LABEL_MAIN
+  String get TEXT_INVITERELATIVES_LABEL_MAIN => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_INVITERELATIVES_TITLE
+  String get TEXT_INVITERELATIVES_TITLE => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_SIGNIN_BUTTON_SIGNUP
+  String get TEXT_SIGNIN_BUTTON_SIGNIN => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_SIGNIN_LABEL_EMAIL
+  String get TEXT_SIGNIN_LABEL_EMAIL => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_SIGNIN_LABEL_OTHER_REGISTER
+  String get TEXT_SIGNIN_LABEL_OTHER_REGISTER => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_SIGNIN_LABEL_PASSWORD
+  String get TEXT_SIGNIN_LABEL_PASSWORD => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_SIGNIN_TITLE
+  String get TEXT_SIGNIN_TITLE => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_SIGNUP_BUTTON_SIGNUP
+  String get TEXT_SIGNUP_BUTTON_SIGNUP => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_SIGNUP_LABEL_EMAIL
+  String get TEXT_SIGNUP_LABEL_EMAIL => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_SIGNUP_LABEL_OTHER_REGISTER
+  String get TEXT_SIGNUP_LABEL_OTHER_REGISTER => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_SIGNUP_LABEL_PASSWORD
+  String get TEXT_SIGNUP_LABEL_PASSWORD => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_SIGNUP_TITLE
+  String get TEXT_SIGNUP_TITLE => throw UnimplementedError();
+
 }
