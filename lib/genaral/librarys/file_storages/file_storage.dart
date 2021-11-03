@@ -4,8 +4,10 @@ import 'package:path_provider/path_provider.dart';
 
 class FileStorage{
 
-  static List<String> listTypeFileVideo = [".mp4",".gif",".wmv",".hevc",".avi",".mov",".f4v",".mkv",".ts",".3gp",".mpeg-2",".webm",".vob",".flv",".divx"];
-  static List<String> listTypeFileImage = [".jpg",".jpeg",".png",".gif",".tiff",".psd",".eps",".ai",".raw"];
+  // static List<String> listTypeFileVideo = [".mp4",".gif",".wmv",".hevc",".avi",".mov",".f4v",".mkv",".ts",".3gp",".mpeg-2",".webm",".vob",".flv",".divx"];
+  static List<String> listTypeFileVideo = [".mp4",];
+  // static List<String> listTypeFileImage = [".jpg",".jpeg",".png",".gif",".tiff",".psd",".eps",".ai",".raw"];
+  static List<String> listTypeFileImage = [".jpg",".png"];
 
 
   static Future<List<String>> getFiles({List<String> specifyTypeFile = const []})async{

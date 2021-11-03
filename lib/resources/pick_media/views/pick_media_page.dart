@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:family_pet/genaral/app_strings/app_strings.dart';
 import 'package:family_pet/genaral/app_theme_date.dart';
 import 'package:family_pet/genaral/components/component_helpers.dart';
 import 'package:family_pet/genaral/librarys/file_storages/file_storage.dart';
 import 'package:family_pet/resources/pick_media/blocs/interfaces/i_pick_media_bloc.dart';
 import 'package:family_pet/resources/pick_media/blocs/pick_media_bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:video_player/video_player.dart';
@@ -30,10 +32,10 @@ class _PickMediaPageState extends State<PickMediaPage>
   void initState() {
     // TODO: implement initState
     super.initState();
-    _iPickMediaBloc.loadListMedia();
     _animationIconUp =
         new AnimationController(vsync: this, duration: Duration(seconds: 1))
           ..repeat(reverse: true);
+    Future.delayed(Duration(seconds: 1)).whenComplete(() => _iPickMediaBloc.loadListMedia());
   }
 
   @override
@@ -72,7 +74,9 @@ class _PickMediaPageState extends State<PickMediaPage>
                               .toList(),
                         ),
                       )
-                    : Center(
+                    : Container(
+                  height: MediaQuery.of(context).size.height-AppBar().preferredSize.height-200,
+                        alignment: Alignment.center,
                         child: SpinKitSpinningLines(
                             color: AppThemeData.color_main.withOpacity(0.55)));
               },
@@ -417,53 +421,61 @@ class _PickMediaPageState extends State<PickMediaPage>
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        ElevatedButton(
-          onPressed: () {
-            setState(() {
-              _iPickMediaBloc.currentPermissionPickMedia =
-                  PermissonPickMedia.family;
-            });
-          },
-          child: Text("${AppStrings.of(context).TEXT_PICKMEDIA_BUTTON_FAMILY}"),
-          style: _iPickMediaBloc.currentPermissionPickMedia ==
-                  PermissonPickMedia.family
-              ? null
-              : ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(AppThemeData.color_black_40),
-                ),
+        Expanded(
+          child: ElevatedButton(
+            onPressed: () {
+              setState(() {
+                _iPickMediaBloc.currentPermissionPickMedia =
+                    PermissonPickMedia.family;
+              });
+            },
+            child: AutoSizeText("${AppStrings.of(context).TEXT_PICKMEDIA_BUTTON_FAMILY}",maxLines: 1,),
+            style: _iPickMediaBloc.currentPermissionPickMedia ==
+                    PermissonPickMedia.family
+                ? null
+                : ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(AppThemeData.color_black_40),
+                  ),
+          ),
         ),
-        ElevatedButton(
-          onPressed: () {
-            setState(() {
-              _iPickMediaBloc.currentPermissionPickMedia =
-                  PermissonPickMedia.friend;
-            });
-          },
-          child: Text("${AppStrings.of(context).TEXT_PICKMEDIA_BUTTON_FRIEND}"),
-          style: _iPickMediaBloc.currentPermissionPickMedia ==
-                  PermissonPickMedia.friend
-              ? null
-              : ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(AppThemeData.color_black_40),
-                ),
+        SizedBox(width: 5,),
+        Expanded(
+          child: ElevatedButton(
+            onPressed: () {
+              setState(() {
+                _iPickMediaBloc.currentPermissionPickMedia =
+                    PermissonPickMedia.friend;
+              });
+            },
+            child: AutoSizeText("${AppStrings.of(context).TEXT_PICKMEDIA_BUTTON_FRIEND}",maxLines: 1,),
+            style: _iPickMediaBloc.currentPermissionPickMedia ==
+                    PermissonPickMedia.friend
+                ? null
+                : ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(AppThemeData.color_black_40),
+                  ),
+          ),
         ),
-        ElevatedButton(
-          onPressed: () {
-            setState(() {
-              _iPickMediaBloc.currentPermissionPickMedia =
-                  PermissonPickMedia.onlyme;
-            });
-          },
-          child: Text("${AppStrings.of(context).TEXT_PICKMEDIA_BUTTON_ONLY_ME}"),
-          style: _iPickMediaBloc.currentPermissionPickMedia ==
-                  PermissonPickMedia.onlyme
-              ? null
-              : ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(AppThemeData.color_black_40),
-                ),
+        SizedBox(width: 5,),
+        Expanded(
+          child: ElevatedButton(
+            onPressed: () {
+              setState(() {
+                _iPickMediaBloc.currentPermissionPickMedia =
+                    PermissonPickMedia.onlyme;
+              });
+            },
+            child: AutoSizeText("${AppStrings.of(context).TEXT_PICKMEDIA_BUTTON_ONLY_ME}",maxLines: 1,),
+            style: _iPickMediaBloc.currentPermissionPickMedia ==
+                    PermissonPickMedia.onlyme
+                ? null
+                : ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(AppThemeData.color_black_40),
+                  ),
+          ),
         ),
       ],
     );
