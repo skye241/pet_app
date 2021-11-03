@@ -231,7 +231,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          " ${e.key} tháng ${month}",
+                          " ${e.key} tháng $month",
                           style: TextStyle(fontSize: 16),
                         ),
                         ComponentHelper.radius(),

@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:family_pet/genaral/app_strings/app_strings.dart';
 import 'package:family_pet/genaral/app_theme_date.dart';
 import 'package:family_pet/resources/fast_register_user/views/register_fast_user_page.dart';
 import 'package:family_pet/resources/introduces/models/introduce_entity.dart';

@@ -97,7 +97,7 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  _eventSignIn() {}
+  // _eventSignIn() {}
 
   _eventFacebook() {}
 

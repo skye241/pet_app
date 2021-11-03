@@ -1,7 +1,6 @@
 import 'package:family_pet/genaral/app_strings/app_strings.dart';
 import 'package:family_pet/genaral/components/component_helpers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({Key? key}) : super(key: key);

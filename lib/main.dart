@@ -1,8 +1,5 @@
 import 'package:family_pet/genaral/app_theme_date.dart';
-import 'package:family_pet/resources/album/views/image_details_page.dart';
-import 'package:family_pet/resources/introduces/views/introduce_page.dart';
-import 'package:family_pet/resources/signin/views/signin_page.dart';
-import 'package:family_pet/resources/top_screen.dart';
+import 'package:family_pet/resources/fast_register_user/views/register_fast_user_page.dart';
 import 'package:family_pet/resources/welcome/views/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -41,7 +38,7 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       theme: AppThemeData.lightTheme,
-      home: WelcomePage(),
+      home: RegisterFastUserPage(),
     );
   }
 }

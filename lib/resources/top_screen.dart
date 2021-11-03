@@ -17,7 +17,9 @@ class TopScreenPage extends StatelessWidget {
     InterestsPage(),
     ProfileViewPage(),
   ];
-  StreamController<int> controller = new StreamController();
+  StreamController<int> controller =  StreamController();
+
+
 
   @override
   Widget build(BuildContext context) {

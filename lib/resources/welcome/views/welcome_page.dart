@@ -1,5 +1,4 @@
 import 'package:family_pet/genaral/app_theme_date.dart';
-import 'package:family_pet/resources/introduces/views/introduce_page.dart';
 import 'package:family_pet/resources/top_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

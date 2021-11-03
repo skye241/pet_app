@@ -108,7 +108,7 @@ class ListRelativesPage extends StatelessWidget {
           )),
         ),
         child: Text(
-          "${label} (${countList})",
+          "$label ($countList)",
           style: TextStyle(
               color: isActive
                   ? AppThemeData.color_main

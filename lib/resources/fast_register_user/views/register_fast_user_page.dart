@@ -4,9 +4,14 @@ import 'package:family_pet/genaral/components/component_helpers.dart';
 import 'package:family_pet/resources/register_pet/views/register_pet_page.dart';
 import 'package:flutter/material.dart';
 
-class RegisterFastUserPage extends StatelessWidget {
+class RegisterFastUserPage extends StatefulWidget {
   RegisterFastUserPage({Key? key}) : super(key: key);
 
+  @override
+  State<RegisterFastUserPage> createState() => _RegisterFastUserPageState();
+}
+
+class _RegisterFastUserPageState extends State<RegisterFastUserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,6 +109,7 @@ class RegisterFastUserPage extends StatelessWidget {
                 height: 18,
               ),
               ElevatedButton(
+
                   onPressed: () {},
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
@@ -114,6 +120,7 @@ class RegisterFastUserPage extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Text(AppStrings.of(context).TEXT_BUTTON_HAD_ACCOUNT,),
                   )),
+
               SizedBox(
                 height: 28,
               ),
