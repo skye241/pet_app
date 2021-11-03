@@ -96,7 +96,7 @@ class _AppStringsVn extends AppStrings{
   String get TEXT_TITLE_NEWS => "Bảng tin";
 
   @override
-  String get TEXT_TITLE_PICK_IMAGE_VIDEO => "Tất cả ảnh và video";
+  String get TEXT_PICKMEDIA_TITLE => "Tất cả ảnh và video";
 
   @override
   String get TEXT_PROFILE_BUTTON_ADD_PET => "Thêm thú cưng";
@@ -199,5 +199,20 @@ class _AppStringsVn extends AppStrings{
 
   @override
   String get TEXT_SIGNUP_TITLE => "Đăng ký tài khoản";
+
+  @override
+  String get TEXT_PICKMEDIA_BUTTON_FAMILY => "Mời gia đình";
+
+  @override
+  String get TEXT_PICKMEDIA_BUTTON_FRIEND => "Mời bạn bè";
+
+  @override
+  String get TEXT_PICKMEDIA_CONTINUE => "Tiếp tục";
+
+  @override
+  String get TEXT_PICKMEDIA_LABEL_MONTH => "Tháng";
+
+  @override
+  String get TEXT_PICKMEDIA_BUTTON_ONLY_ME => "Chỉ mình tôi";
 
 }

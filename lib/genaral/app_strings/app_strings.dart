@@ -101,9 +101,14 @@ abstract class AppStrings {
 //*** End - Interests ***//
 
 
-// *** Start - Interests ***//
-  String get TEXT_TITLE_PICK_IMAGE_VIDEO;
-//*** End - Interests ***//
+// *** Start - IPick Media ***//
+  String get TEXT_PICKMEDIA_TITLE;
+  String get TEXT_PICKMEDIA_LABEL_MONTH;
+  String get TEXT_PICKMEDIA_BUTTON_FAMILY;
+  String get TEXT_PICKMEDIA_BUTTON_FRIEND;
+  String get TEXT_PICKMEDIA_BUTTON_ONLY_ME;
+  String get TEXT_PICKMEDIA_CONTINUE;
+//*** End - IPick Media ***//
 
 
 // *** Start - Profile ***//

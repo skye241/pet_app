@@ -4,7 +4,7 @@ import 'package:rxdart/rxdart.dart';
 enum PermissonPickMedia{family,friend,onlyme}
 abstract class IPickMediaBloc{
   //Get list Media
-  List<File> listPick = [];
+  Set<File> listPick = new Set();
   Map<int,Map<int,Map<int,List<File>>>> filesGroup = new Map();
   final PublishSubject<Map<int,Map<int,Map<int,List<File>>>>> publishSubjectListFile = new PublishSubject();
   Stream<Map<int,Map<int,Map<int,List<File>>>>> get listFileStream => publishSubjectListFile.stream;
@@ -20,15 +20,12 @@ abstract class IPickMediaBloc{
 
 
 
-
-
-
   // Control bottomsheet UI
-  final double positionVerticalHide = 150;
+  final double positionVerticalHide = 80;
   final double positionVerticalShow = 0;
-  double currentPosition = 150;
+  double currentPosition = 80;
   bool isShowBottomSheet = false;
-  double positionOld = 150;
+  double positionOld = 80;
   PublishSubject<double> _publishSubjectPositionBottomSheet = new PublishSubject();
   Stream<double> get positionBottomSheetStream =>_publishSubjectPositionBottomSheet.stream;
   updatePotsitionBottomSheet(double positionVertical){

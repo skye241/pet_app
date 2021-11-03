@@ -102,7 +102,7 @@ class _AppStringsEn extends AppStrings{
 
   @override
   // TODO: implement TEXT_TITLE_PICK_IMAGE_VIDEO
-  String get TEXT_TITLE_PICK_IMAGE_VIDEO => throw UnimplementedError();
+  String get TEXT_PICKMEDIA_TITLE => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PROFILE_BUTTON_ADD
@@ -239,5 +239,25 @@ class _AppStringsEn extends AppStrings{
   @override
   // TODO: implement TEXT_SIGNUP_TITLE
   String get TEXT_SIGNUP_TITLE => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_PICKMEDIA_BUTTON_FAMILY
+  String get TEXT_PICKMEDIA_BUTTON_FAMILY => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_PICKMEDIA_BUTTON_FRIEND
+  String get TEXT_PICKMEDIA_BUTTON_FRIEND => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_PICKMEDIA_CONTINUE
+  String get TEXT_PICKMEDIA_CONTINUE => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_PICKMEDIA_LABEL_MONTH
+  String get TEXT_PICKMEDIA_LABEL_MONTH => throw UnimplementedError();
+
+  @override
+  // TODO: implement TEXT_PICKMEDIA_ONLY_ME
+  String get TEXT_PICKMEDIA_BUTTON_ONLY_ME => throw UnimplementedError();
 
 }
