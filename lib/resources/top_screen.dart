@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class TopScreenPage extends StatelessWidget {
-   TopScreenPage({Key? key}) : super(key: key);
+  TopScreenPage({Key? key}) : super(key: key);
   List<Widget> listBody = [
     AlbumPage(),
     NewsPage(),
@@ -30,8 +30,8 @@ class TopScreenPage extends StatelessWidget {
           child: StreamBuilder<int>(
             initialData: 0,
             stream: controller.stream,
-            builder: (context,AsyncSnapshot<int> snapshot){
-              return listBody[snapshot.data??0];
+            builder: (context, AsyncSnapshot<int> snapshot) {
+              return listBody[snapshot.data ?? 0];
             },
           ),
         ),
@@ -47,7 +47,13 @@ class TopScreenPage extends StatelessWidget {
       transform: Matrix4.identity()..translate(0.0, -15.2),
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>PickMediaPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => PickMediaPage(onChangePicker: (listSet, permisionPickMedia) {
+                print(listSet);
+                print(listSet
+                    .length);
+                print(permisionPickMedia);
+              },)));
         },
         child: CircleAvatar(
           radius: 31,

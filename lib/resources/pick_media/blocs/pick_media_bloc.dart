@@ -11,7 +11,7 @@ class PickMediaBloc extends IPickMediaBloc {
   @override
    loadListMedia() async {
     this.filesGroup.clear();
-    listPick = [];
+    listPick = new Set();
     PermissionStatus permissionStatus = await Permission.storage.request();
     print(permissionStatus);
     if(permissionStatus == PermissionStatus.granted){
