@@ -2,10 +2,10 @@ part of languages;
 
 class _AppStringsEn extends AppStrings{
   @override
-  String get APP_NAME => "App Name EN";
+  String get appName => "App Name EN";
 
   @override
-  String get TEXT_LABEL_INTRODUCE_DEMO => "App Name EN";
+  String get textLabelIntroduceDemo => "App Name EN";
 
   @override
   String get textTmp => "App Name EN";
@@ -14,250 +14,250 @@ class _AppStringsEn extends AppStrings{
   String get titleRegister => "App Name EN";
 
   @override
-  String get TEXT_TITLE_REGISTER_USER => "App name EN";
+  String get textTitleRegisterUser => "App name EN";
 
   @override
-  String get TEXT_LABEL_FIELD_NAME_USER => "App name EN";
+  String get textLabelFieldNameUser => "App name EN";
 
   @override
-  String get TEXT_SUB_LABEL_FIELD_NAME_USER => "App name EN";
+  String get textSubLabelFieldNameUser => "App name EN";
 
   @override
-  String get TEXT_BUTTON_CONTINUE => "App name EN";
+  String get textButtonContinue => "App name EN";
 
   @override
-  String get TEXT_BUTTON_HAD_ACCOUNT => "App name EN";
+  String get textButtonHadAccount => "App name EN";
 
   @override
-  String get TEXT_POLICY_PROTECTED => "App name EN)";
+  String get textPolicyProtected => "App name EN)";
 
   @override
-  String get TEXT_RULE_SERVICE => "App name EN";
+  String get textRuleService => "App name EN";
 
   @override
-  String get TEXT_BUTTON_REGISTER_AND_CONTINUE => "App name EN";
+  String get textButtonRegisterAndContinue => "App name EN";
 
   @override
-  String get TEXT_LABEL_FIELD_BIRTHDAY => "App name EN";
+  String get textLabelFieldBirthday => "App name EN";
 
   @override
-  String get TEXT_LABEL_FIELD_NAME_ALBUM => "App name EN";
+  String get textLabelFieldNameAlbum => "App name EN";
 
   @override
-  String get TEXT_LABEL_FIELD_NAME_PET => "App name EN";
+  String get textLabelFieldNamePet => "App name EN";
 
   @override
-  String get TEXT_LABEL_FIELD_SEXUAL => "App name EN";
+  String get textLabelFieldSexual => "App name EN";
 
   @override
-  String get TEXT_LABEL_FIELD_TYPE_PET => "App name EN";
+  String get textLabelFieldTypePet => "App name EN";
 
   @override
-  String get TEXT_SKIP_REGISTER_PET => "App name EN";
+  String get textSkipRegisterPet => "App name EN";
 
   @override
-  String get TEXT_TITLE_REGISTER_PET => "App name EN";
+  String get textTitleRegisterPet => "App name EN";
 
   @override
-  String get TEXT_SUB_LABEL_FIELD_NAME_PET => "App name EN";
+  String get textSubLabelFieldNamePet => "App name EN";
 
   @override
-  String get TEXT_LABEL_CHOOSE_FEMEAL => "App name EN";
+  String get textLabelChooseFemale => "App name EN";
 
   @override
-  String get TEXT_LABEL_CHOOSE_MEAL => "App name EN";
+  String get textLabelChooseMale => "App name EN";
 
   @override
-  String get TEXT_BUTTON_CHOOSE_A_PICTURE => "App name EN";
+  String get textButtonChooseAPicture => "App name EN";
 
   @override
-  String get TEXT_BUTTON_SKIP_CHOOSE_A_PICTURE => "App name EN";
+  String get textButtonSkipChooseAPicture => "App name EN";
 
   @override
-  String get TEXT_TITLE_ADD_A_PICTURE => "App name EN";
+  String get textTitleAddAPicture => "App name EN";
 
   @override
   // TODO: implement TEXT_LABEL_ALBUM_EMPTY
-  String get TEXT_LABEL_ALBUM_EMPTY => throw UnimplementedError();
+  String get textLabelAlbumEmpty => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_SUB_LABEL_ALBUM_EMPTY
-  String get TEXT_SUB_LABEL_ALBUM_EMPTY => throw UnimplementedError();
+  String get textSubLabelAlbumEmpty => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_TITLE_ALBUM
-  String get TEXT_TITLE_ALBUM => throw UnimplementedError();
+  String get textTitleAlbum => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_LABEL_EMPTY_NEWS
-  String get TEXT_LABEL_EMPTY_NEWS => throw UnimplementedError();
+  String get textLabelEmptyNews => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_TITLE_LIKE
-  String get TEXT_TITLE_INTERESTS => throw UnimplementedError();
+  String get textTitleInterests => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_TITLE_NEWS
-  String get TEXT_TITLE_NEWS => throw UnimplementedError();
+  String get textTitleNews => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_TITLE_PICK_IMAGE_VIDEO
-  String get TEXT_PICKMEDIA_TITLE => throw UnimplementedError();
+  String get textPickMediaTitle => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PROFILE_BUTTON_ADD
-  String get TEXT_PROFILE_BUTTON_ADD_PET => throw UnimplementedError();
+  String get textProfileButtonAddPet => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PROFILE_BUTTON_ADD_ACCOUNT
-  String get TEXT_PROFILE_BUTTON_ADD_ACCOUNT => throw UnimplementedError();
+  String get textProfileButtonAddAccount => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PROFILE_BUTTON_ADD_RELATIVES
-  String get TEXT_PROFILE_BUTTON_ADD_RELATIVES => throw UnimplementedError();
+  String get textProfileButtonAddRelatives => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PROFILE_BUTTON_CHANGE_LANGUAGES
-  String get TEXT_PROFILE_BUTTON_CHANGE_LANGUAGES => throw UnimplementedError();
+  String get textProfileButtonChangeLanguages => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PROFILE_BUTTON_NOTIFICATION
-  String get TEXT_PROFILE_BUTTON_NOTIFICATION => throw UnimplementedError();
+  String get textProfileButtonNotification => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PROFILE_HAD_LINK_ACCOUNT
-  String get TEXT_PROFILE_HAD_LINK_ACCOUNT => throw UnimplementedError();
+  String get textProfileHadLinkAccount => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PROFILE_LABEL_ACCOUNT
-  String get TEXT_PROFILE_LABEL_ACCOUNT => throw UnimplementedError();
+  String get textProfileLabelAccount => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PROFILE_LABEL_RELATIVES
-  String get TEXT_PROFILE_LABEL_RELATIVES => throw UnimplementedError();
+  String get textProfileLabelRelatives => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PROFILE_LABEL_SETTINGS
-  String get TEXT_PROFILE_LABEL_SETTINGS => throw UnimplementedError();
+  String get textProfileLabelSettings => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PROFILE_LIST_RELATIVES
-  String get TEXT_PROFILE_LIST_RELATIVES => throw UnimplementedError();
+  String get textProfileListRelatives => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PROFILE_NOT_LINK_ACCOUNT
-  String get TEXT_PROFILE_NOT_LINK_ACCOUNT => throw UnimplementedError();
+  String get textProfileNotLinkAccount => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PROFILE_POLICY_AND_PROTECTED
-  String get TEXT_PROFILE_BUTTON_POLICY_AND_PROTECTED => throw UnimplementedError();
+  String get textProfileButtonPolicyAndProtected => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PROFILE_TITLE
-  String get TEXT_PROFILE_TITLE => throw UnimplementedError();
+  String get textProfileTitle => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PROFILE_TITLE_PROFILE
-  String get TEXT_PROFILE_LABEL_PET => throw UnimplementedError();
+  String get textProfileLabelPet => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_LISTRELATIVES_LABEL_FAMILY
-  String get TEXT_LISTRELATIVES_LABEL_FAMILY => throw UnimplementedError();
+  String get textListRelativesLabelFamily => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_LISTRELATIVES_LABEL_FRIEND
-  String get TEXT_LISTRELATIVES_LABEL_FRIEND => throw UnimplementedError();
+  String get textListRelativesLabelFriend => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_LISTRELATIVES_TITLE
-  String get TEXT_LISTRELATIVES_TITLE => throw UnimplementedError();
+  String get textListRelativesTitle => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_INVITERELATIVES_ALBUM
-  String get TEXT_INVITERELATIVES_ALBUM => throw UnimplementedError();
+  String get textInviteRelativesAlbum => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_INVITERELATIVES_BUTTON_COPY_URL
-  String get TEXT_INVITERELATIVES_BUTTON_COPY_URL => throw UnimplementedError();
+  String get textInviteRelativesButtonCopyUrl => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_INVITERELATIVES_BUTTON_INVITE_FAMILY
-  String get TEXT_INVITERELATIVES_BUTTON_INVITE_FAMILY => throw UnimplementedError();
+  String get textInviteRelativesButtonInviteFamily => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_INVITERELATIVES_BUTTON_INVITE_FRIEND
-  String get TEXT_INVITERELATIVES_BUTTON_INVITE_FRIEND => throw UnimplementedError();
+  String get textInviteRelativesButtonInviteFriend => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_INVITERELATIVES_BUTTON_SHARE
-  String get TEXT_INVITERELATIVES_BUTTON_SHARE => throw UnimplementedError();
+  String get textInviteRelativesButtonShare => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_INVITERELATIVES_LABEL_MAIN
-  String get TEXT_INVITERELATIVES_LABEL_MAIN => throw UnimplementedError();
+  String get textInviteRelativesLabelMain => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_INVITERELATIVES_TITLE
-  String get TEXT_INVITERELATIVES_TITLE => throw UnimplementedError();
+  String get textInviteRelativesTitle => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_SIGNIN_BUTTON_SIGNUP
-  String get TEXT_SIGNIN_BUTTON_SIGNIN => throw UnimplementedError();
+  String get textSignInButtonSignIn => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_SIGNIN_LABEL_EMAIL
-  String get TEXT_SIGNIN_LABEL_EMAIL => throw UnimplementedError();
+  String get textSignInLabelEmail => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_SIGNIN_LABEL_OTHER_REGISTER
-  String get TEXT_SIGNIN_LABEL_OTHER_REGISTER => throw UnimplementedError();
+  String get textSignInLabelOtherRegister => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_SIGNIN_LABEL_PASSWORD
-  String get TEXT_SIGNIN_LABEL_PASSWORD => throw UnimplementedError();
+  String get textSignInLabelPassword => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_SIGNIN_TITLE
-  String get TEXT_SIGNIN_TITLE => throw UnimplementedError();
+  String get textSignInTitle => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_SIGNUP_BUTTON_SIGNUP
-  String get TEXT_SIGNUP_BUTTON_SIGNUP => throw UnimplementedError();
+  String get textSignUpButtonSignUp => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_SIGNUP_LABEL_EMAIL
-  String get TEXT_SIGNUP_LABEL_EMAIL => throw UnimplementedError();
+  String get textSignUpLabelEmail => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_SIGNUP_LABEL_OTHER_REGISTER
-  String get TEXT_SIGNUP_LABEL_OTHER_REGISTER => throw UnimplementedError();
+  String get textSignUpLabelOtherRegister => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_SIGNUP_LABEL_PASSWORD
-  String get TEXT_SIGNUP_LABEL_PASSWORD => throw UnimplementedError();
+  String get textSignUpLabelPassword => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_SIGNUP_TITLE
-  String get TEXT_SIGNUP_TITLE => throw UnimplementedError();
+  String get textSignUpTitle => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PICKMEDIA_BUTTON_FAMILY
-  String get TEXT_PICKMEDIA_BUTTON_FAMILY => throw UnimplementedError();
+  String get textPickMediaButtonFamily => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PICKMEDIA_BUTTON_FRIEND
-  String get TEXT_PICKMEDIA_BUTTON_FRIEND => throw UnimplementedError();
+  String get textPickMediaButtonFriend => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PICKMEDIA_CONTINUE
-  String get TEXT_PICKMEDIA_CONTINUE => throw UnimplementedError();
+  String get textPickMediaContinue => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PICKMEDIA_LABEL_MONTH
-  String get TEXT_PICKMEDIA_LABEL_MONTH => throw UnimplementedError();
+  String get textPickMediaLabelMonth => throw UnimplementedError();
 
   @override
   // TODO: implement TEXT_PICKMEDIA_ONLY_ME
-  String get TEXT_PICKMEDIA_BUTTON_ONLY_ME => throw UnimplementedError();
+  String get textPickMediaButtonOnlyMe => throw UnimplementedError();
 
 }

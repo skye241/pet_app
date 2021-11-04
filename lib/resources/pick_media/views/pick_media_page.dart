@@ -50,7 +50,7 @@ class _PickMediaPageState extends State<PickMediaPage>
           icon: Icon(Icons.arrow_back_ios),
         ),
         title: Text(
-          AppStrings.of(context).TEXT_PICKMEDIA_TITLE,
+          AppStrings.of(context).textPickMediaTitle,
           style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
       ),
@@ -162,7 +162,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                               alignment: Alignment.center,
                               padding: EdgeInsets.symmetric(vertical: 15),
                               child: Text(
-                                AppStrings.of(context).TEXT_PICKMEDIA_CONTINUE,
+                                AppStrings.of(context).textPickMediaContinue,
                                 style: TextStyle(
                                     color: Colors.white),
                               ),
@@ -231,7 +231,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "${AppStrings.of(context).TEXT_PICKMEDIA_LABEL_MONTH} ${e.key}.$year",
+                    "${AppStrings.of(context).textPickMediaLabelMonth} ${e.key}.$year",
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
@@ -298,7 +298,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    " ${e.key} ${AppStrings.of(context).TEXT_PICKMEDIA_LABEL_MONTH.toLowerCase()} $month",
+                    " ${e.key} ${AppStrings.of(context).textPickMediaLabelMonth.toLowerCase()} $month",
                     style: TextStyle(fontSize: 16),
                   ),
                   InkWell(
@@ -429,7 +429,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                     PermissonPickMedia.family;
               });
             },
-            child: AutoSizeText("${AppStrings.of(context).TEXT_PICKMEDIA_BUTTON_FAMILY}",maxLines: 1,),
+            child: AutoSizeText("${AppStrings.of(context).textPickMediaButtonFamily}",maxLines: 1,),
             style: _iPickMediaBloc.currentPermissionPickMedia ==
                     PermissonPickMedia.family
                 ? null
@@ -448,7 +448,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                     PermissonPickMedia.friend;
               });
             },
-            child: AutoSizeText("${AppStrings.of(context).TEXT_PICKMEDIA_BUTTON_FRIEND}",maxLines: 1,),
+            child: AutoSizeText("${AppStrings.of(context).textPickMediaButtonFriend}",maxLines: 1,),
             style: _iPickMediaBloc.currentPermissionPickMedia ==
                     PermissonPickMedia.friend
                 ? null
@@ -467,7 +467,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                     PermissonPickMedia.onlyme;
               });
             },
-            child: AutoSizeText("${AppStrings.of(context).TEXT_PICKMEDIA_BUTTON_ONLY_ME}",maxLines: 1,),
+            child: AutoSizeText("${AppStrings.of(context).textPickMediaButtonOnlyMe}",maxLines: 1,),
             style: _iPickMediaBloc.currentPermissionPickMedia ==
                     PermissonPickMedia.onlyme
                 ? null

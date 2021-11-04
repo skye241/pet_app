@@ -14,8 +14,8 @@ class AlbumEmptyFragment extends StatelessWidget {
         children: [
           Image.asset("assets/images/img_album.png",width: 223,height: 198,),
           SizedBox(height: 16,),
-          Text(AppStrings.of(context).TEXT_LABEL_ALBUM_EMPTY,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 24,height: 1.5,color: AppThemeData.color_black_80),),
-          Text(AppStrings.of(context).TEXT_SUB_LABEL_ALBUM_EMPTY,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 16,height: 1.5,color: AppThemeData.color_black_80),),
+          Text(AppStrings.of(context).textLabelAlbumEmpty,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 24,height: 1.5,color: AppThemeData.color_black_80),),
+          Text(AppStrings.of(context).textSubLabelAlbumEmpty,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 16,height: 1.5,color: AppThemeData.color_black_80),),
         ],
       ),
     );

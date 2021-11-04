@@ -3,10 +3,10 @@ part of languages;
 
 class _AppStringsVn extends AppStrings{
   @override
-  String get APP_NAME => "FamilyPet";
+  String get appName => "FamilyPet";
 
   @override
-  String get TEXT_LABEL_INTRODUCE_DEMO => "Famipet (ứng dụng chia sẻ ảnh thú cưng gia đình)";
+  String get textLabelIntroduceDemo => "Famipet (ứng dụng chia sẻ ảnh thú cưng gia đình)";
 
   @override
   String get titleRegister => "";
@@ -15,204 +15,204 @@ class _AppStringsVn extends AppStrings{
   String get textTmp => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae at ut pellentesque enim.";
 
   @override
-  String get TEXT_TITLE_REGISTER_USER => "Đăng ký";
+  String get textTitleRegisterUser => "Đăng ký";
 
   @override
-  String get TEXT_LABEL_FIELD_NAME_USER => "Tên đăng nhập";
+  String get textLabelFieldNameUser => "Tên đăng nhập";
 
   @override
-  String get TEXT_SUB_LABEL_FIELD_NAME_USER => " (có thể thay đổi)";
+  String get textSubLabelFieldNameUser => " (có thể thay đổi)";
 
   @override
-  String get TEXT_BUTTON_CONTINUE => "Đăng ký";
+  String get textButtonContinue => "Đăng ký";
 
   @override
-  String get TEXT_BUTTON_HAD_ACCOUNT => "Đã có tài khoản";
+  String get textButtonHadAccount => "Đã có tài khoản";
 
   @override
-  String get TEXT_POLICY_PROTECTED => "Chính sách bảo mật";
+  String get textPolicyProtected => "Chính sách bảo mật";
 
   @override
-  String get TEXT_RULE_SERVICE => "Điều khoản dịch vụ";
+  String get textRuleService => "Điều khoản dịch vụ";
 
   @override
-  String get TEXT_BUTTON_REGISTER_AND_CONTINUE => "Đăng ký và tiếp tục";
+  String get textButtonRegisterAndContinue => "Đăng ký và tiếp tục";
 
   @override
-  String get TEXT_LABEL_FIELD_BIRTHDAY => "Ngày sinh";
+  String get textLabelFieldBirthday => "Ngày sinh";
 
   @override
-  String get TEXT_LABEL_FIELD_NAME_ALBUM => "Album";
+  String get textLabelFieldNameAlbum => "Album";
 
   @override
-  String get TEXT_LABEL_FIELD_NAME_PET => "Tên thú cưng";
+  String get textLabelFieldNamePet => "Tên thú cưng";
 
   @override
-  String get TEXT_LABEL_FIELD_SEXUAL => "Giới tính";
+  String get textLabelFieldSexual => "Giới tính";
 
   @override
-  String get TEXT_LABEL_FIELD_TYPE_PET => "Giống";
+  String get textLabelFieldTypePet => "Giống";
 
   @override
-  String get TEXT_SKIP_REGISTER_PET => "Bỏ qua";
+  String get textSkipRegisterPet => "Bỏ qua";
 
   @override
-  String get TEXT_TITLE_REGISTER_PET => "Đăng ký tên thú cưng";
+  String get textTitleRegisterPet => "Đăng ký tên thú cưng";
 
   @override
-  String get TEXT_SUB_LABEL_FIELD_NAME_PET => " (có thể thay đổi)";
+  String get textSubLabelFieldNamePet => " (có thể thay đổi)";
 
   @override
-  String get TEXT_LABEL_CHOOSE_FEMEAL => "Giống cái";
+  String get textLabelChooseFemale => "Giống cái";
 
   @override
-  String get TEXT_LABEL_CHOOSE_MEAL => "Giống đực";
+  String get textLabelChooseMale => "Giống đực";
 
   @override
-  String get TEXT_BUTTON_CHOOSE_A_PICTURE => "Đăng ký và tiếp tục";
+  String get textButtonChooseAPicture => "Đăng ký và tiếp tục";
 
   @override
-  String get TEXT_BUTTON_SKIP_CHOOSE_A_PICTURE => "Bỏ qua";
+  String get textButtonSkipChooseAPicture => "Bỏ qua";
 
   @override
-  String get TEXT_TITLE_ADD_A_PICTURE => "Thêm một bức ảnh";
+  String get textTitleAddAPicture => "Thêm một bức ảnh";
 
   @override
-  String get TEXT_LABEL_ALBUM_EMPTY => "Hiện tại chưa có ảnh";
+  String get textLabelAlbumEmpty => "Hiện tại chưa có ảnh";
 
   @override
-  String get TEXT_SUB_LABEL_ALBUM_EMPTY => "Tải ảnh lên ngay nào!";
+  String get textSubLabelAlbumEmpty => "Tải ảnh lên ngay nào!";
 
   @override
-  String get TEXT_TITLE_ALBUM => "Chó, mèo";
+  String get textTitleAlbum => "Chó, mèo";
 
   @override
-  String get TEXT_LABEL_EMPTY_NEWS => "Hiện tại chưa có thông báo";
+  String get textLabelEmptyNews => "Hiện tại chưa có thông báo";
 
   @override
-  String get TEXT_TITLE_INTERESTS => "Yêu thích";
+  String get textTitleInterests => "Yêu thích";
 
   @override
-  String get TEXT_TITLE_NEWS => "Bảng tin";
+  String get textTitleNews => "Bảng tin";
 
   @override
-  String get TEXT_PICKMEDIA_TITLE => "Tất cả ảnh và video";
+  String get textPickMediaTitle => "Tất cả ảnh và video";
 
   @override
-  String get TEXT_PROFILE_BUTTON_ADD_PET => "Thêm thú cưng";
+  String get textProfileButtonAddPet => "Thêm thú cưng";
 
   @override
-  String get TEXT_PROFILE_BUTTON_ADD_ACCOUNT => "Đăng ký tài khoản";
+  String get textProfileButtonAddAccount => "Đăng ký tài khoản";
 
   @override
-  String get TEXT_PROFILE_BUTTON_ADD_RELATIVES => "Mời người thân";
+  String get textProfileButtonAddRelatives => "Mời người thân";
 
   @override
-  String get TEXT_PROFILE_BUTTON_CHANGE_LANGUAGES => "Đổi ngôn ngữ sang tiếng Nhật";
+  String get textProfileButtonChangeLanguages => "Đổi ngôn ngữ sang tiếng Nhật";
 
   @override
-  String get TEXT_PROFILE_BUTTON_NOTIFICATION => "Thông báo";
+  String get textProfileButtonNotification => "Thông báo";
 
   @override
-  String get TEXT_PROFILE_HAD_LINK_ACCOUNT => "Đã đăng ký tài khoản";
+  String get textProfileHadLinkAccount => "Đã đăng ký tài khoản";
 
   @override
-  String get TEXT_PROFILE_LABEL_ACCOUNT => "Tài khoản";
+  String get textProfileLabelAccount => "Tài khoản";
 
   @override
-  String get TEXT_PROFILE_LABEL_RELATIVES => "Người thân";
+  String get textProfileLabelRelatives => "Người thân";
 
   @override
-  String get TEXT_PROFILE_LABEL_SETTINGS => "Cài đặt";
+  String get textProfileLabelSettings => "Cài đặt";
 
   @override
-  String get TEXT_PROFILE_LIST_RELATIVES => "Danh sách người thân";
+  String get textProfileListRelatives => "Danh sách người thân";
 
   @override
-  String get TEXT_PROFILE_NOT_LINK_ACCOUNT => "Tài khoản chưa đăng ký";
+  String get textProfileNotLinkAccount => "Tài khoản chưa đăng ký";
 
   @override
-  String get TEXT_PROFILE_BUTTON_POLICY_AND_PROTECTED => "Chính sách và bảo mật";
+  String get textProfileButtonPolicyAndProtected => "Chính sách và bảo mật";
 
   @override
-  String get TEXT_PROFILE_TITLE => "Cá nhân";
+  String get textProfileTitle => "Cá nhân";
 
   @override
-  String get TEXT_PROFILE_LABEL_PET => "Thú cưng";
+  String get textProfileLabelPet => "Thú cưng";
 
   @override
-  String get TEXT_LISTRELATIVES_LABEL_FAMILY => "Gia đình";
+  String get textListRelativesLabelFamily => "Gia đình";
 
   @override
-  String get TEXT_LISTRELATIVES_LABEL_FRIEND => "Bạn bè";
+  String get textListRelativesLabelFriend => "Bạn bè";
 
   @override
-  String get TEXT_LISTRELATIVES_TITLE => "Danh sách người thân";
+  String get textListRelativesTitle => "Danh sách người thân";
 
   @override
-  String get TEXT_INVITERELATIVES_ALBUM => "Album";
+  String get textInviteRelativesAlbum => "Album";
 
   @override
-  String get TEXT_INVITERELATIVES_BUTTON_COPY_URL => "Coppy URL";
+  String get textInviteRelativesButtonCopyUrl => "Coppy URL";
 
   @override
-  String get TEXT_INVITERELATIVES_BUTTON_INVITE_FAMILY => "Mời gia đình";
+  String get textInviteRelativesButtonInviteFamily => "Mời gia đình";
 
   @override
-  String get TEXT_INVITERELATIVES_BUTTON_INVITE_FRIEND => "Mời bạn bè";
+  String get textInviteRelativesButtonInviteFriend => "Mời bạn bè";
 
   @override
-  String get TEXT_INVITERELATIVES_BUTTON_SHARE => "Share";
+  String get textInviteRelativesButtonShare => "Share";
 
   @override
-  String get TEXT_INVITERELATIVES_LABEL_MAIN => "Gửi lời mời tới gai đình và bạn bè";
+  String get textInviteRelativesLabelMain => "Gửi lời mời tới gai đình và bạn bè";
 
   @override
-  String get TEXT_INVITERELATIVES_TITLE => "Mời người quen";
+  String get textInviteRelativesTitle => "Mời người quen";
 
   @override
-  String get TEXT_SIGNIN_BUTTON_SIGNIN => "Đăng nhập";
+  String get textSignInButtonSignIn => "Đăng nhập";
 
   @override
-  String get TEXT_SIGNIN_LABEL_EMAIL => "Địa chỉ email";
+  String get textSignInLabelEmail => "Địa chỉ email";
 
   @override
-  String get TEXT_SIGNIN_LABEL_OTHER_REGISTER => "Hoặc đăng nhập bằng";
+  String get textSignInLabelOtherRegister => "Hoặc đăng nhập bằng";
 
   @override
-  String get TEXT_SIGNIN_LABEL_PASSWORD => "Mật khẩu";
+  String get textSignInLabelPassword => "Mật khẩu";
 
   @override
-  String get TEXT_SIGNIN_TITLE => "Đăng nhập";
+  String get textSignInTitle => "Đăng nhập";
 
   @override
-  String get TEXT_SIGNUP_BUTTON_SIGNUP => "Đăng ký";
+  String get textSignUpButtonSignUp => "Đăng ký";
 
   @override
-  String get TEXT_SIGNUP_LABEL_EMAIL => "Địa chỉ email";
+  String get textSignUpLabelEmail => "Địa chỉ email";
 
   @override
-  String get TEXT_SIGNUP_LABEL_OTHER_REGISTER => "Hoặc đăng ký bằng";
+  String get textSignUpLabelOtherRegister => "Hoặc đăng ký bằng";
 
   @override
-  String get TEXT_SIGNUP_LABEL_PASSWORD => "Mật khẩu";
+  String get textSignUpLabelPassword => "Mật khẩu";
 
   @override
-  String get TEXT_SIGNUP_TITLE => "Đăng ký tài khoản";
+  String get textSignUpTitle => "Đăng ký tài khoản";
 
   @override
-  String get TEXT_PICKMEDIA_BUTTON_FAMILY => "Mời gia đình";
+  String get textPickMediaButtonFamily => "Mời gia đình";
 
   @override
-  String get TEXT_PICKMEDIA_BUTTON_FRIEND => "Mời bạn bè";
+  String get textPickMediaButtonFriend => "Mời bạn bè";
 
   @override
-  String get TEXT_PICKMEDIA_CONTINUE => "Tiếp tục";
+  String get textPickMediaContinue => "Tiếp tục";
 
   @override
-  String get TEXT_PICKMEDIA_LABEL_MONTH => "Tháng";
+  String get textPickMediaLabelMonth => "Tháng";
 
   @override
-  String get TEXT_PICKMEDIA_BUTTON_ONLY_ME => "Chỉ mình tôi";
+  String get textPickMediaButtonOnlyMe => "Chỉ mình tôi";
 
 }

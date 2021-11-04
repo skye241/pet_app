@@ -20,7 +20,7 @@ class AddAPicturePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                AppStrings.of(context).TEXT_TITLE_ADD_A_PICTURE,
+                AppStrings.of(context).textTitleAddAPicture,
                 style: Theme.of(context).textTheme.headline4,
               ),
               SizedBox(
@@ -72,7 +72,7 @@ class AddAPicturePage extends StatelessWidget {
                     width: double.maxFinite,
                     padding: EdgeInsets.symmetric(vertical: 15.0),
                     child: Text(
-                        AppStrings.of(context).TEXT_BUTTON_CHOOSE_A_PICTURE),
+                        AppStrings.of(context).textButtonChooseAPicture),
                   )),
               SizedBox(
                 height: 10,
@@ -86,7 +86,7 @@ class AddAPicturePage extends StatelessWidget {
                     width: double.maxFinite,
                     padding: EdgeInsets.symmetric(vertical: 15),
                     alignment: Alignment.center,
-                    child: Text(AppStrings.of(context).TEXT_BUTTON_SKIP_CHOOSE_A_PICTURE,),
+                    child: Text(AppStrings.of(context).textButtonSkipChooseAPicture,),
                   )),
             ],
           ),

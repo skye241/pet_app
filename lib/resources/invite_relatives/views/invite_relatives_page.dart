@@ -12,7 +12,7 @@ class InviteRelativePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "${AppStrings.of(context).TEXT_INVITERELATIVES_TITLE}",
+          "${AppStrings.of(context).textInviteRelativesTitle}",
           style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
         leading: IconButton(
@@ -33,7 +33,7 @@ class InviteRelativePage extends StatelessWidget {
                 height: 40,
               ),
               AutoSizeText(
-                "${AppStrings.of(context).TEXT_INVITERELATIVES_LABEL_MAIN}",
+                "${AppStrings.of(context).textInviteRelativesLabelMain}",
                 style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
@@ -58,7 +58,7 @@ class InviteRelativePage extends StatelessWidget {
                         width: double.maxFinite,
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
-                            "${AppStrings.of(context).TEXT_INVITERELATIVES_BUTTON_INVITE_FAMILY}"),
+                            "${AppStrings.of(context).textInviteRelativesButtonInviteFamily}"),
                       ),
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all<OutlinedBorder>(
@@ -77,7 +77,7 @@ class InviteRelativePage extends StatelessWidget {
                         width: double.maxFinite,
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
-                            "${AppStrings.of(context).TEXT_INVITERELATIVES_BUTTON_INVITE_FRIEND}"),
+                            "${AppStrings.of(context).textInviteRelativesButtonInviteFriend}"),
                       ),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
@@ -112,7 +112,7 @@ class InviteRelativePage extends StatelessWidget {
                       children: [
                         Icon(Icons.share),
                         SizedBox(width: 16),
-                        Text("${AppStrings.of(context).TEXT_INVITERELATIVES_BUTTON_SHARE}"),
+                        Text("${AppStrings.of(context).textInviteRelativesButtonShare}"),
                       ],
                     ),
                   ),
@@ -132,7 +132,7 @@ class InviteRelativePage extends StatelessWidget {
                     children: [
                       Icon(Icons.copy),
                       SizedBox(width: 16),
-                      Text("${AppStrings.of(context).TEXT_INVITERELATIVES_BUTTON_COPY_URL}"),
+                      Text("${AppStrings.of(context).textInviteRelativesButtonCopyUrl}"),
                     ],
                   ),
                 ),

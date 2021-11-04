@@ -16,7 +16,7 @@ class SignUpPage extends StatelessWidget {
           },
         ),
         title: Text(
-          AppStrings.of(context).TEXT_SIGNUP_TITLE,
+          AppStrings.of(context).textSignUpTitle,
           style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
       ),
@@ -31,15 +31,15 @@ class SignUpPage extends StatelessWidget {
                 child: Image.asset("assets/images/img_register_2.png"),
               ),
               ComponentHelper.textField(
-                hintText: AppStrings.of(context).TEXT_SIGNUP_LABEL_EMAIL,
-                label: AppStrings.of(context).TEXT_SIGNUP_LABEL_EMAIL,
+                hintText: AppStrings.of(context).textSignUpLabelEmail,
+                label: AppStrings.of(context).textSignUpLabelEmail,
               ),
               SizedBox(
                 height: 18,
               ),
               ComponentHelper.textField(
-                hintText: AppStrings.of(context).TEXT_SIGNUP_LABEL_PASSWORD,
-                label: AppStrings.of(context).TEXT_SIGNUP_LABEL_PASSWORD,
+                hintText: AppStrings.of(context).textSignUpLabelPassword,
+                label: AppStrings.of(context).textSignUpLabelPassword,
               ),
               SizedBox(
                 height: 33,
@@ -50,7 +50,7 @@ class SignUpPage extends StatelessWidget {
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(vertical: 11.54),
                   width: double.maxFinite,
-                  child: Text(AppStrings.of(context).TEXT_SIGNUP_BUTTON_SIGNUP),
+                  child: Text(AppStrings.of(context).textSignUpButtonSignUp),
                 ),
               ),
               SizedBox(height: 24),
@@ -61,7 +61,7 @@ class SignUpPage extends StatelessWidget {
                     color: Colors.black,
                     endIndent: 15,
                   )),
-                  Text(AppStrings.of(context).TEXT_SIGNUP_LABEL_OTHER_REGISTER,
+                  Text(AppStrings.of(context).textSignUpLabelOtherRegister,
                       maxLines: 1),
                   Expanded(
                       child: Divider(

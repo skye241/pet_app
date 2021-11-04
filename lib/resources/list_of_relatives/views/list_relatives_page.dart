@@ -19,7 +19,7 @@ class ListRelativesPage extends StatelessWidget {
           },
         ),
         title: Text(
-          "${AppStrings.of(context).TEXT_LISTRELATIVES_TITLE}",
+          "${AppStrings.of(context).textListRelativesTitle}",
           style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
         bottom: PreferredSize(
@@ -34,7 +34,7 @@ class ListRelativesPage extends StatelessWidget {
                   children: [
                     Expanded(
                       child: _itemLabelRelatives(
-                        "${AppStrings.of(context).TEXT_LISTRELATIVES_LABEL_FAMILY}",
+                        "${AppStrings.of(context).textListRelativesLabelFamily}",
                         5,
                         snapshot.data == EnumRelatives.family,
                         onTap: () {
@@ -44,7 +44,7 @@ class ListRelativesPage extends StatelessWidget {
                     ),
                     Expanded(
                       child: _itemLabelRelatives(
-                        "${AppStrings.of(context).TEXT_LISTRELATIVES_LABEL_FRIEND}",
+                        "${AppStrings.of(context).textListRelativesLabelFriend}",
                         2,
                         snapshot.data == EnumRelatives.friend,
                         onTap: () {

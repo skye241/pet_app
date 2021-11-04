@@ -25,7 +25,7 @@ class _RegisterFastUserPageState extends State<RegisterFastUserPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                AppStrings.of(context).TEXT_TITLE_REGISTER_USER,
+                AppStrings.of(context).textTitleRegisterUser,
                 style: Theme.of(context).textTheme.headline4,
               ),
               SizedBox(
@@ -76,18 +76,18 @@ class _RegisterFastUserPageState extends State<RegisterFastUserPage> {
                 child: RichText(
                   text: TextSpan(children: [
                     TextSpan(
-                        text: AppStrings.of(context).TEXT_LABEL_FIELD_NAME_USER,
+                        text: AppStrings.of(context).textLabelFieldNameUser,
                         style: Theme.of(context).textTheme.bodyText2),
                     TextSpan(
                         text: AppStrings.of(context)
-                            .TEXT_SUB_LABEL_FIELD_NAME_USER,
+                            .textSubLabelFieldNameUser,
                         style: Theme.of(context).textTheme.subtitle2),
                   ]),
                 ),
               ),
               SizedBox(height: 18,),
               Form(
-                child: ComponentHelper.textField(hintText: AppStrings.of(context).TEXT_LABEL_FIELD_NAME_USER),
+                child: ComponentHelper.textField(hintText: AppStrings.of(context).textLabelFieldNameUser),
               ),
               SizedBox(
                 height: 33,
@@ -103,7 +103,7 @@ class _RegisterFastUserPageState extends State<RegisterFastUserPage> {
                     width: double.maxFinite,
                     padding: EdgeInsets.symmetric(vertical: 15),
                     alignment: Alignment.center,
-                    child: Text(AppStrings.of(context).TEXT_BUTTON_CONTINUE),
+                    child: Text(AppStrings.of(context).textButtonContinue),
                   )),
               SizedBox(
                 height: 18,
@@ -118,7 +118,7 @@ class _RegisterFastUserPageState extends State<RegisterFastUserPage> {
                     width: double.maxFinite,
                     padding: EdgeInsets.symmetric(vertical: 15),
                     alignment: Alignment.center,
-                    child: Text(AppStrings.of(context).TEXT_BUTTON_HAD_ACCOUNT,),
+                    child: Text(AppStrings.of(context).textButtonHadAccount,),
                   )),
 
               SizedBox(
@@ -130,7 +130,7 @@ class _RegisterFastUserPageState extends State<RegisterFastUserPage> {
                   InkWell(
                     onTap: () {},
                     child: Text(
-                      AppStrings.of(context).TEXT_RULE_SERVICE,
+                      AppStrings.of(context).textRuleService,
                       style:  Theme.of(context).textTheme.subtitle2,
                     ),
                   ),
@@ -138,7 +138,7 @@ class _RegisterFastUserPageState extends State<RegisterFastUserPage> {
                   InkWell(
                     onTap: () {},
                     child: Text(
-                      AppStrings.of(context).TEXT_POLICY_PROTECTED,
+                      AppStrings.of(context).textPolicyProtected,
                       style:  Theme.of(context).textTheme.subtitle2,
                     ),
                   ),

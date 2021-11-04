@@ -17,7 +17,7 @@ class SignInPage extends StatelessWidget {
           },
         ),
         title: Text(
-          AppStrings.of(context).TEXT_SIGNIN_TITLE,
+          AppStrings.of(context).textSignInTitle,
           style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
       ),
@@ -32,15 +32,15 @@ class SignInPage extends StatelessWidget {
                 child: Image.asset("assets/images/img_login.png"),
               ),
               ComponentHelper.textField(
-                hintText: AppStrings.of(context).TEXT_SIGNIN_LABEL_EMAIL,
-                label: AppStrings.of(context).TEXT_SIGNIN_LABEL_EMAIL,
+                hintText: AppStrings.of(context).textSignInLabelEmail,
+                label: AppStrings.of(context).textSignInLabelEmail,
               ),
               SizedBox(
                 height: 18,
               ),
               ComponentHelper.textField(
-                hintText: AppStrings.of(context).TEXT_SIGNIN_LABEL_PASSWORD,
-                label: AppStrings.of(context).TEXT_SIGNIN_LABEL_PASSWORD,
+                hintText: AppStrings.of(context).textSignInLabelPassword,
+                label: AppStrings.of(context).textSignInLabelPassword,
               ),
               SizedBox(
                 height: 33,
@@ -51,7 +51,7 @@ class SignInPage extends StatelessWidget {
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(vertical: 11.54),
                   width: double.maxFinite,
-                  child: Text(AppStrings.of(context).TEXT_SIGNIN_BUTTON_SIGNIN),
+                  child: Text(AppStrings.of(context).textSignInButtonSignIn),
                 ),
               ),
               SizedBox(height: 24),
@@ -62,7 +62,7 @@ class SignInPage extends StatelessWidget {
                         color: Colors.black,
                         endIndent: 15,
                       )),
-                  Text(AppStrings.of(context).TEXT_SIGNIN_LABEL_OTHER_REGISTER,
+                  Text(AppStrings.of(context).textSignInLabelOtherRegister,
                       maxLines: 1),
                   Expanded(
                       child: Divider(

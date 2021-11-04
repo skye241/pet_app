@@ -15,7 +15,7 @@ class ProfileViewPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppStrings.of(context).TEXT_PROFILE_TITLE,
+          AppStrings.of(context).textProfileTitle,
           style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
       ),
@@ -34,7 +34,7 @@ class ProfileViewPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(AppStrings.of(context).TEXT_PROFILE_NOT_LINK_ACCOUNT,style: TextStyle(color: AppThemeData.color_warning),),
+                Text(AppStrings.of(context).textProfileNotLinkAccount,style: TextStyle(color: AppThemeData.color_warning),),
                 SizedBox(width: 8,),
                 Icon(Icons.warning_amber_outlined,color: AppThemeData.color_warning,),
               ],
@@ -44,7 +44,7 @@ class ProfileViewPage extends StatelessWidget {
                 leading: SvgPicture.asset("assets/svgs/svg_footpet.svg"),
                 minLeadingWidth: 0,
                 title: Text(
-                  AppStrings.of(context).TEXT_PROFILE_LABEL_PET,
+                  AppStrings.of(context).textProfileLabelPet,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),
@@ -102,7 +102,7 @@ class ProfileViewPage extends StatelessWidget {
                   color: AppThemeData.color_main,
                 ),
                 title: Text(
-                  AppStrings.of(context).TEXT_PROFILE_BUTTON_ADD_PET,
+                  AppStrings.of(context).textProfileButtonAddPet,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),
@@ -115,7 +115,7 @@ class ProfileViewPage extends StatelessWidget {
                 leading: SvgPicture.asset("assets/svgs/svg_friendship.svg"),
                 minLeadingWidth: 0,
                 title: Text(
-                  AppStrings.of(context).TEXT_PROFILE_LABEL_RELATIVES,
+                  AppStrings.of(context).textProfileLabelRelatives,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),
@@ -128,7 +128,7 @@ class ProfileViewPage extends StatelessWidget {
                 },
                 minLeadingWidth: 0,
                 title: Text(
-                  AppStrings.of(context).TEXT_PROFILE_LIST_RELATIVES +
+                  AppStrings.of(context).textProfileListRelatives +
                       "   (30)",
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
@@ -149,7 +149,7 @@ class ProfileViewPage extends StatelessWidget {
                   color: AppThemeData.color_main,
                 ),
                 title: Text(
-                  AppStrings.of(context).TEXT_PROFILE_BUTTON_ADD_RELATIVES,
+                  AppStrings.of(context).textProfileButtonAddRelatives,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),
@@ -160,7 +160,7 @@ class ProfileViewPage extends StatelessWidget {
                 leading: SvgPicture.asset("assets/svgs/svg_pencil.svg"),
                 minLeadingWidth: 0,
                 title: Text(
-                  AppStrings.of(context).TEXT_PROFILE_LABEL_ACCOUNT,
+                  AppStrings.of(context).textProfileLabelAccount,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),
@@ -178,7 +178,7 @@ class ProfileViewPage extends StatelessWidget {
                   color: AppThemeData.color_main,
                 ),
                 title: Text(
-                  AppStrings.of(context).TEXT_PROFILE_BUTTON_ADD_ACCOUNT,
+                  AppStrings.of(context).textProfileButtonAddAccount,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),
@@ -189,7 +189,7 @@ class ProfileViewPage extends StatelessWidget {
                 leading: SvgPicture.asset("assets/svgs/svg_setting.svg"),
                 minLeadingWidth: 0,
                 title: Text(
-                  AppStrings.of(context).TEXT_PROFILE_LABEL_SETTINGS,
+                  AppStrings.of(context).textProfileLabelSettings,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),
@@ -199,7 +199,7 @@ class ProfileViewPage extends StatelessWidget {
               child: ListTile(
                 minLeadingWidth: 0,
                 title: Text(
-                  AppStrings.of(context).TEXT_PROFILE_BUTTON_NOTIFICATION,
+                  AppStrings.of(context).textProfileButtonNotification,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 trailing: Switch(
@@ -215,7 +215,7 @@ class ProfileViewPage extends StatelessWidget {
               child: ListTile(
                 minLeadingWidth: 0,
                 title: Text(
-                  AppStrings.of(context).TEXT_PROFILE_BUTTON_CHANGE_LANGUAGES,
+                  AppStrings.of(context).textProfileButtonChangeLanguages,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),
@@ -227,7 +227,7 @@ class ProfileViewPage extends StatelessWidget {
               child: ListTile(
                 minLeadingWidth: 0,
                 title: Text(
-                  AppStrings.of(context).TEXT_PROFILE_BUTTON_POLICY_AND_PROTECTED,
+                  AppStrings.of(context).textProfileButtonPolicyAndProtected,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),

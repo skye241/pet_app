@@ -10,7 +10,7 @@ class InterestsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppStrings.of(context).TEXT_TITLE_INTERESTS,
+          AppStrings.of(context).textTitleInterests,
           style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
       ),

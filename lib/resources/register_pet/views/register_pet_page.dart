@@ -20,7 +20,7 @@ class RegisterPetPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                AppStrings.of(context).TEXT_TITLE_REGISTER_PET,
+                AppStrings.of(context).textTitleRegisterPet,
                 style: Theme.of(context).textTheme.headline4,
               ),
               SizedBox(
@@ -76,7 +76,7 @@ class RegisterPetPage extends StatelessWidget {
                     width: double.maxFinite,
                     padding: EdgeInsets.symmetric(vertical: 15.0),
                     child: Text(AppStrings.of(context)
-                        .TEXT_BUTTON_REGISTER_AND_CONTINUE),
+                        .textButtonRegisterAndContinue),
                   )),
               SizedBox(
                 height: 20,
@@ -90,7 +90,7 @@ class RegisterPetPage extends StatelessWidget {
                     width: double.maxFinite,
                     padding: EdgeInsets.symmetric(vertical: 15),
                     alignment: Alignment.center,
-                    child: Text(AppStrings.of(context).TEXT_SKIP_REGISTER_PET,),
+                    child: Text(AppStrings.of(context).textSkipRegisterPet,),
                   )),
             ],
           ),
@@ -112,14 +112,14 @@ class RegisterPetPage extends StatelessWidget {
         children: [
           Align(
               alignment: Alignment.centerLeft,
-              child: Text(AppStrings.of(context).TEXT_LABEL_FIELD_SEXUAL)),
+              child: Text(AppStrings.of(context).textLabelFieldSexual)),
           Row(
             children: [
               Expanded(
                 child: Row(
                   children: [
                     Radio(value: 1, groupValue: 1, onChanged: (value) {}),
-                    Text(AppStrings.of(context).TEXT_LABEL_CHOOSE_MEAL),
+                    Text(AppStrings.of(context).textLabelChooseMale),
                   ],
                 ),
               ),
@@ -127,7 +127,7 @@ class RegisterPetPage extends StatelessWidget {
                 child: Row(
                   children: [
                     Radio(value: 0, groupValue: 1, onChanged: (value) {}),
-                    Text(AppStrings.of(context).TEXT_LABEL_CHOOSE_FEMEAL),
+                    Text(AppStrings.of(context).textLabelChooseFemale),
                   ],
                 ),
               ),

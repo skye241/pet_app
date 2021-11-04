@@ -22,7 +22,7 @@ class NewsEmptyFragment extends StatelessWidget {
             height: 24,
           ),
           Text(
-            AppStrings.of(context).TEXT_LABEL_EMPTY_NEWS,
+            AppStrings.of(context).textLabelEmptyNews,
             style: TextStyle(
                 fontSize: 24,
                 height: 1.5,

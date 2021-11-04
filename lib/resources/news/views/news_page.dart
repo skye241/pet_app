@@ -11,7 +11,7 @@ class NewsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.of(context).TEXT_TITLE_NEWS,style: Theme.of(context).appBarTheme.titleTextStyle,),
+        title: Text(AppStrings.of(context).textTitleNews,style: Theme.of(context).appBarTheme.titleTextStyle,),
       ),
       body: StreamBuilder(
         initialData: 1,
