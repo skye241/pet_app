@@ -294,7 +294,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    " ${e.key} ${AppStrings.of(context).TEXT_PICKMEDIA_LABEL_MONTH.toLowerCase()} ${month}",
+                    " ${e.key} ${AppStrings.of(context).TEXT_PICKMEDIA_LABEL_MONTH.toLowerCase()} $month",
                     style: TextStyle(fontSize: 16),
                   ),
                   InkWell(
