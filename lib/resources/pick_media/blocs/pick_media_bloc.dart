@@ -9,13 +9,14 @@ import 'interfaces/i_pick_media_bloc.dart';
 class PickMediaBloc extends IPickMediaBloc {
 
   @override
-   loadListMedia() async {
+  Future<void> loadListMedia() async {
     this.filesGroup.clear();
     listPick = new Set();
     PermissionStatus permissionStatus = await Permission.storage.request();
     print(permissionStatus);
     if(permissionStatus == PermissionStatus.granted){
-      List<File> files = (await  FileStorage.getFiles(specifyTypeFile: FileStorage.listTypeFileImage+FileStorage.listTypeFileVideo)).map((element) => File(element)).toList();
+      List<File> files = [];
+      files = (await  FileStorage.getFiles(specifyTypeFile: FileStorage.listTypeFileImage+FileStorage.listTypeFileVideo)).map((element) => File(element)).toList();
       files = _sortListFile(files);
       this.filesGroup = _groupFileFlowDateLastModify(files);
       publishSubjectListFile.sink.add(this.filesGroup);
@@ -24,6 +25,7 @@ class PickMediaBloc extends IPickMediaBloc {
   }
 
   List<File> _sortListFile(List<File> list){
+    print(list.length);
     list.sort((File a, File b){
       DateTime dateTimeA = a.lastModifiedSync();
       DateTime dateTimeB = b.lastModifiedSync();
@@ -45,7 +47,8 @@ class PickMediaBloc extends IPickMediaBloc {
         }
       }
 
-    });
+    }
+    );
     return list;
   }
 

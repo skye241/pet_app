@@ -8,7 +8,7 @@ abstract class IPickMediaBloc{
   Map<int,Map<int,Map<int,List<File>>>> filesGroup = new Map();
   final PublishSubject<Map<int,Map<int,Map<int,List<File>>>>> publishSubjectListFile = new PublishSubject();
   Stream<Map<int,Map<int,Map<int,List<File>>>>> get listFileStream => publishSubjectListFile.stream;
-  loadListMedia();
+  Future<void> loadListMedia();
   void pickFile(File file){
     listPick.add(file);
   }
