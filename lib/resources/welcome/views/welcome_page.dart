@@ -13,18 +13,18 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-  late Animation _animation;
+  late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
-    _animationController = new AnimationController(
+    _animationController =  AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     )..forward().whenComplete((){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>TopScreenPage()));
+      Navigator.pushReplacement(context, MaterialPageRoute<void>(builder: (BuildContext context)=>TopScreenPage()));
     });
-    _animation = Tween(begin: 200.0,end: 1.0).animate(_animationController);
+    _animation = Tween<double>(begin: 200.0,end: 1.0).animate(_animationController);
   }
 
   @override
@@ -35,9 +35,9 @@ class _WelcomePageState extends State<WelcomePage>
         width: double.maxFinite,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset("assets/svgs/svg_logo.svg"),
-            SizedBox(
+          children: <Widget>[
+            SvgPicture.asset('assets/svgs/svg_logo.svg'),
+            const SizedBox(
               height: 8.0,
             ),
             SingleChildScrollView(
@@ -48,11 +48,11 @@ class _WelcomePageState extends State<WelcomePage>
                   width: 5*MediaQuery.of(context).size.width,
                   child: AnimatedBuilder(
                       animation: _animation,
-                      builder: (context, child) {
+                      builder: (BuildContext context, Widget? child) {
                         return Opacity(
                           opacity: _animationController.value,
                           child: Text(
-                            "Famipet",
+                            'Famipet',
                             maxLines: 1,
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.center,

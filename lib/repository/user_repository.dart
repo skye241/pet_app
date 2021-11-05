@@ -6,7 +6,7 @@ import 'package:family_pet/model/entity.dart';
 class UserRepository {
   Future<void> registerUserFast(
       String fullName, String albumName, String deviceKey) async {
-    Map<String, dynamic> body = {};
+    final Map<String, dynamic> body = <String, dynamic>{};
     body[Constant.fullName] = fullName;
     body[Constant.albumName] = albumName;
     body[Constant.deviceKey] = deviceKey;

@@ -15,15 +15,15 @@ class InterestsPage extends StatelessWidget {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.all(19),
+        padding: const EdgeInsets.all(19),
         child: GridView.builder(
           itemCount: 12,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
             crossAxisSpacing: 5.0,
             mainAxisSpacing: 5.0,
           ),
-          itemBuilder: (context, index) {
+          itemBuilder: (BuildContext context, int index) {
             return _itemGridView();
           },
         ),
@@ -33,14 +33,14 @@ class InterestsPage extends StatelessWidget {
 
   Widget _itemGridView() {
     return Stack(
-      children: [
+      children: <Widget>[
         Container(
           width: double.maxFinite,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(6.0)),
             image: DecorationImage(
               image: NetworkImage(
-                "https://static01.nyt.com/images/2019/06/17/science/17DOGS/17DOGS-mobileMasterAt3x-v2.jpg",
+                'https://static01.nyt.com/images/2019/06/17/science/17DOGS/17DOGS-mobileMasterAt3x-v2.jpg',
               ),
               fit: BoxFit.cover
             ),
@@ -48,17 +48,17 @@ class InterestsPage extends StatelessWidget {
         ),
         Positioned(
           child: Row(
-            children: [
-              SvgPicture.asset("assets/svgs/svg_message.svg"),
-              SizedBox(width: 2,),
-              Text("10",style: TextStyle(fontSize: 12,color: Colors.white),)
+            children: <Widget>[
+              SvgPicture.asset('assets/svgs/svg_message.svg'),
+              const SizedBox(width: 2,),
+              const Text('10',style: TextStyle(fontSize: 12,color: Colors.white),)
             ],
           ),
           bottom: 8,
           left: 8,
         ),
         Positioned(
-          child: SvgPicture.asset("assets/svgs/svg_heart.svg"),
+          child: SvgPicture.asset('assets/svgs/svg_heart.svg'),
           bottom: 8,
           right: 8,
         ),

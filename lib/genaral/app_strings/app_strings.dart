@@ -9,15 +9,15 @@ part 'app_strings_en.dart';
 class AppLocalizationDelegate extends LocalizationsDelegate<AppStrings> {
   @override
   bool isSupported(Locale locale) {
-    return ['en', 'vi'].contains(locale.languageCode);
+    return <String>['en', 'vi'].contains(locale.languageCode);
   }
 
   @override
   Future<AppStrings> load(Locale locale) async {
     switch (locale.languageCode) {
-      case "en":
+      case 'en':
         return _AppStringsEn();
-      case "vi":
+      case 'vi':
         return _AppStringsVn();
       default:
         return _AppStringsVn();

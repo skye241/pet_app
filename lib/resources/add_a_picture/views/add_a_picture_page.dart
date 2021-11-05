@@ -18,33 +18,33 @@ class AddAPicturePage extends StatelessWidget {
               horizontal: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
+            children: <Widget>[
               Text(
                 AppStrings.of(context).textTitleAddAPicture,
                 style: Theme.of(context).textTheme.headline4,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               ComponentHelper.stepByStepHorizontal(
-                  children: [
+                  children: <Widget>[
                     ComponentHelper.itemStep(
                         backgroundColor: AppThemeData.color_main,
-                        child: Icon(
+                        child: const Icon(
                           Icons.check,
                           color: Colors.white,
                           size: 20,
                         )),
                     ComponentHelper.itemStep(
                         backgroundColor: AppThemeData.color_main,
-                        child: Icon(
+                        child: const Icon(
                           Icons.check,
                           color: Colors.white,
                           size: 20,
                         )),
                     ComponentHelper.itemStep(
                         backgroundColor: AppThemeData.color_main,
-                        child: Icon(
+                        child: const Icon(
                           Icons.check,
                           color: Colors.white,
                           size: 20,
@@ -55,26 +55,26 @@ class AddAPicturePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   colorWait: AppThemeData.color_neutral_25,
                   sizePen: 4),
-              SizedBox(
+              const SizedBox(
                 height: 147,
               ),
               Image.asset(
-                  "assets/images/img_album.png",width: 198,height: 198,),
-              SizedBox(
+                  'assets/images/img_album.png',width: 198,height: 198,),
+              const SizedBox(
                 height: 126,
               ),
               ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>TopScreenPage()));
+                    Navigator.pushReplacement(context, MaterialPageRoute<void>(builder: (BuildContext context)=>TopScreenPage()));
                   },
                   child: Container(
                     alignment: Alignment.center,
                     width: double.maxFinite,
-                    padding: EdgeInsets.symmetric(vertical: 15.0),
+                    padding: const EdgeInsets.symmetric(vertical: 15.0),
                     child: Text(
                         AppStrings.of(context).textButtonChooseAPicture),
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               ElevatedButton(
@@ -84,7 +84,7 @@ class AddAPicturePage extends StatelessWidget {
                           AppThemeData.color_black_40)),
                   child: Container(
                     width: double.maxFinite,
-                    padding: EdgeInsets.symmetric(vertical: 15),
+                    padding: const EdgeInsets.symmetric(vertical: 15),
                     alignment: Alignment.center,
                     child: Text(AppStrings.of(context).textButtonSkipChooseAPicture,),
                   )),

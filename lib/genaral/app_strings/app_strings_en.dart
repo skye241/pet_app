@@ -2,79 +2,79 @@ part of languages;
 
 class _AppStringsEn extends AppStrings{
   @override
-  String get appName => "App Name EN";
+  String get appName => 'App Name EN';
 
   @override
-  String get textLabelIntroduceDemo => "App Name EN";
+  String get textLabelIntroduceDemo => 'App Name EN';
 
   @override
-  String get textTmp => "App Name EN";
+  String get textTmp => 'App Name EN';
 
   @override
-  String get titleRegister => "App Name EN";
+  String get titleRegister => 'App Name EN';
 
   @override
-  String get textTitleRegisterUser => "App name EN";
+  String get textTitleRegisterUser => 'App name EN';
 
   @override
-  String get textLabelFieldNameUser => "App name EN";
+  String get textLabelFieldNameUser => 'App name EN';
 
   @override
-  String get textSubLabelFieldNameUser => "App name EN";
+  String get textSubLabelFieldNameUser => 'App name EN';
 
   @override
-  String get textButtonContinue => "App name EN";
+  String get textButtonContinue => 'App name EN';
 
   @override
-  String get textButtonHadAccount => "App name EN";
+  String get textButtonHadAccount => 'App name EN';
 
   @override
-  String get textPolicyProtected => "App name EN)";
+  String get textPolicyProtected => 'App name EN)';
 
   @override
-  String get textRuleService => "App name EN";
+  String get textRuleService => 'App name EN';
 
   @override
-  String get textButtonRegisterAndContinue => "App name EN";
+  String get textButtonRegisterAndContinue => 'App name EN';
 
   @override
-  String get textLabelFieldBirthday => "App name EN";
+  String get textLabelFieldBirthday => 'App name EN';
 
   @override
-  String get textLabelFieldNameAlbum => "App name EN";
+  String get textLabelFieldNameAlbum => 'App name EN';
 
   @override
-  String get textLabelFieldNamePet => "App name EN";
+  String get textLabelFieldNamePet => 'App name EN';
 
   @override
-  String get textLabelFieldSexual => "App name EN";
+  String get textLabelFieldSexual => 'App name EN';
 
   @override
-  String get textLabelFieldTypePet => "App name EN";
+  String get textLabelFieldTypePet => 'App name EN';
 
   @override
-  String get textSkipRegisterPet => "App name EN";
+  String get textSkipRegisterPet => 'App name EN';
 
   @override
-  String get textTitleRegisterPet => "App name EN";
+  String get textTitleRegisterPet => 'App name EN';
 
   @override
-  String get textSubLabelFieldNamePet => "App name EN";
+  String get textSubLabelFieldNamePet => 'App name EN';
 
   @override
-  String get textLabelChooseFemale => "App name EN";
+  String get textLabelChooseFemale => 'App name EN';
 
   @override
-  String get textLabelChooseMale => "App name EN";
+  String get textLabelChooseMale => 'App name EN';
 
   @override
-  String get textButtonChooseAPicture => "App name EN";
+  String get textButtonChooseAPicture => 'App name EN';
 
   @override
-  String get textButtonSkipChooseAPicture => "App name EN";
+  String get textButtonSkipChooseAPicture => 'App name EN';
 
   @override
-  String get textTitleAddAPicture => "App name EN";
+  String get textTitleAddAPicture => 'App name EN';
 
   @override
   // TODO: implement TEXT_LABEL_ALBUM_EMPTY

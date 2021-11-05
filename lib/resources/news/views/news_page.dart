@@ -15,8 +15,12 @@ class NewsPage extends StatelessWidget {
       ),
       body: StreamBuilder(
         initialData: 1,
-        builder: (context,snapshot){
-         return snapshot.hasData? NewsListDataFragment():NewsEmptyFragment();
+        builder: (BuildContext context,AsyncSnapshot<Object?> snapshot){
+         if (snapshot.hasData) {
+           return const NewsListDataFragment();
+         } else {
+           return const NewsEmptyFragment();
+         }
         },
       ),
     );

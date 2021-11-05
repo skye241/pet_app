@@ -16,16 +16,16 @@ class _BottomSheetFragmentState extends State<BottomSheetFragment> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onVerticalDragStart: (details){
+      onVerticalDragStart: (DragStartDetails details){
         positionStart = details.localPosition.dy;
       },
-      onVerticalDragUpdate: (details){
+      onVerticalDragUpdate: (DragUpdateDetails details){
         positionUpdate =  details.localPosition.dy - positionStart;
         setState(() {
 
         });
       },
-      onVerticalDragEnd: (details){
+      onVerticalDragEnd: (DragEndDetails details){
         positionEnd = details.velocity.pixelsPerSecond.dy;
       },
       child: Transform(
@@ -35,11 +35,11 @@ class _BottomSheetFragmentState extends State<BottomSheetFragment> {
           color: Colors.white,
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [
-              Text("321"),
-              Text("321"),
-              Text("321"),
-              Text("321"),
+            children: const <Widget>[
+              Text('321'),
+              Text('321'),
+              Text('321'),
+              Text('321'),
             ],
           ),
         ),

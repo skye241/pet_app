@@ -11,7 +11,7 @@ class SignInPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -25,46 +25,46 @@ class SignInPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 21),
           child: Column(
-            children: [
+            children: <Widget>[
               Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 68.0, vertical: 62.0),
-                child: Image.asset("assets/images/img_login.png"),
+                child: Image.asset('assets/images/img_login.png'),
               ),
               ComponentHelper.textField(
                 hintText: AppStrings.of(context).textSignInLabelEmail,
                 label: AppStrings.of(context).textSignInLabelEmail,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 18,
               ),
               ComponentHelper.textField(
                 hintText: AppStrings.of(context).textSignInLabelPassword,
                 label: AppStrings.of(context).textSignInLabelPassword,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 33,
               ),
               ElevatedButton(
                 onPressed: () {},
                 child: Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(vertical: 11.54),
+                  padding: const EdgeInsets.symmetric(vertical: 11.54),
                   width: double.maxFinite,
                   child: Text(AppStrings.of(context).textSignInButtonSignIn),
                 ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Row(
-                children: [
-                  Expanded(
+                children: <Widget>[
+                  const Expanded(
                       child: Divider(
                         color: Colors.black,
                         endIndent: 15,
                       )),
                   Text(AppStrings.of(context).textSignInLabelOtherRegister,
                       maxLines: 1),
-                  Expanded(
+                  const Expanded(
                       child: Divider(
                         color: Colors.black,
                         indent: 15,
@@ -73,23 +73,23 @@ class SignInPage extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
+                children: <Widget>[
                   TextButton(
                       onPressed: _eventFacebook,
                       child:
-                      Image.asset("assets/images/img_facebook_logo.png")),
+                      Image.asset('assets/images/img_facebook_logo.png')),
                   TextButton(
                       onPressed: _eventTwitter,
-                      child: Image.asset("assets/images/img_twitter_logo.png")),
+                      child: Image.asset('assets/images/img_twitter_logo.png')),
                   TextButton(
                       onPressed: _eventGoole,
-                      child: Image.asset("assets/images/img_google_logo.png")),
+                      child: Image.asset('assets/images/img_google_logo.png')),
                   TextButton(
                       onPressed: _eventApple,
-                      child: Image.asset("assets/images/img_apple_logo.png")),
+                      child: Image.asset('assets/images/img_apple_logo.png')),
                 ],
               ),
-              SizedBox(height: 68),
+              const SizedBox(height: 68),
             ],
           ),
         ),
@@ -99,11 +99,11 @@ class SignInPage extends StatelessWidget {
 
   // _eventSignIn() {}
 
-  _eventFacebook() {}
+  void _eventFacebook() {}
 
-  _eventTwitter() {}
+  void _eventTwitter() {}
 
-  _eventGoole() {}
+  void _eventGoole() {}
 
-  _eventApple() {}
+  void _eventApple() {}
 }

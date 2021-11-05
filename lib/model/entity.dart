@@ -117,12 +117,31 @@ List<String> getListString(String key, Map<String, dynamic>? data) {
   return result;
 }
 
+/// parse List PetType
+List<PetType> parseListPetType(String key, Map<String, dynamic>? data) {
+  final List<PetType> result = <PetType>[];
+  if (data == null) {
+    return result;
+  }
+  if (data[key] == null) {
+    return result;
+  }
+  if (!data.containsKey(key)) {
+    return result;
+  }
+
+  (data[key]).forEach((dynamic item) {
+    result.add(PetType.fromMap(item as Map<String, dynamic>));
+  });
+  return result;
+}
+
 class APIResponse {
   APIResponse({this.isOK, this.code, this.data, this.message});
 
   final bool? isOK;
   final int? code;
-  final dynamic data;
+  final Map<String,dynamic>? data;
   final String? message;
 
   Map<String, dynamic> toMap() {
@@ -135,3 +154,25 @@ class APIResponse {
   }
 }
 
+class PetType {
+  PetType({this.id, this.name, this.species, this.info});
+
+  factory PetType.fromMap(Map<String, dynamic>? data) {
+    if (data == null) {
+      return PetType();
+    }
+    return PetType(
+      id: getInt(Constant.id, data),
+      name: getString(Constant.name, data),
+      species: getString(Constant.species, data),
+      info: getString(Constant.info, data),
+    );
+  }
+
+  final int? id;
+  final String? name;
+  final String? species;
+  final String? info;
+
+
+}

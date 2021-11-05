@@ -22,26 +22,26 @@ class ProfileViewPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 32,),
-            CircleAvatar(
+          children: <Widget>[
+            const SizedBox(height: 32,),
+            const CircleAvatar(
               radius: 50,
-              backgroundImage: NetworkImage("https://avatarfiles.alphacoders.com/214/thumb-214002.png"),
+              backgroundImage: NetworkImage('https://avatarfiles.alphacoders.com/214/thumb-214002.png'),
             ),
-            SizedBox(height: 32,),
-            Text("Chopper",style: TextStyle(fontSize: 22,color: AppThemeData.color_grey_2,fontWeight: FontWeight.w900),),
-            SizedBox(height: 4,),
+            const SizedBox(height: 32,),
+            const Text('Chopper',style: TextStyle(fontSize: 22,color: AppThemeData.color_grey_2,fontWeight: FontWeight.w900),),
+            const SizedBox(height: 4,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(AppStrings.of(context).textProfileNotLinkAccount,style: TextStyle(color: AppThemeData.color_warning),),
-                SizedBox(width: 8,),
-                Icon(Icons.warning_amber_outlined,color: AppThemeData.color_warning,),
+              children: <Widget>[
+                Text(AppStrings.of(context).textProfileNotLinkAccount,style: const TextStyle(color: AppThemeData.color_warning),),
+                const SizedBox(width: 8,),
+                const Icon(Icons.warning_amber_outlined,color: AppThemeData.color_warning,),
               ],
             ),
             Container(
               child: ListTile(
-                leading: SvgPicture.asset("assets/svgs/svg_footpet.svg"),
+                leading: SvgPicture.asset('assets/svgs/svg_footpet.svg'),
                 minLeadingWidth: 0,
                 title: Text(
                   AppStrings.of(context).textProfileLabelPet,
@@ -54,17 +54,17 @@ class ProfileViewPage extends StatelessWidget {
               child: ListTile(
                 minLeadingWidth: 0,
                 title: Text(
-                  "Chó Top",
+                  'Chó Top',
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 subtitle: Text(
-                  "1 năm 7 tháng/ 11.02.2020",
+                  '1 năm 7 tháng/ 11.02.2020',
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 trailing: ComponentHelper.radius(isSelect: true, size: 16),
               ),
             ),
-            Divider(
+            const Divider(
               color: AppThemeData.color_black_10,
               height: 0,
               thickness: 1,
@@ -74,11 +74,11 @@ class ProfileViewPage extends StatelessWidget {
               child: ListTile(
                 minLeadingWidth: 0,
                 title: Text(
-                  "Mèo Mun",
+                  'Mèo Mun',
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 subtitle: Text(
-                  "1 năm 7 tháng/ 11.02.2020",
+                  '1 năm 7 tháng/ 11.02.2020',
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 trailing: ComponentHelper.radius(
@@ -87,7 +87,7 @@ class ProfileViewPage extends StatelessWidget {
                     size: 16),
               ),
             ),
-            Divider(
+            const Divider(
               color: AppThemeData.color_black_10,
               height: 0,
               thickness: 1,
@@ -96,7 +96,7 @@ class ProfileViewPage extends StatelessWidget {
               color: AppThemeData.color_black_5,
               child: ListTile(
                 minLeadingWidth: 0,
-                leading: Icon(
+                leading: const Icon(
                   Icons.add,
                   size: 30,
                   color: AppThemeData.color_main,
@@ -107,12 +107,12 @@ class ProfileViewPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 32,
             ),
             Container(
               child: ListTile(
-                leading: SvgPicture.asset("assets/svgs/svg_friendship.svg"),
+                leading: SvgPicture.asset('assets/svgs/svg_friendship.svg'),
                 minLeadingWidth: 0,
                 title: Text(
                   AppStrings.of(context).textProfileLabelRelatives,
@@ -124,26 +124,26 @@ class ProfileViewPage extends StatelessWidget {
               color: AppThemeData.color_black_5,
               child: ListTile(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ListRelativesPage()));
+                  Navigator.push(context, MaterialPageRoute<void>(builder: (BuildContext context)=>ListRelativesPage()));
                 },
                 minLeadingWidth: 0,
                 title: Text(
                   AppStrings.of(context).textProfileListRelatives +
-                      "   (30)",
+                      '   (30)',
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),
             ),
-            Divider(
+            const Divider(
                 color: AppThemeData.color_black_10, height: 0, thickness: 1),
             Container(
               color: AppThemeData.color_black_5,
               child: ListTile(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>InviteRelativePage()));
+                  Navigator.push(context, MaterialPageRoute<void>(builder: (BuildContext context)=>const InviteRelativePage()));
                 },
                 minLeadingWidth: 0,
-                leading: Icon(
+                leading: const Icon(
                   Icons.add,
                   size: 30,
                   color: AppThemeData.color_main,
@@ -154,10 +154,10 @@ class ProfileViewPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             Container(
               child: ListTile(
-                leading: SvgPicture.asset("assets/svgs/svg_pencil.svg"),
+                leading: SvgPicture.asset('assets/svgs/svg_pencil.svg'),
                 minLeadingWidth: 0,
                 title: Text(
                   AppStrings.of(context).textProfileLabelAccount,
@@ -169,10 +169,10 @@ class ProfileViewPage extends StatelessWidget {
               color: AppThemeData.color_black_5,
               child: ListTile(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUpPage()));
+                  Navigator.push(context, MaterialPageRoute<void>(builder: (BuildContext context)=>const SignUpPage()));
                 },
                 minLeadingWidth: 0,
-                leading: Icon(
+                leading: const Icon(
                   Icons.add,
                   size: 30,
                   color: AppThemeData.color_main,
@@ -183,10 +183,10 @@ class ProfileViewPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             Container(
               child: ListTile(
-                leading: SvgPicture.asset("assets/svgs/svg_setting.svg"),
+                leading: SvgPicture.asset('assets/svgs/svg_setting.svg'),
                 minLeadingWidth: 0,
                 title: Text(
                   AppStrings.of(context).textProfileLabelSettings,
@@ -204,11 +204,11 @@ class ProfileViewPage extends StatelessWidget {
                 ),
                 trailing: Switch(
                   value: false,
-                  onChanged: (changeValue) {},
+                  onChanged: (bool changeValue) {},
                 ),
               ),
             ),
-            Divider(
+            const Divider(
                 color: AppThemeData.color_black_10, height: 0, thickness: 1),
             Container(
               color: AppThemeData.color_black_5,
@@ -220,7 +220,7 @@ class ProfileViewPage extends StatelessWidget {
                 ),
               ),
             ),
-            Divider(
+            const Divider(
                 color: AppThemeData.color_black_10, height: 0, thickness: 1),
             Container(
               color: AppThemeData.color_black_5,

@@ -11,11 +11,11 @@ class AlbumEmptyFragment extends StatelessWidget {
       width: double.maxFinite,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset("assets/images/img_album.png",width: 223,height: 198,),
-          SizedBox(height: 16,),
-          Text(AppStrings.of(context).textLabelAlbumEmpty,style: TextStyle(fontWeight: FontWeight.w500,fontSize: 24,height: 1.5,color: AppThemeData.color_black_80),),
-          Text(AppStrings.of(context).textSubLabelAlbumEmpty,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 16,height: 1.5,color: AppThemeData.color_black_80),),
+        children: <Widget>[
+          Image.asset('assets/images/img_album.png',width: 223,height: 198,),
+          const SizedBox(height: 16,),
+          Text(AppStrings.of(context).textLabelAlbumEmpty,style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 24,height: 1.5,color: AppThemeData.color_black_80),),
+          Text(AppStrings.of(context).textSubLabelAlbumEmpty,style: const TextStyle(fontWeight: FontWeight.w400,fontSize: 16,height: 1.5,color: AppThemeData.color_black_80),),
         ],
       ),
     );

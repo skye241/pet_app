@@ -6,35 +6,35 @@ import 'package:flutter/material.dart';
 
 class ListRelativesPage extends StatelessWidget {
   ListRelativesPage({Key? key}) : super(key: key);
-  IListRelativeBloc _iListRelativeBloc = new ListRelativesBloc();
+  final IListRelativeBloc _iListRelativeBloc =  ListRelativesBloc();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         title: Text(
-          "${AppStrings.of(context).textListRelativesTitle}",
+          AppStrings.of(context).textListRelativesTitle,
           style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
         bottom: PreferredSize(
-          preferredSize: Size(double.maxFinite, 80),
+          preferredSize: const Size(double.maxFinite, 80),
           child: StreamBuilder<EnumRelatives>(
             initialData: _iListRelativeBloc.indexTab,
             stream: _iListRelativeBloc.indexRelativesStream,
-            builder: (context, AsyncSnapshot<EnumRelatives> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<EnumRelatives> snapshot) {
               return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
-                  children: [
+                  children: <Widget>[
                     Expanded(
                       child: _itemLabelRelatives(
-                        "${AppStrings.of(context).textListRelativesLabelFamily}",
+                        AppStrings.of(context).textListRelativesLabelFamily,
                         5,
                         snapshot.data == EnumRelatives.family,
                         onTap: () {
@@ -44,7 +44,7 @@ class ListRelativesPage extends StatelessWidget {
                     ),
                     Expanded(
                       child: _itemLabelRelatives(
-                        "${AppStrings.of(context).textListRelativesLabelFriend}",
+                        AppStrings.of(context).textListRelativesLabelFriend,
                         2,
                         snapshot.data == EnumRelatives.friend,
                         onTap: () {
@@ -60,25 +60,25 @@ class ListRelativesPage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.only(top: 32),
+        padding: const EdgeInsets.only(top: 32),
         child: StreamBuilder<List>(
           initialData: _iListRelativeBloc.listUser,
           stream: _iListRelativeBloc.listRelativesStream,
-          builder: (context, AsyncSnapshot<List> snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
             return ListView.separated(
-                itemBuilder: (context, index) {
-                  return ListTile(
+                itemBuilder: (BuildContext context, int index) {
+                  return const ListTile(
                     leading: CircleAvatar(
                       radius: 18,
                       backgroundImage: NetworkImage(
-                          "https://toigingiuvedep.vn/wp-content/uploads/2021/01/anh-avatar-cho-con-gai-cuc-dep.jpg"),
+                          'https://toigingiuvedep.vn/wp-content/uploads/2021/01/anh-avatar-cho-con-gai-cuc-dep.jpg'),
                     ),
-                    title: Text("Bố"),
-                    trailing: Text("Xóa"),
+                    title: Text('Bố'),
+                    trailing: Text('Xóa'),
                   );
                 },
-                separatorBuilder: (context, index) {
-                  return Divider(
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Divider(
                     height: 1,
                     indent: 20,
                     endIndent: 20,
@@ -96,7 +96,7 @@ class ListRelativesPage extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           border: Border(
@@ -108,7 +108,7 @@ class ListRelativesPage extends StatelessWidget {
           )),
         ),
         child: Text(
-          "$label ($countList)",
+          '$label ($countList)',
           style: TextStyle(
               color: isActive
                   ? AppThemeData.color_main

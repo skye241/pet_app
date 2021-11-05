@@ -19,42 +19,44 @@ class AppThemeData {
   static const Color color_neutral = Color(0xff666666);
   static const Color color_neutral_25 = Color(0xffECEBED);
 
-
-  static const InputDecoration inputDecoration = const InputDecoration(
+  static const InputDecoration inputDecoration = InputDecoration(
     contentPadding: EdgeInsets.only(top: 22),
     isCollapsed: true,
   );
-  static InputDecoration inputDecorationWithHintText(String? hintText) =>
+
+  InputDecoration inputDecorationWithHintText(String? hintText) =>
       InputDecoration(
         hintText: hintText,
-        contentPadding: EdgeInsets.only(top: 22),
+        contentPadding: const EdgeInsets.only(top: 22),
         isCollapsed: true,
-        hintStyle: GoogleFonts.roboto(color: color_black_40,
+        hintStyle: GoogleFonts.roboto(
+            color: color_black_40,
             fontSize: 12,
             height: 1.678,
             fontWeight: FontWeight.w400),
       );
-  static ThemeData get lightTheme =>
-      ThemeData(
 
+  static ThemeData get lightTheme => ThemeData(
         appBarTheme: AppBarTheme(
-            backgroundColor: Color(0xffffffff),
+            backgroundColor: const Color(0xffffffff),
             iconTheme: IconThemeData(color: Colors.black.withOpacity(0.54)),
-            titleTextStyle: GoogleFonts.roboto(color: color_black_80,
+            titleTextStyle: GoogleFonts.roboto(
+                color: color_black_80,
                 fontWeight: FontWeight.w700,
                 fontSize: 28,
                 height: 1.5),
-            textTheme: TextTheme(headline1: GoogleFonts.roboto(
+            toolbarTextStyle: GoogleFonts.roboto(
                 color: Colors.black,
                 fontWeight: FontWeight.w700,
                 fontSize: 42,
-                height: 1.1719)),
+                height: 1.1719),
             elevation: 0.0,
             centerTitle: true),
         textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
             textStyle: MaterialStateProperty.all<TextStyle>(
-              GoogleFonts.roboto(color: color_primary_90,
+              GoogleFonts.roboto(
+                  color: color_primary_90,
                   fontWeight: FontWeight.w400,
                   fontSize: 16,
                   height: 1.1718),
@@ -62,17 +64,17 @@ class AppThemeData {
             padding: MaterialStateProperty.all(EdgeInsets.zero),
           ),
         ),
-        buttonColor: color_primary_90,
+        // buttonColor: color_primary_90,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
-                color_main),
+            backgroundColor: MaterialStateProperty.all<Color>(color_main),
             elevation: MaterialStateProperty.all<double>(0),
             shape: MaterialStateProperty.all<OutlinedBorder>(
-                RoundedRectangleBorder(
+                const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8.0)))),
             textStyle: MaterialStateProperty.all<TextStyle>(
-              GoogleFonts.roboto(color: Color(0xffffffff),
+              GoogleFonts.roboto(
+                  color: const Color(0xffffffff),
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
                   height: 1.1718),
@@ -80,77 +82,89 @@ class AppThemeData {
           ),
         ),
         primaryTextTheme: TextTheme(
-            headline6: GoogleFonts.roboto(color: color_black_100,
+            headline6: GoogleFonts.roboto(
+                color: color_black_100,
                 fontWeight: FontWeight.w400,
                 fontSize: 24,
-                height: 1.172)
-        ),
-        scaffoldBackgroundColor: Color(0xffffffff),
+                height: 1.172)),
+
+        scaffoldBackgroundColor: const Color(0xffffffff),
         checkboxTheme: CheckboxThemeData(
-          checkColor: MaterialStateProperty.all<Color>(Color(0xffffffff)),
-          fillColor: MaterialStateProperty.all<Color>(
-              color_main),
+          checkColor: MaterialStateProperty.all<Color>(const Color(0xffffffff)),
+          fillColor: MaterialStateProperty.all<Color>(color_main),
         ),
         textTheme: TextTheme(
-          bodyText1: GoogleFonts.roboto(color: color_black_80,
+          bodyText1: GoogleFonts.roboto(
+              color: color_black_80,
               fontWeight: FontWeight.w400,
               fontSize: 16,
               height: 1.5),
-          bodyText2: GoogleFonts.roboto(color: color_neutral,
+          bodyText2: GoogleFonts.roboto(
+              color: color_neutral,
               fontWeight: FontWeight.w400,
               fontSize: 16,
               letterSpacing: 0.5,
-              height: 1.1718), // text default
+              height: 1.1718),
+          // text default
           // text field
-          subtitle1: GoogleFonts.roboto(color: color_black_100,
+          subtitle1: GoogleFonts.roboto(
+              color: color_black_100,
               fontWeight: FontWeight.w400,
               fontSize: 16,
               height: 1.5),
-          subtitle2: GoogleFonts.roboto(color: color_black_80,
+          subtitle2: GoogleFonts.roboto(
+              color: color_black_80,
               fontWeight: FontWeight.w400,
               fontSize: 14,
               height: 1.5),
-          button: GoogleFonts.roboto(color: color_black_60,
+          button: GoogleFonts.roboto(
+              color: color_black_60,
               fontWeight: FontWeight.w400,
               fontSize: 14,
               height: 1.1718),
-          headline1: GoogleFonts.roboto(color: color_black_100,
+          headline1: GoogleFonts.roboto(
+              color: color_black_100,
               fontWeight: FontWeight.w700,
               fontSize: 44,
               height: 1.5),
-          headline2: GoogleFonts.roboto(color: color_black_100,  // Tick
+          headline2: GoogleFonts.roboto(
+              color: color_black_100, // Tick
               fontWeight: FontWeight.w900,
               fontSize: 24,
               height: 1.5),
-          headline3: GoogleFonts.roboto(fontWeight: FontWeight.w700,
+          headline3: GoogleFonts.roboto(
+              fontWeight: FontWeight.w700,
               fontSize: 18,
               letterSpacing: 0.5,
               height: 1.172,
               color: color_grey_2),
-          headline4: GoogleFonts.roboto(color: color_black_80,
+          headline4: GoogleFonts.roboto(
+              color: color_black_80,
               fontWeight: FontWeight.w700,
               fontSize: 28,
               height: 1.5),
-          headline5: GoogleFonts.roboto(color: color_black_80,
+          headline5: GoogleFonts.roboto(
+              color: color_black_80,
               fontWeight: FontWeight.w400,
               fontSize: 12,
               height: 1.5),
-          headline6: GoogleFonts.roboto(color: color_black_100,
+          headline6: GoogleFonts.roboto(
+              color: color_black_100,
               fontWeight: FontWeight.w400,
               fontSize: 18,
               height: 1.5),
-          caption: GoogleFonts.roboto(color: Colors.black,
+          caption: GoogleFonts.roboto(
+              color: Colors.black,
               fontWeight: FontWeight.w700,
               fontSize: 16,
               height: 1.172),
-
         ),
-        bottomNavigationBarTheme:
-        BottomNavigationBarThemeData(selectedIconTheme: IconThemeData(
-            color: color_primary_90), showSelectedLabels: false),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            selectedIconTheme: IconThemeData(color: color_primary_90),
+            showSelectedLabels: false),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
             backgroundColor: color_primary_90),
-        iconTheme: IconThemeData(color: color_black_80),
+        iconTheme: const IconThemeData(color: color_black_80),
         // platform: TargetPlatform.iOS
       );
 }

@@ -23,6 +23,7 @@ Future<APIResponse> callGET(String url, {Map<String, String>? headers}) async {
   _headers[Constant.contentType] = 'application/json';
   _headers[Constant.XCSRFToken] =
       'dCI2MSYGL1B1xXZYvTGv9CUdY0naKT7On39vfMhn32Xw6wnsoYxWJHeJCZTsfmAM';
+  _headers[Constant.cookie] = 'sessionid=4dv8ia2ypq0wfpgfp8su5ylxlwc5qo6o';
   _headers.addAll(headers ?? <String, String>{});
   try {
     print('GET ===================== ');
@@ -31,14 +32,14 @@ Future<APIResponse> callGET(String url, {Map<String, String>? headers}) async {
     final Response? response = await get(Uri.parse(url), headers: _headers)
         .timeout(const Duration(seconds: 30));
     if (response != null) {
-      print('RESPONSE: ' + response.body);
+      print('RESPONSE: ' + utf8.decode(response.bodyBytes));
     }
     APIResponse result;
     if (_statusOk(response?.statusCode)) {
       result = APIResponse(
         code: response?.statusCode,
         isOK: true,
-        data: jsonDecode(response?.body ?? '')?[Constant.data] as dynamic,
+        data: json.decode(utf8.decode(response!.bodyBytes)) as Map<String, dynamic>,
       );
     } else {
       // final Map<String, dynamic> jsonError =
@@ -47,7 +48,7 @@ Future<APIResponse> callGET(String url, {Map<String, String>? headers}) async {
           isOK: false,
           code: response?.statusCode,
           data: <String, dynamic>{},
-          message: jsonDecode(response?.body ?? '') as String);
+          message:  getErrorMessage(response?.statusCode?? 500));
     }
     return result;
   } on TimeoutException catch (timeOutError) {
@@ -80,6 +81,7 @@ Future<APIResponse> callPOST({
   _headers[Constant.contentType] = 'application/json';
   _headers[Constant.XCSRFToken] =
   'dCI2MSYGL1B1xXZYvTGv9CUdY0naKT7On39vfMhn32Xw6wnsoYxWJHeJCZTsfmAM';
+  _headers[Constant.cookie] = 'sessionid=4dv8ia2ypq0wfpgfp8su5ylxlwc5qo6o';
   // final SharedPreferences prefs = await SharedPreferences.getInstance();
   // if (body is List) {
   //   for (final dynamic item in body) {
@@ -109,7 +111,7 @@ Future<APIResponse> callPOST({
       result = APIResponse(
         code: response?.statusCode,
         isOK: true,
-        data: json.decode(response?.body ?? '')[Constant.data] as dynamic,
+        data: json.decode(utf8.decode(response!.bodyBytes)) as Map<String, dynamic>,
       );
     } else {
       // final List<dynamic> jsonError =
@@ -185,8 +187,7 @@ Future<APIResponse> callPUT({
       result = APIResponse(
         code: response?.statusCode,
         isOK: true,
-        data: json.decode(response?.body ?? '')[Constant.data]
-            as Map<String, dynamic>,
+        data: json.decode(utf8.decode(response!.bodyBytes)) as Map<String, dynamic>,
       );
     } else {
       final Map<String, dynamic> jsonError = json
@@ -243,7 +244,7 @@ class APIException implements Exception {
 }
 
 class APIParse {
-  static String listToString(String key, List<dynamic> values) {
+   String listToString(String key, List<dynamic> values) {
     String request = '';
     for (final dynamic item in values) {
       request += '$key=$item&';

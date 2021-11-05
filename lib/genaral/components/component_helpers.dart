@@ -12,7 +12,7 @@ class ComponentHelper {
       MainAxisAlignment mainAxisAlignment = MainAxisAlignment.spaceAround,
       Color colorDone = const Color(0xff99dd99),
       Color colorWait = const Color(0xffcccccc)}) {
-    List<Widget> listChildren = new List.empty(growable: true);
+    List<Widget> listChildren = List<Widget>.empty(growable: true);
     if (children != null) {
       if (rangeOtherStep != null) {
         for (int i = 0; i < children.length; i++) {
@@ -68,18 +68,18 @@ class ComponentHelper {
         isDense: true,
         suffixIcon: suffix,
         labelText: label,
-        labelStyle: TextStyle(color: AppThemeData.color_black_40),
+        labelStyle: const TextStyle(color: AppThemeData.color_black_40),
         hintText: hintText,
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+        border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(6.0)),
             borderSide:
                 BorderSide(width: 1, color: AppThemeData.color_black_10)),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+        enabledBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(6.0)),
             borderSide:
                 BorderSide(width: 1, color: AppThemeData.color_black_10)),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+        focusedBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(6.0)),
             borderSide:
                 BorderSide(width: 1, color: AppThemeData.color_black_10)),
       ),
@@ -134,14 +134,16 @@ class ComponentHelper {
       );
   }
 
-  static Widget dropDownButton<T>(List<T> listData, Function(T) onChange) {
-    return DropdownButton(
+   Widget dropDownButton<T>(List<T> listData, Function(T) onChange) {
+    return DropdownButton<T>(
       items: listData
-          .map((e) => DropdownMenuItem(child: Text(e.toString())))
+          .map((T e) => DropdownMenuItem<T>(child: Text(e.toString())))
           .toList(),
 
     );
   }
+
+
 
 
   // static Widget listView
@@ -168,13 +170,13 @@ class CustomPaintDrawLineStepHorizontalCenter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     if (totalStep != null) {
-      Paint paint = new Paint()
+      final Paint paint = Paint()
         ..strokeCap = StrokeCap.round
         ..strokeWidth = sizePen;
       for (int i = 0; i <= totalStep!; i++) {
-        int j = i + 1;
-        Offset offset1 = Offset(0, 0);
-        Offset offset2 = Offset(0, 0);
+        final int j = i + 1;
+        Offset offset1 = const Offset(0, 0);
+        Offset offset2 = const Offset(0, 0);
         if (mainAxisAlignment == MainAxisAlignment.spaceBetween) {
           if (j < totalStep!) {
             if (j <= currentStep) {
@@ -200,15 +202,15 @@ class CustomPaintDrawLineStepHorizontalCenter extends CustomPainter {
           }
 
           if (mainAxisAlignment == MainAxisAlignment.spaceAround) {
-            double rangeUnit = size.width /
+            final double rangeUnit = size.width /
                 ((totalStep! - 1) * 2 + 2); // for (total -1)*2+2 part
-            int addx = i > 0 ? i - 1 : 0;
+            final int addx = i > 0 ? i - 1 : 0;
             offset1 = Offset(i * rangeUnit + addx * rangeUnit, size.height / 2);
-            int addy = j == totalStep! + 1 ? j - 2 : j - 1;
+            final int addy = j == totalStep! + 1 ? j - 2 : j - 1;
             offset2 = Offset(j * rangeUnit + addy * rangeUnit, size.height / 2);
           }
           if (mainAxisAlignment == MainAxisAlignment.spaceEvenly) {
-            double rangeUnit =
+            final double rangeUnit =
                 size.width / (totalStep! + 1); // for (total -1)*2+2 part
             offset1 = Offset(i * rangeUnit, size.height / 2);
             offset2 = Offset(j * rangeUnit, size.height / 2);

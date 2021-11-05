@@ -12,11 +12,11 @@ class InviteRelativePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "${AppStrings.of(context).textInviteRelativesTitle}",
+          AppStrings.of(context).textInviteRelativesTitle,
           style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
         leading: IconButton(
-          icon: Icon(Icons.close),
+          icon: const Icon(Icons.close),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -24,66 +24,66 @@ class InviteRelativePage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           width: double.maxFinite,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
+            children: <Widget>[
+              const SizedBox(
                 height: 40,
               ),
               AutoSizeText(
-                "${AppStrings.of(context).textInviteRelativesLabelMain}",
-                style: TextStyle(
+                AppStrings.of(context).textInviteRelativesLabelMain,
+                style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
                     color: AppThemeData.color_black_80),
                 maxLines: 1,
               ),
-              SizedBox(height: 24),
-              Text(
-                "Album Chó Top",
+              const SizedBox(height: 24),
+              const Text(
+                'Album Chó Top',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               _itemFirst(),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               Row(
-                children: [
+                children: <Widget>[
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {},
                       child: Container(
                         alignment: Alignment.center,
                         width: double.maxFinite,
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
-                            "${AppStrings.of(context).textInviteRelativesButtonInviteFamily}"),
+                            AppStrings.of(context).textInviteRelativesButtonInviteFamily),
                       ),
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all<OutlinedBorder>(
-                            RoundedRectangleBorder(
+                            const RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20.0)))),
                       ),
                     ),
                   ),
-                  SizedBox(width: 30),
+                  const SizedBox(width: 30),
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {},
                       child: Container(
                         alignment: Alignment.center,
                         width: double.maxFinite,
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
-                            "${AppStrings.of(context).textInviteRelativesButtonInviteFriend}"),
+                            AppStrings.of(context).textInviteRelativesButtonInviteFriend),
                       ),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
                             AppThemeData.color_black_40),
                         shape: MaterialStateProperty.all<OutlinedBorder>(
-                            RoundedRectangleBorder(
+                            const RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20.0)))),
                       ),
@@ -91,14 +91,14 @@ class InviteRelativePage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 130),
+              const SizedBox(height: 130),
               Tooltip(
-                message: "Khi được mời với tư cách gia đình. Bạn có thể xem và tải ảnh lên",
-                padding: EdgeInsets.all(16.0),
-                margin: EdgeInsets.symmetric(horizontal: 50.0),
+                message: 'Khi được mời với tư cách gia đình. Bạn có thể xem và tải ảnh lên',
+                padding: const EdgeInsets.all(16.0),
+                margin: const EdgeInsets.symmetric(horizontal: 50.0),
                 preferBelow: false,
                 verticalOffset: 50,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: AppThemeData.color_main,
                   borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 ),
@@ -109,10 +109,10 @@ class InviteRelativePage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.share),
-                        SizedBox(width: 16),
-                        Text("${AppStrings.of(context).textInviteRelativesButtonShare}"),
+                      children: <Widget>[
+                        const Icon(Icons.share),
+                        const SizedBox(width: 16),
+                        Text(AppStrings.of(context).textInviteRelativesButtonShare),
                       ],
                     ),
                   ),
@@ -122,17 +122,17 @@ class InviteRelativePage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               ElevatedButton(
                 onPressed: () {},
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.copy),
-                      SizedBox(width: 16),
-                      Text("${AppStrings.of(context).textInviteRelativesButtonCopyUrl}"),
+                    children: <Widget>[
+                      const Icon(Icons.copy),
+                      const SizedBox(width: 16),
+                      Text(AppStrings.of(context).textInviteRelativesButtonCopyUrl),
                     ],
                   ),
                 ),
@@ -150,14 +150,14 @@ class InviteRelativePage extends StatelessWidget {
 
   Widget _itemFirst() {
     return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+      borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       child: Container(
         width: 220,
         height: 220,
         child: Stack(
-          children: [
+          children: <Widget>[
             Image.network(
-              "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554__340.jpg",
+              'https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554__340.jpg',
               fit: BoxFit.fill,
               width: 220,
               height: 220,
@@ -167,22 +167,22 @@ class InviteRelativePage extends StatelessWidget {
               left: 15,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: const <Widget>[
                   Text(
-                    "2021",
+                    '2021',
                     style: TextStyle(
                       color: Colors.white,
                     ),
                   ),
                   Text(
-                    "Tháng 08.2021",
+                    'Tháng 08.2021',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 22,
                         fontWeight: FontWeight.w700),
                   ),
                   Text(
-                    "Chó Top",
+                    'Chó Top',
                     style: TextStyle(color: Colors.white),
                   ),
                 ],

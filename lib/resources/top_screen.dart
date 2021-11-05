@@ -1,23 +1,25 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:family_pet/genaral/app_theme_date.dart';
 import 'package:family_pet/resources/album/views/album_page.dart';
 import 'package:family_pet/resources/interests/views/interests_page.dart';
 import 'package:family_pet/resources/news/views/news_page.dart';
 import 'package:family_pet/resources/personal_profiles/views/profiles_page.dart';
+import 'package:family_pet/resources/pick_media/blocs/interfaces/i_pick_media_bloc.dart';
 import 'package:family_pet/resources/pick_media/views/pick_media_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class TopScreenPage extends StatelessWidget {
   TopScreenPage({Key? key}) : super(key: key);
-  List<Widget> listBody = [
-    AlbumPage(),
-    NewsPage(),
-    InterestsPage(),
-    ProfileViewPage(),
+  final List<Widget> listBody = <Widget>[
+    const AlbumPage(),
+    const NewsPage(),
+    const InterestsPage(),
+    const ProfileViewPage(),
   ];
-  StreamController<int> controller =  StreamController();
+  final StreamController<int> controller =  StreamController<int>();
 
 
 
@@ -25,12 +27,12 @@ class TopScreenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-      children: [
+      children: <Widget>[
         Expanded(
           child: StreamBuilder<int>(
             initialData: 0,
             stream: controller.stream,
-            builder: (context, AsyncSnapshot<int> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
               return listBody[snapshot.data ?? 0];
             },
           ),
@@ -48,11 +50,11 @@ class TopScreenPage extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => PickMediaPage(onChangePicker: (listSet, permisionPickMedia) {
+              MaterialPageRoute<void>(builder: (BuildContext context) => PickMediaPage(onChangePicker: (Set<File> listSet, PermissonPickMedia permissionPickMedia) {
                 print(listSet);
                 print(listSet
                     .length);
-                print(permisionPickMedia);
+                print(permissionPickMedia);
               },)));
         },
         child: CircleAvatar(
@@ -61,7 +63,7 @@ class TopScreenPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(14.0),
             child: SvgPicture.asset(
-              "assets/svgs/svg_add_image.svg",
+              'assets/svgs/svg_add_image.svg',
               color: Colors.white,
             ),
           ),
@@ -73,10 +75,10 @@ class TopScreenPage extends StatelessWidget {
   Widget _bottomNavigation({Function(int)? onChange}) {
     int _index = 0;
     return Container(
-      padding: EdgeInsets.only(top: 5),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.only(top: 5),
+      decoration: const BoxDecoration(
         color: Colors.white,
-        boxShadow: [
+        boxShadow: <BoxShadow>[
           BoxShadow(
               color: AppThemeData.color_neutral_25,
               blurRadius: 2.0,
@@ -84,55 +86,59 @@ class TopScreenPage extends StatelessWidget {
         ],
       ),
       child: StatefulBuilder(
-        builder: (context, setStateNavbar) {
+        builder: (BuildContext context, Function setStateNavbar) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.max,
-            children: [
+            children: <Widget>[
               _itemNavbar(
                   value: 0,
-                  label: "Album",
-                  linkSvgAsset: "assets/svgs/svg_album.svg",
+                  label: 'Album',
+                  linkSvgAsset: 'assets/svgs/svg_album.svg',
                   group: _index,
                   onTap: () {
                     setStateNavbar(() {
                       _index = 0;
                     });
-                    if (onChange != null) onChange(0);
+                    if (onChange != null)
+                      onChange(0);
                   }),
               _itemNavbar(
                   value: 1,
-                  label: "Bảng tin",
-                  linkSvgAsset: "assets/svgs/svg_new.svg",
+                  label: 'Bảng tin',
+                  linkSvgAsset: 'assets/svgs/svg_new.svg',
                   group: _index,
                   onTap: () {
                     setStateNavbar(() {
                       _index = 1;
                     });
-                    if (onChange != null) onChange(1);
+                    if (onChange != null)
+                      onChange(1);
                   }),
               _centerButton(context),
               _itemNavbar(
                   value: 2,
-                  label: "Yêu thích",
+                  label: 'Yêu thích',
                   group: _index,
-                  linkSvgAsset: "assets/svgs/svg_like.svg",
+                  linkSvgAsset: 'assets/svgs/svg_like.svg',
                   onTap: () {
                     setStateNavbar(() {
                       _index = 2;
                     });
-                    if (onChange != null) onChange(2);
+                    if (onChange != null)
+                      onChange(2);
                   }),
               _itemNavbar(
                   value: 3,
-                  label: "Cá nhân",
+                  label: 'Cá nhân',
                   group: _index,
-                  linkSvgAsset: "assets/svgs/svg_person.svg",
+                  linkSvgAsset: 'assets/svgs/svg_person.svg',
                   onTap: () {
                     setStateNavbar(() {
                       _index = 3;
                     });
-                    if (onChange != null) onChange(3);
+                    if (onChange != null)
+                      onChange(3);
                   }),
             ],
           );
@@ -151,20 +157,20 @@ class TopScreenPage extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Stack(
-        children: [
+        children: <Widget>[
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
+            children: <Widget>[
               SvgPicture.asset(linkSvgAsset,
                   color: value == group
                       ? AppThemeData.color_main
                       : AppThemeData.color_black_60),
-              SizedBox(
+              const SizedBox(
                 height: 2,
               ),
-              Text(label ?? "",
+              Text(label ?? '',
                   style: TextStyle(
                       fontSize: 12,
                       height: 1.5,
@@ -174,15 +180,14 @@ class TopScreenPage extends StatelessWidget {
                           : AppThemeData.color_black_60)),
             ],
           ),
-          badge != null
-              ? Positioned(
+          if (badge != null)
+            Positioned(
                   top: 0,
                   right: 0,
                   child: Text(
                     badge,
-                    style: TextStyle(color: Colors.red),
-                  ))
-              : Container(),
+                    style: const TextStyle(color: Colors.red),
+                  )) else Container(),
         ],
       ),
     );

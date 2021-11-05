@@ -12,8 +12,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:video_player/video_player.dart';
 
 class PickMediaPage extends StatefulWidget {
-  PickMediaPage({Key? key, this.onChangePicker}) : super(key: key);
-  Function(Set<File>,PermissonPickMedia)? onChangePicker;
+  const PickMediaPage({Key? key, this.onChangePicker}) : super(key: key);
+  final Function(Set<File>,PermissonPickMedia)? onChangePicker;
 
   @override
   _PickMediaPageState createState() => _PickMediaPageState();
@@ -21,21 +21,20 @@ class PickMediaPage extends StatefulWidget {
 
 class _PickMediaPageState extends State<PickMediaPage>
     with TickerProviderStateMixin {
-  IPickMediaBloc _iPickMediaBloc = new PickMediaBloc();
+  final IPickMediaBloc _iPickMediaBloc =  PickMediaBloc();
   late AnimationController _animationIconUp;
-  bool _showFullBottomSheet = false;
-  Map<String, VideoPlayerController> mapVideoController = new Map();
+  final bool _showFullBottomSheet = false;
+  Map<String, VideoPlayerController> mapVideoController = <String, VideoPlayerController>{};
   double positionStart = 0;
-  Map<dynamic, bool> _pickMediaRadio = new Map();
+  final Map<dynamic, bool> _pickMediaRadio =  <dynamic, bool>{};
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _animationIconUp =
-        new AnimationController(vsync: this, duration: Duration(seconds: 1))
+        AnimationController(vsync: this, duration: const Duration(seconds: 1))
           ..repeat(reverse: true);
-    Future.delayed(Duration(seconds: 1)).whenComplete(() => _iPickMediaBloc.loadListMedia());
+    Future<dynamic>.delayed(const Duration(seconds: 1)).whenComplete(() => _iPickMediaBloc.loadListMedia());
   }
 
   @override
@@ -47,7 +46,7 @@ class _PickMediaPageState extends State<PickMediaPage>
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios),
         ),
         title: Text(
           AppStrings.of(context).textPickMediaTitle,
@@ -55,22 +54,22 @@ class _PickMediaPageState extends State<PickMediaPage>
         ),
       ),
       body: Stack(
-        children: [
+        children: <Widget>[
           Container(
             height: MediaQuery.of(context).size.height,
           ),
           SingleChildScrollView(
             child: StreamBuilder<Map<int, Map<int, Map<int, List<File>>>>>(
               stream: _iPickMediaBloc.listFileStream,
-              builder: (context,
+              builder: (BuildContext context,
                   AsyncSnapshot<Map<int, Map<int, Map<int, List<File>>>>>
                       snapshot) {
                 return snapshot.hasData
                     ? Container(
-                        margin: EdgeInsets.only(bottom: 100, top: 40),
+                        margin: const EdgeInsets.only(bottom: 100, top: 40),
                         child: Column(
                           children: snapshot.data!.entries
-                              .map((e) => _groupLevel2(e.value, e.key))
+                              .map((MapEntry<int, Map<int, Map<int, List<File>>>> e) => _groupLevel2(e.value, e.key))
                               .toList(),
                         ),
                       )
@@ -98,7 +97,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                     },
                     onVerticalDragUpdate:
                         (DragUpdateDetails dragUpdateDetails) {
-                      _iPickMediaBloc.updatePotsitionBottomSheet(
+                      _iPickMediaBloc.updatePositionBottomSheet(
                           _iPickMediaBloc.positionOld +
                               (dragUpdateDetails.globalPosition.dy -
                                   positionStart));
@@ -117,21 +116,21 @@ class _PickMediaPageState extends State<PickMediaPage>
                     child: Container(
                       width: double.maxFinite,
                       padding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 8.0),
-                      decoration: BoxDecoration(
+                          const EdgeInsets.symmetric(horizontal: 15, vertical: 8.0),
+                      decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25.0),
                               topRight: Radius.circular(25.0)),
-                          boxShadow: [
+                          boxShadow: <BoxShadow>[
                             BoxShadow(color: Colors.grey, blurRadius: 2.0),
                           ]),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: [
+                        children: <Widget>[
                           AnimatedBuilder(
                               animation: _animationIconUp,
-                              builder: (context, child) {
+                              builder: (BuildContext context, Widget? child) {
                                 return Transform.translate(
                                   offset: Offset(
                                       0, (_animationIconUp.value - 1 / 2) * 5),
@@ -141,7 +140,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                                 );
                               }),
                           _pickPermission(context),
-                          SizedBox(
+                          const SizedBox(
                             height: 24,
                           ),
                           // ComponentHelper.textField(
@@ -160,10 +159,10 @@ class _PickMediaPageState extends State<PickMediaPage>
                             child: Container(
                               width: double.maxFinite,
                               alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(vertical: 15),
+                              padding: const EdgeInsets.symmetric(vertical: 15),
                               child: Text(
                                 AppStrings.of(context).textPickMediaContinue,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white),
                               ),
                             ),
@@ -171,7 +170,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                                 backgroundColor: MaterialStateProperty.all(
                                     AppThemeData.color_main)),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                         ],
@@ -189,10 +188,9 @@ class _PickMediaPageState extends State<PickMediaPage>
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    mapVideoController.values.forEach((element) {
+    for (final VideoPlayerController element in mapVideoController.values) {
       element.dispose();
-    });
+    }
     _animationIconUp.dispose();
     super.dispose();
   }
@@ -202,37 +200,37 @@ class _PickMediaPageState extends State<PickMediaPage>
     int year,
   ) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 19),
+      padding: const EdgeInsets.symmetric(horizontal: 19),
       child: Column(
-        children: map.entries.map((e) {
+        children: map.entries.map((MapEntry<int, Map<int, List<File>>> e) {
           //Để các radio nhóm ảnh theo tháng thành false nếu nó đang không có giá trị
-          if (_pickMediaRadio["${e.key}$year"] == null)
-            _pickMediaRadio["${e.key}$year"] = false;
+          if (_pickMediaRadio['${e.key}$year'] == null)
+            _pickMediaRadio['${e.key}$year'] = false;
 
           // Khởi tạo giá trị mặc định bằng true khi  click tất cả thì hiển thị radio đã click tất
-          _pickMediaRadio["${e.key}$year"] = true;
-          e.value.forEach((key, value) {
+          _pickMediaRadio['${e.key}$year'] = true;
+          e.value.forEach((int key, List<File> value) {
             // Khởi tạo giá trị mặc định bằng true
-            _pickMediaRadio["$key${e.key}$year"] = true;
-            value.forEach((element) {
+            _pickMediaRadio['$key${e.key}$year'] = true;
+            for (final File element in value) {
               if ((_pickMediaRadio[element.path] ?? false) == false) {
-                _pickMediaRadio["$key${e.key}$year"] = false;
+                _pickMediaRadio['$key${e.key}$year'] = false;
               }
-            });
-            if ((_pickMediaRadio["$key${e.key}$year"] ?? false) == false) {
-              _pickMediaRadio["${e.key}$year"] = false;
+            }
+            if ((_pickMediaRadio['$key${e.key}$year'] ?? false) == false) {
+              _pickMediaRadio['${e.key}$year'] = false;
             }
           });
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <Widget>[
                   Text(
-                    "${AppStrings.of(context).textPickMediaLabelMonth} ${e.key}.$year",
-                    style: TextStyle(
+                    '${AppStrings.of(context).textPickMediaLabelMonth} ${e.key}.$year',
+                    style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
                         color: AppThemeData.color_black_80),
@@ -240,37 +238,37 @@ class _PickMediaPageState extends State<PickMediaPage>
                   InkWell(
                       onTap: () {
                         setState(() {
-                          _pickMediaRadio["${e.key}$year"] =
-                              !(_pickMediaRadio["${e.key}$year"] ?? false);
-                          if (_pickMediaRadio["${e.key}$year"]!) {
+                          _pickMediaRadio['${e.key}$year'] =
+                              !(_pickMediaRadio['${e.key}$year'] ?? false);
+                          if (_pickMediaRadio['${e.key}$year']!) {
                             // Pick theo năm toàn bộ radio theo tháng và từng item đều true
-                            e.value.forEach((key, value) {
-                              _pickMediaRadio["${key}${e.key}$year"] =
+                            e.value.forEach((int key, List<File> value) {
+                              _pickMediaRadio['$key${e.key}$year'] =
                                   true; //map[Ngàythángnăm]
-                              value.forEach((element) {
+                              for (final File element in value) {
                                 // Các radio từng file được chuyển trạng thái sang true
                                 _pickMediaRadio[element.path] = true;
                                 // Các file được thêm vào list pick
                                 _iPickMediaBloc.listPick.add(element);
-                              });
+                              }
                             });
                           } else {
                             //Hủy Pick theo năm toàn bộ radio theo tháng và từng item đều false
-                            e.value.forEach((key, value) {
-                              _pickMediaRadio["${key}${e.key}$year"] =
+                            e.value.forEach((int key, List<File> value) {
+                              _pickMediaRadio['$key${e.key}$year'] =
                                   false; //map[Ngàythángnăm]
-                              value.forEach((element) {
+                              for (final File element in value) {
                                 // Các radio từng file được chuyển trạng thái sang false
                                 _pickMediaRadio[element.path] = false;
                                 // Các file được xóa khỏi list pick
                                 _iPickMediaBloc.listPick.remove(element);
-                              });
+                              }
                             });
                           }
                         });
                       },
                       child: ComponentHelper.radius(
-                          isSelect: _pickMediaRadio["${e.key}$year"])),
+                          isSelect: _pickMediaRadio['${e.key}$year'])),
                 ],
               ),
               _groupLevel1(e.value, e.key, year),
@@ -283,59 +281,59 @@ class _PickMediaPageState extends State<PickMediaPage>
 
   Widget _groupLevel1(Map<int, List<File>> map, int month, int year) {
     return Column(
-      children: map.entries.map((e) {
-        if (_pickMediaRadio["${e.key}$month$year"] == null)
-          _pickMediaRadio["${e.key}$month$year"] = false;
+      children: map.entries.map((MapEntry<int, List<File>> e) {
+        if (_pickMediaRadio['${e.key}$month$year'] == null)
+          _pickMediaRadio['${e.key}$month$year'] = false;
         return Container(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
+            children: <Widget>[
+              const SizedBox(
                 height: 16,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <Widget>[
                   Text(
-                    " ${e.key} ${AppStrings.of(context).textPickMediaLabelMonth.toLowerCase()} $month",
-                    style: TextStyle(fontSize: 16),
+                    '${e.key} ${AppStrings.of(context).textPickMediaLabelMonth.toLowerCase()} $month',
+                    style: const TextStyle(fontSize: 16),
                   ),
                   InkWell(
                       onTap: () {
                         setState(() {
-                          _pickMediaRadio["${e.key}$month$year"] =
-                              !(_pickMediaRadio["${e.key}$month$year"] ??
+                          _pickMediaRadio['${e.key}$month$year'] =
+                              !(_pickMediaRadio['${e.key}$month$year'] ??
                                   false);
-                          if (_pickMediaRadio["${e.key}$month$year"]!) {
-                            e.value.forEach((element) {
+                          if (_pickMediaRadio['${e.key}$month$year']!) {
+                            for (final File element in e.value) {
                               _pickMediaRadio[element.path] = true;
                               _iPickMediaBloc.listPick.add(element);
-                            });
+                            }
                           } else {
-                            e.value.forEach((element) {
+                            for (final File element in e.value) {
                               _pickMediaRadio[element.path] = false;
                               _iPickMediaBloc.listPick.remove(element);
-                            });
+                            }
                           }
                         });
                       },
                       child: ComponentHelper.radius(
-                          isSelect: _pickMediaRadio["${e.key}$month$year"])),
+                          isSelect: _pickMediaRadio['${e.key}$month$year'])),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   mainAxisSpacing: 5,
                   crossAxisSpacing: 5,
                 ),
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
                   return _itemPickMedia(e.value[index], year, month, e.key);
                 },
                 itemCount: e.value.length,
@@ -351,15 +349,17 @@ class _PickMediaPageState extends State<PickMediaPage>
     if (_pickMediaRadio[file?.path] == null) {
       _pickMediaRadio[file?.path] = false;
     }
-    String typefile = "";
-    if (file != null) typefile = "." + file.path.split(".").last;
+    String typefile = '';
+    if (file != null) {
+      typefile = '.' + file.path.split('.').last;
+    }
     Widget element = Container();
-    bool isVideo =
+    final bool isVideo =
         FileStorage.listTypeFileVideo.contains(typefile.toLowerCase());
     if (isVideo) {
       if (mapVideoController[file!.path] == null) {
-        mapVideoController[file.path] = new VideoPlayerController.file(file)
-          ..initialize().then((value) => setState(() {}));
+        mapVideoController[file.path] = VideoPlayerController.file(file)
+          ..initialize().then((dynamic value) => setState(() {}));
       }
       element = VideoPlayer(mapVideoController[file.path]!);
     }
@@ -373,24 +373,23 @@ class _PickMediaPageState extends State<PickMediaPage>
     }
     return ComponentHelper.borderRadiusImage(
         image: Stack(
-          children: [
+          children: <Widget>[
             Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: element),
-            isVideo
-                ? Container(
+            if (isVideo)
+              Container(
                     alignment: Alignment.center,
                     color: AppThemeData.color_black_80.withOpacity(0.35),
-                    child: Icon(
+                    child: const Icon(
                       Icons.play_arrow,
                       color: Colors.white,
                       size: 30,
                     ),
-                  )
-                : Container(),
+                  ) else Container(),
             Positioned(
                 right: 10,
                 top: 10,
@@ -405,8 +404,8 @@ class _PickMediaPageState extends State<PickMediaPage>
                         } else {
                           // Loại bỏ file khỏi list pick
                           _iPickMediaBloc.listPick.remove(file);
-                          _pickMediaRadio["$day$mounth$year"] = false;
-                          _pickMediaRadio["$mounth$year"] = false;
+                          _pickMediaRadio['$day$mounth$year'] = false;
+                          _pickMediaRadio['$mounth$year'] = false;
                         }
                       });
                     },
@@ -420,7 +419,7 @@ class _PickMediaPageState extends State<PickMediaPage>
   Widget _pickPermission(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
+      children: <Widget>[
         Expanded(
           child: ElevatedButton(
             onPressed: () {
@@ -429,7 +428,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                     PermissonPickMedia.family;
               });
             },
-            child: AutoSizeText("${AppStrings.of(context).textPickMediaButtonFamily}",maxLines: 1,),
+            child: AutoSizeText(AppStrings.of(context).textPickMediaButtonFamily,maxLines: 1,),
             style: _iPickMediaBloc.currentPermissionPickMedia ==
                     PermissonPickMedia.family
                 ? null
@@ -439,7 +438,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                   ),
           ),
         ),
-        SizedBox(width: 5,),
+        const SizedBox(width: 5,),
         Expanded(
           child: ElevatedButton(
             onPressed: () {
@@ -448,7 +447,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                     PermissonPickMedia.friend;
               });
             },
-            child: AutoSizeText("${AppStrings.of(context).textPickMediaButtonFriend}",maxLines: 1,),
+            child: AutoSizeText(AppStrings.of(context).textPickMediaButtonFriend,maxLines: 1,),
             style: _iPickMediaBloc.currentPermissionPickMedia ==
                     PermissonPickMedia.friend
                 ? null
@@ -458,7 +457,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                   ),
           ),
         ),
-        SizedBox(width: 5,),
+        const SizedBox(width: 5,),
         Expanded(
           child: ElevatedButton(
             onPressed: () {
@@ -467,7 +466,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                     PermissonPickMedia.onlyme;
               });
             },
-            child: AutoSizeText("${AppStrings.of(context).textPickMediaButtonOnlyMe}",maxLines: 1,),
+            child: AutoSizeText(AppStrings.of(context).textPickMediaButtonOnlyMe,maxLines: 1,),
             style: _iPickMediaBloc.currentPermissionPickMedia ==
                     PermissonPickMedia.onlyme
                 ? null
