@@ -11,8 +11,7 @@ class AddAPicturePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Container(
-          width: double.maxFinite,
+        child: Padding(
           padding: EdgeInsets.symmetric(
               vertical: MediaQuery.of(context).padding.top + 32,
               horizontal: 24),
@@ -59,20 +58,27 @@ class AddAPicturePage extends StatelessWidget {
                 height: 147,
               ),
               Image.asset(
-                  'assets/images/img_album.png',width: 198,height: 198,),
+                'assets/images/img_album.png',
+                width: 198,
+                height: 198,
+              ),
               const SizedBox(
                 height: 126,
               ),
               ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute<void>(builder: (BuildContext context)=>TopScreenPage()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute<void>(
+                            builder: (BuildContext context) =>
+                                TopScreenPage()));
                   },
                   child: Container(
                     alignment: Alignment.center,
                     width: double.maxFinite,
                     padding: const EdgeInsets.symmetric(vertical: 15.0),
-                    child: Text(
-                        AppStrings.of(context).textButtonChooseAPicture),
+                    child:
+                        Text(AppStrings.of(context).textButtonChooseAPicture),
                   )),
               const SizedBox(
                 height: 10,
@@ -86,7 +92,9 @@ class AddAPicturePage extends StatelessWidget {
                     width: double.maxFinite,
                     padding: const EdgeInsets.symmetric(vertical: 15),
                     alignment: Alignment.center,
-                    child: Text(AppStrings.of(context).textButtonSkipChooseAPicture,),
+                    child: Text(
+                      AppStrings.of(context).textButtonSkipChooseAPicture,
+                    ),
                   )),
             ],
           ),

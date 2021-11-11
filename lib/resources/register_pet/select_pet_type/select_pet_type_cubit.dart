@@ -16,7 +16,7 @@ class SelectPetTypeCubit extends Cubit<SelectPetTypeState> {
       emit(SelectPetTypeStateLoading());
       final List<PetType>? listPetType = await petRepository.getListPetType();
       emit(SelectPetTypeStateLoaded(
-          listPetType ?? <PetType>[], listPetType?.first ?? PetType()));
+          listPetType ?? <PetType>[], listPetType!.isNotEmpty? listPetType.first : PetType()));
     } on APIException catch (e) {
       print(e.message());
       emit(SelectPetTypeStateError(e.message()));

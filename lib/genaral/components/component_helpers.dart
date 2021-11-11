@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../app_theme_date.dart';
 
@@ -61,13 +62,29 @@ class ComponentHelper {
       String? hintText,
       String? errorText,
       TextEditingController? controller,
-      Widget? suffix}) {
-    return TextField(
+      Widget? suffix,
+      TextInputType? keyboardType,
+      void Function()? onEditingComplete,
+      String? Function(String?)? validator,
+      List<TextInputFormatter>? inputFormatters,
+        TextInputAction? textInputAction,
+        bool? obscureText,
+      FocusNode? focusNode}) {
+    return TextFormField(
       controller: controller,
+      validator: validator,
+      focusNode: focusNode,
+      obscureText: obscureText??false,
+      onEditingComplete: onEditingComplete,
+      inputFormatters: inputFormatters,
+      keyboardType: keyboardType ?? TextInputType.text,
+      textInputAction: textInputAction,
       decoration: InputDecoration(
         isDense: true,
         suffixIcon: suffix,
         labelText: label,
+        errorStyle:
+            const TextStyle(color: AppThemeData.color_error, fontSize: 12),
         labelStyle: const TextStyle(color: AppThemeData.color_black_40),
         hintText: hintText,
         border: const OutlineInputBorder(
@@ -134,19 +151,17 @@ class ComponentHelper {
       );
   }
 
-   Widget dropDownButton<T>(List<T> listData, Function(T) onChange) {
+  Widget dropDownButton<T>(List<T> listData, Function(T) onChange) {
     return DropdownButton<T>(
       items: listData
           .map((T e) => DropdownMenuItem<T>(child: Text(e.toString())))
           .toList(),
-
     );
   }
 
 
 
-
-  // static Widget listView
+// static Widget listView
 
 }
 

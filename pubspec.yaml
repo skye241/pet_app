@@ -40,6 +40,10 @@ dependencies:
   flutter_bloc: ^7.3.1
   device_info: ^2.0.3
   http: ^0.13.4
+  shared_preferences: ^2.0.8
+  camera: ^0.9.4+3
+
+
 
   flutter_localizations:
     sdk: flutter

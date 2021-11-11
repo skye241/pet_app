@@ -9,3 +9,12 @@ class RegisterPetInitial extends RegisterPetState {
   final String gender;
   final PetType selectedPetType;
 }
+
+class RegisterPetStateShowPopUpLoading extends RegisterPetState{}
+class RegisterPetStateShowDismissPopUpLoading extends RegisterPetState{}
+class RegisterPetStateSuccess extends RegisterPetState{}
+class RegisterPetStateFail extends RegisterPetState{
+  RegisterPetStateFail(this.message);
+
+  final String message;
+}

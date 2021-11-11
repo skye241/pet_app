@@ -3,7 +3,7 @@ class Constant {
   static const String code = 'code';
   static const String response = 'response';
   static const String message = 'message';
-  static const String contentType = 'contentType';
+  static const String contentType = 'Content-Type';
   static const String data = 'data';
   static const String XCSRFToken = 'X-CSRFToken';
   static const String fullName = 'full_name';
@@ -15,4 +15,15 @@ class Constant {
   static const String species = 'species';
   static const String info = 'info';
   static const String results = 'results';
+  static const String user = 'user';
+  static const String email = 'email';
+  static const String password = 'password';
+  static const String petType = 'pet_type';
+  static const String petTypeId = 'pet_type_id';
+  static const String gender = 'gender';
+  static const String birthDate = 'birth_date';
+  static const String location = 'location';
+  static const String contentLength = 'Content-Length';
+  static const String cacheControl = 'Cache-Control';
+  static const String userId = 'user_id';
 }
