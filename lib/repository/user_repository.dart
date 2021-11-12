@@ -32,6 +32,7 @@ class UserRepository {
   Future<void> updateUser(UserInfo userInfo) async {
     final Map<String, dynamic> body = userInfo.toMap();
     body[Constant.albumName] = '';
+    body[Constant.userId] = prefs?.getInt(Constant.userId);
 
     final APIResponse response = await networkService.callPUT(url: Url.updateUser, body: body);
 

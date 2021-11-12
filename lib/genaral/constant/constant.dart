@@ -26,4 +26,9 @@ class Constant {
   static const String contentLength = 'Content-Length';
   static const String cacheControl = 'Cache-Control';
   static const String userId = 'user_id';
+  static const String mediaType = 'media_type';
+  static const String file = 'file';
+  static const String mediaName = 'media_name';
+  static const String share = 'share';
+  static const String typeAlbum = 'type_album';
 }

@@ -1,5 +1,5 @@
 import 'package:family_pet/genaral/app_theme_date.dart';
-import 'package:family_pet/resources/top_screen.dart';
+import 'package:family_pet/resources/top_page/top_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -18,13 +18,17 @@ class _WelcomePageState extends State<WelcomePage>
   @override
   void initState() {
     super.initState();
-    _animationController =  AnimationController(
+    _animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
-    )..forward().whenComplete((){
-      Navigator.pushReplacement(context, MaterialPageRoute<void>(builder: (BuildContext context)=>TopScreenPage()));
-    });
-    _animation = Tween<double>(begin: 200.0,end: 1.0).animate(_animationController);
+    )..forward().whenComplete(() {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute<void>(
+                builder: (BuildContext context) => TopScreenPage()));
+      });
+    _animation =
+        Tween<double>(begin: 200.0, end: 1.0).animate(_animationController);
   }
 
   @override
@@ -43,9 +47,10 @@ class _WelcomePageState extends State<WelcomePage>
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Transform(
-                transform: Matrix4.identity()..translate(-MediaQuery.of(context).size.width*2),
+                transform: Matrix4.identity()
+                  ..translate(-MediaQuery.of(context).size.width * 2),
                 child: Container(
-                  width: 5*MediaQuery.of(context).size.width,
+                  width: 5 * MediaQuery.of(context).size.width,
                   child: AnimatedBuilder(
                       animation: _animation,
                       builder: (BuildContext context, Widget? child) {

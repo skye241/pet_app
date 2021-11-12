@@ -2,29 +2,54 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:family_pet/genaral/app_theme_date.dart';
+import 'package:family_pet/genaral/tools/utils.dart';
 import 'package:family_pet/resources/album/views/album_page.dart';
 import 'package:family_pet/resources/interests/views/interests_page.dart';
 import 'package:family_pet/resources/news/views/news_page.dart';
 import 'package:family_pet/resources/personal_profiles/views/profiles_page.dart';
 import 'package:family_pet/resources/pick_media/blocs/interfaces/i_pick_media_bloc.dart';
 import 'package:family_pet/resources/pick_media/views/pick_media_page.dart';
+import 'package:family_pet/resources/top_page/cubit/top_screen_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class TopScreenPage extends StatelessWidget {
-  TopScreenPage({Key? key}) : super(key: key);
+class TopScreenPage extends StatefulWidget {
+  const TopScreenPage({Key? key}) : super(key: key);
+
+  @override
+  State<TopScreenPage> createState() => _TopScreenPageState();
+}
+
+class _TopScreenPageState extends State<TopScreenPage> {
   final List<Widget> listBody = <Widget>[
     const AlbumPage(),
     const NewsPage(),
     const InterestsPage(),
     const ProfileViewPage(),
   ];
-  final StreamController<int> controller =  StreamController<int>();
+  final TopScreenCubit cubit = TopScreenCubit();
 
-
+  final StreamController<int> controller = StreamController<int>();
 
   @override
   Widget build(BuildContext context) {
+    return BlocListener<TopScreenCubit, TopScreenState>(
+        bloc: cubit,
+        child: _body(context),
+        listener: (BuildContext context, TopScreenState state) {
+          if (state is TopScreenStateShowLoading) {
+            showPopUpLoading(context);
+          } else if (state is TopScreenStateDismissLoading) {
+            Navigator.pop(context);
+          } else if (state is TopScreenStateSuccess) {
+          } else if (state is TopScreenStateFail) {
+            showMessage(context, 'Thông báo', state.message);
+          }
+        });
+  }
+
+  Widget _body(BuildContext context) {
     return Scaffold(
         body: Column(
       children: <Widget>[
@@ -49,23 +74,25 @@ class TopScreenPage extends StatelessWidget {
       transform: Matrix4.identity()..translate(0.0, -15.2),
       child: InkWell(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute<void>(builder: (BuildContext context) => PickMediaPage(onChangePicker: (Set<File> listSet, PermissonPickMedia permissionPickMedia) {
-                print(listSet);
-                print(listSet
-                    .length);
-                print(permissionPickMedia);
-              },)));
+          Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                  builder: (BuildContext context) => PickMediaPage(
+                        onChangePicker: (Set<File> listSet,
+                            String permissionPickMedia) {
+                          print(listSet);
+                          print(listSet.length);
+                          print(permissionPickMedia);
+                        },
+                      )));
         },
-        child: CircleAvatar(
-          radius: 31,
-          backgroundColor: AppThemeData.color_main,
-          child: Padding(
-            padding: const EdgeInsets.all(14.0),
-            child: SvgPicture.asset(
-              'assets/svgs/svg_add_image.svg',
-              color: Colors.white,
-            ),
+        child: Container(
+          decoration: const BoxDecoration(
+              color: AppThemeData.color_main, shape: BoxShape.circle),
+          padding: const EdgeInsets.all(14.0),
+          child: SvgPicture.asset(
+            'assets/svgs/svg_add_image.svg',
+            color: Colors.white,
           ),
         ),
       ),
@@ -112,8 +139,7 @@ class TopScreenPage extends StatelessWidget {
                     setStateNavbar(() {
                       _index = 1;
                     });
-                    if (onChange != null)
-                      onChange(1);
+                    if (onChange != null) onChange(1);
                   }),
               _centerButton(context),
               _itemNavbar(
@@ -125,8 +151,7 @@ class TopScreenPage extends StatelessWidget {
                     setStateNavbar(() {
                       _index = 2;
                     });
-                    if (onChange != null)
-                      onChange(2);
+                    if (onChange != null) onChange(2);
                   }),
               _itemNavbar(
                   value: 3,
@@ -137,8 +162,7 @@ class TopScreenPage extends StatelessWidget {
                     setStateNavbar(() {
                       _index = 3;
                     });
-                    if (onChange != null)
-                      onChange(3);
+                    if (onChange != null) onChange(3);
                   }),
             ],
           );
@@ -182,12 +206,14 @@ class TopScreenPage extends StatelessWidget {
           ),
           if (badge != null)
             Positioned(
-                  top: 0,
-                  right: 0,
-                  child: Text(
-                    badge,
-                    style: const TextStyle(color: Colors.red),
-                  )) else Container(),
+                top: 0,
+                right: 0,
+                child: Text(
+                  badge,
+                  style: const TextStyle(color: Colors.red),
+                ))
+          else
+            Container(),
         ],
       ),
     );

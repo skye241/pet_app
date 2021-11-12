@@ -21,8 +21,8 @@ class RegisterFastCubit extends Cubit<RegisterFastState> {
       emit(RegisterFastStatePopUpLoading());
       final String deviceId = await _getId();
       prefs!.setString(Constant.cookie, '');
-      final UserInfo? user =
-          await userRepository.registerUserFast(fullName, 'xxxxxxx19');
+      // final UserInfo? user =
+          await userRepository.registerUserFast(fullName, 'xxxx22');
       emit(RegisterFastStateDismissPopUpLoading());
       emit(RegisterFastStateSuccess());
     } on APIException catch (e) {

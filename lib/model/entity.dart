@@ -178,45 +178,42 @@ class PetType {
 class User {
   User({this.id, this.email, this.password});
 
-
-  factory User.fromMap(Map<String,dynamic>? data){
-    if(data == null){
+  factory User.fromMap(Map<String, dynamic>? data) {
+    if (data == null) {
       return User();
     } else
       return User(
           id: getInt(Constant.userId, data),
           email: getString(Constant.email, data),
-          password: getString(Constant.password, data)
-      );
+          password: getString(Constant.password, data));
   }
 
   final int? id;
   final String? email;
   final String? password;
 
-
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return <String, dynamic>{
       Constant.id: id,
       Constant.email: email,
       Constant.password: password,
     };
   }
-
 }
 
 class UserInfo {
   UserInfo({this.fullName, this.deviceKey, this.user});
 
-  factory UserInfo.fromMap(Map<String,dynamic>? data){
-    if(data == null){
+  factory UserInfo.fromMap(Map<String, dynamic>? data) {
+    if (data == null) {
       return UserInfo();
     } else
       return UserInfo(
           fullName: getString(Constant.fullName, data),
           deviceKey: getString(Constant.deviceKey, data),
-          user: data[Constant.user]!= null? User.fromMap(data[Constant.user] as Map<String, dynamic>) : User()
-      );
+          user: data[Constant.user] != null
+              ? User.fromMap(data[Constant.user] as Map<String, dynamic>)
+              : User());
   }
 
   final String? fullName;
@@ -230,22 +227,21 @@ class UserInfo {
       Constant.user: user!.toMap(),
     };
   }
-
 }
 
 class Pet {
   Pet({this.id, this.name, this.user, this.petType});
 
-
-  factory Pet.fromMap(Map<String, dynamic>? data){
-    if (data == null){
+  factory Pet.fromMap(Map<String, dynamic>? data) {
+    if (data == null) {
       return Pet();
     } else
       return Pet(
         id: getInt(Constant.id, data),
         name: getString(Constant.name, data),
         user: User.fromMap(data[Constant.user] as Map<String, dynamic>),
-        petType: PetType.fromMap(data[Constant.petType] as Map<String, dynamic>),
+        petType:
+            PetType.fromMap(data[Constant.petType] as Map<String, dynamic>),
       );
   }
 
@@ -253,7 +249,45 @@ class Pet {
   final String? name;
   final User? user;
   final PetType? petType;
-
 }
 
+class Media {
+  Media(
+      {this.id,
+      this.mediaType,
+      this.mediaName,
+      this.share,
+      this.file,
+      this.user});
 
+  factory Media.fromMap(Map<String, dynamic>? data) {
+    if (data == null) {
+      return Media();
+    } else
+      return Media(
+          id: getInt(Constant.id, data),
+          mediaName: getString(Constant.mediaName, data),
+          mediaType: getString(Constant.mediaType, data),
+          share: getString(Constant.share, data),
+          file: getString(Constant.file, data),
+          user: User.fromMap(data[Constant.user] as Map<String, dynamic>));
+  }
+
+  Map<String,dynamic> toMap() {
+    return <String, dynamic> {
+      Constant.id : id,
+      Constant.mediaName: mediaName,
+      Constant.mediaType: mediaType,
+      Constant.share: share,
+      Constant.file: file,
+      Constant.user: user?.toMap()
+    };
+  }
+
+  final int? id;
+  final String? mediaType;
+  final String? mediaName;
+  final String? share;
+  final String? file;
+  final User? user;
+}

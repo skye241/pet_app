@@ -18,7 +18,9 @@ class ImageDetailsPage extends StatelessWidget {
           ],
         ),
         leading: IconButton(onPressed: () {}, icon: const Icon(Icons.close)),
-        actions: <Widget>[IconButton(onPressed: () {}, icon: Icon(Icons.more_horiz))],
+        actions: <Widget>[
+          IconButton(onPressed: () {}, icon: const Icon(Icons.more_horiz))
+        ],
       ),
       body: Scrollbar(
         child: SingleChildScrollView(
@@ -70,7 +72,7 @@ class ImageDetailsPage extends StatelessWidget {
                     return _itemComment(
                       context,
                       linkImage:
-                      'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
+                          'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png',
                       commentUser: 'Ông nội nhà mình hầm hố ghê',
                       nameUser: 'Mèo Cụ',
                     );

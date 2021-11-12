@@ -1,9 +1,11 @@
 import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:family_pet/genaral/app_strings/app_strings.dart';
 import 'package:family_pet/genaral/app_theme_date.dart';
 import 'package:family_pet/genaral/components/component_helpers.dart';
 import 'package:family_pet/genaral/librarys/file_storages/file_storage.dart';
+import 'package:family_pet/model/enum.dart';
 import 'package:family_pet/resources/pick_media/blocs/interfaces/i_pick_media_bloc.dart';
 import 'package:family_pet/resources/pick_media/blocs/pick_media_bloc.dart';
 import 'package:flutter/foundation.dart';
@@ -13,7 +15,7 @@ import 'package:video_player/video_player.dart';
 
 class PickMediaPage extends StatefulWidget {
   const PickMediaPage({Key? key, this.onChangePicker}) : super(key: key);
-  final Function(Set<File>,PermissonPickMedia)? onChangePicker;
+  final void Function(Set<File>, String)? onChangePicker;
 
   @override
   _PickMediaPageState createState() => _PickMediaPageState();
@@ -21,12 +23,13 @@ class PickMediaPage extends StatefulWidget {
 
 class _PickMediaPageState extends State<PickMediaPage>
     with TickerProviderStateMixin {
-  final IPickMediaBloc _iPickMediaBloc =  PickMediaBloc();
+  final IPickMediaBloc _iPickMediaBloc = PickMediaBloc();
   late AnimationController _animationIconUp;
   final bool _showFullBottomSheet = false;
-  Map<String, VideoPlayerController> mapVideoController = <String, VideoPlayerController>{};
+  Map<String, VideoPlayerController> mapVideoController =
+      <String, VideoPlayerController>{};
   double positionStart = 0;
-  final Map<dynamic, bool> _pickMediaRadio =  <dynamic, bool>{};
+  final Map<dynamic, bool> _pickMediaRadio = <dynamic, bool>{};
 
   @override
   void initState() {
@@ -34,12 +37,12 @@ class _PickMediaPageState extends State<PickMediaPage>
     _animationIconUp =
         AnimationController(vsync: this, duration: const Duration(seconds: 1))
           ..repeat(reverse: true);
-    Future<dynamic>.delayed(const Duration(seconds: 1)).whenComplete(() => _iPickMediaBloc.loadListMedia());
+    Future<dynamic>.delayed(const Duration(seconds: 1))
+        .whenComplete(() => _iPickMediaBloc.loadListMedia());
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -69,12 +72,17 @@ class _PickMediaPageState extends State<PickMediaPage>
                         margin: const EdgeInsets.only(bottom: 100, top: 40),
                         child: Column(
                           children: snapshot.data!.entries
-                              .map((MapEntry<int, Map<int, Map<int, List<File>>>> e) => _groupLevel2(e.value, e.key))
+                              .map(
+                                  (MapEntry<int, Map<int, Map<int, List<File>>>>
+                                          e) =>
+                                      _groupLevel2(e.value, e.key))
                               .toList(),
                         ),
                       )
                     : Container(
-                  height: MediaQuery.of(context).size.height-AppBar().preferredSize.height-200,
+                        height: MediaQuery.of(context).size.height -
+                            AppBar().preferredSize.height -
+                            200,
                         alignment: Alignment.center,
                         child: SpinKitSpinningLines(
                             color: AppThemeData.color_main.withOpacity(0.55)));
@@ -115,8 +123,8 @@ class _PickMediaPageState extends State<PickMediaPage>
                     },
                     child: Container(
                       width: double.maxFinite,
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 15, vertical: 8.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 8.0),
                       decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
@@ -151,8 +159,9 @@ class _PickMediaPageState extends State<PickMediaPage>
                           // ),
                           ElevatedButton(
                             onPressed: () {
-                              if(widget.onChangePicker!=null){
-                                widget.onChangePicker!(_iPickMediaBloc.listPick,_iPickMediaBloc.currentPermissionPickMedia);
+                              if (widget.onChangePicker != null) {
+                                widget.onChangePicker!(_iPickMediaBloc.listPick,
+                                    _iPickMediaBloc.currentPermissionPickMedia);
                               }
                               Navigator.pop(context);
                             },
@@ -162,8 +171,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               child: Text(
                                 AppStrings.of(context).textPickMediaContinue,
-                                style: const TextStyle(
-                                    color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                             ),
                             style: ButtonStyle(
@@ -382,14 +390,16 @@ class _PickMediaPageState extends State<PickMediaPage>
                 child: element),
             if (isVideo)
               Container(
-                    alignment: Alignment.center,
-                    color: AppThemeData.color_black_80.withOpacity(0.35),
-                    child: const Icon(
-                      Icons.play_arrow,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  ) else Container(),
+                alignment: Alignment.center,
+                color: AppThemeData.color_black_80.withOpacity(0.35),
+                child: const Icon(
+                  Icons.play_arrow,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              )
+            else
+              Container(),
             Positioned(
                 right: 10,
                 top: 10,
@@ -425,12 +435,15 @@ class _PickMediaPageState extends State<PickMediaPage>
             onPressed: () {
               setState(() {
                 _iPickMediaBloc.currentPermissionPickMedia =
-                    PermissonPickMedia.family;
+                    PermissionPickMedia.family;
               });
             },
-            child: AutoSizeText(AppStrings.of(context).textPickMediaButtonFamily,maxLines: 1,),
+            child: AutoSizeText(
+              AppStrings.of(context).textPickMediaButtonFamily,
+              maxLines: 1,
+            ),
             style: _iPickMediaBloc.currentPermissionPickMedia ==
-                    PermissonPickMedia.family
+                    PermissionPickMedia.family
                 ? null
                 : ButtonStyle(
                     backgroundColor:
@@ -438,18 +451,23 @@ class _PickMediaPageState extends State<PickMediaPage>
                   ),
           ),
         ),
-        const SizedBox(width: 5,),
+        const SizedBox(
+          width: 5,
+        ),
         Expanded(
           child: ElevatedButton(
             onPressed: () {
               setState(() {
                 _iPickMediaBloc.currentPermissionPickMedia =
-                    PermissonPickMedia.friend;
+                    PermissionPickMedia.friend;
               });
             },
-            child: AutoSizeText(AppStrings.of(context).textPickMediaButtonFriend,maxLines: 1,),
+            child: AutoSizeText(
+              AppStrings.of(context).textPickMediaButtonFriend,
+              maxLines: 1,
+            ),
             style: _iPickMediaBloc.currentPermissionPickMedia ==
-                    PermissonPickMedia.friend
+                    PermissionPickMedia.friend
                 ? null
                 : ButtonStyle(
                     backgroundColor:
@@ -457,18 +475,23 @@ class _PickMediaPageState extends State<PickMediaPage>
                   ),
           ),
         ),
-        const SizedBox(width: 5,),
+        const SizedBox(
+          width: 5,
+        ),
         Expanded(
           child: ElevatedButton(
             onPressed: () {
               setState(() {
                 _iPickMediaBloc.currentPermissionPickMedia =
-                    PermissonPickMedia.onlyme;
+                    PermissionPickMedia.onlyMe;
               });
             },
-            child: AutoSizeText(AppStrings.of(context).textPickMediaButtonOnlyMe,maxLines: 1,),
+            child: AutoSizeText(
+              AppStrings.of(context).textPickMediaButtonOnlyMe,
+              maxLines: 1,
+            ),
             style: _iPickMediaBloc.currentPermissionPickMedia ==
-                    PermissonPickMedia.onlyme
+                    PermissionPickMedia.onlyMe
                 ? null
                 : ButtonStyle(
                     backgroundColor:

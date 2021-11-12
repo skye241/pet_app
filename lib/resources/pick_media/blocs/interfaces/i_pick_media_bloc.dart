@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:family_pet/model/enum.dart';
 import 'package:rxdart/rxdart.dart';
-enum PermissonPickMedia{family,friend,onlyme}
 abstract class IPickMediaBloc{
   //Get list Media
   Set<File> listPick = <File>{};
@@ -14,7 +14,7 @@ abstract class IPickMediaBloc{
   }
 
   // Permission picker
-  PermissonPickMedia currentPermissionPickMedia = PermissonPickMedia.family;
+  String currentPermissionPickMedia = PermissionPickMedia.family;
 
 
 

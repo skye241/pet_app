@@ -15,7 +15,7 @@ class PickMediaBloc extends IPickMediaBloc {
     print(permissionStatus);
     if (permissionStatus == PermissionStatus.granted) {
       List<File> files = <File>[];
-      files = (await FileStorage.getFiles(
+      files = (await FileStorage().getFiles(
               specifyTypeFile: FileStorage.listTypeFileImage +
                   FileStorage.listTypeFileVideo))
           .map((String element) => File(element))
