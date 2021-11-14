@@ -37,6 +37,7 @@ dependencies:
   video_player: ^2.2.3
   rxdart: ^0.27.2
   auto_size_text: ^3.0.0-nullsafety.0
+  photo_manager: ^1.3.10
   flutter_localizations:
     sdk: flutter
 dev_dependencies:

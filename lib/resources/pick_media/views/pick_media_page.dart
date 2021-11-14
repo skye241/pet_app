@@ -359,7 +359,7 @@ class _PickMediaPageState extends State<PickMediaPage>
     if (isVideo) {
       if (mapVideoController[file!.path] == null) {
         mapVideoController[file.path] = new VideoPlayerController.file(file)
-          ..initialize().then((value) => setState(() {}));
+          ..initialize().then((value) => setState(() {})).whenComplete(() => mapVideoController[file.path]?.dispose());
       }
       element = VideoPlayer(mapVideoController[file.path]!);
     }

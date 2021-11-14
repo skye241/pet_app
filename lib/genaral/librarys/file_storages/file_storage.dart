@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:photo_manager/photo_manager.dart';
 
 class FileStorage{
 
@@ -20,14 +22,11 @@ class FileStorage{
         list = _queryFolder(directory.parent.parent.parent.parent,specifyTypeFile).toList();
       else    throw "Directory was null, check permisson";
     }
-    if(Platform.isIOS){
-      Directory? directory = await getLibraryDirectory();
-      list = _queryFolder(directory.parent.parent.parent.parent.parent, specifyTypeFile).toList();
-      print("Root:"+directory .toString());
-
-    }
     return list;
   }
+
+
+
   static Iterable<String> _queryFolder(Directory directory, List<String> specifyTypeFile)sync*{
     for(FileSystemEntity elementFileSystemEntity in   directory.listSync()){
       try{
