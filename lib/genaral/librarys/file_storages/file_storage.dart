@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:photo_manager/photo_manager.dart';
 
 class FileStorage {
   // static List<String> listTypeFileVideo = [".mp4",".gif",".wmv",".hevc",".avi",".mov",".f4v",".mkv",".ts",".3gp",".mpeg-2",".webm",".vob",".flv",".divx"];
@@ -24,20 +26,14 @@ class FileStorage {
       else
         throw 'Directory was null, check permisson';
     }
-    if (Platform.isIOS) {
-      final Directory? directory = await getLibraryDirectory();
-      list = _queryFolder(directory!.parent.parent, specifyTypeFile).toList();
-      print('Root:' + directory.toString());
-    }
     return list;
   }
 
   static Iterable<String> _queryFolder(
       Directory directory, List<String> specifyTypeFile) sync* {
-    for (final FileSystemEntity elementFileSystemEntity
-        in directory.listSync()) {
+    for (FileSystemEntity elementFileSystemEntity in directory.listSync()) {
       try {
-        if (elementFileSystemEntity.path.contains('.')) {
+        if (elementFileSystemEntity.path.contains(".")) {
           if (specifyTypeFile.isEmpty) {
             yield elementFileSystemEntity.path;
           } else {

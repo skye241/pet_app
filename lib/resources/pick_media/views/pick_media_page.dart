@@ -366,8 +366,10 @@ class _PickMediaPageState extends State<PickMediaPage>
         FileStorage.listTypeFileVideo.contains(typefile.toLowerCase());
     if (isVideo) {
       if (mapVideoController[file!.path] == null) {
-        mapVideoController[file.path] = VideoPlayerController.file(file)
-          ..initialize().then((dynamic value) => setState(() {}));
+        mapVideoController[file.path] = new VideoPlayerController.file(file)
+          ..initialize()
+              .then((value) => setState(() {}))
+              .whenComplete(() => mapVideoController[file.path]?.dispose());
       }
       element = VideoPlayer(mapVideoController[file.path]!);
     }

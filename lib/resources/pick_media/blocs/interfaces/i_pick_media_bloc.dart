@@ -3,12 +3,20 @@ import 'dart:math';
 import 'package:family_pet/model/enum.dart';
 import 'package:rxdart/rxdart.dart';
 abstract class IPickMediaBloc{
+
+  //Page paginate
+  int currentPage = 1;
+  int totalPage =1;
+  static const numberItemOnPage = 27;
+
+
   //Get list Media
   Set<File> listPick = <File>{};
   Map<int,Map<int,Map<int,List<File>>>> filesGroup = <int,Map<int,Map<int,List<File>>>>{};
   final PublishSubject<Map<int,Map<int,Map<int,List<File>>>>> publishSubjectListFile = PublishSubject<Map<int,Map<int,Map<int,List<File>>>>>();
   Stream<Map<int,Map<int,Map<int,List<File>>>>> get listFileStream => publishSubjectListFile.stream;
   Future<void> loadListMedia();
+  Future<void> getMore();
   void pickFile(File file){
     listPick.add(file);
   }
