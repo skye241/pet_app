@@ -1,5 +1,5 @@
-import 'package:family_pet/genaral/app_strings/app_strings.dart';
-import 'package:family_pet/genaral/components/component_helpers.dart';
+import 'package:family_pet/general/app_strings/app_strings.dart';
+import 'package:family_pet/general/components/component_helpers.dart';
 import 'package:flutter/material.dart';
 
 

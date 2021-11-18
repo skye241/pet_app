@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
-import 'package:family_pet/genaral/constant/constant.dart';
+import 'package:family_pet/general/constant/constant.dart';
+import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/main.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:path/path.dart';
 
 bool _statusOk(int? statusCode) {
   if (statusCode != null) {
@@ -106,8 +109,7 @@ class NetworkService {
         result = APIResponse(
           code: response?.statusCode,
           isOK: true,
-          data: json.decode(utf8.decode(response!.bodyBytes))
-              as Map<String, dynamic>,
+          data: json.decode(utf8.decode(response!.bodyBytes)),
         );
       } else {
         // final Map<String, dynamic> jsonError =
@@ -182,8 +184,7 @@ class NetworkService {
         result = APIResponse(
           code: response?.statusCode,
           isOK: true,
-          data: json.decode(utf8.decode(response!.bodyBytes))
-              as Map<String, dynamic>,
+          data: json.decode(utf8.decode(response!.bodyBytes)),
         );
       } else {
         // final List<dynamic> jsonError =
@@ -259,12 +260,11 @@ class NetworkService {
         result = APIResponse(
           code: response?.statusCode,
           isOK: true,
-          data: json.decode(utf8.decode(response!.bodyBytes))
-              as Map<String, dynamic>,
+          data: json.decode(utf8.decode(response!.bodyBytes)),
         );
       } else {
         final Map<String, dynamic> jsonError =
-            json.decode(response?.body ?? '')[Constant.data]
+            json.decode(response?.body ?? '')[Constant.message]
                 as Map<String, dynamic>;
         result = APIResponse(
           isOK: false,
@@ -329,31 +329,33 @@ class APIParse {
   }
 }
 
-// Future<StreamedResponse> uploadImage(File file) async {
-//   // final SharedPreferences prefs = await SharedPreferences.getInstance();
-//   const String _url = URL.uploadImage;
-//   final Map<String, String> headers = <String, String>{};
-//   headers[Constant.contentType] = 'multipart/form-data';
-//
-//   print('Calling upload image ===========================================');
-//   print('header: ' + headers.toString());
-//   print('URL: ' + _url);
-//
-//   final Uri uri = Uri.parse(_url);
-//   final ByteStream stream = ByteStream(Stream.castFrom(file.openRead()));
-//   final int length = await file.length();
-//
-//   final MultipartRequest request = MultipartRequest('POST', uri);
-//   final MultipartFile multipartFile = MultipartFile(
-//     'file',
-//     stream,
-//     length,
-//     filename: basename(file.path),
-//   );
-//   request.files.add(multipartFile);
-//   request.headers.addAll(headers);
-//   print('request' + request.headers.toString());
-//   final StreamedResponse response = await request.send();
-//   print(response.statusCode);
-//   return response;
-// }
+Future<StreamedResponse> uploadImage(
+    File file, Map<String, String> body) async {
+  // final SharedPreferences prefs = await SharedPreferences.getInstance();
+  const String _url = Url.uploadMedia;
+  final Map<String, String> headers = <String, String>{};
+  headers[Constant.contentType] = 'multipart/form-data';
+
+  print('Calling upload image ===========================================');
+  print('header: ' + headers.toString());
+  print('URL: ' + _url);
+
+  final Uri uri = Uri.parse(_url);
+  final ByteStream stream = ByteStream(Stream.castFrom(file.openRead()));
+  final int length = await file.length();
+
+  final MultipartRequest request = MultipartRequest('POST', uri);
+  final MultipartFile multipartFile = MultipartFile(
+    'file',
+    stream,
+    length,
+    filename: basename(file.path),
+  );
+  request.files.add(multipartFile);
+  request.fields.addAll(body);
+  request.headers.addAll(headers);
+  print('request' + request.headers.toString());
+  final StreamedResponse response = await request.send();
+  print(response.statusCode);
+  return response;
+}

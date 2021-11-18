@@ -2,10 +2,9 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:device_info/device_info.dart';
-import 'package:family_pet/genaral/api_handler.dart';
-import 'package:family_pet/genaral/constant/constant.dart';
+import 'package:family_pet/general/api_handler.dart';
+import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/main.dart';
-import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/repository/user_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -22,7 +21,7 @@ class RegisterFastCubit extends Cubit<RegisterFastState> {
       final String deviceId = await _getId();
       prefs!.setString(Constant.cookie, '');
       // final UserInfo? user =
-          await userRepository.registerUserFast(fullName, 'xxxx22');
+      await userRepository.registerUserFast(fullName, 'xxxxx20');
       emit(RegisterFastStateDismissPopUpLoading());
       emit(RegisterFastStateSuccess());
     } on APIException catch (e) {

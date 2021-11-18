@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:family_pet/genaral/api_handler.dart';
-import 'package:family_pet/genaral/constant/constant.dart';
+import 'package:family_pet/general/api_handler.dart';
+import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/main.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/repository/user_repository.dart';

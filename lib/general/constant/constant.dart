@@ -31,4 +31,16 @@ class Constant {
   static const String mediaName = 'media_name';
   static const String share = 'share';
   static const String typeAlbum = 'type_album';
+  static const String mediaId = 'media_id';
+  static const String tShare = 't_share';
+  static const String result = 'result';
+  static const String createdAt = 'created_at';
+  static const String totalComment = 'total_comment';
+  static const String isLiked = 'is_liked';
+  static const String media = 'media';
+  static const String content = 'content';
+  static const String commenterId = 'commenter_id';
+  static const String commentId = 'comment_id';
+  static const String userName = 'username';
+  static const String avatar = 'avatar';
 }

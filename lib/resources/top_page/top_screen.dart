@@ -1,13 +1,10 @@
-import 'dart:async';
 import 'dart:io';
 
-import 'package:family_pet/genaral/app_theme_date.dart';
-import 'package:family_pet/genaral/tools/utils.dart';
+import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/resources/album/views/album_page.dart';
 import 'package:family_pet/resources/interests/views/interests_page.dart';
 import 'package:family_pet/resources/news/views/news_page.dart';
 import 'package:family_pet/resources/personal_profiles/views/profiles_page.dart';
-import 'package:family_pet/resources/pick_media/blocs/interfaces/i_pick_media_bloc.dart';
 import 'package:family_pet/resources/pick_media/views/pick_media_page.dart';
 import 'package:family_pet/resources/top_page/cubit/top_screen_cubit.dart';
 import 'package:flutter/material.dart';
@@ -30,46 +27,42 @@ class _TopScreenPageState extends State<TopScreenPage> {
   ];
   final TopScreenCubit cubit = TopScreenCubit();
 
-  final StreamController<int> controller = StreamController<int>();
+  // final StreamController<int> controller = StreamController<int>();
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<TopScreenCubit, TopScreenState>(
-        bloc: cubit,
-        child: _body(context),
-        listener: (BuildContext context, TopScreenState state) {
-          if (state is TopScreenStateShowLoading) {
-            showPopUpLoading(context);
-          } else if (state is TopScreenStateDismissLoading) {
-            Navigator.pop(context);
-          } else if (state is TopScreenStateSuccess) {
-          } else if (state is TopScreenStateFail) {
-            showMessage(context, 'Thông báo', state.message);
-          }
-        });
+    print(cubit.state);
+    return BlocBuilder<TopScreenCubit, TopScreenState>(
+      bloc: cubit,
+      buildWhen: (TopScreenState prev, TopScreenState current) {
+        if (current is! TopScreenInitial) {
+          return false;
+        } else
+          return true;
+      },
+      builder: (BuildContext context, TopScreenState state) {
+        if (state is TopScreenInitial) {
+          return _body(context, state);
+        } else
+          return Container();
+      },
+    );
   }
 
-  Widget _body(BuildContext context) {
-    return Scaffold(
-        body: Column(
+  Widget _body(BuildContext context, TopScreenInitial state) {
+    return Material(
+        child: Column(
       children: <Widget>[
-        Expanded(
-          child: StreamBuilder<int>(
-            initialData: 0,
-            stream: controller.stream,
-            builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-              return listBody[snapshot.data ?? 0];
-            },
-          ),
-        ),
-        _bottomNavigation(onChange: (int value) {
-          controller.sink.add(value);
+        Expanded(child: listBody[state.index]),
+        _bottomNavigation(state, (int value) {
+          cubit.update(value, state.images, state.permission);
+          // controller.sink.add(value);
         }),
       ],
     ));
   }
 
-  Widget _centerButton(BuildContext context) {
+  Widget _centerButton(BuildContext context, TopScreenInitial state) {
     return Transform(
       transform: Matrix4.identity()..translate(0.0, -15.2),
       child: InkWell(
@@ -78,13 +71,13 @@ class _TopScreenPageState extends State<TopScreenPage> {
               context,
               MaterialPageRoute<void>(
                   builder: (BuildContext context) => PickMediaPage(
-                        onChangePicker: (Set<File> listSet,
-                            String permissionPickMedia) {
-                          print(listSet);
-                          print(listSet.length);
-                          print(permissionPickMedia);
+                        onChangePicker:
+                            (Set<File> listSet, String permissionPickMedia) {
+                          cubit.update(
+                              state.index, listSet, permissionPickMedia);
                         },
-                      )));
+                      ))).then((_) =>
+              cubit.uploadMedia(state.images, state.permission, state.index));
         },
         child: Container(
           decoration: const BoxDecoration(
@@ -99,8 +92,7 @@ class _TopScreenPageState extends State<TopScreenPage> {
     );
   }
 
-  Widget _bottomNavigation({Function(int)? onChange}) {
-    int _index = 0;
+  Widget _bottomNavigation(TopScreenInitial state, Function(int) onChange) {
     return Container(
       padding: const EdgeInsets.only(top: 5),
       decoration: const BoxDecoration(
@@ -112,74 +104,50 @@ class _TopScreenPageState extends State<TopScreenPage> {
               spreadRadius: 2.0),
         ],
       ),
-      child: StatefulBuilder(
-        builder: (BuildContext context, Function setStateNavbar) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              _itemNavbar(
-                  value: 0,
-                  label: 'Album',
-                  linkSvgAsset: 'assets/svgs/svg_album.svg',
-                  group: _index,
-                  onTap: () {
-                    setStateNavbar(() {
-                      _index = 0;
-                    });
-                    if (onChange != null)
-                      onChange(0);
-                  }),
-              _itemNavbar(
-                  value: 1,
-                  label: 'Bảng tin',
-                  linkSvgAsset: 'assets/svgs/svg_new.svg',
-                  group: _index,
-                  onTap: () {
-                    setStateNavbar(() {
-                      _index = 1;
-                    });
-                    if (onChange != null) onChange(1);
-                  }),
-              _centerButton(context),
-              _itemNavbar(
-                  value: 2,
-                  label: 'Yêu thích',
-                  group: _index,
-                  linkSvgAsset: 'assets/svgs/svg_like.svg',
-                  onTap: () {
-                    setStateNavbar(() {
-                      _index = 2;
-                    });
-                    if (onChange != null) onChange(2);
-                  }),
-              _itemNavbar(
-                  value: 3,
-                  label: 'Cá nhân',
-                  group: _index,
-                  linkSvgAsset: 'assets/svgs/svg_person.svg',
-                  onTap: () {
-                    setStateNavbar(() {
-                      _index = 3;
-                    });
-                    if (onChange != null) onChange(3);
-                  }),
-            ],
-          );
-        },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          _itemNavbar(
+              value: PageIndex.album,
+              label: 'Album',
+              linkSvgAsset: 'assets/svgs/svg_album.svg',
+              group: state.index,
+              state: state),
+          _itemNavbar(
+              value: 1,
+              label: 'Bảng tin',
+              linkSvgAsset: 'assets/svgs/svg_new.svg',
+              group: state.index,
+              state: state),
+          _centerButton(context, state),
+          _itemNavbar(
+              value: 2,
+              label: 'Yêu thích',
+              group: state.index,
+              linkSvgAsset: 'assets/svgs/svg_like.svg',
+              state: state),
+          _itemNavbar(
+              value: 3,
+              label: 'Cá nhân',
+              group: state.index,
+              linkSvgAsset: 'assets/svgs/svg_person.svg',
+              state: state),
+        ],
       ),
     );
   }
 
-  Widget _itemNavbar(
-      {int? value,
-      int? group,
-      String? label,
-      required String linkSvgAsset,
-      String? badge,
-      Function()? onTap}) {
+  Widget _itemNavbar({
+    int value = PageIndex.album,
+    String? label,
+    required String linkSvgAsset,
+    String? badge,
+    int group = PageIndex.album,
+    required TopScreenInitial state,
+  }) {
     return InkWell(
-      onTap: onTap,
+      onTap: () => cubit.update(value, state.images, state.permission),
       child: Stack(
         children: <Widget>[
           Column(

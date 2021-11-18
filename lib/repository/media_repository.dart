@@ -1,27 +1,36 @@
-import 'package:family_pet/genaral/api_handler.dart';
-import 'package:family_pet/genaral/constant/constant.dart';
-import 'package:family_pet/genaral/constant/url.dart';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:family_pet/general/api_handler.dart';
+import 'package:family_pet/general/constant/constant.dart';
+import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/main.dart';
 import 'package:family_pet/model/entity.dart';
+import 'package:http/http.dart';
 
 class MediaRepository {
   final NetworkService networkService = NetworkService();
 
-  Future<void> createMedia(String file, String type) async {
-    final Map<String, dynamic> body = <String, dynamic>{};
+  Future<int> createMedia(File file, String type, String share) async {
+    final Map<String, String> body = <String, String>{};
 
-    body[Constant.userId] = prefs!.getInt(Constant.userId);
-    body[Constant.file] =
-        'https://photo2.tinhte.vn/data/attachment-files/2021/03/5393140_file-20181102-83644-b06itk.jpg';
+    body[Constant.userId] = prefs!.getInt(Constant.userId).toString();
     body[Constant.mediaType] = type;
+    body[Constant.tShare] = share;
 
-    final APIResponse response =
-        await networkService.callPOST(url: Url.uploadMedia, body: body);
+    final StreamedResponse response = await uploadImage(file, body);
+    int imageId;
+    final String rep = await response.stream.bytesToString();
 
-    if (response.isOK ?? false) {
-      return;
-    } else
-      throw APIException(response);
+    final Map<String, dynamic> json = jsonDecode(rep) as Map<String, dynamic>;
+    if (response.statusCode >= 200 && response.statusCode <= 300) {
+      imageId = getInt(Constant.mediaId, json);
+    } else {
+      throw Exception(rep);
+    }
+
+    print('CHECKING OUTPUT ===========$imageId');
+    return imageId;
   }
 
   Future<List<Media>>? getAlbum(String share) async {
@@ -29,10 +38,81 @@ class MediaRepository {
         '?${Constant.userId}=${prefs?.getInt(Constant.userId)}&${Constant.typeAlbum}=$share');
     final List<Media> listMedia = <Media>[];
     if (response.isOK ?? false) {
-      for (final dynamic item in response.data?[Constant.results]) {
-        listMedia.add(Media.fromMap(item as Map<String, dynamic>));
+      if (response.data != null) {
+        for (final dynamic item
+            in response.data![Constant.result] as List<dynamic>) {
+          listMedia.add(Media.fromMap(item as Map<String, dynamic>));
+        }
       }
       return listMedia;
+    } else
+      throw APIException(response);
+  }
+
+  Future<List<Media>>? getFavouriteMedia() async {
+    final APIResponse response = await networkService.callGET(
+        Url.getFavouriteMedia +
+            '?${Constant.userId}=${prefs?.getInt(Constant.userId)}');
+    final List<Media> listMedia = <Media>[];
+    if (response.isOK ?? false) {
+      if (response.data != null) {
+        ///TODO: SAU SỬA LẠI CHÍNH TẢ
+        for (final dynamic item in response.data!['resut'] as List<dynamic>) {
+          listMedia.add(Media.fromMap(item as Map<String, dynamic>)
+              .copyWith(isLiked: true));
+        }
+      }
+      return listMedia;
+    } else
+      throw APIException(response);
+  }
+
+  Future<void> deleteMedia(int mediaId) async {
+    final Map<String, dynamic> body = <String, dynamic>{};
+    body[Constant.mediaId] = mediaId;
+    final APIResponse response =
+        await networkService.callPOST(url: Url.deleteMedia, body: body);
+    if (response.isOK!) {
+      return;
+    } else
+      throw APIException(response);
+  }
+
+  Future<void> changePermissionMedia(int mediaId, String permission) async {
+    final Map<String, dynamic> body = <String, dynamic>{};
+    body[Constant.mediaId] = mediaId;
+    body[Constant.tShare] = permission;
+    body[Constant.userId] = prefs!.getInt(Constant.userId);
+    final APIResponse response =
+        await networkService.callPUT(url: Url.changePermission, body: body);
+    if (response.isOK!) {
+      return;
+    } else
+      throw APIException(response);
+  }
+
+  Future<void> like(int mediaId) async {
+    final Map<String, dynamic> body = <String, dynamic>{};
+    body[Constant.mediaId] = mediaId;
+    body[Constant.userId] = prefs!.getInt(Constant.userId);
+
+    final APIResponse response =
+        await networkService.callPOST(url: Url.like, body: body);
+    if (response.isOK!) {
+      return;
+    } else
+      throw APIException(response);
+  }
+
+  Future<void> unlike(int mediaId) async {
+    final Map<String, dynamic> body = <String, dynamic>{};
+    body[Constant.mediaId] = mediaId;
+    body[Constant.userId] = prefs!.getInt(Constant.userId);
+
+    final APIResponse response =
+        await networkService.callPOST(url: Url.unlike, body: body);
+    if (response.isOK!) {
+      return;
     } else
       throw APIException(response);
   }

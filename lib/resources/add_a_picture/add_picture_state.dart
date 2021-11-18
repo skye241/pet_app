@@ -4,9 +4,10 @@ part of 'add_picture_cubit.dart';
 abstract class AddPictureState {}
 
 class AddPictureInitial extends AddPictureState {
-  AddPictureInitial(this.images);
+  AddPictureInitial(this.image, this.permission);
 
-  final Set<File>? images;
+  final File? image;
+  final String permission;
 }
 
 class AddPictureStateShowLoading extends AddPictureState {}

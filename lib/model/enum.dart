@@ -17,4 +17,5 @@ class PermissionPickMedia{
   static const String family = 'Family';
   static const String friend = 'Friend';
   static const String onlyMe = 'Onlyme';
+  static const String mine = 'Mine';
  }

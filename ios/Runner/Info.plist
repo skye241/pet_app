@@ -22,8 +22,8 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSPhotoLibraryUsageDescription</key>
-    <string>This app requires access to the photo library.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Cho phép ứng dụng truy cập vào Ảnh của bạn để lấy được hình ảnh</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

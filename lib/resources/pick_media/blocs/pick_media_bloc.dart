@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:family_pet/genaral/librarys/file_storages/file_storage.dart';
+import 'package:family_pet/general/librarys/file_storages/file_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_manager/photo_manager.dart';
 
@@ -9,35 +9,36 @@ import 'interfaces/i_pick_media_bloc.dart';
 class PickMediaBloc extends IPickMediaBloc {
   @override
   Future<void> loadListMedia() async {
-    this.filesGroup.clear();
-    listPick = new Set();
+    filesGroup.clear();
+    listPick = <File>{};
     currentPage = 1;
     totalPage = 1;
 
     if (Platform.isAndroid) {
-      PermissionStatus permissionStatus = await Permission.storage.request();
+      final PermissionStatus permissionStatus =
+          await Permission.storage.request();
       print(permissionStatus);
       if (permissionStatus == PermissionStatus.granted) {
         List<File> files = [];
         files = (await FileStorage().getFiles(
                 specifyTypeFile: FileStorage.listTypeFileImage +
                     FileStorage.listTypeFileVideo))
-            .map((element) => File(element))
+            .map((String element) => File(element))
             .toList();
         files = _sortListFile(files);
-        this.filesGroup = _groupFileFlowDateLastModify(files);
+        filesGroup = _groupFileFlowDateLastModify(files);
       }
     }
     if (Platform.isIOS) {
-      bool result = await PhotoManager.requestPermission();
+      final bool result = await PhotoManager.requestPermission();
       PhotoManager.requestPermissionExtend();
       print(result);
       if (result) {
-        List<File> files = [];
-        List<AssetPathEntity> listAssetPath =
+        final List<File> files = [];
+        final List<AssetPathEntity> listAssetPath =
             await PhotoManager.getAssetPathList(
                 onlyAll: true, type: RequestType.all); // Get all image
-        List<AssetEntity> listAssetEntity = await listAssetPath
+        final List<AssetEntity> listAssetEntity = await listAssetPath
             .map((e) async {
               return e.assetList;
             })
@@ -45,16 +46,16 @@ class PickMediaBloc extends IPickMediaBloc {
             .first; //Take fist album because get only all album
         //The listAssetEntity was sort, so we aren't sort them
         for (AssetEntity assetEntity in listAssetEntity) {
-          File? file = await assetEntity.file;
+          final File? file = await assetEntity.file;
           file?.setLastModifiedSync(assetEntity.modifiedDateTime);
           file?.setLastModified(assetEntity.modifiedDateTime);
           print(file?.path);
           if (file != null) files.add(file);
         }
-        this.filesGroup = _groupFileFlowDateLastModify(files);
+        filesGroup = _groupFileFlowDateLastModify(files);
       }
     }
-    publishSubjectListFile.sink.add(this.filesGroup);
+    publishSubjectListFile.sink.add(filesGroup);
   }
 
   Future<void> getMore() async {}

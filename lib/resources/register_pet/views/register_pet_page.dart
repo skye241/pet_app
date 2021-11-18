@@ -1,8 +1,8 @@
-import 'package:family_pet/genaral/app_strings/app_strings.dart';
-import 'package:family_pet/genaral/app_theme_date.dart';
-import 'package:family_pet/genaral/components/component_helpers.dart';
-import 'package:family_pet/genaral/components/date_formatter.dart';
-import 'package:family_pet/genaral/tools/utils.dart';
+import 'package:family_pet/general/app_strings/app_strings.dart';
+import 'package:family_pet/general/app_theme_date.dart';
+import 'package:family_pet/general/components/component_helpers.dart';
+import 'package:family_pet/general/components/date_formatter.dart';
+import 'package:family_pet/general/tools/utils.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/model/enum.dart';
 import 'package:family_pet/resources/add_a_picture/views/add_a_picture_page.dart';

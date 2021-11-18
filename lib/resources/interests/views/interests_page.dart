@@ -1,57 +1,132 @@
-import 'package:family_pet/genaral/app_strings/app_strings.dart';
+import 'package:family_pet/general/app_strings/app_strings.dart';
+import 'package:family_pet/general/app_theme_date.dart';
+import 'package:family_pet/general/constant/url.dart';
+import 'package:family_pet/model/entity.dart';
+import 'package:family_pet/resources/album/views/media_widget.dart';
+import 'package:family_pet/resources/interests/interests_page_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class InterestsPage extends StatelessWidget {
+class InterestsPage extends StatefulWidget {
   const InterestsPage({Key? key}) : super(key: key);
+
+  @override
+  State<InterestsPage> createState() => _InterestsPageState();
+}
+
+class _InterestsPageState extends State<InterestsPage> {
+  final InterestsPageCubit cubit = InterestsPageCubit();
+
+  @override
+  void initState() {
+    cubit.getAlbum();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    cubit.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppStrings.of(context).textTitleInterests,
-          style: Theme.of(context).appBarTheme.titleTextStyle,
-        ),
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(19),
-        child: GridView.builder(
-          itemCount: 12,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 5.0,
-            mainAxisSpacing: 5.0,
+        appBar: AppBar(
+          title: Text(
+            AppStrings.of(context).textTitleInterests,
+            style: Theme.of(context).appBarTheme.titleTextStyle,
           ),
-          itemBuilder: (BuildContext context, int index) {
-            return _itemGridView();
-          },
         ),
+        body: BlocBuilder<InterestsPageCubit, InterestsPageState>(
+          bloc: cubit,
+          builder: (BuildContext context, InterestsPageState state) {
+            if (state is InterestsPageStateSuccess) {
+              if (state.listImage.isNotEmpty) {
+                return _body(context, state);
+              } else
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Center(
+                      child: Text('Chưa có ảnh yêu thích nào'),
+                    ),
+                  ],
+                );
+            } else if (state is InterestsPageStateLoading) {
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            AppThemeData.color_primary_90),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            } else if (state is InterestsPageStateFail) {
+              return Center(
+                child: Column(
+                  children: <Widget>[
+                    Center(
+                      child: Text(state.message),
+                    ),
+                  ],
+                ),
+              );
+            } else
+              return Container();
+          },
+        ));
+  }
+
+  Widget _body(BuildContext context, InterestsPageStateSuccess state) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: GridView.builder(
+        itemCount: state.listImage.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount:
+              state.listImage.length < 3 ? state.listImage.length : 3,
+          crossAxisSpacing: 6.0,
+          mainAxisSpacing: 6.0,
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          return MediaWidget(media: state.listImage[index]);
+        },
       ),
     );
   }
 
-  Widget _itemGridView() {
+  Widget _itemGridView(Media media) {
     return Stack(
       children: <Widget>[
         Container(
           width: double.maxFinite,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(6.0)),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(const Radius.circular(6.0)),
             image: DecorationImage(
-              image: NetworkImage(
-                'https://static01.nyt.com/images/2019/06/17/science/17DOGS/17DOGS-mobileMasterAt3x-v2.jpg',
-              ),
-              fit: BoxFit.cover
-            ),
+                image: NetworkImage(
+                  Url.baseURLImage + media.file!,
+                ),
+                fit: BoxFit.cover),
           ),
         ),
         Positioned(
           child: Row(
             children: <Widget>[
               SvgPicture.asset('assets/svgs/svg_message.svg'),
-              const SizedBox(width: 2,),
-              const Text('10',style: TextStyle(fontSize: 12,color: Colors.white),)
+              const SizedBox(
+                width: 2,
+              ),
+              Text(
+                media.totalComment.toString(),
+                style: const TextStyle(fontSize: 12, color: Colors.white),
+              )
             ],
           ),
           bottom: 8,

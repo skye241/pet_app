@@ -1,7 +1,7 @@
-import 'package:family_pet/genaral/app_strings/app_strings.dart';
-import 'package:family_pet/genaral/app_theme_date.dart';
-import 'package:family_pet/genaral/components/component_helpers.dart';
-import 'package:family_pet/genaral/tools/utils.dart';
+import 'package:family_pet/general/app_strings/app_strings.dart';
+import 'package:family_pet/general/app_theme_date.dart';
+import 'package:family_pet/general/components/component_helpers.dart';
+import 'package:family_pet/general/tools/utils.dart';
 import 'package:family_pet/resources/fast_register_user/register_fast_cubit.dart';
 import 'package:family_pet/resources/register_pet/views/register_pet_page.dart';
 import 'package:flutter/material.dart';

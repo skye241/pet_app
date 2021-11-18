@@ -96,7 +96,7 @@ class _AppStringsVn extends AppStrings{
   String get textTitleNews => 'Bảng tin';
 
   @override
-  String get textPickMediaTitle => 'Tất cả ảnh và video';
+  String get textPickMediaTitle => 'Đăng ảnh';
 
   @override
   String get textProfileButtonAddPet => 'Thêm thú cưng';

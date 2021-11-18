@@ -1,4 +1,4 @@
-import 'package:family_pet/genaral/constant/constant.dart';
+import 'package:family_pet/general/constant/constant.dart';
 
 /// Các hàm lấy dữ liệu - Tools
 /// Lấy dữ liệu dạng string từ map mặc định ''
@@ -141,7 +141,7 @@ class APIResponse {
 
   final bool? isOK;
   final int? code;
-  final Map<String, dynamic>? data;
+  final dynamic data;
   final String? message;
 
   Map<String, dynamic> toMap() {
@@ -183,7 +183,7 @@ class User {
       return User();
     } else
       return User(
-          id: getInt(Constant.userId, data),
+          id: getInt(Constant.id, data),
           email: getString(Constant.email, data),
           password: getString(Constant.password, data));
   }
@@ -239,7 +239,7 @@ class Pet {
       return Pet(
         id: getInt(Constant.id, data),
         name: getString(Constant.name, data),
-        user: User.fromMap(data[Constant.user] as Map<String, dynamic>),
+        // user: User.fromMap(data[Constant.user] as Map<String, dynamic>),
         petType:
             PetType.fromMap(data[Constant.petType] as Map<String, dynamic>),
       );
@@ -252,35 +252,46 @@ class Pet {
 }
 
 class Media {
-  Media(
-      {this.id,
-      this.mediaType,
-      this.mediaName,
-      this.share,
-      this.file,
-      this.user});
+  Media({
+    this.id,
+    this.mediaType,
+    this.mediaName,
+    this.share,
+    this.file,
+    this.user,
+    this.createdAt,
+    this.totalComment,
+    this.isLiked,
+  });
 
   factory Media.fromMap(Map<String, dynamic>? data) {
     if (data == null) {
       return Media();
     } else
       return Media(
-          id: getInt(Constant.id, data),
-          mediaName: getString(Constant.mediaName, data),
-          mediaType: getString(Constant.mediaType, data),
-          share: getString(Constant.share, data),
-          file: getString(Constant.file, data),
-          user: User.fromMap(data[Constant.user] as Map<String, dynamic>));
+        id: getInt(Constant.id, data),
+        mediaName: getString(Constant.mediaName, data),
+        mediaType: getString(Constant.mediaType, data),
+        share: getString(Constant.share, data),
+        file: getString(Constant.file, data),
+        user: User.fromMap(data[Constant.user] as Map<String, dynamic>),
+        createdAt: getString(Constant.createdAt, data),
+        totalComment: getInt(Constant.totalComment, data),
+        isLiked: getBool(Constant.isLiked, data),
+      );
   }
 
-  Map<String,dynamic> toMap() {
-    return <String, dynamic> {
-      Constant.id : id,
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      Constant.id: id,
       Constant.mediaName: mediaName,
       Constant.mediaType: mediaType,
       Constant.share: share,
       Constant.file: file,
-      Constant.user: user?.toMap()
+      Constant.user: user?.toMap(),
+      Constant.createdAt: createdAt,
+      Constant.totalComment: totalComment,
+      Constant.isLiked: isLiked
     };
   }
 
@@ -290,4 +301,71 @@ class Media {
   final String? share;
   final String? file;
   final User? user;
+  final String? createdAt;
+  final int? totalComment;
+  final bool? isLiked;
+
+  Media copyWith({
+    int? id,
+    String? mediaType,
+    String? mediaName,
+    String? share,
+    String? file,
+    User? user,
+    String? createdAt,
+    int? totalComment,
+    bool? isLiked,
+  }) {
+    return Media(
+      id: id ?? this.id,
+      mediaType: mediaType ?? this.mediaType,
+      mediaName: mediaName ?? this.mediaName,
+      share: share ?? this.share,
+      file: file ?? this.file,
+      user: user ?? this.user,
+      createdAt: createdAt ?? this.createdAt,
+      totalComment: totalComment ?? this.totalComment,
+      isLiked: isLiked ?? this.isLiked,
+    );
+  }
+}
+
+class Comment {
+  Comment({
+    this.id,
+    this.media,
+    this.user,
+    this.content,
+    this.userName,
+    this.avatar,
+  });
+
+  factory Comment.fromMap(Map<String, dynamic>? data) {
+    if (data == null) {
+      return Comment(content: '');
+    } else
+      return Comment(
+          id: getInt(Constant.id, data),
+          media: Media.fromMap(data[Constant.media] as Map<String, dynamic>),
+          content: getString(Constant.content, data),
+          user: User.fromMap(data[Constant.user] as Map<String, dynamic>),
+        userName: getString(Constant.userName, data),
+        avatar: getString(Constant.avatar, data)
+      );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      Constant.media: media?.toMap(),
+      Constant.content: content,
+      Constant.user: user?.toMap()
+    };
+  }
+
+  final int? id;
+  final Media? media;
+  final User? user;
+  final String? content;
+  final String? userName;
+  final String? avatar;
 }

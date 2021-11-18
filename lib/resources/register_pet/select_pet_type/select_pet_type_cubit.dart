@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:family_pet/genaral/api_handler.dart';
+import 'package:family_pet/general/api_handler.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/repository/pet_repository.dart';
 import 'package:meta/meta.dart';

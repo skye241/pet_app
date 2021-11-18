@@ -1,6 +1,6 @@
-import 'package:family_pet/genaral/app_strings/app_strings.dart';
-import 'package:family_pet/genaral/app_theme_date.dart';
-import 'package:family_pet/genaral/components/component_helpers.dart';
+import 'package:family_pet/general/app_strings/app_strings.dart';
+import 'package:family_pet/general/app_theme_date.dart';
+import 'package:family_pet/general/components/component_helpers.dart';
 import 'package:family_pet/resources/invite_relatives/views/invite_relatives_page.dart';
 import 'package:family_pet/resources/list_of_relatives/views/list_relatives_page.dart';
 import 'package:family_pet/resources/signup/views/signup_page.dart';

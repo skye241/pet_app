@@ -1,4 +1,4 @@
-import 'package:family_pet/genaral/app_theme_date.dart';
+import 'package:family_pet/general/app_theme_date.dart';
 import 'package:flutter/material.dart';
 
 class NewsListDataFragment extends StatelessWidget {

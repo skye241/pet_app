@@ -1,6 +1,6 @@
-import 'package:family_pet/genaral/api_handler.dart';
-import 'package:family_pet/genaral/constant/constant.dart';
-import 'package:family_pet/genaral/constant/url.dart';
+import 'package:family_pet/general/api_handler.dart';
+import 'package:family_pet/general/constant/constant.dart';
+import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/model/entity.dart';
 
 import '../main.dart';
@@ -39,6 +39,23 @@ class PetRepository {
 
     if (response.isOK ?? false) {
       return;
+    } else
+      throw APIException(response);
+  }
+
+  Future<List<Pet>>? getListPet() async {
+    final List<Pet> listPet = <Pet>[];
+
+    final APIResponse response = await networkService.callGET(Url.getListPet +
+        '?${Constant.userId}=${prefs!.getInt(Constant.userId)}');
+
+    if (response.isOK ?? false) {
+      response.data?.forEach((dynamic item) {
+        listPet.add(Pet.fromMap(item as Map<String, dynamic>));
+      });
+      // print(response.data?[Constant.results]);
+      print(listPet);
+      return listPet;
     } else
       throw APIException(response);
   }

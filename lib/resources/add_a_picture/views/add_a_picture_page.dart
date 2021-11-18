@@ -1,17 +1,17 @@
 import 'dart:io';
 
-import 'package:family_pet/genaral/app_strings/app_strings.dart';
-import 'package:family_pet/genaral/app_theme_date.dart';
-import 'package:family_pet/genaral/components/component_helpers.dart';
-import 'package:family_pet/genaral/tools/utils.dart';
+import 'package:family_pet/general/app_strings/app_strings.dart';
+import 'package:family_pet/general/app_theme_date.dart';
+import 'package:family_pet/general/components/component_helpers.dart';
+import 'package:family_pet/general/components/permission_picker/permission_picker.dart';
+import 'package:family_pet/general/tools/utils.dart';
 import 'package:family_pet/model/enum.dart';
 import 'package:family_pet/resources/add_a_picture/add_picture_cubit.dart';
-import 'package:family_pet/resources/pick_media/blocs/interfaces/i_pick_media_bloc.dart';
-import 'package:family_pet/resources/pick_media/views/pick_media_page.dart';
 import 'package:family_pet/resources/top_page/top_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddAPicturePage extends StatefulWidget {
   const AddAPicturePage({Key? key}) : super(key: key);
@@ -108,39 +108,38 @@ class _AddAPicturePageState extends State<AddAPicturePage> {
               const SizedBox(
                 height: 147,
               ),
-              if (state.images == null)
+              if (state.image == null)
                 Image.asset(
                   'assets/images/img_album.png',
                   width: 198,
                   height: 198,
                 )
               else
-                listImage(state.images ?? <File>{}),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute<void>(
-                            builder: (BuildContext context) => PickMediaPage(
-                                  onChangePicker: (Set<File> listSet,
-                                      String permissionPickMedia) {
-                                    cubit.changeImage(listSet);
-                                    // cubit.createMedia();
-                                  },
-                                )));
-                  },
-                  child: Text(
-                    'Thêm Ảnh',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(color: AppThemeData.color_primary_90),
-                  )),
+                Image.file(state.image!),
+              Container(
+                height: 16,
+              ),
+              if (state.image == null)
+                TextButton(
+                    onPressed: () => getImageFromGallery(context, state),
+                    child: Text(
+                      'Thêm Ảnh',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(color: AppThemeData.color_primary_90),
+                    ))
+              else
+                PermissionPickerWidget(
+                    initPermission: PermissionPickMedia.family,
+                    onPermissionPicked: (String per) =>
+                        cubit.changeImage(state.image!, per)),
               const SizedBox(
                 height: 126,
               ),
               ElevatedButton(
-                  onPressed: () => cubit.createMedia(state.images?? <File>{}),
+                  onPressed: () =>
+                      cubit.createMedia(state.image!, state.permission),
                   child: Container(
                     alignment: Alignment.center,
                     width: double.maxFinite,
@@ -152,7 +151,10 @@ class _AddAPicturePageState extends State<AddAPicturePage> {
                 height: 10,
               ),
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute<void>(
+                          builder: (BuildContext context) => const TopScreenPage())),
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
                           AppThemeData.color_black_40)),
@@ -171,22 +173,15 @@ class _AddAPicturePageState extends State<AddAPicturePage> {
     );
   }
 
-  Widget listImage(Set<File> files) {
-    return GridView.count(
-      crossAxisCount: 3,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisSpacing: 4,
-      children: files
-          .map((File file) => Container(
-                height: 110,
-                width: 110,
-                decoration: BoxDecoration(
-                  image: DecorationImage(image: FileImage(file), fit: BoxFit.cover),
-                  borderRadius: BorderRadius.circular(6),
-                ),
-              ))
-          .toList(),
-    );
+  Future<void> getImageFromGallery(
+      BuildContext context, AddPictureInitial state) async {
+    final XFile? pickedFile = await ImagePicker().pickImage(
+        source: ImageSource.gallery, maxHeight: 1500, maxWidth: 1500);
+    if (pickedFile != null) {
+      print(pickedFile);
+      final File image = File(pickedFile.path);
+      cubit.changeImage(image, state.permission);
+    }
   }
+
 }

@@ -1,4 +1,7 @@
-import 'package:family_pet/genaral/app_theme_date.dart';
+import 'package:family_pet/general/app_theme_date.dart';
+import 'package:family_pet/general/constant/constant.dart';
+import 'package:family_pet/main.dart';
+import 'package:family_pet/resources/introduces/views/introduce_page.dart';
 import 'package:family_pet/resources/top_page/top_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -22,10 +25,12 @@ class _WelcomePageState extends State<WelcomePage>
       vsync: this,
       duration: const Duration(seconds: 2),
     )..forward().whenComplete(() {
+        final bool loggedIn = prefs!.getString(Constant.cookie) != null;
         Navigator.pushReplacement(
             context,
             MaterialPageRoute<void>(
-                builder: (BuildContext context) => TopScreenPage()));
+                builder: (BuildContext context) =>
+                    loggedIn ? const TopScreenPage() : const IntroducePage()));
       });
     _animation =
         Tween<double>(begin: 200.0, end: 1.0).animate(_animationController);

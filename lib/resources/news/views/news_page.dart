@@ -1,4 +1,4 @@
-import 'package:family_pet/genaral/app_strings/app_strings.dart';
+import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/resources/news/views/news_empty_fragment.dart';
 import 'package:family_pet/resources/news/views/news_list_data_fragment.dart';
 import 'package:flutter/material.dart';

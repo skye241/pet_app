@@ -1,5 +1,5 @@
-import 'package:family_pet/genaral/app_strings/app_strings.dart';
-import 'package:family_pet/genaral/app_theme_date.dart';
+import 'package:family_pet/general/app_strings/app_strings.dart';
+import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/resources/list_of_relatives/blocs/interfaces/i_list_relatives_bloc.dart';
 import 'package:family_pet/resources/list_of_relatives/blocs/list_relatives_bloc.dart';
 import 'package:flutter/material.dart';
