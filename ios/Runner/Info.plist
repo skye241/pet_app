@@ -24,6 +24,21 @@
 	<true/>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>Cho phép ứng dụng truy cập vào Ảnh của bạn để lấy được hình ảnh</string>
+    <key>FlutterDeepLinkingEnabled</key>
+    <true/>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLName</key>
+        <string>familypetcls.com</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+        <string>customscheme</string>
+        </array>
+        </dict>
+    </array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

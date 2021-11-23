@@ -1,5 +1,6 @@
+import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
-import 'package:family_pet/resources/fast_register_user/views/register_fast_user_page.dart';
+import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/resources/introduces/models/introduce_entity.dart';
 import 'package:flutter/material.dart';
 
@@ -14,28 +15,27 @@ class _IntroducePageState extends State<IntroducePage> {
   final PageController _pageController = PageController();
 
   int indexTab = 0;
-  List<IntroduceEntity> listIntroduceEntity = <IntroduceEntity>[
-    IntroduceEntity(
-        id: 0,
-        title: 'Sắp xếp khoa học',
-        content:
-            'Tự động sắp xếp album theo trình tự thời gian, dễ dàng quan sát ảnh trong album ',
-        linkImage: 'assets/images/img_introduce_1.png'),
-    IntroduceEntity(
-        id: 1,
-        title: 'Dung lượng không giới hạn',
-        content:
-            'Không giới hạn dung lượng bộ nhớ, lưu trữ ảnh có kích thước lớn',
-        linkImage: 'assets/images/img_introduce_2.png'),
-    IntroduceEntity(
-        id: 2,
-        title: 'Dễ dàng chia sẻ ảnh',
-        content: 'Miễn phí sử dụng, thỏa thích chia sẻ với gia đình và bạn bè ',
-        linkImage: 'assets/images/img_introduce_3.png'),
-  ];
+  final List<IntroduceEntity> listIntroduceEntity = <IntroduceEntity>[];
 
   @override
   void initState() {
+    listIntroduceEntity.addAll(<IntroduceEntity>[
+      IntroduceEntity(
+          id: 0,
+          title: AppStrings.of(context).firstPageTitle,
+          content: AppStrings.of(context).firstPageContent,
+          linkImage: 'assets/images/img_introduce_1.png'),
+      IntroduceEntity(
+          id: 1,
+          title: AppStrings.of(context).secondPageTitle,
+          content: AppStrings.of(context).secondPageContent,
+          linkImage: 'assets/images/img_introduce_2.png'),
+      IntroduceEntity(
+          id: 2,
+          title: AppStrings.of(context).thirdPageTitle,
+          content: AppStrings.of(context).thirdPageContent,
+          linkImage: 'assets/images/img_introduce_3.png'),
+    ]);
     super.initState();
   }
 
@@ -57,11 +57,8 @@ class _IntroducePageState extends State<IntroducePage> {
                   margin: const EdgeInsets.only(right: 18),
                   child: TextButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute<void>(
-                                builder: (BuildContext context) =>
-                                    const RegisterFastUserPage()));
+                        Navigator.pushReplacementNamed(
+                            context, RoutesName.registerFastUserPage);
                       },
                       child: const Text(
                         'Bỏ qua',
@@ -129,11 +126,8 @@ class _IntroducePageState extends State<IntroducePage> {
           ElevatedButton(
               onPressed: () => e.id! < listIntroduceEntity.length - 1
                   ? animateToPage(e.id! + 1)
-                  : Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute<void>(
-                          builder: (BuildContext context) =>
-                              const RegisterFastUserPage())),
+                  : Navigator.pushReplacementNamed(
+                      context, RoutesName.registerFastUserPage),
               child: Container(
                 width: double.maxFinite,
                 padding: const EdgeInsets.symmetric(vertical: 15.0),

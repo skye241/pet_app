@@ -1,9 +1,9 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/component_helpers.dart';
+import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/tools/utils.dart';
 import 'package:family_pet/resources/fast_register_user/register_fast_cubit.dart';
-import 'package:family_pet/resources/register_pet/views/register_pet_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,21 +23,17 @@ class _RegisterFastUserPageState extends State<RegisterFastUserPage> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<RegisterFastCubit, RegisterFastState>(
-      child: body(context),
+        child: body(context),
         bloc: cubit,
         listener: (BuildContext context, RegisterFastState state) {
-          if (state is RegisterFastStatePopUpLoading){
+          if (state is RegisterFastStatePopUpLoading) {
             showPopUpLoading(context);
-          } else if (state is RegisterFastStateDismissPopUpLoading){
+          } else if (state is RegisterFastStateDismissPopUpLoading) {
             Navigator.pop(context);
-          } else if (state is RegisterFastStateSuccess){
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute<void>(
-                      builder: (BuildContext context) =>
-                      const RegisterPetPage()));
-          } else if (state is RegisterFastStateFail){
-            showMessage(context, 'Thông báo', state.message);
+          } else if (state is RegisterFastStateSuccess) {
+            Navigator.pushReplacementNamed(context, RoutesName.registerPet);
+          } else if (state is RegisterFastStateFail) {
+            showMessage(context, AppStrings.of(context).notice, state.message);
           }
         });
   }
@@ -121,7 +117,7 @@ class _RegisterFastUserPageState extends State<RegisterFastUserPage> {
                       keyboardType: TextInputType.name,
                       validator: (String? value) {
                         if (value == null || value.isEmpty) {
-                          return 'Vui lòng nhập tên đăng nhập';
+                          return AppStrings.of(context).textErrorNameMessage;
                         } else
                           return null;
                       },

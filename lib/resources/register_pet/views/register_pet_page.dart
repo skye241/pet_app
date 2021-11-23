@@ -2,10 +2,10 @@ import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/component_helpers.dart';
 import 'package:family_pet/general/components/date_formatter.dart';
+import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/tools/utils.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/model/enum.dart';
-import 'package:family_pet/resources/add_a_picture/views/add_a_picture_page.dart';
 import 'package:family_pet/resources/register_pet/register_pet_cubit.dart';
 import 'package:family_pet/resources/register_pet/select_pet_type/select_pet_type_view.dart';
 import 'package:flutter/material.dart';
@@ -48,12 +48,9 @@ class _RegisterPetPageState extends State<RegisterPetPage> {
         } else if (state is RegisterPetStateShowDismissPopUpLoading) {
           Navigator.pop(context);
         } else if (state is RegisterPetStateSuccess) {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute<void>(
-                  builder: (BuildContext context) => const AddAPicturePage()));
+          Navigator.pushReplacementNamed(context, RoutesName.addAPicture);
         } else if (state is RegisterPetStateFail) {
-          showMessage(context, 'Thông báo', state.message);
+          showMessage(context, AppStrings.of(context).notice, state.message);
         }
       },
       child: BlocBuilder<RegisterPetCubit, RegisterPetState>(
@@ -131,7 +128,7 @@ class _RegisterPetPageState extends State<RegisterPetPage> {
                       controller: nameController,
                       validator: (String? value) {
                         if (value != null && value.isEmpty) {
-                          return 'Vui lòng điền tên thú cưng';
+                          return AppStrings.of(context).textErrorEmptyPetName;
                         } else
                           return null;
                       },
@@ -167,11 +164,13 @@ class _RegisterPetPageState extends State<RegisterPetPage> {
                             final DateTime? dateTime = DateTime.parse(value);
                             print(dateTime);
                             if (dateTime == null) {
-                              return 'Vui lòng điền ngày sinh đúng định dạng';
+                              return AppStrings.of(context)
+                                  .textErrorWrongDateFormat;
                             } else
                               return null;
                           } on FormatException {
-                            return 'Vui lòng điền ngày sinh đúng định dạng';
+                            return AppStrings.of(context)
+                                .textErrorWrongDateFormat;
                           }
                         }
                         return null;

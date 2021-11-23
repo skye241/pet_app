@@ -43,4 +43,8 @@ class Constant {
   static const String commentId = 'comment_id';
   static const String userName = 'username';
   static const String avatar = 'avatar';
+  static const String link = 'link';
+  static const String relationType = 'relation_type';
+  static const String target = 'target';
+  static const String language = 'language';
 }

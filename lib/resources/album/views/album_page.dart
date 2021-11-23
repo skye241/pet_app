@@ -1,11 +1,14 @@
+import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/calendar_slide/calendar_slide_view.dart';
+import 'package:family_pet/general/constant/constant.dart';
+import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/general/tools/utils.dart';
+import 'package:family_pet/main.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/resources/album/album_cubit.dart';
 import 'package:family_pet/resources/album/views/media_widget.dart';
-import 'package:family_pet/resources/image_details/image_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -46,7 +49,7 @@ class _AlbumPageState extends State<AlbumPage> {
         } else if (current is AlbumStateDismissLoading) {
           Navigator.pop(context);
         } else if (current is AlbumStateFail) {
-          showMessage(context, 'Thông báo', current.message);
+          showMessage(context, AppStrings.of(context).notice, current.message);
         }
       },
       child: BlocBuilder<AlbumCubit, AlbumState>(
@@ -62,20 +65,36 @@ class _AlbumPageState extends State<AlbumPage> {
         },
         builder: (BuildContext context, AlbumState state) {
           if (state is AlbumInitial) {
-            return const Scaffold();
+            return _emptyWidget(context);
           } else if (state is AlbumStateSuccess) {
             if (state.images.isNotEmpty) {
               return _body(context, state);
             } else
-              return const Scaffold();
+              return _emptyWidget(context);
           } else
-            return const Scaffold(
-              body: Center(
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text('Album'),
+              ),
+              body: const Center(
                 child: CircularProgressIndicator(),
               ),
             );
         },
       ),
+    );
+  }
+
+  Widget _emptyWidget(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Album'),
+      ),
+      body: RefreshIndicator(
+          key: _refreshIndicatorKey,
+          color: AppThemeData.color_primary_90,
+          child: Column(),
+          onRefresh: () async => cubit.initEvent()),
     );
   }
 
@@ -157,11 +176,7 @@ class _AlbumPageState extends State<AlbumPage> {
           const Color(0xff52575C).withOpacity(0.5)
         ]);
     return InkWell(
-      onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute<void>(
-              builder: (BuildContext context) =>
-                  ImageDetailsPage(media: media))),
+      onTap: () => Navigator.pushNamed(context, RoutesName.imageDetails),
       child: Hero(
         tag: 'media${media.id}',
         child: Row(
@@ -196,8 +211,10 @@ class _AlbumPageState extends State<AlbumPage> {
                                   .copyWith(color: Colors.white),
                             ),
                             Text(
-                              'Tháng' +
-                                  DateFormat('MM.yyyy', 'vi').format(date),
+                              AppStrings.of(context).month +
+                                  DateFormat('MM.yyyy',
+                                          prefs!.getString(Constant.language))
+                                      .format(date),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline2!

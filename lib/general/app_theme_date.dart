@@ -67,7 +67,24 @@ class AppThemeData {
         // buttonColor: color_primary_90,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(color_main),
+            foregroundColor: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.disabled)) {
+                  return AppThemeData.color_black_80;
+                } else
+                  return Colors.white;
+                // Use the component's default.
+              },
+            ),
+            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.disabled)) {
+                  return AppThemeData.color_black_40;
+                } else
+                  return AppThemeData
+                      .color_primary_90; // Use the component's default.
+              },
+            ),
             elevation: MaterialStateProperty.all<double>(0),
             shape: MaterialStateProperty.all<OutlinedBorder>(
                 const RoundedRectangleBorder(

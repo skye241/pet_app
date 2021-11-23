@@ -11,8 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PickMediaPage extends StatefulWidget {
-  const PickMediaPage({Key? key, this.onChangePicker}) : super(key: key);
-  final void Function(Set<File>, String)? onChangePicker;
+  const PickMediaPage({Key? key}) : super(key: key);
+
+  // final void Function(Set<File>, String)? onChangePicker;
 
   @override
   _PickMediaPageState createState() => _PickMediaPageState();
@@ -21,6 +22,7 @@ class PickMediaPage extends StatefulWidget {
 class _PickMediaPageState extends State<PickMediaPage>
     with TickerProviderStateMixin {
   final PickMediaCubit cubit = PickMediaCubit();
+
   // Map<String, VideoPlayerController> mapVideoController =
   //     <String, VideoPlayerController>{};
   // double positionStart = 0;
@@ -48,7 +50,7 @@ class _PickMediaPageState extends State<PickMediaPage>
             Navigator.pop(context);
             return false;
           } else if (current is PickMediaStateSuccess) {
-            showMessage(context, 'Thông báo', 'Đăng ảnh thành công',
+            showMessage(context, AppStrings.of(context).notice, 'Đăng ảnh thành công',
                 actions: ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -57,7 +59,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                     child: const Text('Về trang chủ')));
             return false;
           } else if (current is PickMediaStateFail) {
-            showMessage(context, 'Thông báo', current.message);
+            showMessage(context, AppStrings.of(context).notice, current.message);
             return false;
           } else
             return true;

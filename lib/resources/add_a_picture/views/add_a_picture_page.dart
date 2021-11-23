@@ -4,10 +4,10 @@ import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/component_helpers.dart';
 import 'package:family_pet/general/components/permission_picker/permission_picker.dart';
+import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/tools/utils.dart';
 import 'package:family_pet/model/enum.dart';
 import 'package:family_pet/resources/add_a_picture/add_picture_cubit.dart';
-import 'package:family_pet/resources/top_page/top_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,12 +48,9 @@ class _AddAPicturePageState extends State<AddAPicturePage> {
         } else if (state is AddPictureStateDismissLoading) {
           Navigator.pop(context);
         } else if (state is AddPictureStateSuccess) {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute<void>(
-                  builder: (BuildContext context) => TopScreenPage()));
+          Navigator.pushReplacementNamed(context, RoutesName.topPage);
         } else if (state is AddPictureStateFail) {
-          showMessage(context, 'Thông báo', state.message);
+          showMessage(context, AppStrings.of(context).notice, state.message);
         }
       },
     );
@@ -151,10 +148,8 @@ class _AddAPicturePageState extends State<AddAPicturePage> {
                 height: 10,
               ),
               ElevatedButton(
-                  onPressed: () => Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute<void>(
-                          builder: (BuildContext context) => const TopScreenPage())),
+                  onPressed: () => Navigator.pushReplacementNamed(
+                      context, RoutesName.topPage),
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
                           AppThemeData.color_black_40)),
@@ -183,5 +178,4 @@ class _AddAPicturePageState extends State<AddAPicturePage> {
       cubit.changeImage(image, state.permission);
     }
   }
-
 }

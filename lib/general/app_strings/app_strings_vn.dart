@@ -1,18 +1,19 @@
 part of languages;
 
-
-class _AppStringsVn extends AppStrings{
+class _AppStringsVn extends AppStrings {
   @override
   String get appName => 'FamilyPet';
 
   @override
-  String get textLabelIntroduceDemo => 'Famipet (ứng dụng chia sẻ ảnh thú cưng gia đình)';
+  String get textLabelIntroduceDemo =>
+      'Famipet (ứng dụng chia sẻ ảnh thú cưng gia đình)';
 
   @override
   String get titleRegister => '';
 
-  @override
-  String get textTmp => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae at ut pellentesque enim.';
+  // @override
+  // String get textTmp =>
+  //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae at ut pellentesque enim.';
 
   @override
   String get textTitleRegisterUser => 'Đăng ký';
@@ -153,7 +154,7 @@ class _AppStringsVn extends AppStrings{
   String get textInviteRelativesAlbum => 'Album';
 
   @override
-  String get textInviteRelativesButtonCopyUrl => 'Coppy URL';
+  String get textInviteRelativesButtonCopyUrl => 'Copy URL';
 
   @override
   String get textInviteRelativesButtonInviteFamily => 'Mời gia đình';
@@ -165,7 +166,8 @@ class _AppStringsVn extends AppStrings{
   String get textInviteRelativesButtonShare => 'Share';
 
   @override
-  String get textInviteRelativesLabelMain => 'Gửi lời mời tới gai đình và bạn bè';
+  String get textInviteRelativesLabelMain =>
+      'Gửi lời mời tới gia đình và bạn bè';
 
   @override
   String get textInviteRelativesTitle => 'Mời người quen';
@@ -215,4 +217,108 @@ class _AppStringsVn extends AppStrings{
   @override
   String get textPickMediaButtonOnlyMe => 'Chỉ mình tôi';
 
+  @override
+  String get invitationButtonAccept => 'Đăng ký ngay';
+
+  @override
+  String get invitationButtonCancel => 'Hủy';
+
+  @override
+  String get invitationButtonReject => 'Hủy bỏ';
+
+  @override
+  String get invitationButtonSuccess => 'Đi đến Album ngay';
+
+  @override
+  String get invitationExpired => 'Link tới Album đã hết hạn';
+
+  @override
+  String get invitationQuestion => 'Bạn có đăng ký làm bạn không?';
+
+  @override
+  String get invitationSuccess => 'Chào mừng bạn tới album';
+
+  @override
+  String get invitationTitle => 'Bạn có lời mời vào album';
+
+  @override
+  String get notice => 'Thông báo';
+
+  @override
+  String get firstPageTitle => 'Sắp xếp khoa học';
+
+  @override
+  String get firstPageContent =>
+      'Tự động sắp xếp album theo trình tự thời gian, dễ dàng quan sát ảnh trong album';
+
+  @override
+  String get secondPageTitle => 'Dung lượng không giới hạn';
+
+  @override
+  String get secondPageContent =>
+      'Không giới hạn dung lượng bộ nhớ, lưu trữ ảnh có kích thước lớn';
+
+  @override
+  String get thirdPageContent =>
+      'Miễn phí sử dụng, thỏa thích chia sẻ với gia đình và bạn bè';
+
+  @override
+  String get thirdPageTitle => 'Dễ dàng chia sẻ ảnh';
+
+  @override
+  String get close => 'Đóng';
+
+  @override
+  String get errorMessagePermission =>
+      'Lỗi hệ thống, bạn vui lòng thử lại sau ít phút';
+
+  @override
+  String get errorMessageServer => 'Bạn không có quyền thực hiện hành động này';
+  @override
+  String get retry => 'Thử lại';
+
+  @override
+  String get month => 'Tháng';
+
+  @override
+  String get textChangeMediaPermission => 'Thay đổi phạm vi hình ảnh';
+
+  @override
+  String get textDeleteMedia => 'Xóa ảnh';
+
+  @override
+  String get textErrorNameMessage => 'Vui lòng điền tên đăng nhập';
+
+  @override
+  String get textSaveMediaChanges => 'Lưu lại';
+
+  @override
+  String get textSaveMediaToDevice => 'Lưu ảnh';
+
+  @override
+  String get textEmptyFavouriteMedia => 'Chưa có ảnh yêu thích nào';
+
+  @override
+  String get textEmptyShareMedia =>
+      'Bạn không có ảnh nào có thể chia sẻ cho đối tượng này';
+
+  @override
+  String get textInvitationTitle => 'Album của tôi';
+
+  @override
+  String get delete => 'Xóa';
+
+  @override
+  String get textErrorEmptyPetName => 'Vui lòng điền tên thú cưng';
+
+  @override
+  String get textErrorWrongDateFormat =>
+      'Vui lòng điền ngày sinh đúng định dạng';
+
+  @override
+  String get textSignUpErrorEmptyEmail => 'Vui lòng nhập email';
+
+  @override
+  String get textSignUpErrorWrongFormatEmail =>
+      'Vui lòng nhập email đúng định dạng';
 }

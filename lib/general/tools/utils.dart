@@ -1,3 +1,5 @@
+import 'package:family_pet/general/app_strings/app_strings.dart';
+import 'package:family_pet/model/enum.dart';
 import 'package:flutter/material.dart';
 
 import '../app_theme_date.dart';
@@ -66,7 +68,7 @@ void showMessage(BuildContext context, String title, String message,
                             borderRadius: BorderRadius.circular(6))),
                     onPressed: () => Navigator.pop(context),
                     child: Text(
-                      'Đóng',
+                      AppStrings.of(context).close,
                       style: Theme.of(context)
                           .textTheme
                           .bodyText1!
@@ -75,4 +77,18 @@ void showMessage(BuildContext context, String title, String message,
           ],
         );
       });
+}
+
+String permissionToText(BuildContext context, String permission) {
+  switch (permission) {
+    case PermissionPickMedia.family:
+      return AppStrings.of(context).textPickMediaButtonFamily;
+    case PermissionPickMedia.friend:
+      return AppStrings.of(context).textPickMediaButtonFriend;
+    case PermissionPickMedia.onlyMe:
+      return AppStrings.of(context).textPickMediaButtonOnlyMe;
+
+    default:
+      return AppStrings.of(context).textPickMediaButtonFamily;
+  }
 }

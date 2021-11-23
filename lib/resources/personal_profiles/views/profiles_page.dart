@@ -1,9 +1,9 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/component_helpers.dart';
-import 'package:family_pet/resources/invite_relatives/views/invite_relatives_page.dart';
-import 'package:family_pet/resources/list_of_relatives/views/list_relatives_page.dart';
-import 'package:family_pet/resources/signup/views/signup_page.dart';
+import 'package:family_pet/general/constant/routes_name.dart';
+import 'package:family_pet/model/entity.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -49,20 +49,18 @@ class ProfileViewPage extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              color: AppThemeData.color_black_5,
-              child: ListTile(
-                minLeadingWidth: 0,
-                title: Text(
-                  'Chó Top',
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                subtitle: Text(
-                  '1 năm 7 tháng/ 11.02.2020',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                trailing: ComponentHelper.radius(isSelect: true, size: 16),
+            ListTile(
+              tileColor: AppThemeData.color_black_5,
+              minLeadingWidth: 0,
+              title: Text(
+                'Chó Top',
+                style: Theme.of(context).textTheme.bodyText1,
               ),
+              subtitle: Text(
+                '1 năm 7 tháng/ 11.02.2020',
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              trailing: ComponentHelper.radius(isSelect: true, size: 16),
             ),
             const Divider(
               color: AppThemeData.color_black_10,
@@ -124,7 +122,7 @@ class ProfileViewPage extends StatelessWidget {
               color: AppThemeData.color_black_5,
               child: ListTile(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute<void>(builder: (BuildContext context)=>ListRelativesPage()));
+                  Navigator.pushNamed(context, RoutesName.listRelativesPage);
                 },
                 minLeadingWidth: 0,
                 title: Text(
@@ -140,7 +138,7 @@ class ProfileViewPage extends StatelessWidget {
               color: AppThemeData.color_black_5,
               child: ListTile(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute<void>(builder: (BuildContext context)=>const InviteRelativePage()));
+                  Navigator.pushNamed(context, RoutesName.inviteRelativesPage);
                 },
                 minLeadingWidth: 0,
                 leading: const Icon(
@@ -169,7 +167,7 @@ class ProfileViewPage extends StatelessWidget {
               color: AppThemeData.color_black_5,
               child: ListTile(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute<void>(builder: (BuildContext context)=>const SignUpPage()));
+                  Navigator.pushNamed(context, RoutesName.signUpPage);
                 },
                 minLeadingWidth: 0,
                 leading: const Icon(
@@ -236,6 +234,22 @@ class ProfileViewPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget petTile(BuildContext context , Pet pet) {
+    return ListTile(
+      tileColor: AppThemeData.color_black_5,
+      minLeadingWidth: 0,
+      title: Text(
+        pet.name!,
+        style: Theme.of(context).textTheme.bodyText1,
+      ),
+      subtitle: Text(
+        '1 năm 7 tháng/ 11.02.2020',
+        style: Theme.of(context).textTheme.headline5,
+      ),
+      trailing: ComponentHelper.radius(isSelect: true, size: 16),
     );
   }
 }

@@ -10,6 +10,7 @@ part 'pick_media_state.dart';
 
 class PickMediaCubit extends Cubit<PickMediaState> {
   PickMediaCubit()
+      // ignore: prefer_const_literals_to_create_immutables
       : super(PickMediaInitial(<File>[], PermissionPickMedia.family));
 
   final MediaRepository mediaRepository = MediaRepository();

@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:family_pet/general/api_handler.dart';
@@ -7,9 +6,7 @@ import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/model/enum.dart';
 import 'package:family_pet/repository/media_repository.dart';
 import 'package:gallery_saver/gallery_saver.dart';
-import 'package:http/http.dart';
 import 'package:meta/meta.dart';
-import 'package:path_provider/path_provider.dart';
 
 part 'image_details_state.dart';
 

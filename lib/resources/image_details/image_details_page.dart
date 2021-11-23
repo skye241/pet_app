@@ -1,3 +1,4 @@
+import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/component_helpers.dart';
 import 'package:family_pet/general/components/permission_picker/permission_picker.dart';
@@ -45,10 +46,10 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
           Navigator.pop(context);
           return false;
         } else if (current is ImageDetailsStateSuccess) {
-          showMessage(context, 'Thông báo', 'Xóa thành công');
+          showMessage(context, AppStrings.of(context).notice, 'Xóa thành công');
           return false;
         } else if (current is ImageDetailsStateFail) {
-          showMessage(context, 'Thông báo', current.message);
+          showMessage(context, AppStrings.of(context).notice, current.message);
           return false;
         } else
           return true;
@@ -170,7 +171,7 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
                     child: const Icon(Icons.close)),
                 Expanded(
                   child: Text(
-                    'Thay đổi phạm vi hình ảnh',
+                    AppStrings.of(context).textChangeMediaPermission,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline3,
                   ),
@@ -192,7 +193,7 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
                   Navigator.pop(context);
                   cubit.deleteMedia(state.media);
                 },
-                child: Text('Xóa ảnh',
+                child: Text(AppStrings.of(context).textDeleteMedia,
                     style: Theme.of(context)
                         .textTheme
                         .button!
@@ -205,7 +206,7 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
                   Navigator.pop(context);
                   cubit.saveImage(state.media);
                 },
-                child: Text('Lưu ảnh',
+                child: Text(AppStrings.of(context).textSaveMediaToDevice,
                     style: Theme.of(context)
                         .textTheme
                         .button!
@@ -224,7 +225,7 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
                             height: 50,
                             child: Center(
                                 child: Text(
-                              'Lưu lại',
+                              AppStrings.of(context).textSaveMediaChanges,
                               style: Theme.of(context)
                                   .textTheme
                                   .button!

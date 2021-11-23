@@ -1,7 +1,7 @@
 import 'package:family_pet/general/app_theme_date.dart';
+import 'package:family_pet/general/components/expandedWidget.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/resources/register_pet/select_pet_type/select_pet_type_cubit.dart';
-import 'package:family_pet/general/components/expandedWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

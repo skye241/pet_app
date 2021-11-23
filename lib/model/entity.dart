@@ -349,9 +349,8 @@ class Comment {
           media: Media.fromMap(data[Constant.media] as Map<String, dynamic>),
           content: getString(Constant.content, data),
           user: User.fromMap(data[Constant.user] as Map<String, dynamic>),
-        userName: getString(Constant.userName, data),
-        avatar: getString(Constant.avatar, data)
-      );
+          userName: getString(Constant.userName, data),
+          avatar: getString(Constant.avatar, data));
   }
 
   Map<String, dynamic> toMap() {
@@ -368,4 +367,41 @@ class Comment {
   final String? content;
   final String? userName;
   final String? avatar;
+}
+
+class ShareEntity {
+  ShareEntity({this.media, this.accepted, this.albumName});
+
+  factory ShareEntity.fromMap(Map<String, dynamic>? data) {
+    if (data == null) {
+      return ShareEntity();
+    } else
+      return ShareEntity(
+          media: Media.fromMap(data[Constant.media] as Map<String, dynamic>),
+          accepted: getBool(Constant.message, data),
+          albumName: getString(Constant.albumName, data));
+  }
+
+  final Media? media;
+  final bool? accepted;
+  final String? albumName;
+}
+
+class Relationship {
+  Relationship({this.user, this.target, this.type});
+
+  final User? user;
+  final User? target;
+  final String? type;
+
+  factory Relationship.fromMap(Map<String, dynamic>? data) {
+    if (data == null) {
+      return Relationship();
+    } else
+      return Relationship(
+        user: User.fromMap(data[Constant.user] as Map<String, dynamic>),
+        target: User.fromMap(data[Constant.target] as Map<String, dynamic>),
+        type: getString(Constant.relationType, data),
+      );
+  }
 }

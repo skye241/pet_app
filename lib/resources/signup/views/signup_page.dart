@@ -84,11 +84,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     keyboardType: TextInputType.emailAddress,
                     validator: (String? value) {
                       if (value == null && value!.isEmpty) {
-                        return 'Vui lòng nhập email';
+                        return AppStrings.of(context).textSignUpErrorEmptyEmail;
                       } else if (!RegExp(
                               r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
                           .hasMatch(value)) {
-                        return 'Vui lòng nhập email đúng định dạng';
+                        return AppStrings.of(context)
+                            .textSignUpErrorWrongFormatEmail;
                       } else
                         return null;
                     },

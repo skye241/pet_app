@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:family_pet/general/app_theme_date.dart';
+import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/resources/album/views/album_page.dart';
 import 'package:family_pet/resources/interests/views/interests_page.dart';
 import 'package:family_pet/resources/news/views/news_page.dart';
 import 'package:family_pet/resources/personal_profiles/views/profiles_page.dart';
-import 'package:family_pet/resources/pick_media/views/pick_media_page.dart';
 import 'package:family_pet/resources/top_page/cubit/top_screen_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,17 +65,7 @@ class _TopScreenPageState extends State<TopScreenPage> {
       transform: Matrix4.identity()..translate(0.0, -15.2),
       child: InkWell(
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute<void>(
-                  builder: (BuildContext context) => PickMediaPage(
-                        onChangePicker:
-                            (Set<File> listSet, String permissionPickMedia) {
-                          cubit.update(
-                              state.index, listSet, permissionPickMedia);
-                        },
-                      ))).then((_) =>
-              cubit.uploadMedia(state.images, state.permission, state.index));
+          Navigator.pushNamed(context, RoutesName.pickMediaPage);
         },
         child: Container(
           decoration: const BoxDecoration(

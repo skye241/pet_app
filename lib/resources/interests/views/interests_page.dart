@@ -48,9 +48,10 @@ class _InterestsPageState extends State<InterestsPage> {
               } else
                 return Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: const <Widget>[
+                  children: <Widget>[
                     Center(
-                      child: Text('Chưa có ảnh yêu thích nào'),
+                      child:
+                          Text(AppStrings.of(context).textEmptyFavouriteMedia),
                     ),
                   ],
                 );
@@ -108,7 +109,7 @@ class _InterestsPageState extends State<InterestsPage> {
         Container(
           width: double.maxFinite,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(const Radius.circular(6.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(6.0)),
             image: DecorationImage(
                 image: NetworkImage(
                   Url.baseURLImage + media.file!,

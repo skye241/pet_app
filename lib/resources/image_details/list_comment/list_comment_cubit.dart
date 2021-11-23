@@ -42,7 +42,7 @@ class ListCommentCubit extends Cubit<ListCommentState> {
               avatar: ''));
       emit(ListCommentStateCallBack(listComment.length));
       emit(ListCommentInitial(listComment));
-    } on APIException catch (e) {
+    } on APIException {
       emit(ListCommentInitial(listComment));
     }
   }

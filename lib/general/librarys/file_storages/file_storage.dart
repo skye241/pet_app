@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:photo_manager/photo_manager.dart';
 
 class FileStorage {
   // static List<String> listTypeFileVideo = [".mp4",".gif",".wmv",".hevc",".avi",".mov",".f4v",".mkv",".ts",".3gp",".mpeg-2",".webm",".vob",".flv",".divx"];
