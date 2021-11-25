@@ -7,7 +7,7 @@ class AppThemeData {
   static const Color color_main = Color(0xff20A547);
   static const Color color_error = Color(0xffFB4E4E);
   static const Color color_warning = Color(0xffF6A609);
-  static const Color color_successs = Color(0xff2AC769);
+  static const Color color_success = Color(0xff2AC769);
   static const Color color_black_100 = Color(0xff25282B);
   static const Color color_black_80 = Color(0xff52575C);
   static const Color color_black_60 = Color(0xffA0A4A8);
@@ -146,7 +146,7 @@ class AppThemeData {
               height: 1.5),
           headline2: GoogleFonts.roboto(
               color: color_black_100, // Tick
-              fontWeight: FontWeight.w900,
+              fontWeight: FontWeight.w500,
               fontSize: 24,
               height: 1.5),
           headline3: GoogleFonts.roboto(

@@ -56,8 +56,7 @@ class MediaRepository {
     final List<Media> listMedia = <Media>[];
     if (response.isOK ?? false) {
       if (response.data != null) {
-        ///TODO: SAU SỬA LẠI CHÍNH TẢ
-        for (final dynamic item in response.data!['resut'] as List<dynamic>) {
+        for (final dynamic item in response.data![Constant.result] as List<dynamic>) {
           listMedia.add(Media.fromMap(item as Map<String, dynamic>)
               .copyWith(isLiked: true));
         }

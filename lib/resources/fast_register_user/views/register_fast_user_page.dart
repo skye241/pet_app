@@ -1,6 +1,7 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/component_helpers.dart';
+import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/tools/utils.dart';
 import 'package:family_pet/resources/fast_register_user/register_fast_cubit.dart';
@@ -31,7 +32,9 @@ class _RegisterFastUserPageState extends State<RegisterFastUserPage> {
           } else if (state is RegisterFastStateDismissPopUpLoading) {
             Navigator.pop(context);
           } else if (state is RegisterFastStateSuccess) {
-            Navigator.pushReplacementNamed(context, RoutesName.registerPet);
+            Navigator.pushReplacementNamed(context, RoutesName.registerPet, arguments: <String, dynamic>{
+              Constant.isFirstStep: true
+            });
           } else if (state is RegisterFastStateFail) {
             showMessage(context, AppStrings.of(context).notice, state.message);
           }
@@ -141,7 +144,7 @@ class _RegisterFastUserPageState extends State<RegisterFastUserPage> {
                   height: 18,
                 ),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.pushNamed(context, RoutesName.signInPage),
                     style: ElevatedButton.styleFrom(
                         primary: AppThemeData.color_black_40),
                     child: Container(

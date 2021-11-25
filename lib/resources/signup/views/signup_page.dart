@@ -1,13 +1,19 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/component_helpers.dart';
+import 'package:family_pet/general/constant/constant.dart';
+import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/tools/utils.dart';
+import 'package:family_pet/main.dart';
+import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/resources/signup/sign_up_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+  const SignUpPage({Key? key, required this.userInfo}) : super(key: key);
+
+  final UserInfo userInfo;
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -20,6 +26,16 @@ class _SignUpPageState extends State<SignUpPage> {
   final FocusNode emailNode = FocusNode();
   final FocusNode passwordNode = FocusNode();
   final GlobalKey<FormState> formKey = GlobalKey();
+
+  @override
+  void initState() {
+    if (widget.userInfo.user!.email!.isNotEmpty) {
+      cubit.updateEnable(false);
+      emailController.text = widget.userInfo.user!.email!;
+      passwordController.text = '12345678';
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +62,10 @@ class _SignUpPageState extends State<SignUpPage> {
           } else if (state is SignUpDismissPopUpLoading) {
             Navigator.pop(context);
           } else if (state is SignUpSuccess) {
-          } else if (state is SignUpFail) {}
+            showPopUpEmail(context);
+          } else if (state is SignUpFail) {
+            showMessage(context, AppStrings.of(context).notice, state.message);
+          }
         });
   }
 
@@ -80,6 +99,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   ComponentHelper.textField(
                     focusNode: emailNode,
+                    enabled: state.allowEmail,
+                    fillColor: state.allowEmail
+                        ? Colors.white
+                        : AppThemeData.color_black_40,
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
                     validator: (String? value) {
@@ -104,15 +127,19 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   ComponentHelper.textField(
                       focusNode: passwordNode,
-                      obscureText: state.showPassword,
+                      enabled: state.allowEmail,
+                      obscureText: state.obscureText,
                       controller: passwordController,
+                      fillColor: state.allowEmail
+                          ? Colors.white
+                          : AppThemeData.color_primary_90,
                       hintText: AppStrings.of(context).textSignUpLabelPassword,
                       label: AppStrings.of(context).textSignUpLabelPassword,
                       suffix: IconButton(
                           onPressed: () =>
-                              cubit.showPassword(state.showPassword),
+                              cubit.showPassword(state.obscureText),
                           icon: Icon(
-                            state.showPassword
+                            state.obscureText
                                 ? Icons.visibility_off_outlined
                                 : Icons.remove_red_eye_outlined,
                             color: AppThemeData.color_black_80,
@@ -121,7 +148,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 33,
                   ),
                   ElevatedButton(
-                    onPressed: _eventSignUp,
+                    onPressed: state.allowEmail ? _eventSignUp : null,
                     child: Container(
                       alignment: Alignment.center,
                       padding: const EdgeInsets.symmetric(vertical: 11.54),
@@ -177,6 +204,79 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
+  }
+
+  void showPopUpEmail(BuildContext context) {
+    showDialog<dynamic>(
+        context: context,
+        builder: (BuildContext context) {
+          final bool isJapan = prefs!.getString(Constant.language) == 'ja';
+          return AlertDialog(
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 36, vertical: 32),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Image.asset(
+                    'assets/images/img_mail.png',
+                    scale: 2,
+                  ),
+                  Container(
+                    height: 24,
+                  ),
+                  Text(
+                    AppStrings.of(context).textSignUpPopUpTitle,
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
+                  Container(
+                    height: 24,
+                  ),
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                        text: isJapan
+                            ? '「${emailController.text}」'
+                            : AppStrings.of(context)
+                                    .textSignUpPopUpContentBegin +
+                                '\n',
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                            fontWeight:
+                                isJapan ? FontWeight.bold : FontWeight.w400),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: isJapan
+                                  ? '' +
+                                      AppStrings.of(context)
+                                          .textSignUpPopUpContentBegin +
+                                      '\n'
+                                  : '' + emailController.text,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(
+                                      fontWeight: !isJapan
+                                          ? FontWeight.bold
+                                          : FontWeight.w400)),
+                          TextSpan(
+                              text: ' ' +
+                                  AppStrings.of(context)
+                                      .textSignUpPopUpContentEnd,
+                              style: Theme.of(context).textTheme.bodyText2!),
+                        ]),
+                  ),
+                  Container(
+                    height: 24,
+                  ),
+                  SizedBox(
+                      height: 50,
+                      width: double.maxFinite,
+                      child: ElevatedButton(
+                          onPressed: () => Navigator.pushReplacementNamed(
+                              context, RoutesName.signInPage),
+                          child: const Text('OK')))
+                ],
+              ));
+        });
   }
 
   void _eventSignUp() {

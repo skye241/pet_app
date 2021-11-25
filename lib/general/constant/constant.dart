@@ -47,4 +47,11 @@ class Constant {
   static const String relationType = 'relation_type';
   static const String target = 'target';
   static const String language = 'language';
+  static const String targetId = 'target_id';
+  static const String friends = 'friends';
+  static const String familyMembers = 'family_members';
+  static const String isFirstStep = 'is_first_step';
+  static const String petId = 'pet_id';
+  static const String userInfo = 'userinfo';
+  static const String isActive = 'is_active';
 }

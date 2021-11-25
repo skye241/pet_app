@@ -85,7 +85,7 @@ class _AppStringsVn extends AppStrings {
   String get textSubLabelAlbumEmpty => 'Tải ảnh lên ngay nào!';
 
   @override
-  String get textTitleAlbum => 'Chó, mèo';
+  String get textTitleAlbum => 'Album';
 
   @override
   String get textLabelEmptyNews => 'Hiện tại chưa có thông báo';
@@ -167,7 +167,7 @@ class _AppStringsVn extends AppStrings {
 
   @override
   String get textInviteRelativesLabelMain =>
-      'Gửi lời mời tới gia đình và bạn bè';
+      'Gửi lời mời tới gia đình & bạn bè';
 
   @override
   String get textInviteRelativesTitle => 'Mời người quen';
@@ -212,7 +212,7 @@ class _AppStringsVn extends AppStrings {
   String get textPickMediaContinue => 'Tiếp tục';
 
   @override
-  String get textPickMediaLabelMonth => 'Tháng';
+  String get textPickMediaLabelMonth => 'Tháng ';
 
   @override
   String get textPickMediaButtonOnlyMe => 'Chỉ mình tôi';
@@ -278,7 +278,7 @@ class _AppStringsVn extends AppStrings {
   String get retry => 'Thử lại';
 
   @override
-  String get month => 'Tháng';
+  String get month => 'Tháng ';
 
   @override
   String get textChangeMediaPermission => 'Thay đổi phạm vi hình ảnh';
@@ -321,4 +321,32 @@ class _AppStringsVn extends AppStrings {
   @override
   String get textSignUpErrorWrongFormatEmail =>
       'Vui lòng nhập email đúng định dạng';
+
+  @override
+  String get year => 'năm';
+
+  @override
+  String get textButtonSend => 'Gửi';
+
+  @override
+  String get textButtonWriteComment => 'Viết Comment';
+
+  @override
+  String get textEmptyComment => 'Không có bình luận nào';
+
+  @override
+  String get textSignUpPopUpContentBegin => 'Vui lòng vào địa chỉ Email';
+
+  @override
+  String get textSignUpPopUpContentEnd => 'để xác nhận';
+
+  @override
+  String get textSignUpPopUpTitle => 'Đã gửi Email!';
+
+  @override
+  String get successDelete => 'Cập nhật thành công';
+
+  @override
+  String get successUpdate => 'Xóa thành công';
+
 }

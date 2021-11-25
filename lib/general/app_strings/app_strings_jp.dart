@@ -2,395 +2,350 @@ part of languages;
 
 class _AppStringsJp extends AppStrings {
   @override
-  String get appName => 'App Name EN';
+  String get appName => 'ファミペ';
 
   @override
-  String get textLabelIntroduceDemo => 'App Name EN';
-  //
-  // @override
-  // String get textTmp => 'App Name EN';
+  String get textLabelIntroduceDemo =>
+      'ファミペ (ứng dụng chia sẻ ảnh thú cưng gia đình)';
 
   @override
-  String get titleRegister => 'App Name EN';
+  String get titleRegister => '';
 
   @override
-  String get textTitleRegisterUser => 'App name EN';
+  String get textTitleRegisterUser => '新規登録';
 
   @override
-  String get textLabelFieldNameUser => 'App name EN';
+  String get textLabelFieldNameUser => 'ユーザー名';
 
   @override
-  String get textSubLabelFieldNameUser => 'App name EN';
+  String get textSubLabelFieldNameUser => ' (後で変更できます)';
 
   @override
-  String get textButtonContinue => 'App name EN';
+  String get textButtonContinue => '登録する';
 
   @override
-  String get textButtonHadAccount => 'App name EN';
+  String get textButtonHadAccount => 'すでに登録済みの方はこちら';
 
   @override
-  String get textPolicyProtected => 'App name EN)';
+  String get textPolicyProtected => 'プライバシーポリシー';
 
   @override
-  String get textRuleService => 'App name EN';
+  String get textRuleService => '利用規約';
 
   @override
-  String get textButtonRegisterAndContinue => 'App name EN';
+  String get textButtonRegisterAndContinue => '登録して次へ';
 
   @override
-  String get textLabelFieldBirthday => 'App name EN';
+  String get textLabelFieldBirthday => '誕生日';
 
   @override
-  String get textLabelFieldNameAlbum => 'App name EN';
+  String get textLabelFieldNameAlbum => 'アルバム';
 
   @override
-  String get textLabelFieldNamePet => 'App name EN';
+  String get textLabelFieldNamePet => 'ペットの名前';
 
   @override
-  String get textLabelFieldSexual => 'App name EN';
+  String get textLabelFieldSexual => '性別';
 
   @override
-  String get textLabelFieldTypePet => 'App name EN';
+  String get textLabelFieldTypePet => '種族';
 
   @override
-  String get textSkipRegisterPet => 'App name EN';
+  String get textSkipRegisterPet => 'スキップ';
 
   @override
-  String get textTitleRegisterPet => 'App name EN';
+  String get textTitleRegisterPet => 'ペットの登録';
 
   @override
-  String get textSubLabelFieldNamePet => 'App name EN';
+  String get textSubLabelFieldNamePet => ' (後で変更できます)';
 
   @override
-  String get textLabelChooseFemale => 'App name EN';
+  String get textLabelChooseFemale => 'メス';
 
   @override
-  String get textLabelChooseMale => 'App name EN';
+  String get textLabelChooseMale => 'オス';
 
   @override
-  String get textButtonChooseAPicture => 'App name EN';
+  String get textButtonChooseAPicture => '登録して次へ';
 
   @override
-  String get textButtonSkipChooseAPicture => 'App name EN';
+  String get textButtonSkipChooseAPicture => 'スキップ';
 
   @override
-  String get textTitleAddAPicture => 'App name EN';
+  String get textTitleAddAPicture => '写真を追加しましょう！';
 
   @override
-  // TODO: implement TEXT_LABEL_ALBUM_EMPTY
-  String get textLabelAlbumEmpty => throw UnimplementedError();
+  String get textLabelAlbumEmpty => 'まだ写真がありません';
 
   @override
-  // TODO: implement TEXT_SUB_LABEL_ALBUM_EMPTY
-  String get textSubLabelAlbumEmpty => throw UnimplementedError();
+  String get textSubLabelAlbumEmpty => '今すぐ写真をアップロードしよう！';
 
   @override
-  // TODO: implement TEXT_TITLE_ALBUM
-  String get textTitleAlbum => throw UnimplementedError();
+  String get textTitleAlbum => 'いぬ, ねこ';
 
   @override
-  // TODO: implement TEXT_LABEL_EMPTY_NEWS
-  String get textLabelEmptyNews => throw UnimplementedError();
+  String get textLabelEmptyNews => 'まだお知らせがありません';
 
   @override
-  // TODO: implement TEXT_TITLE_LIKE
-  String get textTitleInterests => throw UnimplementedError();
+  String get textTitleInterests => 'お気に入り';
 
   @override
-  // TODO: implement TEXT_TITLE_NEWS
-  String get textTitleNews => throw UnimplementedError();
+  String get textTitleNews => 'お知らせ';
 
   @override
-  // TODO: implement TEXT_TITLE_PICK_IMAGE_VIDEO
-  String get textPickMediaTitle => throw UnimplementedError();
+  String get textPickMediaTitle => 'ここからアップロード！';
 
   @override
-  // TODO: implement TEXT_PROFILE_BUTTON_ADD
-  String get textProfileButtonAddPet => throw UnimplementedError();
+  String get textProfileButtonAddPet => 'ペットを追加する';
 
   @override
-  // TODO: implement TEXT_PROFILE_BUTTON_ADD_ACCOUNT
-  String get textProfileButtonAddAccount => throw UnimplementedError();
+  String get textProfileButtonAddAccount => 'アカウント登録';
 
   @override
-  // TODO: implement TEXT_PROFILE_BUTTON_ADD_RELATIVES
-  String get textProfileButtonAddRelatives => throw UnimplementedError();
+  String get textProfileButtonAddRelatives => '招待する';
 
   @override
-  // TODO: implement TEXT_PROFILE_BUTTON_CHANGE_LANGUAGES
-  String get textProfileButtonChangeLanguages => throw UnimplementedError();
+  String get textProfileButtonChangeLanguages => '言語をベトナム語に変更する';
 
   @override
-  // TODO: implement TEXT_PROFILE_BUTTON_NOTIFICATION
-  String get textProfileButtonNotification => throw UnimplementedError();
+  String get textProfileButtonNotification => 'お知らせ';
 
   @override
-  // TODO: implement TEXT_PROFILE_HAD_LINK_ACCOUNT
-  String get textProfileHadLinkAccount => throw UnimplementedError();
+  String get textProfileHadLinkAccount => '登録済みのアカウント';
 
   @override
-  // TODO: implement TEXT_PROFILE_LABEL_ACCOUNT
-  String get textProfileLabelAccount => throw UnimplementedError();
+  String get textProfileLabelAccount => 'アカウント';
 
   @override
-  // TODO: implement TEXT_PROFILE_LABEL_RELATIVES
-  String get textProfileLabelRelatives => throw UnimplementedError();
+  String get textProfileLabelRelatives => 'あなたの友達';
 
   @override
-  // TODO: implement TEXT_PROFILE_LABEL_SETTINGS
-  String get textProfileLabelSettings => throw UnimplementedError();
+  String get textProfileLabelSettings => '設定';
 
   @override
-  // TODO: implement TEXT_PROFILE_LIST_RELATIVES
-  String get textProfileListRelatives => throw UnimplementedError();
+  String get textProfileListRelatives => '友達';
 
   @override
-  // TODO: implement TEXT_PROFILE_NOT_LINK_ACCOUNT
-  String get textProfileNotLinkAccount => throw UnimplementedError();
+  String get textProfileNotLinkAccount => '未登録のアカウント';
 
   @override
-  // TODO: implement TEXT_PROFILE_POLICY_AND_PROTECTED
-  String get textProfileButtonPolicyAndProtected => throw UnimplementedError();
+  String get textProfileButtonPolicyAndProtected => 'プライバシーポリシー ';
 
   @override
-  // TODO: implement TEXT_PROFILE_TITLE
-  String get textProfileTitle => throw UnimplementedError();
+  String get textProfileTitle => '個人設定';
 
   @override
-  // TODO: implement TEXT_PROFILE_TITLE_PROFILE
-  String get textProfileLabelPet => throw UnimplementedError();
+  String get textProfileLabelPet => 'ペット';
 
   @override
-  // TODO: implement TEXT_LISTRELATIVES_LABEL_FAMILY
-  String get textListRelativesLabelFamily => throw UnimplementedError();
+  String get textListRelativesLabelFamily => '家族';
 
   @override
-  // TODO: implement TEXT_LISTRELATIVES_LABEL_FRIEND
-  String get textListRelativesLabelFriend => throw UnimplementedError();
+  String get textListRelativesLabelFriend => '友人';
 
   @override
-  // TODO: implement TEXT_LISTRELATIVES_TITLE
-  String get textListRelativesTitle => throw UnimplementedError();
+  String get textListRelativesTitle => '友達';
 
   @override
-  // TODO: implement TEXT_INVITERELATIVES_ALBUM
-  String get textInviteRelativesAlbum => throw UnimplementedError();
+  String get textInviteRelativesAlbum => 'アルバム';
 
   @override
-  // TODO: implement TEXT_INVITERELATIVES_BUTTON_COPY_URL
-  String get textInviteRelativesButtonCopyUrl => throw UnimplementedError();
+  String get textInviteRelativesButtonCopyUrl => '招待URLをコピー';
 
   @override
-  // TODO: implement TEXT_INVITERELATIVES_BUTTON_INVITE_FAMILY
-  String get textInviteRelativesButtonInviteFamily =>
-      throw UnimplementedError();
+  String get textInviteRelativesButtonInviteFamily => '家族を招待';
 
   @override
-  // TODO: implement TEXT_INVITERELATIVES_BUTTON_INVITE_FRIEND
-  String get textInviteRelativesButtonInviteFriend =>
-      throw UnimplementedError();
+  String get textInviteRelativesButtonInviteFriend => '友人を招待';
 
   @override
-  // TODO: implement TEXT_INVITERELATIVES_BUTTON_SHARE
-  String get textInviteRelativesButtonShare => throw UnimplementedError();
+  String get textInviteRelativesButtonShare => '共有';
 
   @override
-  // TODO: implement TEXT_INVITERELATIVES_LABEL_MAIN
-  String get textInviteRelativesLabelMain => throw UnimplementedError();
+  String get textInviteRelativesLabelMain =>
+      '家族・友人を招待しよう！';
 
   @override
-  // TODO: implement TEXT_INVITERELATIVES_TITLE
-  String get textInviteRelativesTitle => throw UnimplementedError();
+  String get textInviteRelativesTitle => '招待する';
 
   @override
-  // TODO: implement TEXT_SIGNIN_BUTTON_SIGNUP
-  String get textSignInButtonSignIn => throw UnimplementedError();
+  String get textSignInButtonSignIn => 'ログイン';
 
   @override
-  // TODO: implement TEXT_SIGNIN_LABEL_EMAIL
-  String get textSignInLabelEmail => throw UnimplementedError();
+  String get textSignInLabelEmail => 'メールアドレス';
 
   @override
-  // TODO: implement TEXT_SIGNIN_LABEL_OTHER_REGISTER
-  String get textSignInLabelOtherRegister => throw UnimplementedError();
+  String get textSignInLabelOtherRegister => 'または以下にログインして';
 
   @override
-  // TODO: implement TEXT_SIGNIN_LABEL_PASSWORD
-  String get textSignInLabelPassword => throw UnimplementedError();
+  String get textSignInLabelPassword => 'パスワード';
 
   @override
-  // TODO: implement TEXT_SIGNIN_TITLE
-  String get textSignInTitle => throw UnimplementedError();
+  String get textSignInTitle => 'ログイン';
 
   @override
-  // TODO: implement TEXT_SIGNUP_BUTTON_SIGNUP
-  String get textSignUpButtonSignUp => throw UnimplementedError();
+  String get textSignUpButtonSignUp => '登録する';
 
   @override
-  // TODO: implement TEXT_SIGNUP_LABEL_EMAIL
-  String get textSignUpLabelEmail => throw UnimplementedError();
+  String get textSignUpLabelEmail => 'メールアドレス';
 
   @override
-  // TODO: implement TEXT_SIGNUP_LABEL_OTHER_REGISTER
-  String get textSignUpLabelOtherRegister => throw UnimplementedError();
+  String get textSignUpLabelOtherRegister => 'または以下に登録して';
 
   @override
-  // TODO: implement TEXT_SIGNUP_LABEL_PASSWORD
-  String get textSignUpLabelPassword => throw UnimplementedError();
+  String get textSignUpLabelPassword => 'パスワード';
 
   @override
-  // TODO: implement TEXT_SIGNUP_TITLE
-  String get textSignUpTitle => throw UnimplementedError();
+  String get textSignUpTitle => 'アカウント登録';
 
   @override
-  // TODO: implement TEXT_PICKMEDIA_BUTTON_FAMILY
-  String get textPickMediaButtonFamily => throw UnimplementedError();
+  String get textPickMediaButtonFamily => '家族を招待';
 
   @override
-  // TODO: implement TEXT_PICKMEDIA_BUTTON_FRIEND
-  String get textPickMediaButtonFriend => throw UnimplementedError();
+  String get textPickMediaButtonFriend => '友人を招待';
 
   @override
-  // TODO: implement TEXT_PICKMEDIA_CONTINUE
-  String get textPickMediaContinue => throw UnimplementedError();
+  String get textPickMediaContinue => '次へ';
 
   @override
-  // TODO: implement TEXT_PICKMEDIA_LABEL_MONTH
-  String get textPickMediaLabelMonth => throw UnimplementedError();
+  String get textPickMediaLabelMonth => '月';
 
   @override
-  // TODO: implement TEXT_PICKMEDIA_ONLY_ME
-  String get textPickMediaButtonOnlyMe => throw UnimplementedError();
+  String get textPickMediaButtonOnlyMe => '自分のみ';
 
   @override
-  // TODO: implement invitationButtonAccept
-  String get invitationButtonAccept => throw UnimplementedError();
+  String get invitationButtonAccept => '登録する';
 
   @override
-  // TODO: implement invitationButtonCancel
-  String get invitationButtonCancel => throw UnimplementedError();
+  String get invitationButtonCancel => 'キャンセル';
 
   @override
-  // TODO: implement invitationButtonReject
-  String get invitationButtonReject => throw UnimplementedError();
+  String get invitationButtonReject => 'キャンセル';
 
   @override
-  // TODO: implement invitationButtonSuccess
-  String get invitationButtonSuccess => throw UnimplementedError();
+  String get invitationButtonSuccess => '今すぐアルバムを見る';
 
   @override
-  // TODO: implement invitationExpired
-  String get invitationExpired => throw UnimplementedError();
+  String get invitationExpired => 'アルバムへのリンクの有効期限 \n が切れています';
 
   @override
-  // TODO: implement invitationQuestion
-  String get invitationQuestion => throw UnimplementedError();
+  String get invitationQuestion => '友達として登録しますか？';
 
   @override
-  // TODO: implement invitationSuccess
-  String get invitationSuccess => throw UnimplementedError();
+  String get invitationSuccess => 'アルバムへようこそ';
 
   @override
-  // TODO: implement invitationTitle
-  String get invitationTitle => throw UnimplementedError();
+  String get invitationTitle => '招待';
 
   @override
-  // TODO: implement notice
-  String get notice => throw UnimplementedError();
+  String get notice => 'お知らせ';
 
   @override
-  // TODO: implement firstPageContent
-  String get firstPageContent => throw UnimplementedError();
+  String get firstPageTitle => '見やすく整理';
 
   @override
-  // TODO: implement firstPageTitle
-  String get firstPageTitle => throw UnimplementedError();
+  String get firstPageContent =>
+      '自動で日付順にアルバム化！スッキリ見やすい ';
 
   @override
-  // TODO: implement secondPageContent
-  String get secondPageContent => throw UnimplementedError();
+  String get secondPageTitle => '無制限';
 
   @override
-  // TODO: implement secondPageTitle
-  String get secondPageTitle => throw UnimplementedError();
+  String get secondPageContent =>
+      '容量無制限・高画質でアップロード';
 
   @override
-  // TODO: implement thirdPageContent
-  String get thirdPageContent => throw UnimplementedError();
+  String get thirdPageContent =>
+      '無料で利用することが出来、家族だけでなく友達にも共有して楽しみ';
 
   @override
-  // TODO: implement thirdPageTitle
-  String get thirdPageTitle => throw UnimplementedError();
+  String get thirdPageTitle => '写真を簡単にシェアする';
 
   @override
-  // TODO: implement close
-  String get close => throw UnimplementedError();
+  String get close => '閉じる';
 
   @override
-  // TODO: implement errorMessagePermission
-  String get errorMessagePermission => throw UnimplementedError();
+  String get errorMessagePermission =>
+      'エラーが発生しました。しばらくしてからもう一度お試しください';
 
   @override
-  // TODO: implement errorMessageServer
-  String get errorMessageServer => throw UnimplementedError();
+  String get errorMessageServer => 'この操作を実行する権限がありません';
+  @override
+  String get retry => '再試行';
+
+  @override
+  String get month => '月';
+
+  @override
+  String get textChangeMediaPermission => '写真設定の編集';
+
+  @override
+  String get textDeleteMedia => 'この写真を削除';
+
+  @override
+  String get textErrorNameMessage => 'ユーザー名を入力してください';
+
+  @override
+  String get textSaveMediaChanges => '保存';
+
+  @override
+  String get textSaveMediaToDevice => 'カメラロールに保存';
+
+  @override
+  String get textEmptyFavouriteMedia => 'お気に入りの写真はまだありません';
 
   @override
-  // TODO: implement retry
-  String get retry => throw UnimplementedError();
+  String get textEmptyShareMedia =>
+      'このユーザーに共有されている写真はありません';
 
   @override
-  // TODO: implement delete
-  String get delete => throw UnimplementedError();
+  String get textInvitationTitle => '私のアルバム';
 
   @override
-  // TODO: implement month
-  String get month => throw UnimplementedError();
+  String get delete => '削除';
 
   @override
-  // TODO: implement textChangeMediaPermission
-  String get textChangeMediaPermission => throw UnimplementedError();
+  String get textErrorEmptyPetName => 'ペットの名前を入力してください';
 
   @override
-  // TODO: implement textDeleteMedia
-  String get textDeleteMedia => throw UnimplementedError();
+  String get textErrorWrongDateFormat =>
+      '生年月日を正しい形式で入力してください';
 
   @override
-  // TODO: implement textEmptyFavouriteMedia
-  String get textEmptyFavouriteMedia => throw UnimplementedError();
+  String get textSignUpErrorEmptyEmail => 'メールアドレスを入力してください';
 
   @override
-  // TODO: implement textEmptyShareMedia
-  String get textEmptyShareMedia => throw UnimplementedError();
+  String get textSignUpErrorWrongFormatEmail =>
+      'メールアドレスを正しい形式で入力してください';
 
   @override
-  // TODO: implement textErrorEmptyPetName
-  String get textErrorEmptyPetName => throw UnimplementedError();
+  String get year => '歳';
 
   @override
-  // TODO: implement textErrorNameMessage
-  String get textErrorNameMessage => throw UnimplementedError();
+  String get textButtonSend => '送信';
 
   @override
-  // TODO: implement textErrorWrongDateFormat
-  String get textErrorWrongDateFormat => throw UnimplementedError();
+  String get textButtonWriteComment => 'コメントを残す';
 
   @override
-  // TODO: implement textInvitationTitle
-  String get textInvitationTitle => throw UnimplementedError();
+  String get textEmptyComment => 'まだコメントがありません';
 
+
+  @override
+  String get textSignUpPopUpTitle => '認証用のメールをお送りました';
+
   @override
-  // TODO: implement textSaveMediaChanges
-  String get textSaveMediaChanges => throw UnimplementedError();
+  String get textSignUpPopUpContentBegin => ' をアクセスして';
 
   @override
-  // TODO: implement textSaveMediaToDevice
-  String get textSaveMediaToDevice => throw UnimplementedError();
+  String get textSignUpPopUpContentEnd => '認証を完了させて下さい';
 
   @override
-  // TODO: implement textSignUpErrorEmptyEmail
-  String get textSignUpErrorEmptyEmail => throw UnimplementedError();
+  String get successDelete => '正常に更新されました';
 
   @override
-  // TODO: implement textSignUpErrorWrongFormatEmail
-  String get textSignUpErrorWrongFormatEmail => throw UnimplementedError();
+  String get successUpdate => '正常に削除されました';
+
+
+
 }

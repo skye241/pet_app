@@ -18,7 +18,7 @@ class _IntroducePageState extends State<IntroducePage> {
   final List<IntroduceEntity> listIntroduceEntity = <IntroduceEntity>[];
 
   @override
-  void initState() {
+  void didChangeDependencies() {
     listIntroduceEntity.addAll(<IntroduceEntity>[
       IntroduceEntity(
           id: 0,
@@ -36,7 +36,7 @@ class _IntroducePageState extends State<IntroducePage> {
           content: AppStrings.of(context).thirdPageContent,
           linkImage: 'assets/images/img_introduce_3.png'),
     ]);
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override

@@ -1,7 +1,12 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
+import 'package:family_pet/general/app_theme_date.dart';
+import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/constant/url.dart';
+import 'package:family_pet/general/tools/utils.dart';
 import 'package:family_pet/model/entity.dart';
+import 'package:family_pet/resources/invitation_page/invitation_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class InvitationPage extends StatefulWidget {
@@ -21,50 +26,162 @@ class InvitationPage extends StatefulWidget {
 }
 
 class _InvitationPageState extends State<InvitationPage> {
+  final InvitationCubit cubit = InvitationCubit();
+
   @override
-  Widget build(BuildContext context) {
-    return Container();
+  void initState() {
+    cubit.initEvent(widget.url);
+    super.initState();
   }
 
-  Widget _invitation(BuildContext context, ShareEntity link) {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Container(
-              height: 128,
-            ),
+        child: BlocBuilder<InvitationCubit, InvitationState>(
+          bloc: cubit,
+          buildWhen: (InvitationState prev, InvitationState current) {
+            if (current is InvitationStateShowPopUp) {
+              showPopUpLoading(context);
+              return false;
+            } else if (current is InvitationStateDismissPopUp) {
+              Navigator.pop(context);
+              return false;
+            } else
+              return true;
+          },
+          builder: (BuildContext context, InvitationState state) {
+            if (state is InvitationInitial) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const <Widget>[
+                  CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                        AppThemeData.color_primary_90),
+                  ),
+                ],
+              );
+            } else if (state is InvitationStateLoaded) {
+              return _invitation(
+                  context,
+                  state.media,
+                  AppStrings.of(context).invitationTitle,
+                  () => cubit.setRelationship(
+                      widget.url, widget.userId, widget.typeShare),
+                  AppStrings.of(context).invitationButtonAccept,
+                  state,
+                  question: AppStrings.of(context).invitationQuestion,
+                  secondaryButtonFunction: () => Navigator.pop(context),
+                  secondaryTitle:
+                      AppStrings.of(context).invitationButtonReject);
+            } else if (state is InvitationStateSuccessSetRela) {
+              return _invitation(
+                context,
+                cubit.defaultMedia,
+                AppStrings.of(context).invitationSuccess,
+                () {},
+                AppStrings.of(context).invitationButtonSuccess,
+                state,
+              );
+            } else if (state is InvitationStateFailSetRela) {
+              return _invitation(
+                context,
+                cubit.defaultMedia,
+                AppStrings.of(context).invitationExpired,
+                () => Navigator.popAndPushNamed(context, RoutesName.topPage),
+                AppStrings.of(context).invitationButtonCancel,
+                state,
+              );
+            } else
+              return Container();
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _invitation(
+      BuildContext context,
+      Media media,
+      String title,
+      VoidCallback activeButtonFunction,
+      String activeButtonTitle,
+      InvitationState state,
+      {VoidCallback? secondaryButtonFunction,
+      String? secondaryTitle,
+      String? question}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        children: <Widget>[
+          Container(
+            height: 128,
+          ),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.headline2!.copyWith(
+                color: state is InvitationStateLoaded
+                    ? null
+                    : state is InvitationStateSuccessSetRela
+                        ? AppThemeData.color_primary_90
+                        : AppThemeData.color_warning),
+          ),
+          Container(
+            height: 24,
+          ),
+          Text(
+            AppStrings.of(context).textTitleAlbum,
+            style: Theme.of(context).textTheme.headline3,
+          ),
+          Container(
+            height: 16,
+          ),
+          _itemFirst(context, media),
+          Container(
+            height: 32,
+          ),
+          if (question != null)
             Text(
-              AppStrings.of(context).invitationTitle,
-              style: Theme.of(context).textTheme.headline2,
-            ),
-            Container(
-              height: 24,
-            ),
-            Text(
-              link.albumName!.isNotEmpty ? link.albumName! : 'Album của bạn',
-              style: Theme.of(context).textTheme.headline3,
-            ),
-            Container(
-              height: 16,
-            ),
-            _itemFirst(context, link.media!),
-            Container(
-              height: 32,
-            ),
-            Text(
-              AppStrings.of(context).invitationQuestion,
+              question,
               style: Theme.of(context).textTheme.bodyText1,
             ),
-            Container(
-              height: 38,
+          Container(
+            height: 38,
+          ),
+          SizedBox(
+            height: 50,
+            width: double.maxFinite,
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                ),
+                onPressed: activeButtonFunction,
+                child: Text(
+                  activeButtonTitle,
+                )),
+          ),
+          Container(
+            height: 16,
+          ),
+          if (secondaryButtonFunction != null)
+            SizedBox(
+              height: 50,
+              width: double.maxFinite,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 16),
+                    primary: AppThemeData.color_black_10,
+                  ),
+                  onPressed: secondaryButtonFunction,
+                  child: Text(secondaryTitle ?? '',
+                      style: Theme.of(context)
+                          .textTheme
+                          .button!
+                          .copyWith(color: AppThemeData.color_black_80))),
             ),
-            ElevatedButton(
-                onPressed: () {},
-                child: Text(AppStrings.of(context).invitationButtonAccept))
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -87,7 +204,7 @@ class _InvitationPageState extends State<InvitationPage> {
               width: 220,
               height: 220,
               child: Image.network(
-                Url.baseURLImage + media.file!,
+               media.file!,
                 fit: BoxFit.cover,
               ),
             )

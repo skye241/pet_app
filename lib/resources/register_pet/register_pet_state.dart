@@ -12,7 +12,11 @@ class RegisterPetInitial extends RegisterPetState {
 
 class RegisterPetStateShowPopUpLoading extends RegisterPetState{}
 class RegisterPetStateShowDismissPopUpLoading extends RegisterPetState{}
-class RegisterPetStateSuccess extends RegisterPetState{}
+class RegisterPetStateSuccess extends RegisterPetState{
+  RegisterPetStateSuccess(this.pet);
+
+  final Pet pet;
+}
 class RegisterPetStateFail extends RegisterPetState{
   RegisterPetStateFail(this.message);
 

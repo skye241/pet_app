@@ -25,7 +25,7 @@ class PetRepository {
       throw APIException(response);
   }
 
-  Future<void> createPet(
+  Future<int> createPet(
       String? name, int? petTypeId, String? gender, String? birthday) async {
     final Map<String, dynamic> body = <String, dynamic>{};
     body[Constant.name] = name;
@@ -38,12 +38,12 @@ class PetRepository {
         await networkService.callPOST(url: Url.createPet, body: body);
 
     if (response.isOK ?? false) {
-      return;
+      return getInt(Constant.petId, response.data as Map<String, dynamic>);
     } else
       throw APIException(response);
   }
 
-  Future<List<Pet>>? getListPet() async {
+  Future<List<Pet>> getListPet() async {
     final List<Pet> listPet = <Pet>[];
 
     final APIResponse response = await networkService.callGET(Url.getListPet +

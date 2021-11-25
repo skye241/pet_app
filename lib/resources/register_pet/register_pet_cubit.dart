@@ -16,14 +16,21 @@ class RegisterPetCubit extends Cubit<RegisterPetState> {
     emit(RegisterPetInitial(gender, petType));
   }
 
-  Future<void> createPet(
-      String name, String gender, PetType petType, String birthday) async {
+  Future<void> createPet(String name, String gender, PetType petType,
+      String birthday) async {
     try {
       emit(RegisterPetStateShowPopUpLoading());
-      // final Pet? pet =
-          await petRepository.createPet(name, petType.id, gender, birthday);
+      final int petId =
+      await petRepository.createPet(name, petType.id, gender, birthday);
+      final Pet pet = Pet(
+          id: petId,
+          name: name,
+          petType: petType,
+          gender: gender,
+          birthdate: birthday
+      );
       emit(RegisterPetStateShowDismissPopUpLoading());
-      emit(RegisterPetStateSuccess());
+      emit(RegisterPetStateSuccess(pet));
     } on APIException catch (e) {
       emit(RegisterPetStateShowDismissPopUpLoading());
       emit(RegisterPetStateFail(e.message()));

@@ -13,7 +13,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterPetPage extends StatefulWidget {
-  const RegisterPetPage({Key? key}) : super(key: key);
+  const RegisterPetPage({Key? key, required this.isFirstStep})
+      : super(key: key);
+  final bool isFirstStep;
 
   @override
   State<RegisterPetPage> createState() => _RegisterPetPageState();
@@ -48,7 +50,10 @@ class _RegisterPetPageState extends State<RegisterPetPage> {
         } else if (state is RegisterPetStateShowDismissPopUpLoading) {
           Navigator.pop(context);
         } else if (state is RegisterPetStateSuccess) {
-          Navigator.pushReplacementNamed(context, RoutesName.addAPicture);
+          if (widget.isFirstStep) {
+            Navigator.pushReplacementNamed(context, RoutesName.addAPicture);
+          } else
+            Navigator.pop(context, state.pet);
         } else if (state is RegisterPetStateFail) {
           showMessage(context, AppStrings.of(context).notice, state.message);
         }
@@ -93,34 +98,35 @@ class _RegisterPetPageState extends State<RegisterPetPage> {
                   const SizedBox(
                     height: 40,
                   ),
-                  ComponentHelper.stepByStepHorizontal(
-                      children: <Widget>[
-                        ComponentHelper.itemStep(
-                            backgroundColor: AppThemeData.color_main,
-                            child: const Icon(
-                              Icons.check,
-                              color: Colors.white,
-                              size: 20,
-                            )),
-                        ComponentHelper.itemStep(
-                            backgroundColor: AppThemeData.color_main,
-                            child: const Icon(
-                              Icons.check,
-                              color: Colors.white,
-                              size: 20,
-                            )),
-                        ComponentHelper.itemStep(
-                            backgroundColor: AppThemeData.color_neutral_25,
-                            child: const Text(
-                              '3',
-                              style: TextStyle(color: Colors.white),
-                            )),
-                      ],
-                      currentStep: 3,
-                      colorDone: AppThemeData.color_primary_30,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      colorWait: AppThemeData.color_neutral_25,
-                      sizePen: 4),
+                  if (widget.isFirstStep)
+                    ComponentHelper.stepByStepHorizontal(
+                        children: <Widget>[
+                          ComponentHelper.itemStep(
+                              backgroundColor: AppThemeData.color_main,
+                              child: const Icon(
+                                Icons.check,
+                                color: Colors.white,
+                                size: 20,
+                              )),
+                          ComponentHelper.itemStep(
+                              backgroundColor: AppThemeData.color_main,
+                              child: const Icon(
+                                Icons.check,
+                                color: Colors.white,
+                                size: 20,
+                              )),
+                          ComponentHelper.itemStep(
+                              backgroundColor: AppThemeData.color_neutral_25,
+                              child: const Text(
+                                '3',
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ],
+                        currentStep: 3,
+                        colorDone: AppThemeData.color_primary_30,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        colorWait: AppThemeData.color_neutral_25,
+                        sizePen: 4),
                   const SizedBox(
                     height: 22,
                   ),
@@ -195,21 +201,24 @@ class _RegisterPetPageState extends State<RegisterPetPage> {
                         } else
                           print('fail');
                       },
-                      child: Text(AppStrings.of(context)
-                          .textButtonRegisterAndContinue)),
+                      child: Text(widget.isFirstStep
+                          ? AppStrings.of(context).textButtonRegisterAndContinue
+                          : AppStrings.of(context).textButtonContinue)),
                   const SizedBox(
                     height: 20,
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        primary: AppThemeData.color_black_40,
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        fixedSize: const Size(double.maxFinite, 50)),
-                    child: Text(
-                      AppStrings.of(context).textSkipRegisterPet,
+                  if (widget.isFirstStep)
+                    ElevatedButton(
+                      onPressed: () => Navigator.pushReplacementNamed(
+                          context, RoutesName.addAPicture),
+                      style: ElevatedButton.styleFrom(
+                          primary: AppThemeData.color_black_40,
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          fixedSize: const Size(double.maxFinite, 50)),
+                      child: Text(
+                        AppStrings.of(context).textSkipRegisterPet,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),

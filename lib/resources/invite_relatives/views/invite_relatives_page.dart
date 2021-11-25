@@ -67,8 +67,9 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
                 const SizedBox(
                   height: 40,
                 ),
-                AutoSizeText(
+                Text(
                     AppStrings.of(context).textInviteRelativesLabelMain,
+                    textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2),
                 const SizedBox(height: 24),
                 Text(
@@ -165,7 +166,8 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
                           onPressed: cubit.media.id != null
                               ? () {
                                   Clipboard.setData(
-                                      ClipboardData(text: cubit.urlDefault));
+                                          ClipboardData(text: cubit.urlDefault))
+                                      .then((_) => showSnackBar(context));
                                 }
                               : null,
                           child: Padding(
@@ -193,6 +195,13 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
     );
   }
 
+  void showSnackBar(
+    BuildContext context,
+    // @required ScaffoldMessengerState scaffoldMessengerStateKey,
+  ) {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Đã copy link'),));
+  }
+
   Widget _itemFirst(BuildContext context, Media media) {
     final DateTime date = DateTime.parse(media.createdAt!);
     final Gradient gradient = LinearGradient(
@@ -211,7 +220,7 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
               width: 220,
               height: 220,
               child: Image.network(
-                Url.baseURLImage + media.file!,
+               media.file!,
                 fit: BoxFit.cover,
               ),
             )

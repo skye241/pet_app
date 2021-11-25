@@ -4,9 +4,10 @@ part of 'sign_up_cubit.dart';
 abstract class SignUpState {}
 
 class SignUpInitial extends SignUpState {
-  SignUpInitial(this.showPassword);
+  SignUpInitial(this.obscureText, this.allowEmail);
 
-  final bool showPassword;
+  final bool obscureText;
+  final bool allowEmail;
 }
 class SignUpShowPopUpLoading extends SignUpState {}
 class SignUpDismissPopUpLoading extends SignUpState {}

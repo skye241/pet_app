@@ -19,15 +19,16 @@ class ShareRepository {
     } else
       throw APIException(response);
   }
-  Future<void> checkLink(String link, int mediaId) async {
+
+  Future<Media> checkLink(String link) async {
     final Map<String, dynamic> body = <String, dynamic>{};
     body[Constant.link] = link;
     body[Constant.userId] = prefs!.getInt(Constant.userId);
-    body[Constant.mediaId] = mediaId;
     final APIResponse response =
-        await networkService.callPOST(url: Url.saveShareLink, body: body);
+        await networkService.callPUT(url: Url.checkShareLink, body: body);
     if (response.isOK!) {
-      return;
+      return Media.fromMap(
+          response.data[Constant.media] as Map<String, dynamic>);
     } else
       throw APIException(response);
   }

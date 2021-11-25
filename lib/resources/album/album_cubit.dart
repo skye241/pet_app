@@ -23,7 +23,7 @@ class AlbumCubit extends Cubit<AlbumState> {
       images.addAll(await mediaRepository.getAlbum(PermissionPickMedia.mine) ??
           <Media>[]);
       final List<Pet> pets = <Pet>[];
-      pets.addAll(await petRepository.getListPet() ?? <Pet>[]);
+      pets.addAll(await petRepository.getListPet());
       emit(AlbumStateSuccess(images, pets, DateTime.now()));
     } on APIException catch (e) {
       emit(AlbumStateFail(e.message()));

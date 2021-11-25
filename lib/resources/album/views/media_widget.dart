@@ -1,7 +1,6 @@
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/general/constant/routes_name.dart';
-import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -41,7 +40,7 @@ class MediaWidget extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                    image: NetworkImage(Url.baseURLImage + media.file!),
+                    image: NetworkImage(media.file!),
                     fit: BoxFit.cover,
                   )),
                 )

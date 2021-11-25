@@ -69,17 +69,21 @@ class ComponentHelper {
       List<TextInputFormatter>? inputFormatters,
         TextInputAction? textInputAction,
         bool? obscureText,
+        bool? enabled,
+        Color? fillColor,
       FocusNode? focusNode}) {
     return TextFormField(
       controller: controller,
       validator: validator,
       focusNode: focusNode,
+      enabled: enabled ?? true,
       obscureText: obscureText??false,
       onEditingComplete: onEditingComplete,
       inputFormatters: inputFormatters,
       keyboardType: keyboardType ?? TextInputType.text,
       textInputAction: textInputAction,
       decoration: InputDecoration(
+        fillColor: fillColor,
         isDense: true,
         suffixIcon: suffix,
         labelText: label,

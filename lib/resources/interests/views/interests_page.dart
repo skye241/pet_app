@@ -112,7 +112,7 @@ class _InterestsPageState extends State<InterestsPage> {
             borderRadius: const BorderRadius.all(Radius.circular(6.0)),
             image: DecorationImage(
                 image: NetworkImage(
-                  Url.baseURLImage + media.file!,
+                  media.file!,
                 ),
                 fit: BoxFit.cover),
           ),

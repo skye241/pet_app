@@ -25,9 +25,9 @@ class AddPictureCubit extends Cubit<AddPictureState> {
 
       emit(AddPictureStateDismissLoading());
       emit(AddPictureStateSuccess());
-    } on APIException catch (e) {
+    } on Exception catch (e) {
       emit(AddPictureStateDismissLoading());
-      emit(AddPictureStateFail(e.message()));
+      emit(AddPictureStateFail('Không upload ảnh được'));
     }
   }
 }

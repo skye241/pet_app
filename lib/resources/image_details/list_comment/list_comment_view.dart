@@ -1,6 +1,8 @@
+import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/component_helpers.dart';
 import 'package:family_pet/general/constant/constant.dart';
+import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/main.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/resources/image_details/list_comment/list_comment_cubit.dart';
@@ -23,6 +25,7 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
   final ListCommentCubit cubit = ListCommentCubit();
   final TextEditingController commentController = TextEditingController();
   final FocusNode commentNode = FocusNode();
+  final GlobalKey<FormState> formKey = GlobalKey();
 
   @override
   void initState() {
@@ -40,90 +43,95 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ListCommentCubit, ListCommentState>(
-        bloc: cubit,
-        buildWhen: (ListCommentState prev, ListCommentState current) {
-          if (current is ListCommentStateCallBack) {
-            widget.onChangedTotalComment!(current.totalComment);
-            return false;
-          } else
-            return true;
-        },
-        builder: (BuildContext context, ListCommentState state) {
-          if (state is ListCommentInitial) {
-            if (state.listComment.isNotEmpty) {
-              return _body(context, state);
+    return Form(
+      key: formKey,
+      onChanged: () {
+        setState(() {});
+      },
+      child: BlocBuilder<ListCommentCubit, ListCommentState>(
+          bloc: cubit,
+          buildWhen: (ListCommentState prev, ListCommentState current) {
+            if (current is ListCommentStateCallBack) {
+              widget.onChangedTotalComment!(current.totalComment);
+              return false;
             } else
-              return Column(
-                children: <Widget>[
-                  ComponentHelper.textField(
-                    controller: commentController,
-                    focusNode: commentNode,
-                    onEditingComplete: () => cubit.postComment(widget.media,
-                        commentController.text, state.listComment),
-                    suffix: TextButton(
-                      onPressed: () => cubit.postComment(widget.media,
-                          commentController.text, state.listComment),
-                      child: Text('Gửi',
-                          style:
-                              TextStyle(color: Colors.green.withOpacity(0.55))),
+              return true;
+          },
+          builder: (BuildContext context, ListCommentState state) {
+            if (state is ListCommentInitial) {
+              if (state.listComment.isNotEmpty) {
+                return _body(context, state);
+              } else
+                return Column(
+                  children: <Widget>[
+                    textField(context, state.listComment),
+                    Container(
+                      height: 24,
                     ),
-                    hintText: 'Viết comment',
-                  ),
-                  Container(
-                    height: 24,
-                  ),
-                  Center(
-                    child: Text(
-                      'Chưa có bình luận',
-                      style: Theme.of(context).textTheme.headline3,
+                    Center(
+                      child: Text(
+                        AppStrings.of(context).textEmptyComment,
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                );
+            } else if (state is ListCommentStateLoading) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                      AppThemeData.color_primary_90),
+                ),
               );
-          } else if (state is ListCommentStateLoading) {
-            return const Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(
-                    AppThemeData.color_primary_90),
-              ),
-            );
-          } else if (state is ListCommentStateFail) {
-            return Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(state.message),
-                  Container(
-                    height: 16,
-                  ),
-                  ElevatedButton(
-                      onPressed: () => cubit.initEvent(widget.media),
-                      child: const Text('Thử lại'))
-                ],
-              ),
-            );
-          } else
-            return Container();
-        });
+            } else if (state is ListCommentStateFail) {
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(state.message),
+                    Container(
+                      height: 16,
+                    ),
+                    ElevatedButton(
+                        onPressed: () => cubit.initEvent(widget.media),
+                        child: Text(AppStrings.of(context).retry))
+                  ],
+                ),
+              );
+            } else
+              return Container();
+          }),
+    );
+  }
+
+  Widget textField(BuildContext context, List<Comment> listComment) {
+    return ComponentHelper.textField(
+      controller: commentController,
+      focusNode: commentNode,
+      onEditingComplete: () =>
+          cubit.postComment(widget.media, commentController.text, listComment),
+      suffix: TextButton(
+        onPressed: commentController.text.isEmpty
+            ? null
+            : () {
+                cubit.postComment(
+                    widget.media, commentController.text, listComment);
+                commentController.text = '';
+        },
+        child: Text(AppStrings.of(context).textButtonSend,
+            style: TextStyle(
+                color: commentController.text.isEmpty
+                    ? AppThemeData.color_primary_30
+                    : AppThemeData.color_primary_90)),
+      ),
+      hintText: AppStrings.of(context).textButtonWriteComment,
+    );
   }
 
   Widget _body(BuildContext context, ListCommentInitial state) {
     return Column(
       children: <Widget>[
-        ComponentHelper.textField(
-          controller: commentController,
-          focusNode: commentNode,
-          onEditingComplete: () => cubit.postComment(
-              widget.media, commentController.text, state.listComment),
-          suffix: TextButton(
-            onPressed: () => cubit.postComment(
-                widget.media, commentController.text, state.listComment),
-            child: Text('Gửi',
-                style: TextStyle(color: Colors.green.withOpacity(0.55))),
-          ),
-          hintText: 'Viết comment',
-        ),
+        textField(context, state.listComment),
         const SizedBox(height: 24),
         ListView.builder(
           shrinkWrap: true,
@@ -144,8 +152,6 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
     required Comment commentItem,
     required List<Comment> listComment,
   }) {
-    const String link =
-        'https://toppng.com/uploads/preview/cool-avatar-transparent-image-cool-boy-avatar-11562893383qsirclznyw.png';
     final String name = commentItem.userName!;
     final String comment = commentItem.content ?? '';
     print(name);
@@ -160,10 +166,16 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const CircleAvatar(
-                  backgroundImage: NetworkImage(link),
-                  radius: 16,
-                ),
+                if (commentItem.avatar! != Url.baseURLImage)
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(commentItem.avatar!),
+                    radius: 16,
+                  )
+                else
+                  const CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/img_user'),
+                    radius: 16,
+                  ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Container(
@@ -188,12 +200,13 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
           if (prefs!.getInt(Constant.userId) == commentItem.media!.user!.id ||
               prefs!.getInt(Constant.userId) == commentItem.user!.id)
             InkWell(
-              onTap: () => cubit.deleteComment(commentItem, listComment),
-              child: const Padding(
-                padding: EdgeInsets.all(7.0),
+              onTap: () => cubit.deleteComment(
+                  commentItem, listComment, formKey.currentState!.validate()),
+              child: Padding(
+                padding: const EdgeInsets.all(7.0),
                 child: Text(
-                  'Xoá',
-                  style: TextStyle(color: Colors.grey),
+                  AppStrings.of(context).delete,
+                  style: const TextStyle(color: Colors.grey),
                 ),
               ),
             ),

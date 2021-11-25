@@ -3,7 +3,6 @@ import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/calendar_slide/calendar_slide_view.dart';
 import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/general/constant/routes_name.dart';
-import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/general/tools/utils.dart';
 import 'package:family_pet/main.dart';
 import 'package:family_pet/model/entity.dart';
@@ -44,7 +43,6 @@ class _AlbumPageState extends State<AlbumPage> {
       bloc: cubit,
       listener: (BuildContext context, AlbumState current) {
         if (current is AlbumStateShowPopUpLoading) {
-          print('hello');
           showPopUpLoading(context);
         } else if (current is AlbumStateDismissLoading) {
           Navigator.pop(context);
@@ -77,7 +75,10 @@ class _AlbumPageState extends State<AlbumPage> {
                 title: const Text('Album'),
               ),
               body: const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                      AppThemeData.color_primary_90),
+                ),
               ),
             );
         },
@@ -137,28 +138,29 @@ class _AlbumPageState extends State<AlbumPage> {
               const SizedBox(
                 height: 20,
               ),
-              Expanded(
-                child: ListView(
-                  children: <Widget>[
-                    _itemFirst(context, state.images.first),
-                    Container(
-                      height: 8,
-                    ),
-                    GridView.count(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 8,
-                        mainAxisSpacing: 8,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: qualifyMedia
-                            .sublist(1, qualifyMedia.length)
-                            .map((Media media) => MediaWidget(
-                                  media: media,
-                                ))
-                            .toList()),
-                  ],
-                ),
-              )
+              if (qualifyMedia.isNotEmpty)
+                Expanded(
+                  child: ListView(
+                    children: <Widget>[
+                      _itemFirst(context, qualifyMedia.first),
+                      Container(
+                        height: 8,
+                      ),
+                      GridView.count(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: qualifyMedia
+                              .sublist(1, qualifyMedia.length)
+                              .map((Media media) => MediaWidget(
+                                    media: media,
+                                  ))
+                              .toList()),
+                    ],
+                  ),
+                )
             ],
           ),
         ),
@@ -176,7 +178,8 @@ class _AlbumPageState extends State<AlbumPage> {
           const Color(0xff52575C).withOpacity(0.5)
         ]);
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, RoutesName.imageDetails),
+      onTap: () => Navigator.pushNamed(context, RoutesName.imageDetails,
+          arguments: <String, dynamic>{Constant.media: media}),
       child: Hero(
         tag: 'media${media.id}',
         child: Row(
@@ -188,7 +191,7 @@ class _AlbumPageState extends State<AlbumPage> {
                   children: <Widget>[
                     if (media.file != null && media.file!.isNotEmpty)
                       Image.network(
-                        Url.baseURLImage + media.file!,
+                        media.file!,
                         fit: BoxFit.fill,
                       )
                     else

@@ -4,9 +4,10 @@ part of 'list_comment_cubit.dart';
 abstract class ListCommentState {}
 
 class ListCommentInitial extends ListCommentState {
-  ListCommentInitial(this.listComment);
+  ListCommentInitial(this.listComment, this.enable);
 
   final List<Comment> listComment;
+  final bool enable;
 }
 
 class ListCommentStateLoading extends ListCommentState{}

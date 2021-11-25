@@ -46,8 +46,10 @@ class NetworkService {
         }
       }
 
-      _headers[Constant.cookie] = _generateCookieHeader();
-      prefs?.setString(Constant.cookie, _generateCookieHeader());
+      if (_generateCookieHeader().isNotEmpty) {
+        _headers[Constant.cookie] = _generateCookieHeader();
+        prefs?.setString(Constant.cookie, _generateCookieHeader());
+      }
     }
   }
 
@@ -74,6 +76,9 @@ class NetworkService {
     for (final String key in cookies.keys) {
       if (cookie.isNotEmpty) {
         cookie += ';';
+      } else if (key == 'sessionid' &&
+          (cookies[key] == null || cookies[key]!.isEmpty)) {
+        return '';
       }
       cookie += key + '=' + cookies[key]!;
     }
@@ -146,7 +151,7 @@ class NetworkService {
     Map<String, String>? header,
   }) async {
     final String _url = url ?? '';
-    if (prefs?.getString(Constant.cookie)!.isNotEmpty ?? false) {
+    if ((prefs?.getString(Constant.cookie) ?? '').isNotEmpty) {
       _headers[Constant.cookie] = prefs?.getString(Constant.cookie) ?? '';
     }
     _headers[Constant.contentLength] =
@@ -263,14 +268,15 @@ class NetworkService {
           data: json.decode(utf8.decode(response!.bodyBytes)),
         );
       } else {
-        final Map<String, dynamic> jsonError =
-            json.decode(response?.body ?? '')[Constant.message]
-                as Map<String, dynamic>;
+        print('hello ' + (response?.statusCode.toString() ?? ''));
+        // final Map<String, dynamic> jsonError =
+        //     json.decode(response?.body ?? '')[Constant.message]
+        //         as Map<String, dynamic>;
         result = APIResponse(
           isOK: false,
           code: response?.statusCode,
-          data: jsonError,
-          message: getErrorMessage(getInt(Constant.code, jsonError)),
+          data: '',
+          message: getErrorMessage(response!.statusCode),
         );
       }
       return result;
@@ -339,6 +345,7 @@ Future<StreamedResponse> uploadImage(
   print('Calling upload image ===========================================');
   print('header: ' + headers.toString());
   print('URL: ' + _url);
+  print('body: ' + body.toString());
 
   final Uri uri = Uri.parse(_url);
   final ByteStream stream = ByteStream(Stream.castFrom(file.openRead()));
@@ -351,6 +358,8 @@ Future<StreamedResponse> uploadImage(
     length,
     filename: basename(file.path),
   );
+  print('file: ' + basename(file.path));
+
   request.files.add(multipartFile);
   request.fields.addAll(body);
   request.headers.addAll(headers);

@@ -1,4 +1,5 @@
 import 'package:family_pet/general/constant/constant.dart';
+import 'package:family_pet/general/constant/url.dart';
 
 /// Các hàm lấy dữ liệu - Tools
 /// Lấy dữ liệu dạng string từ map mặc định ''
@@ -202,23 +203,37 @@ class User {
 }
 
 class UserInfo {
-  UserInfo({this.fullName, this.deviceKey, this.user});
+  UserInfo({
+    this.fullName,
+    this.deviceKey,
+    this.user,
+    this.avatar,
+    this.relationType,
+    this.isActive,
+  });
 
   factory UserInfo.fromMap(Map<String, dynamic>? data) {
     if (data == null) {
       return UserInfo();
     } else
       return UserInfo(
-          fullName: getString(Constant.fullName, data),
-          deviceKey: getString(Constant.deviceKey, data),
-          user: data[Constant.user] != null
-              ? User.fromMap(data[Constant.user] as Map<String, dynamic>)
-              : User());
+        fullName: getString(Constant.fullName, data),
+        deviceKey: getString(Constant.deviceKey, data),
+        user: data[Constant.user] != null
+            ? User.fromMap(data[Constant.user] as Map<String, dynamic>)
+            : User(),
+        avatar: Url.baseURLImage + getString(Constant.avatar, data),
+        relationType: getString(Constant.relationType, data),
+        isActive: getBool(Constant.isActive, data),
+      );
   }
 
   final String? fullName;
   final String? deviceKey;
   final User? user;
+  final String? avatar;
+  final String? relationType;
+  final bool? isActive;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -227,28 +242,56 @@ class UserInfo {
       Constant.user: user!.toMap(),
     };
   }
+
+  UserInfo copyWith({
+    String? fullName,
+    String? deviceKey,
+    User? user,
+    String? avatar,
+    String? relationType,
+    bool? isActive,
+  }) {
+    return UserInfo(
+      fullName: fullName ?? this.fullName,
+      deviceKey: deviceKey ?? this.deviceKey,
+      user: user ?? this.user,
+      avatar: avatar ?? this.avatar,
+      relationType: relationType ?? this.relationType,
+      isActive: isActive ?? this.isActive,
+    );
+  }
 }
 
 class Pet {
-  Pet({this.id, this.name, this.user, this.petType});
+  Pet({
+    this.id,
+    this.name,
+    this.user,
+    this.petType,
+    this.birthdate,
+    this.gender,
+  });
 
   factory Pet.fromMap(Map<String, dynamic>? data) {
     if (data == null) {
       return Pet();
     } else
       return Pet(
-        id: getInt(Constant.id, data),
-        name: getString(Constant.name, data),
-        // user: User.fromMap(data[Constant.user] as Map<String, dynamic>),
-        petType:
-            PetType.fromMap(data[Constant.petType] as Map<String, dynamic>),
-      );
+          id: getInt(Constant.id, data),
+          name: getString(Constant.name, data),
+          // user: User.fromMap(data[Constant.user] as Map<String, dynamic>),
+          petType:
+              PetType.fromMap(data[Constant.petType] as Map<String, dynamic>),
+          birthdate: getString(Constant.birthDate, data),
+          gender: getString(Constant.gender, data));
   }
 
   final int? id;
   final String? name;
   final User? user;
   final PetType? petType;
+  final String? birthdate;
+  final String? gender;
 }
 
 class Media {
@@ -273,7 +316,7 @@ class Media {
         mediaName: getString(Constant.mediaName, data),
         mediaType: getString(Constant.mediaType, data),
         share: getString(Constant.share, data),
-        file: getString(Constant.file, data),
+        file: Url.baseURLImage + getString(Constant.file, data),
         user: User.fromMap(data[Constant.user] as Map<String, dynamic>),
         createdAt: getString(Constant.createdAt, data),
         totalComment: getInt(Constant.totalComment, data),
@@ -350,7 +393,7 @@ class Comment {
           content: getString(Constant.content, data),
           user: User.fromMap(data[Constant.user] as Map<String, dynamic>),
           userName: getString(Constant.userName, data),
-          avatar: getString(Constant.avatar, data));
+          avatar: Url.baseURLImage + getString(Constant.avatar, data));
   }
 
   Map<String, dynamic> toMap() {
@@ -390,10 +433,6 @@ class ShareEntity {
 class Relationship {
   Relationship({this.user, this.target, this.type});
 
-  final User? user;
-  final User? target;
-  final String? type;
-
   factory Relationship.fromMap(Map<String, dynamic>? data) {
     if (data == null) {
       return Relationship();
@@ -404,4 +443,8 @@ class Relationship {
         type: getString(Constant.relationType, data),
       );
   }
+
+  final User? user;
+  final User? target;
+  final String? type;
 }

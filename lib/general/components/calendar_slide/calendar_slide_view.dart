@@ -1,3 +1,4 @@
+import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/calendar_slide/calendar_slide_cubit.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class _MonthPickerWidgetState extends State<MonthPickerWidget> {
                   widget.onMonthSelect!(state.listDateTime[index]);
                 },
                 child: Text(
-                  'Tháng ' + state.listDateTime[index].month.toString(),
+                  AppStrings.of(context).month + state.listDateTime[index].month.toString(),
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       color: state.dateTime.month ==
                               state.listDateTime[index].month

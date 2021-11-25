@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "245612916357",
+    "project_id": "famipet-96085",
+    "storage_bucket": "famipet-96085.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245612916357:android:17a72422acb8761ce383ec",
+        "android_client_info": {
+          "package_name": "com.codelovers.familypet.family_pet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "245612916357-8ba12grunl56lid2ojnrmto00qtk3je9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPuWTS4yvSQKJWAO_xq2aTRw37rI28p_U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "245612916357-8ba12grunl56lid2ojnrmto00qtk3je9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

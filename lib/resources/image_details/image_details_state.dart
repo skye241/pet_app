@@ -14,8 +14,8 @@ class ImageDetailsStateShowPopUpLoading extends ImageDetailsState {}
 
 class ImageDetailsStateDismissPopUpLoading extends ImageDetailsState {}
 
-class ImageDetailsStateFail extends ImageDetailsState {
-  ImageDetailsStateFail(this.message);
+class ImageDetailsStateShowMessage extends ImageDetailsState {
+  ImageDetailsStateShowMessage(this.message);
 
   final String message;
 }

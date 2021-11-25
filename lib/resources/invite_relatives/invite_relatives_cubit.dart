@@ -58,7 +58,7 @@ class InviteRelativesCubit extends Cubit<InviteRelativesState> {
 
   String createLink() {
     return Url.baseURLShare +
-        RoutesName.invitationPage +
+        '/'+ RoutesName.invitationPage +
         '/${prefs!.getInt(Constant.userId)}/$permission/${DateTime.now().millisecondsSinceEpoch}';
   }
 

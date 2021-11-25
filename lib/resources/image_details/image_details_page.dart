@@ -2,7 +2,6 @@ import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/component_helpers.dart';
 import 'package:family_pet/general/components/permission_picker/permission_picker.dart';
-import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/general/tools/utils.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/resources/image_details/image_details_cubit.dart';
@@ -46,9 +45,9 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
           Navigator.pop(context);
           return false;
         } else if (current is ImageDetailsStateSuccess) {
-          showMessage(context, AppStrings.of(context).notice, 'Xóa thành công');
+          showMessage(context, AppStrings.of(context).notice, AppStrings.of(context).successDelete);
           return false;
-        } else if (current is ImageDetailsStateFail) {
+        } else if (current is ImageDetailsStateShowMessage) {
           showMessage(context, AppStrings.of(context).notice, current.message);
           return false;
         } else
@@ -85,67 +84,74 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
                 icon: const Icon(Icons.more_horiz))
           ],
         ),
-        body: ListView(
+        body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          children: <Widget>[
-            const SizedBox(
-              height: 24,
-            ),
-            Hero(
-              tag: 'media${state.media.id}',
-              child: ComponentHelper.borderRadiusImage(
-                image: Image.network(
-                  Url.baseURLImage + state.media.file!,
-                ),
-                borderRadius: 8.0,
+          child: CustomScrollView(
+            slivers: <SliverList>[
+              SliverList(
+                delegate: SliverChildListDelegate(<Widget>[
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Hero(
+                    tag: 'media${state.media.id}',
+                    child: ComponentHelper.borderRadiusImage(
+                      image: Image.network(
+                      state.media.file!,
+                      ),
+                      borderRadius: 8.0,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      SvgPicture.asset(
+                        'assets/svgs/svg_comment.svg',
+                        color: AppThemeData.color_black_80,
+                        height: 20,
+                        width: 20,
+                      ),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      Text(
+                        state.media.totalComment!.toString(),
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                      const SizedBox(
+                        width: 18,
+                      ),
+                      InkWell(
+                        onTap: () => cubit.likeMedia(state.media),
+                        child: state.media.isLiked!
+                            ? SvgPicture.asset(
+                                'assets/svgs/svg_heart.svg',
+                                height: 20,
+                                width: 20,
+                              )
+                            : SvgPicture.asset(
+                                'assets/svgs/svg_like.svg',
+                                height: 20,
+                                width: 20,
+                                color: AppThemeData.color_black_80,
+                              ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 27),
+                  ListCommentWidget(
+                    media: state.media,
+                    onChangedTotalComment: (int totalComment) =>
+                        cubit.updateMedia(
+                            state.media.copyWith(totalComment: totalComment)),
+                  ),
+                ]),
               ),
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                SvgPicture.asset(
-                  'assets/svgs/svg_comment.svg',
-                  color: AppThemeData.color_black_80,
-                  height: 20,
-                  width: 20,
-                ),
-                const SizedBox(
-                  width: 4,
-                ),
-                Text(
-                  state.media.totalComment!.toString(),
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                const SizedBox(
-                  width: 18,
-                ),
-                InkWell(
-                  onTap: () => cubit.likeMedia(state.media),
-                  child: state.media.isLiked!
-                      ? SvgPicture.asset(
-                          'assets/svgs/svg_heart.svg',
-                          height: 20,
-                          width: 20,
-                        )
-                      : SvgPicture.asset(
-                          'assets/svgs/svg_like.svg',
-                          height: 20,
-                          width: 20,
-                          color: AppThemeData.color_black_80,
-                        ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 27),
-            ListCommentWidget(
-              media: state.media,
-              onChangedTotalComment: (int totalComment) => cubit.updateMedia(
-                  state.media.copyWith(totalComment: totalComment)),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -219,7 +225,7 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
                     child: ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context);
-                          cubit.changePermission(state.media, state.permission);
+                          cubit.changePermission(context, state.media, state.permission);
                         },
                         child: Container(
                             height: 50,

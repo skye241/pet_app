@@ -1,3 +1,4 @@
+import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/resources/album/views/album_page.dart';
@@ -52,7 +53,7 @@ class _TopScreenPageState extends State<TopScreenPage> {
         child: Column(
       children: <Widget>[
         Expanded(child: listBody[state.index]),
-        _bottomNavigation(state, (int value) {
+        _bottomNavigation(context, state, (int value) {
           cubit.update(value, state.images, state.permission);
           // controller.sink.add(value);
         }),
@@ -80,7 +81,8 @@ class _TopScreenPageState extends State<TopScreenPage> {
     );
   }
 
-  Widget _bottomNavigation(TopScreenInitial state, Function(int) onChange) {
+  Widget _bottomNavigation(
+      BuildContext context, TopScreenInitial state, Function(int) onChange) {
     return Container(
       padding: const EdgeInsets.only(top: 5),
       decoration: const BoxDecoration(
@@ -98,26 +100,26 @@ class _TopScreenPageState extends State<TopScreenPage> {
         children: <Widget>[
           _itemNavbar(
               value: PageIndex.album,
-              label: 'Album',
+              label: AppStrings.of(context).textTitleAlbum,
               linkSvgAsset: 'assets/svgs/svg_album.svg',
               group: state.index,
               state: state),
           _itemNavbar(
               value: 1,
-              label: 'Bảng tin',
+              label: AppStrings.of(context).textTitleNews,
               linkSvgAsset: 'assets/svgs/svg_new.svg',
               group: state.index,
               state: state),
           _centerButton(context, state),
           _itemNavbar(
               value: 2,
-              label: 'Yêu thích',
+              label: AppStrings.of(context).textTitleInterests,
               group: state.index,
               linkSvgAsset: 'assets/svgs/svg_like.svg',
               state: state),
           _itemNavbar(
               value: 3,
-              label: 'Cá nhân',
+              label: AppStrings.of(context).textProfileTitle,
               group: state.index,
               linkSvgAsset: 'assets/svgs/svg_person.svg',
               state: state),

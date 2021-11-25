@@ -9,28 +9,31 @@ import 'package:meta/meta.dart';
 part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
-  SignUpCubit() : super(SignUpInitial(true));
+  SignUpCubit() : super(SignUpInitial(true, true));
 
   final UserRepository _userRepository = UserRepository();
-
+  bool enable = true;
 
   Future<void> showPassword(bool showPass) async {
-    emit(SignUpInitial(!showPass));
+    emit(SignUpInitial(!showPass, enable));
+  }
+
+  Future<void> updateEnable(bool enable) async {
+    emit(SignUpInitial(true, enable));
   }
 
   Future<void> register(String email, String password) async {
-    try{
+    try {
       emit(SignUpShowPopUpLoading());
-      final UserInfo userInfo = UserInfo(
-        deviceKey: prefs!.getString(Constant.deviceKey),
-        fullName: prefs!.getString(Constant.fullName),
-        user: User(
-          id:  prefs!.getInt(Constant.userId),
-          email: email,
-          password: password
-        )
-      );
-      await _userRepository.updateUser(userInfo);
+      // final UserInfo userInfo = UserInfo(
+      //     deviceKey: prefs!.getString(Constant.deviceKey),
+      //     fullName: prefs!.getString(Constant.fullName),
+      //     user: User(
+      //         id: prefs!.getInt(Constant.userId),
+      //         email: email,
+      //         password: password));
+      await _userRepository.updateUser(email, password);
+      await _userRepository.sendEmail(email);
       emit(SignUpDismissPopUpLoading());
       emit(SignUpSuccess());
     } on APIException catch (e) {

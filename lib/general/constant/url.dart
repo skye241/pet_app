@@ -1,7 +1,7 @@
 class Url {
   static const String baseURL = 'http://34.146.194.201:8080/famipet/';
   static const String baseURLImage = 'http://34.146.194.201:8080/static/';
-  static const String baseURLShare = 'customscheme://familypetcls.com/';
+  static const String baseURLShare = 'customscheme://familypetcls.com';
 
   // static const String baseURL = 'https://famipet-dot-sateraito-dronesearch-dev.an.r.appspot.com/famipet/';
   ///USER & USERINFO
@@ -10,6 +10,9 @@ class Url {
   static const String createPet = baseURL + 'pet/create/';
   static const String checkDeviceId = baseURL + 'device/get-by-device/';
   static const String updateUser = baseURL + 'userinfo/update/';
+  static const String getUserInfoById = baseURL + 'userinfo/get-by-id/';
+  static const String sendEmailActive = baseURL + 'userinfo/send-mail-active/';
+  static const String login = baseURL + 'userinfo/login/';
 
   ///MEDIA
   static const String uploadMedia = baseURL + 'media/upload-media/';
@@ -31,8 +34,10 @@ class Url {
   static const String saveShareLink = baseURL + 'share/sharing/';
 
   ///RELATIONSHIP
-  static const String getRelationship = baseURL + 'relationship/get-relationship/';
-  static const String setRelationship = baseURL + 'relationship/set-relationship/';
-  static const String removeRelationship = baseURL + 'relationship/unrelationship/';
-
+  static const String getRelationship =
+      baseURL + 'relationship/get-relationship/';
+  static const String setRelationship =
+      baseURL + 'relationship/set-relationship/';
+  static const String removeRelationship =
+      baseURL + 'relationship/unrelationship/';
 }

@@ -1,10 +1,12 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:family_pet/general/api_handler.dart';
+import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/model/enum.dart';
 import 'package:family_pet/repository/media_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:meta/meta.dart';
 
@@ -16,7 +18,6 @@ class ImageDetailsCubit extends Cubit<ImageDetailsState> {
   final MediaRepository mediaRepository = MediaRepository();
 
   Future<void> updateMedia(Media media) async {
-    print(media.share! + 'hello');
     emit(ImageDetailsInitial(media, media.share!));
   }
 
@@ -47,7 +48,7 @@ class ImageDetailsCubit extends Cubit<ImageDetailsState> {
       // final File file = File(documentDirectory.path + media.mediaName!);
       // file.writeAsBytesSync(response.bodyBytes);
       // print('success');
-      GallerySaver.saveImage(Url.baseURLImage + media.file!);
+      GallerySaver.saveImage(media.file!);
     } on Exception catch (e) {
       print(e);
     }
@@ -61,21 +62,21 @@ class ImageDetailsCubit extends Cubit<ImageDetailsState> {
       emit(ImageDetailsStateSuccess());
     } on APIException catch (e) {
       emit(ImageDetailsStateDismissPopUpLoading());
-      emit(ImageDetailsStateFail(e.message()));
+      emit(ImageDetailsStateShowMessage(e.message()));
     }
   }
 
-  Future<void> changePermission(Media media, String permission) async {
+  Future<void> changePermission(BuildContext context, Media media, String permission) async {
     try {
       emit(ImageDetailsStateShowPopUpLoading());
       await mediaRepository.changePermissionMedia(media.id!, permission);
       print(permission);
       emit(ImageDetailsInitial(media.copyWith(share: permission), permission));
       emit(ImageDetailsStateDismissPopUpLoading());
-      emit(ImageDetailsStateFail('Cập nhật thành công'));
+      emit(ImageDetailsStateShowMessage(AppStrings.of(context).successUpdate));
     } on APIException catch (e) {
       emit(ImageDetailsStateDismissPopUpLoading());
-      emit(ImageDetailsStateFail(e.message()));
+      emit(ImageDetailsStateShowMessage(e.message()));
     }
   }
 }
