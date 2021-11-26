@@ -349,4 +349,16 @@ class _AppStringsVn extends AppStrings {
   @override
   String get successUpdate => 'Xóa thành công';
 
+  @override
+  String get textButtonAddMedia => 'Thêm Ảnh';
+
+  @override
+  String get textButtonReturnToMain => 'Về trang chủ';
+
+  @override
+  String get textPopUpSuccessUpload => 'Đăng ảnh thành công';
+
+  @override
+  String get textErrorEmptyBirthday => 'Vui lòng điền ngày sinh';
+
 }

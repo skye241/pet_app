@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:family_pet/general/api_handler.dart';
 import 'package:family_pet/model/enum.dart';
 import 'package:family_pet/repository/media_repository.dart';
 import 'package:meta/meta.dart';

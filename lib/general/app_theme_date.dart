@@ -119,9 +119,9 @@ class AppThemeData {
           bodyText2: GoogleFonts.roboto(
               color: color_neutral,
               fontWeight: FontWeight.w400,
-              fontSize: 16,
+              fontSize: 14,
               letterSpacing: 0.5,
-              height: 1.1718),
+              height: 21/14),
           // text default
           // text field
           subtitle1: GoogleFonts.roboto(

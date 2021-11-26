@@ -1,7 +1,6 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/component_helpers.dart';
-import 'package:family_pet/general/components/date_formatter.dart';
 import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/tools/utils.dart';
 import 'package:family_pet/model/entity.dart';
@@ -11,6 +10,7 @@ import 'package:family_pet/resources/register_pet/select_pet_type/select_pet_typ
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class RegisterPetPage extends StatefulWidget {
   const RegisterPetPage({Key? key, required this.isFirstStep})
@@ -154,39 +154,65 @@ class _RegisterPetPageState extends State<RegisterPetPage> {
                   const SizedBox(
                     height: 18,
                   ),
-                  ComponentHelper.textField(
-                      hintText: 'YYYY/MM/DD',
-                      controller: birthController,
-                      focusNode: birthNode,
-                      keyboardType: TextInputType.datetime,
-                      inputFormatters: <TextInputFormatter>[
-                        LengthLimitingTextInputFormatter(11),
-                        DateFormatter(DateTime.now()),
-                      ],
-                      validator: (String? value) {
-                        if (value != null && value.isNotEmpty) {
-                          try {
-                            print(value);
-                            final DateTime? dateTime = DateTime.parse(value);
-                            print(dateTime);
-                            if (dateTime == null) {
+                  InkWell(
+                    onTap: () {
+                      showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              lastDate: DateTime.now(),
+                              firstDate: DateTime(2000))
+                          .then<void>((DateTime? pickedDate) {
+                        if (pickedDate == null) {
+                          //if user tap cancel then this function will stop
+                          // if (birthController.text.isNotEmpty) {
+                          //   return DateTime.parse(birthController.text);
+                          // } else
+                          //   return DateTime.now();
+                        } else {
+                          birthController.text =
+                              DateFormat('yyyy-MM-dd').format(pickedDate);
+                          cubit.update(state.gender, state.selectedPetType);
+                          // return pickedDate;
+                        }
+                      });
+                    },
+                    child: ComponentHelper.textField(
+                        hintText: 'YYYY-MM-DD',
+                        enabled: false,
+                        controller: birthController,
+                        focusNode: birthNode,
+                        keyboardType: TextInputType.datetime,
+                        // inputFormatters: <TextInputFormatter>[
+                        //   LengthLimitingTextInputFormatter(11),
+                        //   DateFormatter(DateTime.now()),
+                        // ],
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return AppStrings.of(context).textErrorEmptyBirthday;
+                          } else if (value.isNotEmpty) {
+                            try {
+                              print(value);
+                              final DateTime? dateTime = DateTime.parse(value);
+                              print(dateTime);
+                              if (dateTime == null) {
+                                return AppStrings.of(context)
+                                    .textErrorWrongDateFormat;
+                              } else
+                                return null;
+                            } on FormatException {
                               return AppStrings.of(context)
                                   .textErrorWrongDateFormat;
-                            } else
-                              return null;
-                          } on FormatException {
-                            return AppStrings.of(context)
-                                .textErrorWrongDateFormat;
+                            }
                           }
-                        }
-                        return null;
-                      },
-                      label: AppStrings.of(context).textLabelFieldBirthday,
-                      suffix: const Icon(
-                        Icons.calendar_today_rounded,
-                        color: AppThemeData.color_black_80,
-                        size: 20,
-                      )),
+                          return null;
+                        },
+                        label: AppStrings.of(context).textLabelFieldBirthday,
+                        suffix: const Icon(
+                          Icons.calendar_today_rounded,
+                          color: AppThemeData.color_black_80,
+                          size: 20,
+                        )),
+                  ),
                   const SizedBox(
                     height: 18,
                   ),

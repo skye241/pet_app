@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/general/constant/routes_name.dart';
@@ -76,7 +73,7 @@ class _MyAppState extends State<MyApp> {
   FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
 
   @override
   void initState() {
@@ -240,6 +237,7 @@ class _MyAppState extends State<MyApp> {
         );
     }
   }
+
   Future<void> initializing() async {
     firebaseMessaging.requestPermission(
       sound: true,
@@ -248,19 +246,19 @@ class _MyAppState extends State<MyApp> {
     );
 
     const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('@mipmap/ic_launcher');
 
     final IOSInitializationSettings initializationSettingsIOS =
-    IOSInitializationSettings(
+        IOSInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
       requestSoundPermission: true,
       onDidReceiveLocalNotification: (
-          int? id,
-          String? title,
-          String? body,
-          String? payload,
-          ) async {
+        int? id,
+        String? title,
+        String? body,
+        String? payload,
+      ) async {
         // didReceiveLocalNotificationSubject.add(
         //   ReceivedNotification(
         //     id: id,
@@ -273,9 +271,9 @@ class _MyAppState extends State<MyApp> {
     );
 
     final InitializationSettings initializationSettings =
-    InitializationSettings(
-        android: initializationSettingsAndroid,
-        iOS: initializationSettingsIOS);
+        InitializationSettings(
+            android: initializationSettingsAndroid,
+            iOS: initializationSettingsIOS);
 
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
@@ -288,7 +286,7 @@ class _MyAppState extends State<MyApp> {
     );
 
     const AndroidNotificationDetails androidNotificationChannel =
-    AndroidNotificationDetails(
+        AndroidNotificationDetails(
       'FamiPet',
       'FamiPet',
       'FamiPet',
@@ -298,7 +296,7 @@ class _MyAppState extends State<MyApp> {
       styleInformation: BigTextStyleInformation(''),
     );
     const IOSNotificationDetails iosNotificationDetails =
-    IOSNotificationDetails(presentBadge: true);
+        IOSNotificationDetails(presentBadge: true);
     const NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationChannel, iOS: iosNotificationDetails);
 
@@ -307,7 +305,10 @@ class _MyAppState extends State<MyApp> {
     print('Token =============== $token');
 
     FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) {
-      onMessage(remoteMessage.data, notificationDetails);
+      // print(remoteMessage.sentTime.toString() + '===sendTime');
+      // print(remoteMessage.notification!.body ?? '' '===sendTime');
+      // print(remoteMessage.data.toString() + '===data');
+      onMessage(remoteMessage.notification!, notificationDetails);
     });
 
     // firebaseMessaging.configure(
@@ -323,29 +324,27 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-
-
-Future<void> onMessage(Map<String, dynamic> msg,
+Future<void> onMessage(RemoteNotification msg,
     NotificationDetails platformChannelSpecifics) async {
   print('onMessage $msg');
 
   try {
     // NotificationEntity notification;
-    if (Platform.isAndroid) {
-      final Map<String, dynamic> data =
-      jsonDecode(msg[Constant.data] as String) as Map<String, dynamic>;
-      // notification = NotificationEntity.fromMap(data);
-    } else if (Platform.isIOS) {
-      final Map<String, dynamic> data =
-      jsonDecode(msg[Constant.data] as String) as Map<String, dynamic>;
-      // notification = NotificationEntity.fromMap(
-      //     json.decode(json.encode(data)) as Map<String, dynamic>);
-    }
+    // if (Platform.isAndroid) {
+    //   final Map<String, dynamic> data =
+    //   jsonDecode(msg[Constant.data] as String) as Map<String, dynamic>;
+    //   // notification = NotificationEntity.fromMap(data);
+    // } else if (Platform.isIOS) {
+    //   final Map<String, dynamic> data =
+    //   jsonDecode(msg[Constant.data] as String) as Map<String, dynamic>;
+    //   // notification = NotificationEntity.fromMap(
+    //   //     json.decode(json.encode(data)) as Map<String, dynamic>);
+    // }
 
     flutterLocalNotificationsPlugin.show(
-      msg['data']['id'] as int ,
-      msg['data']['title'] as String,
-      msg['data']['body'] as String,
+      msg.hashCode,
+      msg.title,
+      msg.body,
       platformChannelSpecifics,
     );
   } catch (error) {

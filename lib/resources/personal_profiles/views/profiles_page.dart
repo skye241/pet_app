@@ -34,6 +34,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text(
             AppStrings.of(context).textProfileTitle,
             style: Theme.of(context).appBarTheme.titleTextStyle,

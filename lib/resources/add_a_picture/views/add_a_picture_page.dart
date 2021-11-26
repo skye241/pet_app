@@ -120,7 +120,7 @@ class _AddAPicturePageState extends State<AddAPicturePage> {
                 TextButton(
                     onPressed: () => getImageFromGallery(context, state),
                     child: Text(
-                      'Thêm Ảnh',
+                      AppStrings.of(context).textButtonAddMedia,
                       style: Theme.of(context)
                           .textTheme
                           .bodyText1!

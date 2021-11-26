@@ -34,6 +34,7 @@ class _InterestsPageState extends State<InterestsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text(
             AppStrings.of(context).textTitleInterests,
             style: Theme.of(context).appBarTheme.titleTextStyle,

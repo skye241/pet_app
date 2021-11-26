@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/permission_picker/permission_picker_cubit.dart';
 import 'package:family_pet/general/tools/utils.dart';
@@ -59,20 +58,25 @@ class _PermissionPickerWidgetState extends State<PermissionPickerWidget> {
     return Row(
       children: List<Widget>.generate(
           widget.listPermission.length,
-          (int index) => Expanded(
-            child: Padding(
-                  padding: EdgeInsets.only(
+          (int index) => Flexible(
+                child: Container(
+                  margin: EdgeInsets.only(
+                      left: index == 0
+                          ? 0
+                          : widget.listPermission.length > 2
+                              ? 9
+                              : 15,
                       right: index == widget.listPermission.length - 1
                           ? 0
                           : widget.listPermission.length > 2
-                              ? 18
-                              : 30),
+                              ? 9
+                              : 15),
                   child: _button(
                       widget.listPermission[index],
                       permissionToText(context, widget.listPermission[index]),
                       state),
                 ),
-          )),
+              )),
     );
   }
 
@@ -84,11 +88,11 @@ class _PermissionPickerWidgetState extends State<PermissionPickerWidget> {
         cubit.changeType(permission);
         widget.onPermissionPicked(permission);
       },
-      child: AutoSizeText(
+      child: Text(
         content,
+        textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.bodyText2!.copyWith(
             color: isSelected ? Colors.white : AppThemeData.color_black_60),
-        maxLines: 1,
       ),
       style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(

@@ -30,21 +30,23 @@ class _TopScreenPageState extends State<TopScreenPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(cubit.state);
-    return BlocBuilder<TopScreenCubit, TopScreenState>(
-      bloc: cubit,
-      buildWhen: (TopScreenState prev, TopScreenState current) {
-        if (current is! TopScreenInitial) {
-          return false;
-        } else
-          return true;
-      },
-      builder: (BuildContext context, TopScreenState state) {
-        if (state is TopScreenInitial) {
-          return _body(context, state);
-        } else
-          return Container();
-      },
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: BlocBuilder<TopScreenCubit, TopScreenState>(
+        bloc: cubit,
+        buildWhen: (TopScreenState prev, TopScreenState current) {
+          if (current is! TopScreenInitial) {
+            return false;
+          } else
+            return true;
+        },
+        builder: (BuildContext context, TopScreenState state) {
+          if (state is TopScreenInitial) {
+            return _body(context, state);
+          } else
+            return Container();
+        },
+      ),
     );
   }
 

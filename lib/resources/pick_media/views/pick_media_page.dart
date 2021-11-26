@@ -50,16 +50,19 @@ class _PickMediaPageState extends State<PickMediaPage>
             Navigator.pop(context);
             return false;
           } else if (current is PickMediaStateSuccess) {
-            showMessage(context, AppStrings.of(context).notice, 'Đăng ảnh thành công',
+            showMessage(context, AppStrings.of(context).notice,
+                AppStrings.of(context).textPopUpSuccessUpload,
                 actions: ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
                       Navigator.pop(context);
                     },
-                    child: const Text('Về trang chủ')));
+                    child:
+                        Text(AppStrings.of(context).textButtonReturnToMain)));
             return false;
           } else if (current is PickMediaStateFail) {
-            showMessage(context, AppStrings.of(context).notice, current.message);
+            showMessage(
+                context, AppStrings.of(context).notice, current.message);
             return false;
           } else
             return true;
@@ -558,7 +561,7 @@ class _PickMediaPageState extends State<PickMediaPage>
               child: TextButton(
                   onPressed: () => getMultipleImage(context, state),
                   child: Text(
-                    'Thêm Ảnh',
+                    AppStrings.of(context).textButtonAddMedia,
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1!

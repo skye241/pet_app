@@ -106,6 +106,8 @@ abstract class AppStrings {
 
   String get textSkipRegisterPet;
 
+  String get textErrorEmptyBirthday;
+
 //*** End - Register Pet ***//
 
 //*** Start - Add a Picture***//
@@ -158,6 +160,12 @@ abstract class AppStrings {
   String get textSaveMediaToDevice;
 
   String get textSaveMediaChanges;
+
+  String get textButtonAddMedia;
+
+  String get textPopUpSuccessUpload;
+
+  String get textButtonReturnToMain;
 
 //*** End - IPick Media ***//
 

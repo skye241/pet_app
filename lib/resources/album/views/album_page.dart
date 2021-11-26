@@ -38,7 +38,6 @@ class _AlbumPageState extends State<AlbumPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(cubit.state);
     return BlocListener<AlbumCubit, AlbumState>(
       bloc: cubit,
       listener: (BuildContext context, AlbumState current) {
@@ -109,6 +108,7 @@ class _AlbumPageState extends State<AlbumPage> {
         .toList();
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           state.petTypes.map((Pet e) => e.name).toList().join('-'),
           style: Theme.of(context).appBarTheme.titleTextStyle,

@@ -81,7 +81,7 @@ class _AppStringsJp extends AppStrings {
   String get textSubLabelAlbumEmpty => '今すぐ写真をアップロードしよう！';
 
   @override
-  String get textTitleAlbum => 'いぬ, ねこ';
+  String get textTitleAlbum => 'アルバム';
 
   @override
   String get textLabelEmptyNews => 'まだお知らせがありません';
@@ -162,8 +162,7 @@ class _AppStringsJp extends AppStrings {
   String get textInviteRelativesButtonShare => '共有';
 
   @override
-  String get textInviteRelativesLabelMain =>
-      '家族・友人を招待しよう！';
+  String get textInviteRelativesLabelMain => '家族・友人を招待しよう！';
 
   @override
   String get textInviteRelativesTitle => '招待する';
@@ -244,19 +243,16 @@ class _AppStringsJp extends AppStrings {
   String get firstPageTitle => '見やすく整理';
 
   @override
-  String get firstPageContent =>
-      '自動で日付順にアルバム化！スッキリ見やすい ';
+  String get firstPageContent => '自動で日付順にアルバム化！スッキリ見やすい ';
 
   @override
   String get secondPageTitle => '無制限';
 
   @override
-  String get secondPageContent =>
-      '容量無制限・高画質でアップロード';
+  String get secondPageContent => '容量無制限・高画質でアップロード';
 
   @override
-  String get thirdPageContent =>
-      '無料で利用することが出来、家族だけでなく友達にも共有して楽しみ';
+  String get thirdPageContent => '無料で利用することが出来、家族だけでなく友達にも共有して楽しみ';
 
   @override
   String get thirdPageTitle => '写真を簡単にシェアする';
@@ -265,11 +261,11 @@ class _AppStringsJp extends AppStrings {
   String get close => '閉じる';
 
   @override
-  String get errorMessagePermission =>
-      'エラーが発生しました。しばらくしてからもう一度お試しください';
+  String get errorMessagePermission => 'エラーが発生しました。しばらくしてからもう一度お試しください';
 
   @override
   String get errorMessageServer => 'この操作を実行する権限がありません';
+
   @override
   String get retry => '再試行';
 
@@ -295,8 +291,7 @@ class _AppStringsJp extends AppStrings {
   String get textEmptyFavouriteMedia => 'お気に入りの写真はまだありません';
 
   @override
-  String get textEmptyShareMedia =>
-      'このユーザーに共有されている写真はありません';
+  String get textEmptyShareMedia => 'このユーザーに共有されている写真はありません';
 
   @override
   String get textInvitationTitle => '私のアルバム';
@@ -308,15 +303,13 @@ class _AppStringsJp extends AppStrings {
   String get textErrorEmptyPetName => 'ペットの名前を入力してください';
 
   @override
-  String get textErrorWrongDateFormat =>
-      '生年月日を正しい形式で入力してください';
+  String get textErrorWrongDateFormat => '生年月日を正しい形式で入力してください';
 
   @override
   String get textSignUpErrorEmptyEmail => 'メールアドレスを入力してください';
 
   @override
-  String get textSignUpErrorWrongFormatEmail =>
-      'メールアドレスを正しい形式で入力してください';
+  String get textSignUpErrorWrongFormatEmail => 'メールアドレスを正しい形式で入力してください';
 
   @override
   String get year => '歳';
@@ -329,7 +322,6 @@ class _AppStringsJp extends AppStrings {
 
   @override
   String get textEmptyComment => 'まだコメントがありません';
-
 
   @override
   String get textSignUpPopUpTitle => '認証用のメールをお送りました';
@@ -346,6 +338,15 @@ class _AppStringsJp extends AppStrings {
   @override
   String get successUpdate => '正常に削除されました';
 
+  @override
+  String get textButtonAddMedia => '写真を追加';
 
+  @override
+  String get textButtonReturnToMain => '戻る';
 
+  @override
+  String get textPopUpSuccessUpload => 'アップロードに成功しました';
+
+  @override
+  String get textErrorEmptyBirthday => '生年月日を入力してください';
 }
