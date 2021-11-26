@@ -54,4 +54,5 @@ class Constant {
   static const String petId = 'pet_id';
   static const String userInfo = 'userinfo';
   static const String isActive = 'is_active';
+  static const String termType = 'term_type';
 }

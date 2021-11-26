@@ -29,9 +29,9 @@ class FileStorage {
 
   static Iterable<String> _queryFolder(
       Directory directory, List<String> specifyTypeFile) sync* {
-    for (FileSystemEntity elementFileSystemEntity in directory.listSync()) {
+    for (final FileSystemEntity elementFileSystemEntity in directory.listSync()) {
       try {
-        if (elementFileSystemEntity.path.contains(".")) {
+        if (elementFileSystemEntity.path.contains('.')) {
           if (specifyTypeFile.isEmpty) {
             yield elementFileSystemEntity.path;
           } else {

@@ -4,6 +4,7 @@ import 'package:family_pet/general/components/component_helpers.dart';
 import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/tools/utils.dart';
+import 'package:family_pet/model/enum.dart';
 import 'package:family_pet/resources/fast_register_user/register_fast_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -163,7 +164,9 @@ class _RegisterFastUserPageState extends State<RegisterFastUserPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     InkWell(
-                      onTap: () {},
+                      onTap: () => Navigator.pushNamed(context, RoutesName.termPage, arguments: <String, dynamic>{
+                        Constant.termType: TermType.serviceTerm,
+                      }),
                       child: Text(
                         AppStrings.of(context).textRuleService,
                         style: Theme.of(context).textTheme.subtitle2,

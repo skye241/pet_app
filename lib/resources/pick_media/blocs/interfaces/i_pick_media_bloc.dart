@@ -7,7 +7,7 @@ abstract class IPickMediaBloc{
   //Page paginate
   int currentPage = 1;
   int totalPage =1;
-  static const numberItemOnPage = 27;
+  static const int numberItemOnPage = 27;
 
 
   //Get list Media

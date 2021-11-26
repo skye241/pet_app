@@ -1,12 +1,9 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
-import 'package:family_pet/general/constant/url.dart';
-import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/resources/album/views/media_widget.dart';
 import 'package:family_pet/resources/interests/interests_page_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class InterestsPage extends StatefulWidget {
   const InterestsPage({Key? key}) : super(key: key);
@@ -104,42 +101,4 @@ class _InterestsPageState extends State<InterestsPage> {
     );
   }
 
-  Widget _itemGridView(Media media) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          width: double.maxFinite,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(6.0)),
-            image: DecorationImage(
-                image: NetworkImage(
-                  media.file!,
-                ),
-                fit: BoxFit.cover),
-          ),
-        ),
-        Positioned(
-          child: Row(
-            children: <Widget>[
-              SvgPicture.asset('assets/svgs/svg_message.svg'),
-              const SizedBox(
-                width: 2,
-              ),
-              Text(
-                media.totalComment.toString(),
-                style: const TextStyle(fontSize: 12, color: Colors.white),
-              )
-            ],
-          ),
-          bottom: 8,
-          left: 8,
-        ),
-        Positioned(
-          child: SvgPicture.asset('assets/svgs/svg_heart.svg'),
-          bottom: 8,
-          right: 8,
-        ),
-      ],
-    );
-  }
 }

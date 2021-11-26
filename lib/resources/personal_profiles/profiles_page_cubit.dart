@@ -50,7 +50,7 @@ class ProfilesPageCubit extends Cubit<ProfilesPageState> {
       defaultUserInfo = userInfo;
 
       emit(ProfilesPageStateLoaded(listFamily, listFriend, userInfo, listPet));
-    } on APIException catch (e) {
+    } on APIException {
       emit(ProfilesPageFailed());
     }
   }

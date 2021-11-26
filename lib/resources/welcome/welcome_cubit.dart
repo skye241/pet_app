@@ -21,7 +21,7 @@ class WelcomeCubit extends Cubit<WelcomeState> {
       try {
         await userRepository.viewUserById();
         emit(WelcomeSuccess(RoutesName.topPage));
-      } on APIException catch (e) {
+      } on APIException {
         // final bool loggedIn = prefs!.setString(Constant.cookie)
         emit(WelcomeSuccess(RoutesName.introducePage));
       }

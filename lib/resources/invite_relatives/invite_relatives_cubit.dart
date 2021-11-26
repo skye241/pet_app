@@ -51,7 +51,7 @@ class InviteRelativesCubit extends Cubit<InviteRelativesState> {
         emit(InviteRelativesLoaded(Media(), permission, ''));
       }
       // listMedia.indexWhere((Media media) => DateTime.parse(media.createdAt).);
-    } on APIException catch (e) {
+    } on APIException {
       emit(InviteRelativesStateFailed());
     }
   }

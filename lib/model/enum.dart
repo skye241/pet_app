@@ -13,6 +13,11 @@ class MediaType {
   static const String video = 'Video';
 }
 
+class TermType {
+  static const int serviceTerm = 0;
+  static const int securityTerm = 1;
+}
+
 class PermissionPickMedia{
   static const String family = 'Family';
   static const String friend = 'Friend';

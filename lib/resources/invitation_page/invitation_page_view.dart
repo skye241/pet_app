@@ -1,7 +1,6 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/constant/routes_name.dart';
-import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/general/tools/utils.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/resources/invitation_page/invitation_cubit.dart';

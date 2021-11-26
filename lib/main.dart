@@ -18,6 +18,7 @@ import 'package:family_pet/resources/pick_media/views/pick_media_page.dart';
 import 'package:family_pet/resources/register_pet/views/register_pet_page.dart';
 import 'package:family_pet/resources/signin/views/signin_page.dart';
 import 'package:family_pet/resources/signup/views/signup_page.dart';
+import 'package:family_pet/resources/term_page/term_page.dart';
 import 'package:family_pet/resources/top_page/top_screen.dart';
 import 'package:family_pet/resources/welcome/views/welcome_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -223,6 +224,12 @@ class _MyAppState extends State<MyApp> {
         return MaterialPageRoute<dynamic>(
           builder: (BuildContext context) => const SignInPage(),
           settings: const RouteSettings(name: RoutesName.signInPage),
+        );
+      case RoutesName.termPage:
+        return MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) =>
+              TermPage(termType: data[Constant.termType] as int),
+          settings: const RouteSettings(name: RoutesName.termPage),
         );
       case RoutesName.topPage:
         return MaterialPageRoute<dynamic>(

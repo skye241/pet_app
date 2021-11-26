@@ -222,28 +222,28 @@ class _ListRelativesPageState extends State<ListRelativesPage>
 //   );
 // }
 
-Widget _itemLabelRelatives(String label, int countList, bool isActive,
-    {Function()? onTap}) {
-  return InkWell(
-    onTap: onTap,
-    child: Container(
-      padding: const EdgeInsets.all(15),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        border: Border(
-            bottom: BorderSide(
-          color:
-              isActive ? AppThemeData.color_main : AppThemeData.color_black_40,
-          width: 4,
-        )),
-      ),
-      child: Text(
-        '$label ($countList)',
-        style: TextStyle(
-            color: isActive
-                ? AppThemeData.color_main
-                : AppThemeData.color_black_40),
-      ),
-    ),
-  );
-}
+// Widget _itemLabelRelatives(String label, int countList, bool isActive,
+//     {Function()? onTap}) {
+//   return InkWell(
+//     onTap: onTap,
+//     child: Container(
+//       padding: const EdgeInsets.all(15),
+//       alignment: Alignment.center,
+//       decoration: BoxDecoration(
+//         border: Border(
+//             bottom: BorderSide(
+//           color:
+//               isActive ? AppThemeData.color_main : AppThemeData.color_black_40,
+//           width: 4,
+//         )),
+//       ),
+//       child: Text(
+//         '$label ($countList)',
+//         style: TextStyle(
+//             color: isActive
+//                 ? AppThemeData.color_main
+//                 : AppThemeData.color_black_40),
+//       ),
+//     ),
+//   );
+// }

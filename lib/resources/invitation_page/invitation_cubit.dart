@@ -22,7 +22,7 @@ class InvitationCubit extends Cubit<InvitationState> {
           await shareRepository.checkLink(Url.baseURLShare + url);
       defaultMedia = media;
       emit(InvitationStateLoaded(media));
-    } on APIException catch (e) {
+    } on APIException {
       emit(InvitationStateFail());
     }
   }

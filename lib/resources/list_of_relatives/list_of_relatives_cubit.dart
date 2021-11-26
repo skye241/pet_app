@@ -9,6 +9,7 @@ part 'list_of_relatives_state.dart';
 
 class ListOfRelativesCubit extends Cubit<ListOfRelativesState> {
   ListOfRelativesCubit()
+      // ignore: prefer_const_literals_to_create_immutables
       : super(ListOfRelativesInitial(<UserInfo>[], <UserInfo>[]));
 
   final RelationshipRepository relationshipRepository =

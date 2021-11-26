@@ -2,7 +2,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:family_pet/general/api_handler.dart';
 import 'package:family_pet/general/app_strings/app_strings.dart';
-import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/model/enum.dart';
 import 'package:family_pet/repository/media_repository.dart';

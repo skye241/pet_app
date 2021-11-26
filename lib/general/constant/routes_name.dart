@@ -17,6 +17,7 @@ class RoutesName{
   static const String topPage = 'topPage';
   static const String invitationPage = 'invitation';
   static const String defaultPage = 'defaultPage';
+  static const String termPage = 'termPage';
 
 
 }
