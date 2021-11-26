@@ -46,6 +46,7 @@ class _RegisterFastUserPageState extends State<RegisterFastUserPage> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         body: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
           child: Padding(
             padding: EdgeInsets.symmetric(
                 vertical: MediaQuery.of(context).padding.top + 32,

@@ -63,6 +63,7 @@ class _SignInPageState extends State<SignInPage> {
             },
             builder: (BuildContext context, SignInState state) {
               return SingleChildScrollView(
+                physics: const ClampingScrollPhysics(),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 21),
                   child: Column(
@@ -102,6 +103,13 @@ class _SignInPageState extends State<SignInPage> {
                           obscureText: cubit.isShow,
                           controller: passwordController,
                           onEditingComplete: () => _eventSignIn(),
+                          validator: (String? value) {
+                            if (value == null || value.isEmpty) {
+                              return AppStrings.of(context)
+                                  .textSignUpErrorEmptyPassword;
+                            } else
+                              return null;
+                          },
                           hintText:
                               AppStrings.of(context).textSignUpLabelPassword,
                           label: AppStrings.of(context).textSignUpLabelPassword,

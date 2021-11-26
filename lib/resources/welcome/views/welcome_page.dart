@@ -50,32 +50,29 @@ class _WelcomePageState extends State<WelcomePage>
               const SizedBox(
                 height: 8.0,
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Transform(
-                  transform: Matrix4.identity()
-                    ..translate(-MediaQuery.of(context).size.width * 2),
-                  child: Container(
-                    width: 5 * MediaQuery.of(context).size.width,
-                    child: AnimatedBuilder(
-                        animation: _animation,
-                        builder: (BuildContext context, Widget? child) {
-                          return Opacity(
-                            opacity: _animationController.value,
-                            child: Text(
-                              'Famipet',
-                              maxLines: 1,
-                              overflow: TextOverflow.fade,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 35,
-                                  letterSpacing: _animation.value,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                          );
-                        }),
-                  ),
+              Transform(
+                transform: Matrix4.identity()
+                  ..translate(-MediaQuery.of(context).size.width * 2),
+                child: Container(
+                  width: 5 * MediaQuery.of(context).size.width,
+                  child: AnimatedBuilder(
+                      animation: _animation,
+                      builder: (BuildContext context, Widget? child) {
+                        return Opacity(
+                          opacity: _animationController.value,
+                          child: Text(
+                            'Famipet',
+                            maxLines: 1,
+                            overflow: TextOverflow.fade,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 35,
+                                letterSpacing: _animation.value,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        );
+                      }),
                 ),
               ),
             ],

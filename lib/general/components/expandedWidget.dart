@@ -239,10 +239,10 @@ class CustomExpansionTile extends StatefulWidget {
   final ListTileControlAffinity? controlAffinity;
 
   @override
-  State<CustomExpansionTile> createState() => _CustomExpansionTileState();
+  State<CustomExpansionTile> createState() => CustomExpansionTileState();
 }
 
-class _CustomExpansionTileState extends State<CustomExpansionTile> with SingleTickerProviderStateMixin {
+class CustomExpansionTileState extends State<CustomExpansionTile> with SingleTickerProviderStateMixin {
   static final Animatable<double> _easeOutTween = CurveTween(curve: Curves.easeOut);
   static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
   static final Animatable<double> _halfTween = Tween<double>(begin: 0.0, end: 0.5);
@@ -283,6 +283,40 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> with SingleTi
     _controller.dispose();
     super.dispose();
   }
+
+
+  void expand() {
+    _setExpanded(true);
+  }
+
+  void collapse() {
+    _setExpanded(false);
+  }
+
+  void toggle() {
+    _setExpanded(!_isExpanded);
+  }
+
+  void _setExpanded(bool isExpanded) {
+    if (_isExpanded != isExpanded) {
+      setState(() {
+        _isExpanded = isExpanded;
+        if (_isExpanded)
+          _controller.forward();
+        else
+          _controller.reverse().then<void>((_) {
+            setState(() {
+              // Rebuild without widget.children.
+            });
+          });
+        PageStorage.of(context)?.writeState(context, _isExpanded);
+      });
+      if (widget.onExpansionChanged != null) {
+        widget.onExpansionChanged!(_isExpanded);
+      }
+    }
+  }
+
 
   void _handleTap() {
     setState(() {

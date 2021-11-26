@@ -2,13 +2,16 @@ import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/model/entity.dart';
+import 'package:family_pet/resources/album/album_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MediaWidget extends StatelessWidget {
-  const MediaWidget({Key? key, required this.media}) : super(key: key);
+  const MediaWidget({Key? key, required this.media, this.cubit})
+      : super(key: key);
 
   final Media media;
+  final AlbumCubit? cubit;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,11 @@ class MediaWidget extends StatelessWidget {
         ]);
     return InkWell(
       onTap: () => Navigator.pushNamed(context, RoutesName.imageDetails,
-          arguments: <String, dynamic>{Constant.media: media}),
+          arguments: <String, dynamic>{Constant.media: media}).then((_) {
+        if (cubit != null) {
+          cubit!.initEvent();
+        }
+      }),
       child: Hero(
         tag: 'media${media.id}',
         child: ClipRRect(

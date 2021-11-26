@@ -12,7 +12,7 @@ class AddPictureCubit extends Cubit<AddPictureState> {
 
   final MediaRepository mediaRepository = MediaRepository();
 
-  Future<void> changeImage(File image, String permission) async {
+  Future<void> update(File? image, String permission) async {
     emit(AddPictureInitial(image, permission));
   }
 

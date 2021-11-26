@@ -344,10 +344,10 @@ class _AppStringsVn extends AppStrings {
   String get textSignUpPopUpTitle => 'Đã gửi Email!';
 
   @override
-  String get successDelete => 'Cập nhật thành công';
+  String get successUpdate => 'Cập nhật thành công';
 
   @override
-  String get successUpdate => 'Xóa thành công';
+  String get successDelete => 'Xóa thành công';
 
   @override
   String get textButtonAddMedia => 'Thêm Ảnh';
@@ -360,5 +360,11 @@ class _AppStringsVn extends AppStrings {
 
   @override
   String get textErrorEmptyBirthday => 'Vui lòng điền ngày sinh';
+
+  @override
+  String get textPopUpSuccessSaveToDevice => 'Đã lưu thành công';
+
+  @override
+  String get textSignUpErrorEmptyPassword => 'Vui lòng nhập mật khẩu';
 
 }

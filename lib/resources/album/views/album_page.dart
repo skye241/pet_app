@@ -156,6 +156,7 @@ class _AlbumPageState extends State<AlbumPage> {
                               .sublist(1, qualifyMedia.length)
                               .map((Media media) => MediaWidget(
                                     media: media,
+                                    cubit: cubit,
                                   ))
                               .toList()),
                     ],
@@ -179,7 +180,8 @@ class _AlbumPageState extends State<AlbumPage> {
         ]);
     return InkWell(
       onTap: () => Navigator.pushNamed(context, RoutesName.imageDetails,
-          arguments: <String, dynamic>{Constant.media: media}),
+              arguments: <String, dynamic>{Constant.media: media})
+          .then((_) => cubit.initEvent()),
       child: Hero(
         tag: 'media${media.id}',
         child: Row(

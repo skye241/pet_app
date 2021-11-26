@@ -349,4 +349,10 @@ class _AppStringsJp extends AppStrings {
 
   @override
   String get textErrorEmptyBirthday => '生年月日を入力してください';
+
+  @override
+  String get textPopUpSuccessSaveToDevice => '保存されました';
+
+  @override
+  String get textSignUpErrorEmptyPassword => 'パスワードを入力してください';
 }

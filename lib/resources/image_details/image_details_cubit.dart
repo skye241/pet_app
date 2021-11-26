@@ -39,7 +39,7 @@ class ImageDetailsCubit extends Cubit<ImageDetailsState> {
     }
   }
 
-  Future<void> saveImage(Media media) async {
+  Future<void> saveImage(BuildContext context, Media media) async {
     try {
       // final Response response =
       //     await get(Uri.parse(Url.baseURLImage + media.file!));
@@ -49,6 +49,7 @@ class ImageDetailsCubit extends Cubit<ImageDetailsState> {
       // file.writeAsBytesSync(response.bodyBytes);
       // print('success');
       GallerySaver.saveImage(media.file!);
+      emit(ImageDetailsStateShowMessage(AppStrings.of(context).textPopUpSuccessSaveToDevice));
     } on Exception catch (e) {
       print(e);
     }

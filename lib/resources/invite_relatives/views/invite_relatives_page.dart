@@ -58,6 +58,7 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
           ),
         ),
         body: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             width: double.maxFinite,

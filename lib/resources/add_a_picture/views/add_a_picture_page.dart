@@ -59,6 +59,7 @@ class _AddAPicturePageState extends State<AddAPicturePage> {
   Widget _body(BuildContext context, AddPictureInitial state) {
     return Scaffold(
       body: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.symmetric(
               vertical: MediaQuery.of(context).padding.top + 32,
@@ -112,7 +113,21 @@ class _AddAPicturePageState extends State<AddAPicturePage> {
                   height: 198,
                 )
               else
-                Image.file(state.image!),
+                Stack(
+                  children: <Widget>[
+                    Image.file(state.image!),
+                    Positioned(
+                        right: 16,
+                        top: 5,
+                        child: GestureDetector(
+                          child: const Icon(
+                            Icons.cancel_outlined,
+                            color: Colors.redAccent,
+                          ),
+                          onTap: () => cubit.update(null, state.permission),
+                        ))
+                  ],
+                ),
               Container(
                 height: 16,
               ),
@@ -130,7 +145,7 @@ class _AddAPicturePageState extends State<AddAPicturePage> {
                 PermissionPickerWidget(
                     initPermission: PermissionPickMedia.family,
                     onPermissionPicked: (String per) =>
-                        cubit.changeImage(state.image!, per)),
+                        cubit.update(state.image!, per)),
               const SizedBox(
                 height: 126,
               ),
@@ -175,7 +190,7 @@ class _AddAPicturePageState extends State<AddAPicturePage> {
     if (pickedFile != null) {
       print(pickedFile);
       final File image = File(pickedFile.path);
-      cubit.changeImage(image, state.permission);
+      cubit.update(image, state.permission);
     }
   }
 }

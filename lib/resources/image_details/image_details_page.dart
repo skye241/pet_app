@@ -190,7 +190,6 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
             PermissionPickerWidget(
                 initPermission: state.media.share!,
                 onPermissionPicked: (String per) {
-                  print(per);
                   cubit.updatePermission(state.media, per);
                 }),
             Center(
@@ -210,7 +209,7 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
               child: TextButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  cubit.saveImage(state.media);
+                  cubit.saveImage(context, state.media);
                 },
                 child: Text(AppStrings.of(context).textSaveMediaToDevice,
                     style: Theme.of(context)

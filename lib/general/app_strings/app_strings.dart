@@ -165,6 +165,8 @@ abstract class AppStrings {
 
   String get textPopUpSuccessUpload;
 
+  String get textPopUpSuccessSaveToDevice;
+
   String get textButtonReturnToMain;
 
 //*** End - IPick Media ***//
@@ -238,6 +240,8 @@ abstract class AppStrings {
   String get textSignUpLabelOtherRegister;
 
   String get textSignUpErrorEmptyEmail;
+
+  String get textSignUpErrorEmptyPassword;
 
   String get textSignUpErrorWrongFormatEmail;
 

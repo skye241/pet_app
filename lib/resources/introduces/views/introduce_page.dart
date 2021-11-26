@@ -43,6 +43,7 @@ class _IntroducePageState extends State<IntroducePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
         child: Container(
           width: double.maxFinite,
           height: double.maxFinite,

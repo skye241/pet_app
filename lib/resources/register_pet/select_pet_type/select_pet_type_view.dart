@@ -10,14 +10,14 @@ class SelectPetTypeWidget extends StatefulWidget {
       : super(key: key);
   final ValueChanged<PetType>? onPetTypeSelected;
 
-
-
   @override
   _SelectPetTypeWidgetState createState() => _SelectPetTypeWidgetState();
 }
 
 class _SelectPetTypeWidgetState extends State<SelectPetTypeWidget> {
   final SelectPetTypeCubit cubit = SelectPetTypeCubit();
+  final GlobalKey<CustomExpansionTileState> expansionKey =
+      GlobalKey<CustomExpansionTileState>();
 
   @override
   void initState() {
@@ -82,6 +82,7 @@ class _SelectPetTypeWidgetState extends State<SelectPetTypeWidget> {
 
   Widget _loadedWidget(BuildContext context, SelectPetTypeStateLoaded state) {
     return CustomExpansionTile(
+      key: expansionKey,
       collapsedIconColor: AppThemeData.color_black_80,
       iconColor: AppThemeData.color_black_80,
       tilePadding: const EdgeInsets.only(left: 0, right: 12),
@@ -100,7 +101,12 @@ class _SelectPetTypeWidgetState extends State<SelectPetTypeWidget> {
       BuildContext context, SelectPetTypeStateLoaded state, PetType petType) {
     return InkWell(
       onTap: () {
-        cubit.selectPetType(petType, state.listPetType);
+        if (petType.id == state.selectedPetType.id) {
+          expansionKey.currentState!.expand();
+        } else {
+          cubit.selectPetType(petType, state.listPetType);
+          expansionKey.currentState!.collapse();
+        }
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 12),

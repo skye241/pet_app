@@ -88,6 +88,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ),
           body: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 21),
               child: Column(
@@ -130,6 +131,13 @@ class _SignUpPageState extends State<SignUpPage> {
                       enabled: state.allowEmail,
                       obscureText: state.obscureText,
                       controller: passwordController,
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return AppStrings.of(context)
+                              .textSignUpErrorEmptyPassword;
+                        } else
+                          return null;
+                      },
                       fillColor: state.allowEmail
                           ? Colors.white
                           : AppThemeData.color_primary_90,
