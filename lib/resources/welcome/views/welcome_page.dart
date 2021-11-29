@@ -1,3 +1,4 @@
+
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/resources/welcome/welcome_cubit.dart';
 import 'package:flutter/material.dart';
@@ -41,9 +42,9 @@ class _WelcomePageState extends State<WelcomePage>
       },
       child: Scaffold(
         backgroundColor: AppThemeData.color_main,
-        body: Container(
-          width: double.maxFinite,
+        body: SingleChildScrollView(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SvgPicture.asset('assets/svgs/svg_logo.svg'),

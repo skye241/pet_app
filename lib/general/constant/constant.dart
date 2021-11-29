@@ -55,4 +55,7 @@ class Constant {
   static const String userInfo = 'userinfo';
   static const String isActive = 'is_active';
   static const String termType = 'term_type';
+  static const String registrationId = 'registration_id';
+  static const String deviceId = 'device_id';
+  static const String type = 'type';
 }

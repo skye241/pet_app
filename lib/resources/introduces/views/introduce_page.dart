@@ -61,9 +61,9 @@ class _IntroducePageState extends State<IntroducePage> {
                         Navigator.pushReplacementNamed(
                             context, RoutesName.registerFastUserPage);
                       },
-                      child: const Text(
-                        'Bỏ qua',
-                        style: TextStyle(color: AppThemeData.color_main),
+                      child:  Text(
+                        AppStrings.of(context).textSkipRegisterPet,
+                        style: const TextStyle(color: AppThemeData.color_main),
                       ))),
               const SizedBox(
                 height: 45,
@@ -133,7 +133,7 @@ class _IntroducePageState extends State<IntroducePage> {
                 width: double.maxFinite,
                 padding: const EdgeInsets.symmetric(vertical: 15.0),
                 alignment: Alignment.center,
-                child: const Text('Tiếp tục'),
+                child: Text(AppStrings.of(context).textButtonContinue),
               )),
         ]));
   }

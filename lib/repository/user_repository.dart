@@ -76,6 +76,21 @@ class UserRepository {
     } else
       throw APIException(response);
   }
+  Future<void> updateUserFcmToken(String deviceId, String registrationId, String type) async {
+    final Map<String, dynamic> body = <String, dynamic>{};
+    body[Constant.deviceId] = deviceId;
+    body[Constant.registrationId] = registrationId;
+    body[Constant.type] = type;
+    body[Constant.userId] = prefs?.getInt(Constant.userId);
+
+    final APIResponse response =
+        await networkService.callPOST(url: Url.createFcm, body: body);
+
+    if (response.isOK ?? false) {
+      return;
+    } else
+      throw APIException(response);
+  }
 
   Future<UserInfo> viewUserById() async {
     final APIResponse response = await networkService.callGET(

@@ -1,5 +1,7 @@
 library languages;
 
+import 'dart:io';
+
 import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/main.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,7 +19,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<AppStrings> {
   @override
   Future<AppStrings> load(Locale locale) async {
     if (prefs!.getString(Constant.language) == null) {
-      prefs!.setString(Constant.language, locale.languageCode);
+      prefs!.setString(Constant.language, Platform.localeName.substring(0,2));
     }
     switch (locale.languageCode) {
       case 'ja':

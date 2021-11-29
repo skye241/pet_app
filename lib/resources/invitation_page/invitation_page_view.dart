@@ -78,7 +78,7 @@ class _InvitationPageState extends State<InvitationPage> {
                 context,
                 cubit.defaultMedia,
                 AppStrings.of(context).invitationSuccess,
-                () {},
+                () => Navigator.pushReplacementNamed(context, RoutesName.topPage),
                 AppStrings.of(context).invitationButtonSuccess,
                 state,
               );

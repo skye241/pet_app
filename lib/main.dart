@@ -32,12 +32,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'general/app_strings/app_strings.dart';
 
 SharedPreferences? prefs;
-// const AndroidNotificationChannel channel = AndroidNotificationChannel(
-//     'high_importance_channel', // id
-//     'High Importance Notifications', // title
-//     'This channel is used for important notifications.', // description
-//     importance: Importance.high,
-//     playSound: true);
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
@@ -112,6 +106,8 @@ class _MyAppState extends State<MyApp> {
                       if (supportedLocale.languageCode ==
                               locale?.languageCode &&
                           supportedLocale.countryCode == locale?.countryCode) {
+                        // cubit.initLocale(supportedLocale.languageCode);
+
                         return supportedLocale;
                       }
                     }
@@ -307,9 +303,8 @@ class _MyAppState extends State<MyApp> {
     const NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationChannel, iOS: iosNotificationDetails);
 
-    final String? token = await firebaseMessaging.getToken();
+    // final String? token = await firebaseMessaging.getToken();
     // prefs!.setString(Constant.firebaseKey, token);
-    print('Token =============== $token');
 
     FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) {
       // print(remoteMessage.sentTime.toString() + '===sendTime');

@@ -13,6 +13,7 @@ class Url {
   static const String getUserInfoById = baseURL + 'userinfo/get-by-id/';
   static const String sendEmailActive = baseURL + 'userinfo/send-mail-active/';
   static const String login = baseURL + 'userinfo/login/';
+  static const String createFcm = baseURL + 'fcmdevices/';
 
   ///MEDIA
   static const String uploadMedia = baseURL + 'media/upload-media/';
