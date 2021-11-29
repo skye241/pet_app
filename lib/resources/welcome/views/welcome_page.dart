@@ -1,7 +1,7 @@
-
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/resources/welcome/welcome_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -16,6 +16,8 @@ class _WelcomePageState extends State<WelcomePage>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
+  late TextStyleTween _styleTween;
+  late CurvedAnimation _curvedAnimation;
   final WelcomeCubit cubit = WelcomeCubit();
 
   @override
@@ -27,8 +29,24 @@ class _WelcomePageState extends State<WelcomePage>
     )..forward().whenComplete(() {
         cubit.initEvent();
       });
+    _styleTween = TextStyleTween(
+      begin: const TextStyle(
+        overflow: TextOverflow.fade,
+        color: Colors.white,
+          fontSize: 35, letterSpacing: 40, fontWeight: FontWeight.w700),
+      end: const TextStyle(
+          overflow: TextOverflow.fade,
+          color: Colors.white,
+          fontSize: 35, letterSpacing: 1, fontWeight: FontWeight.w700),
+    );
     _animation =
-        Tween<double>(begin: 200.0, end: 1.0).animate(_animationController);
+        Tween<double>(begin:100, end: 1)
+            .animate(_animationController);
+    _curvedAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.fastOutSlowIn,
+    );
+
   }
 
   @override
@@ -42,7 +60,7 @@ class _WelcomePageState extends State<WelcomePage>
       },
       child: Scaffold(
         backgroundColor: AppThemeData.color_main,
-        body: SingleChildScrollView(
+        body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -51,31 +69,62 @@ class _WelcomePageState extends State<WelcomePage>
               const SizedBox(
                 height: 8.0,
               ),
-              Transform(
-                transform: Matrix4.identity()
-                  ..translate(-MediaQuery.of(context).size.width * 2),
-                child: Container(
-                  width: 5 * MediaQuery.of(context).size.width,
-                  child: AnimatedBuilder(
-                      animation: _animation,
-                      builder: (BuildContext context, Widget? child) {
-                        return Opacity(
-                          opacity: _animationController.value,
-                          child: Text(
-                            'Famipet',
-                            maxLines: 1,
-                            overflow: TextOverflow.fade,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 35,
-                                letterSpacing: _animation.value,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        );
-                      }),
-                ),
+              DefaultTextStyleTransition(
+                style: _styleTween.animate(_curvedAnimation),
+                child: const Text('Famipet', maxLines: 1,),
               ),
+              // Transform(
+              //   transform: Matrix4.identity()
+              //     ..translate(-MediaQuery.of(context).size.width * 2),
+              //   child: Container(
+              //     width: 5 * MediaQuery.of(context).size.width,
+              //     child: AnimatedBuilder(
+              //         animation: _animation,
+              //         builder: (BuildContext context, Widget? child) {
+              //           return Opacity(
+              //             // opacity: 1,
+              //             opacity: _animationController.value,
+              //             child: Text(
+              //               'Famipet',
+              //               maxLines: 1,
+              //               overflow: TextOverflow.fade,
+              //               textAlign: TextAlign.center,
+              //               style: TextStyle(
+              //                   color: Colors.white,
+              //                   fontSize: 35,
+              //                   letterSpacing: _animation.value,
+              //                   fontWeight: FontWeight.w700),
+              //             ),
+              //           );
+              //         }),
+              //   ),
+              // ),
+              // Transform(
+              //   transform: Matrix4.identity()
+              //     ..translate(-MediaQuery.of(context).size.width * 2),
+              //   child: Container(
+              //     width: 5 * MediaQuery.of(context).size.width,
+              //     child: AnimatedBuilder(
+              //         animation: _animation,
+              //         builder: (BuildContext context, Widget? child) {
+              //           return Opacity(
+              //             opacity: 1,
+              //             // opacity: _animationController.value,
+              //             child: Text(
+              //               'Famipet',
+              //               // maxLines: 1,
+              //               overflow: TextOverflow.fade,
+              //               textAlign: TextAlign.center,
+              //               style: TextStyle(
+              //                   color: Colors.white,
+              //                   fontSize: 35,
+              //                   letterSpacing: _animation.value,
+              //                   fontWeight: FontWeight.w700),
+              //             ),
+              //           );
+              //         }),
+              //   ),
+              // ),
             ],
           ),
         ),
