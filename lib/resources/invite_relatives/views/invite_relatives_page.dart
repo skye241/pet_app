@@ -1,6 +1,7 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/permission_picker/permission_picker.dart';
+import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/general/tools/utils.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/model/enum.dart';
@@ -66,8 +67,7 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
                 const SizedBox(
                   height: 40,
                 ),
-                Text(
-                    AppStrings.of(context).textInviteRelativesLabelMain,
+                Text(AppStrings.of(context).textInviteRelativesLabelMain,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2),
                 const SizedBox(height: 24),
@@ -122,7 +122,6 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
                     ],
                     initPermission: PermissionPickMedia.family,
                     onPermissionPicked: (String per) => cubit.sortAlbum(per)),
-                const SizedBox(height: 130),
                 BlocBuilder<InviteRelativesCubit, InviteRelativesState>(
                   bloc: cubit,
                   builder: (BuildContext context, InviteRelativesState state) {
@@ -130,7 +129,7 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
                       children: <Widget>[
                         Tooltip(
                           message:
-                              'Khi được mời với tư cách gia đình. Bạn có thể xem và tải ảnh lên',
+                              AppStrings.of(context).textTooltip,
                           padding: const EdgeInsets.all(16.0),
                           margin: const EdgeInsets.symmetric(horizontal: 50.0),
                           preferBelow: false,
@@ -198,7 +197,9 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
     BuildContext context,
     // @required ScaffoldMessengerState scaffoldMessengerStateKey,
   ) {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Đã copy link'),));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(AppStrings.of(context).textInviteRelativesSuccessCopyUrl),
+    ));
   }
 
   Widget _itemFirst(BuildContext context, Media media) {
@@ -219,7 +220,7 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
               width: 220,
               height: 220,
               child: Image.network(
-               media.file!,
+               Url.baseURLImage + media.file!,
                 fit: BoxFit.cover,
               ),
             )

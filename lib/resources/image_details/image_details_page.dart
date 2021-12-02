@@ -2,7 +2,10 @@ import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/component_helpers.dart';
 import 'package:family_pet/general/components/permission_picker/permission_picker.dart';
+import 'package:family_pet/general/constant/constant.dart';
+import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/general/tools/utils.dart';
+import 'package:family_pet/main.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/resources/image_details/image_details_cubit.dart';
 import 'package:family_pet/resources/image_details/list_comment/list_comment_view.dart';
@@ -45,7 +48,15 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
           Navigator.pop(context);
           return false;
         } else if (current is ImageDetailsStateSuccess) {
-          showMessage(context, AppStrings.of(context).notice, AppStrings.of(context).successDelete);
+          showMessage(context, AppStrings.of(context).notice,
+              AppStrings.of(context).successDelete,
+              actions: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pop(context, Media());
+                  },
+                  child: Text(AppStrings.of(context).close)));
           return false;
         } else if (current is ImageDetailsStateShowMessage) {
           showMessage(context, AppStrings.of(context).notice, current.message);
@@ -67,16 +78,13 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('Album',
-                  style: Theme.of(context).appBarTheme.titleTextStyle),
-              const Icon(Icons.keyboard_arrow_down_outlined),
-            ],
-          ),
+          title: Text(
+              prefs!.getString(Constant.albumName)!.isNotEmpty
+                  ? prefs!.getString(Constant.albumName)!
+                  : AppStrings.of(context).textTitleAlbum,
+              style: Theme.of(context).appBarTheme.titleTextStyle),
           leading: IconButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pop(context, state.media),
               icon: const Icon(Icons.close)),
           actions: <Widget>[
             IconButton(
@@ -97,7 +105,7 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
                     tag: 'media${state.media.id}',
                     child: ComponentHelper.borderRadiusImage(
                       image: Image.network(
-                      state.media.file!,
+                        Url.baseURLImage + state.media.file!,
                       ),
                       borderRadius: 8.0,
                     ),
@@ -173,7 +181,7 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
             Row(
               children: <Widget>[
                 InkWell(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () => Navigator.pop(context, false),
                     child: const Icon(Icons.close)),
                 Expanded(
                   child: Text(
@@ -195,8 +203,31 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
             Center(
               child: TextButton(
                 onPressed: () {
-                  Navigator.pop(context);
-                  cubit.deleteMedia(state.media);
+                  showMessage(context, AppStrings.of(context).notice,
+                      AppStrings.of(context).textPopUpConfirmDeleteMedia,
+                      actions: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(primary: AppThemeData.color_black_40),
+                                onPressed: () => Navigator.pop(context),
+                                child: Text(AppStrings.of(context)
+                                    .textPopUpCancelButtonDelete)),
+                          ),
+                          Container(
+                            width: 8,
+                          ),
+                          Expanded(
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  cubit.deleteMedia(state.media);
+                                },
+                                child: Text(AppStrings.of(context)
+                                    .textPopUpConfirmButtonDelete)),
+                          ),
+                        ],
+                      ));
                 },
                 child: Text(AppStrings.of(context).textDeleteMedia,
                     style: Theme.of(context)
@@ -224,7 +255,8 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
                     child: ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context);
-                          cubit.changePermission(context, state.media, state.permission);
+                          cubit.changePermission(
+                              context, state.media, state.permission);
                         },
                         child: Container(
                             height: 50,

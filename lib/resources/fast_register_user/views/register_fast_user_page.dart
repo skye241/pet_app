@@ -173,7 +173,9 @@ class _RegisterFastUserPageState extends State<RegisterFastUserPage> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () => Navigator.pushNamed(context, RoutesName.termPage, arguments: <String, dynamic>{
+                        Constant.termType: TermType.securityTerm,
+                      }),
                       child: Text(
                         AppStrings.of(context).textPolicyProtected,
                         style: Theme.of(context).textTheme.subtitle2,

@@ -4,11 +4,9 @@ part of 'top_screen_cubit.dart';
 abstract class TopScreenState {}
 
 class TopScreenInitial extends TopScreenState {
-  TopScreenInitial(this.index, this.images, this.permission);
+  TopScreenInitial(this.index);
 
   final int index;
-  final Set<File> images;
-  final String permission;
 }
 
 class TopScreenStateShowLoading extends TopScreenState {}

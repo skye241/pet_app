@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/permission_picker/permission_picker.dart';
+import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/tools/utils.dart';
 import 'package:family_pet/resources/pick_media/pick_media_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -55,7 +57,7 @@ class _PickMediaPageState extends State<PickMediaPage>
                 actions: ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.pop(context);
+                      Navigator.popAndPushNamed(context, RoutesName.topPage);
                     },
                     child:
                         Text(AppStrings.of(context).textButtonReturnToMain)));
@@ -662,21 +664,29 @@ class _PickMediaPageState extends State<PickMediaPage>
 
   Future<void> getMultipleImage(
       BuildContext context, PickMediaInitial state) async {
-    final List<XFile>? listPickedFile =
-        await ImagePicker().pickMultiImage(maxHeight: 1500, maxWidth: 1500);
-    if (listPickedFile != null) {
-      final List<File> listImage = <File>[];
-      for (final XFile pickedFile in listPickedFile) {
-        final File image = File(pickedFile.path);
-        print(pickedFile.name);
-        listImage.add(image);
-        if (state.listImage.isNotEmpty) {
-          state.listImage
-              .removeWhere((File exitFile) => exitFile.path == pickedFile.path);
+    try {
+      final List<XFile>? listPickedFile =
+          await ImagePicker().pickMultiImage(maxHeight: 1500, maxWidth: 1500);
+      if (listPickedFile != null) {
+        final List<File> listImage = <File>[];
+        for (final XFile pickedFile in listPickedFile) {
+          final File image = File(pickedFile.path);
+          print(pickedFile.name);
+          listImage.add(image);
+          if (state.listImage.isNotEmpty) {
+            state.listImage.removeWhere(
+                (File exitFile) => exitFile.path == pickedFile.path);
+          }
         }
+        state.listImage.addAll(listImage);
+        cubit.updateImage(state.listImage, state.permission);
       }
-      state.listImage.addAll(listImage);
-      cubit.updateImage(state.listImage, state.permission);
+    } on PlatformException catch (e) {
+      print(e.code);
+      if (e.code == 'photo_access_denied') {
+        showMessage(context, AppStrings.of(context).notice,
+            AppStrings.of(context).textErrorNoPermission);
+      }
     }
   }
 }

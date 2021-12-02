@@ -58,7 +58,7 @@ class _PermissionPickerWidgetState extends State<PermissionPickerWidget> {
     return Row(
       children: List<Widget>.generate(
           widget.listPermission.length,
-          (int index) => Flexible(
+          (int index) => Expanded(
                 child: Container(
                   margin: EdgeInsets.only(
                       left: index == 0

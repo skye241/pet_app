@@ -10,6 +10,7 @@ import 'package:family_pet/model/enum.dart';
 import 'package:family_pet/resources/add_a_picture/add_picture_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -150,8 +151,10 @@ class _AddAPicturePageState extends State<AddAPicturePage> {
                 height: 126,
               ),
               ElevatedButton(
-                  onPressed: () =>
-                      cubit.createMedia(state.image!, state.permission),
+                  onPressed: state.image != null
+                      ? () => cubit.createMedia(
+                          state.image!, state.permission, context)
+                      : null,
                   child: Container(
                     alignment: Alignment.center,
                     width: double.maxFinite,
@@ -185,12 +188,20 @@ class _AddAPicturePageState extends State<AddAPicturePage> {
 
   Future<void> getImageFromGallery(
       BuildContext context, AddPictureInitial state) async {
-    final XFile? pickedFile = await ImagePicker().pickImage(
-        source: ImageSource.gallery, maxHeight: 1500, maxWidth: 1500);
-    if (pickedFile != null) {
-      print(pickedFile);
-      final File image = File(pickedFile.path);
-      cubit.update(image, state.permission);
+    try {
+      final XFile? pickedFile = await ImagePicker().pickImage(
+          source: ImageSource.gallery, maxHeight: 1500, maxWidth: 1500);
+      if (pickedFile != null) {
+        print(pickedFile);
+        final File image = File(pickedFile.path);
+        cubit.update(image, state.permission);
+      }
+    } on PlatformException catch (e) {
+      print(e.code);
+      if (e.code == 'photo_access_denied') {
+        showMessage(context, AppStrings.of(context).notice,
+            'Nếu bạn muốn thay đổi quyền hãy vào mục cài đặt của điện thoại');
+      }
     }
   }
 }

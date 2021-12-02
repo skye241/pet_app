@@ -42,52 +42,39 @@ class _IntroducePageState extends State<IntroducePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
-        child: Container(
-          width: double.maxFinite,
-          height: double.maxFinite,
-          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-          child: Column(
-            children: <Widget>[
-              const SizedBox(
-                height: 18,
-              ),
-              Container(
-                  alignment: Alignment.bottomRight,
-                  margin: const EdgeInsets.only(right: 18),
-                  child: TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                            context, RoutesName.registerFastUserPage);
-                      },
-                      child:  Text(
-                        AppStrings.of(context).textSkipRegisterPet,
-                        style: const TextStyle(color: AppThemeData.color_main),
-                      ))),
-              const SizedBox(
-                height: 45,
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Expanded(
-                      child: PageView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        controller: _pageController,
-                        children: listIntroduceEntity
-                            .map((IntroduceEntity e) => page(e))
-                            .toList(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+      body: ListView(
+        // padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        // mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          const SizedBox(
+            height: 18,
           ),
-        ),
+          Container(
+              alignment: Alignment.bottomRight,
+              margin: const EdgeInsets.only(right: 18),
+              child: TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                        context, RoutesName.registerFastUserPage);
+                  },
+                  child:  Text(
+                    AppStrings.of(context).textSkipRegisterPet,
+                    style: const TextStyle(color: AppThemeData.color_main),
+                  ))),
+          const SizedBox(
+            height: 45,
+          ),
+          Container(
+            height: 600,
+            child: PageView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: _pageController,
+              children: listIntroduceEntity
+                  .map((IntroduceEntity e) => page(e))
+                  .toList(),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -133,7 +120,7 @@ class _IntroducePageState extends State<IntroducePage> {
                 width: double.maxFinite,
                 padding: const EdgeInsets.symmetric(vertical: 15.0),
                 alignment: Alignment.center,
-                child: Text(AppStrings.of(context).textButtonContinue),
+                child: Text(AppStrings.of(context).textPickMediaContinue),
               )),
         ]));
   }

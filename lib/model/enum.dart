@@ -24,3 +24,9 @@ class PermissionPickMedia{
   static const String onlyMe = 'Onlyme';
   static const String mine = 'Mine';
  }
+class AccountStatus{
+  static const String unlink = 'Unlink';
+  static const String inactive = 'Inactive';
+  static const String active = 'Active';
+  static const String locked = 'Locked';
+ }

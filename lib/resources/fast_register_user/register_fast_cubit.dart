@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:device_info/device_info.dart';
 import 'package:family_pet/general/api_handler.dart';
-import 'package:family_pet/general/constant/constant.dart';
-import 'package:family_pet/main.dart';
+import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/repository/user_repository.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:meta/meta.dart';
 
 part 'register_fast_state.dart';
@@ -19,9 +19,13 @@ class RegisterFastCubit extends Cubit<RegisterFastState> {
     try {
       emit(RegisterFastStatePopUpLoading());
       final String deviceId = await _getId();
-      prefs!.setString(Constant.cookie, '');
-      // final UserInfo? user =
-      await userRepository.registerUserFast(fullName, deviceId);
+      final UserInfo? userInfo =
+          await userRepository.registerUserFast(fullName, deviceId);
+      // await userRepository.getNewToken();
+      final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+      final String? token = await firebaseMessaging.getToken();
+      await userRepository.createUserFcmToken(deviceId, token ?? '',
+          Platform.isAndroid ? 'android' : 'ios', userInfo!.user!);
       emit(RegisterFastStateDismissPopUpLoading());
       emit(RegisterFastStateSuccess());
     } on APIException catch (e) {

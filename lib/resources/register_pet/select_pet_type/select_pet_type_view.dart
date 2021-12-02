@@ -1,5 +1,7 @@
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/expandedWidget.dart';
+import 'package:family_pet/general/constant/constant.dart';
+import 'package:family_pet/main.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/resources/register_pet/select_pet_type/select_pet_type_cubit.dart';
 import 'package:flutter/material.dart';
@@ -114,7 +116,10 @@ class _SelectPetTypeWidgetState extends State<SelectPetTypeWidget> {
           children: <Widget>[
             Expanded(
               child: Text(
-                petType.name ?? '',
+                (prefs!.getString(Constant.language) == 'ja'
+                        ? petType.japanName
+                        : petType.vietName) ??
+                    '',
                 style: Theme.of(context).textTheme.bodyText1,
               ),
             ),

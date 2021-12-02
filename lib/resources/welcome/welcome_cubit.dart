@@ -17,8 +17,13 @@ class WelcomeCubit extends Cubit<WelcomeState> {
   final UserRepository userRepository = UserRepository();
 
   Future<void> initEvent() async {
-    final bool loggedIn = prefs!.getInt(Constant.userId) != null &&
-        prefs!.getInt(Constant.userId).toString().isNotEmpty;
+    final bool loggedIn = prefs!.getString(Constant.cookie) != null &&
+        prefs!.getString(Constant.cookie)!.isNotEmpty;
+    final List<String>? notiString =
+        prefs!.getStringList(Constant.notificationList);
+    if (notiString == null) {
+      prefs!.setStringList(Constant.notificationList, <String>[]);
+    }
     if (loggedIn) {
       try {
         await userRepository.viewUserById();
@@ -26,14 +31,14 @@ class WelcomeCubit extends Cubit<WelcomeState> {
         final String? token = await firebaseMessaging.getToken();
         await userRepository.updateUserFcmToken(await _getId(), token ?? '',
             Platform.isAndroid ? 'android' : 'ios');
-        print('Token =============== $token');
+        // print('Token =============== $token');
+
         emit(WelcomeSuccess(RoutesName.topPage));
       } on APIException {
         // final bool loggedIn = prefs!.setString(Constant.cookie)
-        emit(WelcomeSuccess(RoutesName.introducePage));
+        emit(WelcomeSuccess(RoutesName.signInPage));
       }
     } else {
-
       emit(WelcomeSuccess(RoutesName.introducePage));
     }
   }

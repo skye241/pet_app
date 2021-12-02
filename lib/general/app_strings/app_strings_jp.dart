@@ -75,7 +75,7 @@ class _AppStringsJp extends AppStrings {
   String get textTitleAddAPicture => '写真を追加しましょう！';
 
   @override
-  String get textLabelAlbumEmpty => 'まだ写真がありません';
+  String get textLabelAlbumEmpty => '写真がまだありません';
 
   @override
   String get textSubLabelAlbumEmpty => '今すぐ写真をアップロードしよう！';
@@ -84,7 +84,7 @@ class _AppStringsJp extends AppStrings {
   String get textTitleAlbum => 'アルバム';
 
   @override
-  String get textLabelEmptyNews => 'まだお知らせがありません';
+  String get textLabelEmptyNews => 'お知らせはまだありません';
 
   @override
   String get textTitleInterests => 'お気に入り';
@@ -102,16 +102,16 @@ class _AppStringsJp extends AppStrings {
   String get textProfileButtonAddAccount => 'アカウント登録';
 
   @override
-  String get textProfileButtonAddRelatives => '招待する';
+  String get textProfileButtonAddRelatives => '家族・友人を招待する';
 
   @override
-  String get textProfileButtonChangeLanguages => '言語をベトナム語に変更する';
+  String get textProfileButtonChangeLanguages => 'ベトナム語への変更';
 
   @override
-  String get textProfileButtonNotification => 'お知らせ';
+  String get textProfileButtonNotification => '通知';
 
   @override
-  String get textProfileHadLinkAccount => '登録済みのアカウント';
+  String get textProfileActivate => '登録済みのアカウント';
 
   @override
   String get textProfileLabelAccount => 'アカウント';
@@ -321,7 +321,7 @@ class _AppStringsJp extends AppStrings {
   String get textButtonWriteComment => 'コメントを残す';
 
   @override
-  String get textEmptyComment => 'まだコメントがありません';
+  String get textEmptyComment => 'コメントはまだありません';
 
   @override
   String get textSignUpPopUpTitle => '認証用のメールをお送りました';
@@ -333,10 +333,10 @@ class _AppStringsJp extends AppStrings {
   String get textSignUpPopUpContentEnd => '認証を完了させて下さい';
 
   @override
-  String get successDelete => '正常に更新されました';
+  String get successDelete => '正常に削除されました';
 
   @override
-  String get successUpdate => '正常に削除されました';
+  String get successUpdate => '正常に更新されました';
 
   @override
   String get textButtonAddMedia => '写真を追加';
@@ -355,4 +355,77 @@ class _AppStringsJp extends AppStrings {
 
   @override
   String get textSignUpErrorEmptyPassword => 'パスワードを入力してください';
+
+  @override
+  String get textInviteRelativesSuccessCopyUrl => '招待URLをコピーしました';
+
+  @override
+  String get textTabFamily => '家族';
+
+  @override
+  String get textTabFriend => '友人';
+
+  @override
+  String get textPopUpConfirmDeleteComment => 'このコメントを削除してもよろしいですか。';
+
+  @override
+  String get textPopUpConfirmDeleteMedia => 'この写真を削除してもよろしいですか。';
+
+  @override
+  String get textPopUpCancelButtonDelete => 'キャンセル';
+
+  @override
+  String get textPopUpConfirmButtonDelete => '削除';
+
+  @override
+  String get textPopUpLabelChooseAlbum => 'アルバムを選択';
+
+  @override
+  String get textSubLabelFamily => '家族の写真';
+
+  @override
+  String get textSubLabelFriend => '友人の写真';
+
+  @override
+  String get textErrorCannotUploadImage => 'アップロードに失敗しました　';
+
+  @override
+  String get textTooltip => '「家族」として招待されるとアルバムの写真を閲覧とアップロードできます';
+
+  @override
+  String get textErrorNoPermission => '権限の設定を変更するには、 デバイスの設定に移動してください';
+  @override
+  String get textProfileNotActivate => 'Tài khoản chưa được xác thực';
+  @override
+  String get textProfileButtonChangePassword => 'パスワードを変更';
+  @override
+  String get textProfileButtonDeleteAccount => 'このデバイスからアカウントを削除';
+  @override
+  String get textProfileButtonEditAccount => 'アカウントの更新';
+  @override
+  String get textProfileButtonSignOut => 'ログアウト';
+  @override
+  String get textProfilePopUpConfirmChangePassword => 'パスワードを変更してもよろしいですか';
+
+  @override
+  String get textProfilePopUpConfirmDeleteAccount => 'アカウントを削除してもよろしいですか。削除すると、すべてのデータを復元できなくなります‘=';
+
+  @override
+  String get textProfilePopUpConfirmSignOut => 'ファミペからログアウトしてもよろしいですか';
+
+  @override
+  String get textProfilePopUpSuccessChangePassword => 'パスワードが正常に変更されました';
+
+  @override
+  String get hour => '時間前';
+
+  @override
+  String get minute => '分前';
+
+  @override
+  String get recently => '数秒前';
+
+  @override
+  String get day => '日前';
+
 }

@@ -29,7 +29,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       //         id: prefs!.getInt(Constant.userId),
       //         email: email,
       //         password: password));
-      await _userRepository.updateUser(email, password);
+      await _userRepository.updateUser(email: email, password: password);
       await _userRepository.sendEmail(email);
       emit(SignUpDismissPopUpLoading());
       emit(SignUpSuccess());

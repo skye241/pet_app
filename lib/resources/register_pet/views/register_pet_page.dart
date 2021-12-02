@@ -1,6 +1,7 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/component_helpers.dart';
+import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/tools/utils.dart';
 import 'package:family_pet/model/entity.dart';
@@ -11,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+import '../../../main.dart';
 
 class RegisterPetPage extends StatefulWidget {
   const RegisterPetPage({Key? key, required this.isFirstStep})
@@ -157,6 +160,8 @@ class _RegisterPetPageState extends State<RegisterPetPage> {
                   InkWell(
                     onTap: () {
                       showDatePicker(
+                              locale:
+                                  Locale(prefs!.getString(Constant.language)!),
                               context: context,
                               initialDate: DateTime.now(),
                               lastDate: DateTime.now(),
@@ -188,7 +193,8 @@ class _RegisterPetPageState extends State<RegisterPetPage> {
                         // ],
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
-                            return AppStrings.of(context).textErrorEmptyBirthday;
+                            return AppStrings.of(context)
+                                .textErrorEmptyBirthday;
                           } else if (value.isNotEmpty) {
                             try {
                               print(value);

@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:family_pet/general/constant/constant.dart';
-import 'package:family_pet/general/constant/url.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 /// Các hàm lấy dữ liệu - Tools
 /// Lấy dữ liệu dạng string từ map mặc định ''
@@ -156,7 +158,7 @@ class APIResponse {
 }
 
 class PetType {
-  PetType({this.id, this.name, this.species, this.info});
+  PetType({this.id, this.vietName, this.japanName, this.species, this.info});
 
   factory PetType.fromMap(Map<String, dynamic>? data) {
     if (data == null) {
@@ -164,18 +166,21 @@ class PetType {
     }
     return PetType(
       id: getInt(Constant.id, data),
-      name: getString(Constant.name, data),
+      vietName: getString(Constant.vietnameseName, data),
+      japanName: getString(Constant.japaneseName, data),
       species: getString(Constant.species, data),
       info: getString(Constant.info, data),
     );
   }
 
   final int? id;
-  final String? name;
+  final String? vietName;
+  final String? japanName;
   final String? species;
   final String? info;
 }
 
+@JsonSerializable(explicitToJson: true)
 class User {
   User({this.id, this.email, this.password});
 
@@ -210,6 +215,7 @@ class UserInfo {
     this.avatar,
     this.relationType,
     this.isActive,
+    this.status
   });
 
   factory UserInfo.fromMap(Map<String, dynamic>? data) {
@@ -222,9 +228,10 @@ class UserInfo {
         user: data[Constant.user] != null
             ? User.fromMap(data[Constant.user] as Map<String, dynamic>)
             : User(),
-        avatar: Url.baseURLImage + getString(Constant.avatar, data),
+        avatar: getString(Constant.avatar, data),
         relationType: getString(Constant.relationType, data),
         isActive: getBool(Constant.isActive, data),
+        status: getString(Constant.status, data)
       );
   }
 
@@ -234,6 +241,7 @@ class UserInfo {
   final String? avatar;
   final String? relationType;
   final bool? isActive;
+  final String? status;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -294,6 +302,7 @@ class Pet {
   final String? gender;
 }
 
+@JsonSerializable(explicitToJson: true)
 class Media {
   Media({
     this.id,
@@ -316,7 +325,7 @@ class Media {
         mediaName: getString(Constant.mediaName, data),
         mediaType: getString(Constant.mediaType, data),
         share: getString(Constant.share, data),
-        file: Url.baseURLImage + getString(Constant.file, data),
+        file:  getString(Constant.file, data),
         user: User.fromMap(data[Constant.user] as Map<String, dynamic>),
         createdAt: getString(Constant.createdAt, data),
         totalComment: getInt(Constant.totalComment, data),
@@ -373,6 +382,7 @@ class Media {
   }
 }
 
+@JsonSerializable(explicitToJson: true)
 class Comment {
   Comment({
     this.id,
@@ -381,28 +391,45 @@ class Comment {
     this.content,
     this.userName,
     this.avatar,
+    this.createdDate ,
   });
 
   factory Comment.fromMap(Map<String, dynamic>? data) {
+    // print(data![Constant.media] + 'this is convertible');
     if (data == null) {
       return Comment(content: '');
-    } else
+    } else {
+      if (data[Constant.media].runtimeType == String) {
+        data[Constant.media] = jsonDecode(data[Constant.media] as String);
+      }
+      if (data[Constant.user].runtimeType == String) {
+        data[Constant.user] = jsonDecode(data[Constant.user] as String);
+      }
+
       return Comment(
           id: getInt(Constant.id, data),
           media: Media.fromMap(data[Constant.media] as Map<String, dynamic>),
           content: getString(Constant.content, data),
           user: User.fromMap(data[Constant.user] as Map<String, dynamic>),
           userName: getString(Constant.userName, data),
-          avatar: Url.baseURLImage + getString(Constant.avatar, data));
+          avatar: getString(Constant.avatar, data),
+        createdDate: getInt(Constant.createdAt, data),
+      );
+    }
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       Constant.media: media?.toMap(),
       Constant.content: content,
-      Constant.user: user?.toMap()
+      Constant.user: user?.toMap(),
+      Constant.id: id,
+      Constant.avatar: avatar,
+      Constant.createdAt: createdDate
     };
   }
+
+
 
   final int? id;
   final Media? media;
@@ -410,8 +437,30 @@ class Comment {
   final String? content;
   final String? userName;
   final String? avatar;
+  final int? createdDate;
+
+  Comment copyWith({
+    int? id,
+    Media? media,
+    User? user,
+    String? content,
+    String? userName,
+    String? avatar,
+    int? createdDate,
+  }) {
+    return Comment(
+      id: id ?? this.id,
+      media: media ?? this.media,
+      user: user ?? this.user,
+      content: content ?? this.content,
+      userName: userName ?? this.userName,
+      avatar: avatar ?? this.avatar,
+      createdDate: createdDate ?? this.createdDate,
+    );
+  }
 }
 
+@JsonSerializable(explicitToJson: true)
 class ShareEntity {
   ShareEntity({this.media, this.accepted, this.albumName});
 

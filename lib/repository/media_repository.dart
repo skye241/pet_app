@@ -6,6 +6,7 @@ import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/main.dart';
 import 'package:family_pet/model/entity.dart';
+import 'package:family_pet/model/enum.dart';
 import 'package:http/http.dart';
 
 class MediaRepository {
@@ -39,9 +40,18 @@ class MediaRepository {
     final List<Media> listMedia = <Media>[];
     if (response.isOK ?? false) {
       if (response.data != null) {
-        for (final dynamic item
-            in response.data![Constant.result] as List<dynamic>) {
-          listMedia.add(Media.fromMap(item as Map<String, dynamic>));
+        if (share == PermissionPickMedia.mine) {
+          for (final dynamic item
+              in response.data![Constant.result] as List<dynamic>) {
+            listMedia.add(Media.fromMap(item as Map<String, dynamic>));
+          }
+        } else {
+          for (final dynamic listItem
+              in response.data![Constant.result] as List<dynamic>) {
+            for (final dynamic item in listItem as List<dynamic>) {
+              listMedia.add(Media.fromMap(item as Map<String, dynamic>));
+            }
+          }
         }
       }
       return listMedia;
@@ -56,7 +66,8 @@ class MediaRepository {
     final List<Media> listMedia = <Media>[];
     if (response.isOK ?? false) {
       if (response.data != null) {
-        for (final dynamic item in response.data![Constant.result] as List<dynamic>) {
+        for (final dynamic item
+            in response.data![Constant.result] as List<dynamic>) {
           listMedia.add(Media.fromMap(item as Map<String, dynamic>)
               .copyWith(isLiked: true));
         }

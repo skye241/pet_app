@@ -58,4 +58,9 @@ class Constant {
   static const String registrationId = 'registration_id';
   static const String deviceId = 'device_id';
   static const String type = 'type';
+  static const String vietnameseName = 'vietnamese_name';
+  static const String japaneseName = 'japanese_name';
+  static const String notificationList = 'notification_list';
+  static const String status = 'status';
+  static const String index = 'index';
 }

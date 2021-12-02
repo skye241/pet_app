@@ -121,10 +121,10 @@ class _ListRelativesPageState extends State<ListRelativesPage>
                         indicatorWeight: 4,
                         tabs: <Tab>[
                           Tab(
-                            text: 'Người nhà (${state.familyList.length})',
+                            text: '${AppStrings.of(context).textTabFamily} (${state.familyList.length})',
                           ),
                           Tab(
-                            text: 'Bạn bè (${state.friendList.length})',
+                            text: '${AppStrings.of(context).textTabFriend} (${state.friendList.length})',
                           ),
                         ],
                       ),
@@ -152,10 +152,10 @@ class _ListRelativesPageState extends State<ListRelativesPage>
       itemBuilder: (BuildContext context, int index) {
         final UserInfo user = listUser[index];
         return ListTile(
-          leading: user.avatar! != Url.baseURLImage
+          leading: user.avatar!.isNotEmpty
               ? CircleAvatar(
                   radius: 18,
-                  backgroundImage: NetworkImage(user.avatar!),
+                  backgroundImage: NetworkImage(Url.baseURLImage +user.avatar!),
                 )
               : Image.asset(
                   'assets/images/img_user.png',

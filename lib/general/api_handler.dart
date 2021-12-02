@@ -95,6 +95,7 @@ class NetworkService {
   Future<APIResponse> callGET(String url,
       {Map<String, String>? headers}) async {
     _headers[Constant.cookie] = prefs?.getString(Constant.cookie) ?? '';
+    _headers[Constant.contentLength] = '0';
     // _headers[Constant.XCSRFToken] =
     //     '0zWGhQ7G41reHt5oI2Rmeob8QdgiK14MHaH2amWwPknfGly3Sx71JZHBJHquY10h';
     // _headers[Constant.cookie] = 'sessionid=4dv8ia2ypq0wfpgfp8su5ylxlwc5qo6o';
@@ -199,8 +200,7 @@ class NetworkService {
             isOK: false,
             code: response?.statusCode,
             data: <String, dynamic>{},
-            message: getString(Constant.message,
-                json.decode(response?.body ?? '') as Map<String, dynamic>));
+            message: getErrorMessage(response?.statusCode ?? 500));
       }
       return result;
     } on TimeoutException catch (timeOutError) {
@@ -229,8 +229,10 @@ class NetworkService {
     Map<String, String>? header,
   }) async {
     final String _url = url ?? '';
-    _headers.addAll(header ?? <String, String>{});
     _headers[Constant.cookie] = prefs?.getString(Constant.cookie) ?? '';
+    _headers[Constant.contentLength] =
+        utf8.encode(jsonEncode(body)).length.toString();
+    _headers.addAll(header ?? <String, String>{});
     // if (body is List) {
     //   for (final dynamic item in body) {
     //     item[Constant.timeZone] = 7;
@@ -302,14 +304,26 @@ class NetworkService {
   /// Lấy string lỗi theo mã
   String getErrorMessage(int code) {
     switch (code) {
-      case 400:
-        return 'Thông tin gửi lên không đúng định dạng';
-      case 401:
-        return 'Bạn không có quyền thực hiện hành động này';
       case 500:
-        return 'Lỗi hệ thống, bạn vui lòng thử lại sau ít phút';
+        if (prefs!.getString(Constant.language) == 'ja') {
+          return 'エラーが発生しました。しばらくしてからもう一度お試しください';
+        } else
+          return 'Lỗi hệ thống, bạn vui lòng thử lại sau ít phút';
+      case 400:
+        if (prefs!.getString(Constant.language) == 'ja') {
+          return '入力形式が正しくありません';
+        } else
+          return 'Thông tin gửi lên không đúng định dạng';
+      case 401:
+        if (prefs!.getString(Constant.language) == 'ja') {
+          return 'この操作を実行する権限がありません';
+        } else
+          return 'Bạn không có quyền thực hiện hành động này';
       default:
-        return 'Lỗi hệ thống. Vui lòng kiểm tra lại.';
+        if (prefs!.getString(Constant.language) == 'ja') {
+          return 'エラーが発生しました。しばらくしてからもう一度お試しください';
+        } else
+          return 'Lỗi hệ thống, bạn vui lòng thử lại sau ít phút';
     }
   }
 }

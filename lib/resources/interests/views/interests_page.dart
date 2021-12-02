@@ -1,5 +1,7 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
+import 'package:family_pet/model/entity.dart';
+import 'package:family_pet/resources/album/views/album_empty_fragment.dart';
 import 'package:family_pet/resources/album/views/media_widget.dart';
 import 'package:family_pet/resources/interests/interests_page_cubit.dart';
 import 'package:flutter/material.dart';
@@ -44,14 +46,9 @@ class _InterestsPageState extends State<InterestsPage> {
               if (state.listImage.isNotEmpty) {
                 return _body(context, state);
               } else
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Center(
-                      child:
-                          Text(AppStrings.of(context).textEmptyFavouriteMedia),
-                    ),
-                  ],
+                return Center(
+                  child: AlbumEmptyFragment(
+                      title: AppStrings.of(context).textEmptyFavouriteMedia),
                 );
             } else if (state is InterestsPageStateLoading) {
               return Center(
@@ -95,10 +92,17 @@ class _InterestsPageState extends State<InterestsPage> {
           mainAxisSpacing: 6.0,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return MediaWidget(media: state.listImage[index]);
+          return MediaWidget(
+            media: state.listImage[index],
+            onMediaUpdate: (Media returnMedia) {
+              if (!(returnMedia.isLiked ?? false)) {
+                state.listImage.removeAt(index);
+                cubit.updateAlbum(state.listImage);
+              }
+            },
+          );
         },
       ),
     );
   }
-
 }

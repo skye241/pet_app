@@ -1,6 +1,6 @@
 class Url {
-  static const String baseURL = 'http://34.146.194.201:8080/famipet/';
-  static const String baseURLImage = 'http://34.146.194.201:8080/static/';
+  static const String baseURL = 'http://34.146.118.100:8080/famipet/';
+  static const String baseURLImage = 'http://34.146.118.100:8080/static/';
   static const String baseURLShare = 'customscheme://familypetcls.com';
 
   // static const String baseURL = 'https://famipet-dot-sateraito-dronesearch-dev.an.r.appspot.com/famipet/';
@@ -14,6 +14,8 @@ class Url {
   static const String sendEmailActive = baseURL + 'userinfo/send-mail-active/';
   static const String login = baseURL + 'userinfo/login/';
   static const String createFcm = baseURL + 'fcmdevices/';
+  static const String updateFcm = baseURL + 'fcmdevices/';
+  static const String checkToken = 'http://34.146.118.100:8080/swagger/?format=openapi';
 
   ///MEDIA
   static const String uploadMedia = baseURL + 'media/upload-media/';

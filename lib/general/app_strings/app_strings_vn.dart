@@ -2,7 +2,7 @@ part of languages;
 
 class _AppStringsVn extends AppStrings {
   @override
-  String get appName => 'FamilyPet';
+  String get appName => 'Famipe';
 
   @override
   String get textLabelIntroduceDemo =>
@@ -115,7 +115,7 @@ class _AppStringsVn extends AppStrings {
   String get textProfileButtonNotification => 'Thông báo';
 
   @override
-  String get textProfileHadLinkAccount => 'Đã đăng ký tài khoản';
+  String get textProfileActivate => 'Đã đăng ký tài khoản';
 
   @override
   String get textProfileLabelAccount => 'Tài khoản';
@@ -366,5 +366,83 @@ class _AppStringsVn extends AppStrings {
 
   @override
   String get textSignUpErrorEmptyPassword => 'Vui lòng nhập mật khẩu';
+
+  @override
+  String get textInviteRelativesSuccessCopyUrl => 'Đã copy Link';
+
+  @override
+  String get textTabFamily => 'Người nhà';
+
+  @override
+  String get textTabFriend => 'Bạn bè';
+
+  @override
+  String get textPopUpCancelButtonDelete => 'Hủy';
+
+  @override
+  String get textPopUpConfirmButtonDelete => 'Xóa';
+
+  @override
+  String get textPopUpConfirmDeleteComment => 'Bạn có chắc chắn muốn xoá bình luận này không?';
+
+  @override
+  String get textPopUpConfirmDeleteMedia => 'Bạn có chắc chắn muốn xoá ảnh này không';
+
+  @override
+  String get textPopUpLabelChooseAlbum => 'Thay đổi Album';
+
+  @override
+  String get textSubLabelFamily => 'Ảnh của gia đình';
+
+  @override
+  String get textSubLabelFriend => 'Ảnh của bạn bè';
+
+  @override
+  String get textErrorCannotUploadImage => 'Không upload ảnh được';
+
+  @override
+  String get textTooltip => 'Khi được mời với tư cách gia đình. Bạn có thể xem và tải ảnh lên';
+
+  @override
+  String get textErrorNoPermission => 'Nếu bạn muốn thay đổi quyền hãy vào mục cài đặt của điện thoại';
+
+  @override
+  String get textProfileNotActivate => 'Tài khoản chưa được xác thực';
+
+  @override
+  String get textProfileButtonChangePassword => 'Đổi mật khẩu';
+
+  @override
+  String get textProfileButtonDeleteAccount => 'Xóa tài khoản trên thiết bị';
+
+  @override
+  String get textProfileButtonEditAccount => 'Cập nhật tài khoản';
+
+  @override
+  String get textProfileButtonSignOut => 'Đăng xuất';
+
+  @override
+  String get textProfilePopUpConfirmChangePassword => 'Bạn xác nhận đổi mật khẩu?';
+
+  @override
+  String get textProfilePopUpConfirmDeleteAccount => 'Bạn có chắc chắn muốn xóa tài khoản? Sau khi xóa tất cả dữ liệu của bạn sẽ không phục hồi được';
+
+  @override
+  String get textProfilePopUpConfirmSignOut => 'Bạn có chắc chắn muốn đăng xuất?';
+
+  @override
+  String get textProfilePopUpSuccessChangePassword => 'Đối mật khẩu thành công';
+
+  @override
+  String get hour => 'giờ trước';
+
+  @override
+  String get minute => 'phút trước';
+
+  @override
+  String get recently => 'Vừa xong';
+
+  @override
+  String get day => 'ngày trước';
 
 }

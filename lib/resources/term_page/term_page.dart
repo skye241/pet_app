@@ -12,7 +12,7 @@ class TermPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.cancel),
+          icon: const Icon(Icons.close),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(termType == TermType.serviceTerm
@@ -20,8 +20,10 @@ class TermPage extends StatelessWidget {
             : AppStrings.of(context).textPolicyProtected),
       ),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 36),
         physics: const ClampingScrollPhysics(),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
               termType == TermType.serviceTerm
@@ -29,6 +31,7 @@ class TermPage extends StatelessWidget {
                   : AppStrings.of(context).textPolicyProtected,
               style: Theme.of(context).textTheme.headline3,
             ),
+            Container(height: 24,),
             Text(
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquam et sem tristique aliquet pellentesque venenatis. Sed eget urna sed dictum eros quis nunc, dictum faucibus. Mauris etiam mattis a diam viverra.',
               style: Theme.of(context).textTheme.bodyText1,

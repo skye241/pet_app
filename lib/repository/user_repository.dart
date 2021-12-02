@@ -18,11 +18,13 @@ class UserRepository {
         ? Location.japan
         : Location.vietnam;
     body[Constant.deviceKey] = deviceKey;
-    final APIResponse response =
-        await networkService.callPOST(url: Url.registerFast, body: body);
+    final APIResponse response = await networkService.callPOST(
+        url: Url.registerFast,
+        body: body,
+        header: <String, String>{Constant.cookie: ''});
     if (response.isOK ?? false) {
       final UserInfo user =
-          UserInfo.fromMap(response.data as Map<String, dynamic>);
+      UserInfo.fromMap(response.data as Map<String, dynamic>);
 
       prefs!.setInt(Constant.userId,
           getInt(Constant.userId, response.data as Map<String, dynamic>));
@@ -44,13 +46,13 @@ class UserRepository {
     body[Constant.email] = email;
     body[Constant.password] = password;
     final APIResponse response =
-        await networkService.callPOST(url: Url.login, body: body);
+    await networkService.callPUT(url: Url.login, body: body);
     if (response.isOK ?? false) {
       // prefs!.setString(Constant.location,
       //     getString(Constant.location, response.data as Map<String, dynamic>));
 
       final UserInfo user =
-          UserInfo.fromMap(response.data as Map<String, dynamic>);
+      UserInfo.fromMap(response.data as Map<String, dynamic>);
 
       prefs!.setInt(Constant.userId, user.user!.id!);
       prefs!.setString(Constant.email, user.user!.email!);
@@ -61,30 +63,74 @@ class UserRepository {
       throw APIException(response);
   }
 
-  Future<void> updateUser(String email, String password) async {
+  Future<void> updateUser(
+      {String? email, String? password, String? deviceId}) async {
     final Map<String, dynamic> body = <String, dynamic>{};
     body[Constant.albumName] = '';
-    body[Constant.email] = email;
-    body[Constant.password] = password;
+    if (email != null) {
+      body[Constant.email] = email;
+    }
+    if (password != null) {
+      body[Constant.password] = password;
+    }
+    if (deviceId != null) {
+      body[Constant.deviceId] = deviceId;
+    }
     body[Constant.userId] = prefs?.getInt(Constant.userId);
 
     final APIResponse response =
-        await networkService.callPUT(url: Url.updateUser, body: body);
+    await networkService.callPUT(url: Url.updateUser, body: body);
 
     if (response.isOK ?? false) {
       return;
     } else
       throw APIException(response);
   }
-  Future<void> updateUserFcmToken(String deviceId, String registrationId, String type) async {
+
+  Future<void> createUserFcmToken(String deviceId, String registrationId,
+      String type, User user) async {
+    final Map<String, dynamic> body = <String, dynamic>{};
+    body[Constant.deviceId] = deviceId;
+    body[Constant.registrationId] = registrationId;
+    body[Constant.type] = type;
+    body[Constant.name] = prefs!.getString(Constant.fullName);
+    // body[Constant.user] =  user.toMap();
+
+    final APIResponse response =
+    await networkService.callPOST(url: Url.createFcm,
+        body: body,
+        header: <String, String>{Constant.cookie: ''});
+
+    if (response.isOK ?? false) {
+      return;
+    } else
+      throw APIException(response);
+  }
+
+  Future<void> getNewToken() async {
+    // body[Constant.user] =  user.toMap();
+
+    final APIResponse response = await networkService.callGET(Url.checkToken);
+
+    if (response.isOK ?? false) {
+      return;
+    } else
+      throw APIException(response);
+  }
+
+  Future<void> updateUserFcmToken(String deviceId, String registrationId,
+      String type) async {
     final Map<String, dynamic> body = <String, dynamic>{};
     body[Constant.deviceId] = deviceId;
     body[Constant.registrationId] = registrationId;
     body[Constant.type] = type;
     body[Constant.userId] = prefs?.getInt(Constant.userId);
+    body[Constant.name] = prefs!.getString(Constant.fullName);
 
-    final APIResponse response =
-        await networkService.callPOST(url: Url.createFcm, body: body);
+    final APIResponse response = await networkService.callPUT(
+        url: Url.updateFcm + registrationId + '/',
+        body: body,
+        header: <String, String>{Constant.cookie: ''});
 
     if (response.isOK ?? false) {
       return;
@@ -99,10 +145,7 @@ class UserRepository {
 
     if (response.isOK ?? false) {
       final UserInfo user = UserInfo.fromMap(
-              response.data[Constant.userInfo] as Map<String, dynamic>)
-          .copyWith(
-              isActive: getBool(
-                  Constant.isActive, response.data as Map<String, dynamic>));
+          response.data[Constant.result] as Map<String, dynamic>);
 
       prefs!.setInt(Constant.userId, user.user!.id!);
       prefs!.setString(Constant.email, user.user!.email!);
@@ -119,7 +162,7 @@ class UserRepository {
       // Constant.userId: prefs!.getInt(Constant.userId)
     };
     final APIResponse response =
-        await networkService.callPOST(url: Url.sendEmailActive, body: body);
+    await networkService.callPUT(url: Url.sendEmailActive, body: body);
 
     if (response.isOK ?? false) {
       return;

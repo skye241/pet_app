@@ -20,12 +20,17 @@ class PageIndex {
 class TopScreenCubit extends Cubit<TopScreenState> {
   TopScreenCubit()
       : super(TopScreenInitial(
-            PageIndex.album, const <File>{}, PermissionPickMedia.family));
+            PageIndex.album));
 
   final MediaRepository mediaRepository = MediaRepository();
+  int defIndex = PageIndex.album;
 
-  Future<void> update(int index, Set<File> files, String permission) async {
-    emit(TopScreenInitial(index, files, permission));
+  Future<void> update(int index) async {
+    defIndex = index;
+    emit(TopScreenInitial(index));
+  }
+  Future<void> reload() async {
+    emit(TopScreenInitial(defIndex));
   }
 
   Future<void> uploadMedia(
@@ -39,7 +44,7 @@ class TopScreenCubit extends Cubit<TopScreenState> {
             file, isVideo ? MediaType.video : MediaType.image, permission);
       }
       emit(TopScreenStateDismissLoading());
-      emit(TopScreenInitial(index, files, permission));
+      emit(TopScreenInitial(index));
     } on APIException catch (e) {
       emit(TopScreenStateDismissLoading());
       emit(TopScreenStateFail(e.message()));

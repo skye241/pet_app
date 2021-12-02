@@ -3,21 +3,41 @@ import 'package:family_pet/general/app_theme_date.dart';
 import 'package:flutter/material.dart';
 
 class AlbumEmptyFragment extends StatelessWidget {
-  const AlbumEmptyFragment({Key? key}) : super(key: key);
+  const AlbumEmptyFragment({Key? key, required this.title}) : super(key: key);
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.maxFinite,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Image.asset('assets/images/img_album.png',width: 223,height: 198,),
-          const SizedBox(height: 16,),
-          Text(AppStrings.of(context).textLabelAlbumEmpty,style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 24,height: 1.5,color: AppThemeData.color_black_80),),
-          Text(AppStrings.of(context).textSubLabelAlbumEmpty,style: const TextStyle(fontWeight: FontWeight.w400,fontSize: 16,height: 1.5,color: AppThemeData.color_black_80),),
-        ],
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Image.asset(
+          'assets/images/img_album.png',
+          width: 223,
+          height: 198,
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        Text(
+          title,
+          style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 24,
+              height: 1.5,
+              color: AppThemeData.color_black_80),
+        ),
+        Text(
+          AppStrings.of(context).textSubLabelAlbumEmpty,
+          style: const TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 16,
+              height: 1.5,
+              color: AppThemeData.color_black_80),
+        ),
+      ],
     );
   }
 }

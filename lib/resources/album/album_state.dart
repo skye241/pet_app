@@ -12,11 +12,11 @@ class AlbumStateDismissLoading extends AlbumState {}
 class AlbumStateShowLoading extends AlbumState {}
 
 class AlbumStateSuccess extends AlbumState {
-  AlbumStateSuccess(this.images, this.petTypes, this.selectedDateTime);
+  AlbumStateSuccess(this.images, this.selectedDateTime, this.albumType);
 
   final List<Media> images;
-  final List<Pet> petTypes;
   final DateTime selectedDateTime;
+  final String  albumType;
 }
 
 class AlbumStateFail extends AlbumState {

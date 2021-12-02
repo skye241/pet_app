@@ -21,4 +21,8 @@ class InterestsPageCubit extends Cubit<InterestsPageState> {
       emit(InterestsPageStateFail(e.message()));
     }
   }
+
+  Future<void> updateAlbum(List<Media> listMedia) async {
+    emit(InterestsPageStateSuccess(listMedia));
+  }
 }

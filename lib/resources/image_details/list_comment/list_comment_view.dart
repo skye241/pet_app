@@ -3,6 +3,7 @@ import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/component_helpers.dart';
 import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/general/constant/url.dart';
+import 'package:family_pet/general/tools/utils.dart';
 import 'package:family_pet/main.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/resources/image_details/list_comment/list_comment_cubit.dart';
@@ -117,7 +118,8 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
                 cubit.postComment(
                     widget.media, commentController.text, listComment);
                 commentController.text = '';
-        },
+                FocusScope.of(context).unfocus();
+              },
         child: Text(AppStrings.of(context).textButtonSend,
             style: TextStyle(
                 color: commentController.text.isEmpty
@@ -166,15 +168,16 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                if (commentItem.avatar! != Url.baseURLImage)
+                if (commentItem.avatar!.isNotEmpty)
                   CircleAvatar(
-                    backgroundImage: NetworkImage(commentItem.avatar!),
+                    backgroundImage: NetworkImage(Url.baseURLImage + commentItem.avatar!),
                     radius: 16,
                   )
                 else
                   const CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/img_user'),
+                    backgroundImage: AssetImage('assets/images/img_user.png'),
                     radius: 16,
+                    backgroundColor: Colors.white,
                   ),
                 const SizedBox(width: 8),
                 Expanded(
@@ -200,8 +203,35 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
           if (prefs!.getInt(Constant.userId) == commentItem.media!.user!.id ||
               prefs!.getInt(Constant.userId) == commentItem.user!.id)
             InkWell(
-              onTap: () => cubit.deleteComment(
-                  commentItem, listComment, formKey.currentState!.validate()),
+              onTap: () {
+                showMessage(context, AppStrings.of(context).notice,
+                    AppStrings.of(context).textPopUpConfirmDeleteComment,
+                    actions: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: ElevatedButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text(AppStrings.of(context)
+                                  .textPopUpCancelButtonDelete),
+                            style: ElevatedButton.styleFrom(primary: AppThemeData.color_black_40),
+                          ),
+                        ),
+                        Container(
+                          width: 8,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                cubit.deleteComment(commentItem, listComment,
+                                    formKey.currentState!.validate());
+                              },
+                              child: Text(AppStrings.of(context)
+                                  .textPopUpConfirmButtonDelete)),
+                        ),
+                      ],
+                    ));
+              },
               child: Padding(
                 padding: const EdgeInsets.all(7.0),
                 child: Text(

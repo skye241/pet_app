@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/general/constant/routes_name.dart';
@@ -35,10 +38,37 @@ SharedPreferences? prefs;
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage msg) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  // await Firebase.initializeApp(
+  //     options: const FirebaseOptions(
+  //       apiKey: 'AIzaSyAHAsf51D0A407EklG1bs-5wA7EbyfNFg0',
+  //       appId: '1:448618578101:ios:2bc5c1fe2ec336f8ac3efc',
+  //       messagingSenderId: '448618578101',
+  //       projectId: 'react-native-firebase-testing',
+  //     ));
+  final List<String> notificationList =
+      prefs!.getStringList(Constant.notificationList) ?? <String>[];
+  Comment notification = Comment();
+  if (Platform.isAndroid) {
+    notification = Comment.fromMap(msg.data);
+  } else if (Platform.isIOS) {
+    notification = Comment.fromMap(
+        jsonDecode(jsonEncode(msg.data)) as Map<String, dynamic>);
+  }
+  notification =
+      notification.copyWith(createdDate: DateTime.now().millisecondsSinceEpoch);
+  notificationList.add(jsonEncode(notification.toMap()));
+  prefs!.setStringList(Constant.notificationList, notificationList);
+  print('Handling a background message ${msg.messageId}');
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
   await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
@@ -65,15 +95,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final LanguageCubit cubit = LanguageCubit();
-  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
-
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
 
   @override
-  void initState() {
-    super.initState();
-    initializing();
+  void dispose() {
+    cubit.close();
+    super.dispose();
   }
 
   @override
@@ -84,6 +110,7 @@ class _MyAppState extends State<MyApp> {
             bloc: cubit,
             builder: (BuildContext context, LanguageState state) {
               if (state is LanguageInitial) {
+                print('reload state');
                 return MaterialApp(
                   title: 'Family Pet',
                   debugShowCheckedModeBanner: false,
@@ -229,7 +256,9 @@ class _MyAppState extends State<MyApp> {
         );
       case RoutesName.topPage:
         return MaterialPageRoute<dynamic>(
-          builder: (BuildContext context) => const TopScreenPage(),
+          builder: (BuildContext context) => TopScreenPage(
+            index: data != null ? data[Constant.index] as int? : null,
+          ),
           settings: const RouteSettings(name: RoutesName.topPage),
         );
 
@@ -239,123 +268,5 @@ class _MyAppState extends State<MyApp> {
           settings: const RouteSettings(name: RoutesName.defaultPage),
         );
     }
-  }
-
-  Future<void> initializing() async {
-    firebaseMessaging.requestPermission(
-      sound: true,
-      alert: true,
-      badge: true,
-    );
-
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-
-    final IOSInitializationSettings initializationSettingsIOS =
-        IOSInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
-      onDidReceiveLocalNotification: (
-        int? id,
-        String? title,
-        String? body,
-        String? payload,
-      ) async {
-        // didReceiveLocalNotificationSubject.add(
-        //   ReceivedNotification(
-        //     id: id,
-        //     title: title,
-        //     body: body,
-        //     payload: payload,
-        //   ),
-        // );
-      },
-    );
-
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-            android: initializationSettingsAndroid,
-            iOS: initializationSettingsIOS);
-
-    await flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
-      onSelectNotification: (String? payload) async {
-        if (payload != null) {
-          debugPrint('notification payload: ' + payload);
-        }
-        // selectNotificationSubject.add(payload);
-      },
-    );
-
-    const AndroidNotificationDetails androidNotificationChannel =
-        AndroidNotificationDetails(
-      'FamiPet',
-      'FamiPet',
-      'FamiPet',
-      importance: Importance.max,
-      priority: Priority.high,
-      ticker: 'ticker',
-      styleInformation: BigTextStyleInformation(''),
-    );
-    const IOSNotificationDetails iosNotificationDetails =
-        IOSNotificationDetails(presentBadge: true);
-    const NotificationDetails notificationDetails = NotificationDetails(
-        android: androidNotificationChannel, iOS: iosNotificationDetails);
-
-    // final String? token = await firebaseMessaging.getToken();
-    // prefs!.setString(Constant.firebaseKey, token);
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) {
-      // print(remoteMessage.sentTime.toString() + '===sendTime');
-      // print(remoteMessage.notification!.body ?? '' '===sendTime');
-      // print(remoteMessage.data.toString() + '===data');
-      onMessage(remoteMessage.notification!, notificationDetails);
-    });
-
-    // firebaseMessaging.configure(
-    //   onLaunch: (Map<String, dynamic> msg) async {
-    //     print('on Launch ' + json.encode(msg));
-    //   },
-    //   onMessage: (Map<String, dynamic> msg) =>
-    //
-    //   onResume: (Map<String, dynamic> msg) async {
-    //     print('on Resume ' + json.encode(msg));
-    //   },
-    // );
-  }
-}
-
-Future<void> onMessage(RemoteNotification msg,
-    NotificationDetails platformChannelSpecifics) async {
-  print('onMessage $msg');
-
-  try {
-    // NotificationEntity notification;
-    // if (Platform.isAndroid) {
-    //   final Map<String, dynamic> data =
-    //   jsonDecode(msg[Constant.data] as String) as Map<String, dynamic>;
-    //   // notification = NotificationEntity.fromMap(data);
-    // } else if (Platform.isIOS) {
-    //   final Map<String, dynamic> data =
-    //   jsonDecode(msg[Constant.data] as String) as Map<String, dynamic>;
-    //   // notification = NotificationEntity.fromMap(
-    //   //     json.decode(json.encode(data)) as Map<String, dynamic>);
-    // }
-
-    flutterLocalNotificationsPlugin.show(
-      msg.hashCode,
-      msg.title,
-      msg.body,
-      platformChannelSpecifics,
-    );
-  } catch (error) {
-    flutterLocalNotificationsPlugin.show(
-      0,
-      'Thông báo',
-      'Bạn vừa nhận được một thông báo mới',
-      platformChannelSpecifics,
-    );
-    print('Notification Error => $error ');
   }
 }

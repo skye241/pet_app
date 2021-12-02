@@ -7,7 +7,6 @@ import 'package:family_pet/main.dart';
 import 'package:flutter/cupertino.dart';
 
 part 'app_strings_jp.dart';
-
 part 'app_strings_vn.dart';
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppStrings> {
@@ -19,7 +18,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<AppStrings> {
   @override
   Future<AppStrings> load(Locale locale) async {
     if (prefs!.getString(Constant.language) == null) {
-      prefs!.setString(Constant.language, Platform.localeName.substring(0,2));
+      prefs!.setString(Constant.language, <String>['ja', 'vi'].contains(Platform.localeName.substring(0,2)) ? Platform.localeName.substring(0,2) : 'vi' );
     }
     switch (locale.languageCode) {
       case 'ja':
@@ -128,12 +127,22 @@ abstract class AppStrings {
 
   String get textSubLabelAlbumEmpty;
 
+  String get textPopUpLabelChooseAlbum;
+
+  // String get textSubLabelMine;
+  //
+  String get textSubLabelFamily;
+
+  String get textSubLabelFriend;
+
 //*** End - Album ***//
 
 // *** Start - NEWS ***//
   String get textTitleNews;
 
   String get textLabelEmptyNews;
+
+  String get recently;
 
 //*** End - NEWS ***//
 
@@ -171,6 +180,18 @@ abstract class AppStrings {
 
   String get textButtonReturnToMain;
 
+  String get textPopUpConfirmDeleteMedia;
+
+  String get textPopUpConfirmDeleteComment;
+
+  String get textPopUpConfirmButtonDelete;
+
+  String get textPopUpCancelButtonDelete;
+
+  String get textErrorCannotUploadImage;
+
+  String get textErrorNoPermission;
+
 //*** End - IPick Media ***//
 
 // *** Start - Profile ***//
@@ -178,7 +199,9 @@ abstract class AppStrings {
 
   String get textProfileNotLinkAccount;
 
-  String get textProfileHadLinkAccount;
+  String get textProfileNotActivate;
+
+  String get textProfileActivate;
 
   String get textProfileButtonAddPet;
 
@@ -199,6 +222,22 @@ abstract class AppStrings {
   String get textProfileLabelPet;
 
   String get textProfileButtonChangeLanguages;
+
+  String get textProfileButtonSignOut;
+
+  String get textProfileButtonDeleteAccount;
+
+  String get textProfileButtonEditAccount;
+
+  String get textProfileButtonChangePassword;
+
+  String get textProfilePopUpConfirmSignOut;
+
+  String get textProfilePopUpConfirmDeleteAccount;
+
+  String get textProfilePopUpConfirmChangePassword;
+
+  String get textProfilePopUpSuccessChangePassword;
 
   String get textProfileButtonPolicyAndProtected;
 
@@ -227,6 +266,14 @@ abstract class AppStrings {
   String get textInviteRelativesButtonShare;
 
   String get textInviteRelativesButtonCopyUrl;
+
+  String get textInviteRelativesSuccessCopyUrl;
+
+  String get textTabFamily;
+
+  String get textTabFriend;
+
+  String get textTooltip;
 
 // *** End - InviteRelatives ***//
 
@@ -295,6 +342,12 @@ abstract class AppStrings {
   String get retry;
 
   String get month;
+
+  String get minute;
+
+  String get day;
+
+  String get hour;
 
   String get year;
 

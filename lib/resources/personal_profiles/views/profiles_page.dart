@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/component_helpers.dart';
@@ -8,8 +6,10 @@ import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/main.dart';
 import 'package:family_pet/model/entity.dart';
+import 'package:family_pet/model/enum.dart';
 import 'package:family_pet/resources/language/language_cubit.dart';
 import 'package:family_pet/resources/personal_profiles/profiles_page_cubit.dart';
+import 'package:family_pet/resources/top_page/cubit/top_screen_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -83,8 +83,8 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: AppThemeData.color_black_10,
-          image: state.user.avatar! != Url.baseURLImage
-              ? DecorationImage(image: NetworkImage(state.user.avatar!))
+          image: state.user.avatar!.isNotEmpty
+              ? DecorationImage(image: NetworkImage(Url.baseURLImage + state.user.avatar!))
               : const DecorationImage(
                   image: AssetImage('assets/images/img_user.png')),
         ),
@@ -105,18 +105,16 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            state.user.user!.email!.isNotEmpty
-                ? AppStrings.of(context).textProfileHadLinkAccount
-                : AppStrings.of(context).textProfileNotLinkAccount,
+            accountStatus(context, state.user.status!),
             style: TextStyle(
-                color: state.user.user!.email!.isEmpty
+                color: state.user.status != AccountStatus.active
                     ? AppThemeData.color_warning
                     : AppThemeData.color_black_80),
           ),
           const SizedBox(
             width: 8,
           ),
-          if (state.user.user!.email!.isEmpty)
+          if (state.user.status != AccountStatus.active)
             const Icon(
               Icons.warning_amber_outlined,
               color: AppThemeData.color_warning,
@@ -165,7 +163,9 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
               final dynamic object = await Navigator.pushNamed(
                   context, RoutesName.registerPet,
                   arguments: <String, dynamic>{Constant.isFirstStep: false});
-              cubit.addPet(object as Pet);
+              if (object != null) {
+                cubit.addPet(object as Pet);
+              }
             },
             minLeadingWidth: 0,
             leading: const Icon(
@@ -294,9 +294,9 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
           color: AppThemeData.color_black_5,
           child: ListTile(
             onTap: () {
-              print(Platform.localeName);
               BlocProvider.of<LanguageCubit>(context).changeLocale(
                   prefs!.getString(Constant.language) == 'vi' ? 'ja' : 'vi');
+              BlocProvider.of<TopScreenCubit>(context).reload();
             },
             minLeadingWidth: 0,
             title: Text(
@@ -308,6 +308,10 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
         const Divider(
             color: AppThemeData.color_black_10, height: 0, thickness: 1),
         ListTile(
+          onTap: () => Navigator.pushNamed(context, RoutesName.termPage,
+              arguments: <String, dynamic>{
+                Constant.termType: TermType.securityTerm,
+              }),
           tileColor: AppThemeData.color_black_5,
           minLeadingWidth: 0,
           title: Text(
@@ -344,5 +348,18 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
           : null,
       trailing: ComponentHelper.radius(isSelect: true, size: 16),
     );
+  }
+
+  String accountStatus (BuildContext context, String status){
+    switch (status) {
+      case AccountStatus.unlink:
+        return AppStrings.of(context).textProfileNotLinkAccount;
+      case AccountStatus.inactive:
+        return AppStrings.of(context).textProfileNotActivate;
+      case AccountStatus.active:
+        return AppStrings.of(context).textProfileActivate;
+      default:
+        return AppStrings.of(context).textProfileNotLinkAccount;
+    }
   }
 }
