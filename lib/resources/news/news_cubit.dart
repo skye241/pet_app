@@ -13,10 +13,10 @@ class NewsCubit extends Cubit<NewsState> {
   NewsCubit() : super(NewsInitial());
 
   Future<void> initEvent() async {
-    final List<String>? notiString =
-        prefs!.getStringList(Constant.notificationList);
-    // print(jsonDecode(notiString!.first)['media']);
-    final List<Comment> listComment = notiString!
+    final List<String> notiString =
+        prefs!.getStringList(Constant.notificationList) ?? <String>[];
+
+    final List<Comment> listComment = notiString
         .map((String noti) =>
             Comment.fromMap(jsonDecode(noti) as Map<String, dynamic>))
         .toList();

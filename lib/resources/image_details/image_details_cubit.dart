@@ -2,6 +2,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:family_pet/general/api_handler.dart';
 import 'package:family_pet/general/app_strings/app_strings.dart';
+import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/model/enum.dart';
 import 'package:family_pet/repository/media_repository.dart';
@@ -47,7 +48,7 @@ class ImageDetailsCubit extends Cubit<ImageDetailsState> {
       // final File file = File(documentDirectory.path + media.mediaName!);
       // file.writeAsBytesSync(response.bodyBytes);
       // print('success');
-      GallerySaver.saveImage(media.file!);
+      GallerySaver.saveImage(Url.baseURLImage  + media.file!);
       emit(ImageDetailsStateShowMessage(AppStrings.of(context).textPopUpSuccessSaveToDevice));
     } on Exception catch (e) {
       print(e);

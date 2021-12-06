@@ -12,8 +12,8 @@ part 'album_state.dart';
 
 class AlbumCubit extends Cubit<AlbumState> {
   AlbumCubit()
-      : super(
-            AlbumStateSuccess(const <Media>[], DateTime.now(), PermissionPickMedia.mine));
+      : super(AlbumStateSuccess(
+            const <Media>[], DateTime.now(), PermissionPickMedia.mine));
 
   final MediaRepository mediaRepository = MediaRepository();
   final PetRepository petRepository = PetRepository();
@@ -23,15 +23,18 @@ class AlbumCubit extends Cubit<AlbumState> {
     try {
       emit(AlbumStateShowLoading());
       final List<Media> images = <Media>[];
-      images.addAll(await mediaRepository.getAlbum(defaultPermission) ??
-          <Media>[]);
-      final List<Pet> pets = <Pet>[];
-      pets.addAll(await petRepository.getListPet());
-      prefs!.setString(
-          Constant.albumName,
-          pets.isNotEmpty
-              ? pets.map((Pet pet) => pet.name).toList().join('-')
-              : '');
+      images.addAll(
+          await mediaRepository.getAlbum(defaultPermission) ?? <Media>[]);
+      if (prefs!.getString(Constant.albumName) == null ||
+          prefs!.getString(Constant.albumName)!.isEmpty) {
+        final List<Pet> pets = <Pet>[];
+        pets.addAll(await petRepository.getListPet());
+        prefs!.setString(
+            Constant.albumName,
+            pets.isNotEmpty
+                ? pets.map((Pet pet) => pet.name).toList().join('-')
+                : '');
+      }
       emit(AlbumStateSuccess(images, DateTime.now(), defaultPermission));
     } on APIException catch (e) {
       emit(AlbumStateFail(e.message()));
@@ -42,8 +45,7 @@ class AlbumCubit extends Cubit<AlbumState> {
     try {
       emit(AlbumStateShowLoading());
       final List<Media> images = <Media>[];
-      images.addAll(await mediaRepository.getAlbum(albumType) ??
-          <Media>[]);
+      images.addAll(await mediaRepository.getAlbum(albumType) ?? <Media>[]);
       defaultPermission = albumType;
       emit(AlbumStateSuccess(images, DateTime.now(), defaultPermission));
     } on APIException catch (e) {
@@ -51,8 +53,7 @@ class AlbumCubit extends Cubit<AlbumState> {
     }
   }
 
-  Future<void> chooseMonth(
-      List<Media> images, DateTime date) async {
+  Future<void> chooseMonth(List<Media> images, DateTime date) async {
     emit(AlbumStateSuccess(images, date, defaultPermission));
   }
 }

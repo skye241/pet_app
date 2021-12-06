@@ -19,7 +19,7 @@ class MediaRepository {
     body[Constant.mediaType] = type;
     body[Constant.tShare] = share;
 
-    final StreamedResponse response = await uploadImage(file, body);
+    final StreamedResponse response = await networkService.uploadImage(file, body);
     int imageId;
     final String rep = await response.stream.bytesToString();
 

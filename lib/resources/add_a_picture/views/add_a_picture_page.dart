@@ -200,7 +200,7 @@ class _AddAPicturePageState extends State<AddAPicturePage> {
       print(e.code);
       if (e.code == 'photo_access_denied') {
         showMessage(context, AppStrings.of(context).notice,
-            'Nếu bạn muốn thay đổi quyền hãy vào mục cài đặt của điện thoại');
+            AppStrings.of(context).textErrorNoPermission);
       }
     }
   }

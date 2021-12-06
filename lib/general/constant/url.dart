@@ -13,9 +13,10 @@ class Url {
   static const String getUserInfoById = baseURL + 'userinfo/get-by-id/';
   static const String sendEmailActive = baseURL + 'userinfo/send-mail-active/';
   static const String login = baseURL + 'userinfo/login/';
+  static const String logout = baseURL + 'userinfo/logout/';
+  static const String deleteUser = baseURL + 'userinfo/del-user/';
   static const String createFcm = baseURL + 'fcmdevices/';
   static const String updateFcm = baseURL + 'fcmdevices/';
-  static const String checkToken = 'http://34.146.118.100:8080/swagger/?format=openapi';
 
   ///MEDIA
   static const String uploadMedia = baseURL + 'media/upload-media/';

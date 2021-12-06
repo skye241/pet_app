@@ -301,6 +301,42 @@ class NetworkService {
     }
   }
 
+  Future<StreamedResponse> uploadImage(
+      File file, Map<String, String> body, {String? url, String? method, String? fieldName}) async {
+    // final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String _url = url?? Url.uploadMedia;
+    // final Map<String, String> headers = <String, String>{};
+    _headers[Constant.contentType] = 'multipart/form-data';
+    _headers[Constant.cookie] = prefs?.getString(Constant.cookie) ?? '';
+
+
+    print('Calling upload image ===========================================');
+    print('header: ' + _headers.toString());
+    print('URL: ' + _url);
+    print('body: ' + body.toString());
+
+    final Uri uri = Uri.parse(_url);
+    final ByteStream stream = ByteStream(Stream.castFrom(file.openRead()));
+    final int length = await file.length();
+
+    final MultipartRequest request = MultipartRequest( method?? 'POST', uri);
+    final MultipartFile multipartFile = MultipartFile(
+      fieldName?? 'file',
+      stream,
+      length,
+      filename: basename(file.path),
+    );
+    print( (fieldName??'file: ') + basename(file.path));
+
+    request.files.add(multipartFile);
+    request.fields.addAll(body);
+    request.headers.addAll(_headers);
+    print('request' + request.headers.toString());
+    final StreamedResponse response = await request.send();
+    print(response.statusCode);
+    return response;
+  }
+
   /// Lấy string lỗi theo mã
   String getErrorMessage(int code) {
     switch (code) {
@@ -349,36 +385,4 @@ class APIParse {
   }
 }
 
-Future<StreamedResponse> uploadImage(
-    File file, Map<String, String> body) async {
-  // final SharedPreferences prefs = await SharedPreferences.getInstance();
-  const String _url = Url.uploadMedia;
-  final Map<String, String> headers = <String, String>{};
-  headers[Constant.contentType] = 'multipart/form-data';
 
-  print('Calling upload image ===========================================');
-  print('header: ' + headers.toString());
-  print('URL: ' + _url);
-  print('body: ' + body.toString());
-
-  final Uri uri = Uri.parse(_url);
-  final ByteStream stream = ByteStream(Stream.castFrom(file.openRead()));
-  final int length = await file.length();
-
-  final MultipartRequest request = MultipartRequest('POST', uri);
-  final MultipartFile multipartFile = MultipartFile(
-    'file',
-    stream,
-    length,
-    filename: basename(file.path),
-  );
-  print('file: ' + basename(file.path));
-
-  request.files.add(multipartFile);
-  request.fields.addAll(body);
-  request.headers.addAll(headers);
-  print('request' + request.headers.toString());
-  final StreamedResponse response = await request.send();
-  print(response.statusCode);
-  return response;
-}

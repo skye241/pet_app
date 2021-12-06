@@ -41,69 +41,74 @@ class _AlbumPageState extends State<AlbumPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Center(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                getTitleAlbum(context),
-                style: Theme.of(context).appBarTheme.titleTextStyle,
-              ),
-              IconButton(
-                  onPressed: () => showListAlbum(context),
-                  icon: const Icon(Icons.keyboard_arrow_down_outlined))
-            ],
+    return BlocBuilder<AlbumCubit, AlbumState>(
+      bloc: cubit,
+      builder: (BuildContext context, AlbumState state) {
+        return Scaffold(
+          appBar:  AppBar(
+          automaticallyImplyLeading: false,
+          title: Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  getTitleAlbum(context),
+                  style: Theme.of(context).appBarTheme.titleTextStyle,
+                ),
+                IconButton(
+                    onPressed: () => showListAlbum(context),
+                    icon: const Icon(Icons.keyboard_arrow_down_outlined))
+              ],
+            ),
           ),
         ),
-      ),
-      body: BlocListener<AlbumCubit, AlbumState>(
-        bloc: cubit,
-        listener: (BuildContext context, AlbumState current) {
-          if (current is AlbumStateShowPopUpLoading) {
-            showPopUpLoading(context);
-          } else if (current is AlbumStateDismissLoading) {
-            Navigator.pop(context);
-          } else if (current is AlbumStateFail) {
-            showMessage(
-                context, AppStrings.of(context).notice, current.message);
-          }
-        },
-        child: BlocBuilder<AlbumCubit, AlbumState>(
-          bloc: cubit,
-          buildWhen: (AlbumState prev, AlbumState current) {
-            print(current);
-            if (current is AlbumStateSuccess ||
-                current is AlbumInitial ||
-                current is AlbumStateShowLoading) {
-              return true;
-            } else
-              return false;
-          },
-          builder: (BuildContext context, AlbumState state) {
-            if (state is AlbumInitial) {
-              return _emptyWidget(context);
-            } else if (state is AlbumStateSuccess) {
-              if (state.images.isNotEmpty) {
-                return _body(context, state);
-              } else
-                return Center(
-                  child: AlbumEmptyFragment(
-                    title: AppStrings.of(context).textLabelAlbumEmpty,
-                  ),
-                );
-            } else
-              return const Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                      AppThemeData.color_primary_90),
-                ),
-              );
-          },
-        ),
-      ),
+          body: BlocListener<AlbumCubit, AlbumState>(
+            bloc: cubit,
+            listener: (BuildContext context, AlbumState current) {
+              if (current is AlbumStateShowPopUpLoading) {
+                showPopUpLoading(context);
+              } else if (current is AlbumStateDismissLoading) {
+                Navigator.pop(context);
+              } else if (current is AlbumStateFail) {
+                showMessage(
+                    context, AppStrings.of(context).notice, current.message);
+              }
+            },
+            child: BlocBuilder<AlbumCubit, AlbumState>(
+              bloc: cubit,
+              buildWhen: (AlbumState prev, AlbumState current) {
+                print(current);
+                if (current is AlbumStateSuccess ||
+                    current is AlbumInitial ||
+                    current is AlbumStateShowLoading) {
+                  return true;
+                } else
+                  return false;
+              },
+              builder: (BuildContext context, AlbumState state) {
+                if (state is AlbumInitial) {
+                  return _emptyWidget(context);
+                } else if (state is AlbumStateSuccess) {
+                  if (state.images.isNotEmpty) {
+                    return _body(context, state);
+                  } else
+                    return Center(
+                      child: AlbumEmptyFragment(
+                        title: AppStrings.of(context).textLabelAlbumEmpty,
+                      ),
+                    );
+                } else
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          AppThemeData.color_primary_90),
+                    ),
+                  );
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 

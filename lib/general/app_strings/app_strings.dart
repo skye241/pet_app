@@ -192,6 +192,8 @@ abstract class AppStrings {
 
   String get textErrorNoPermission;
 
+  String get albumName;
+
 //*** End - IPick Media ***//
 
 // *** Start - Profile ***//
@@ -240,6 +242,16 @@ abstract class AppStrings {
   String get textProfilePopUpSuccessChangePassword;
 
   String get textProfileButtonPolicyAndProtected;
+
+  String get textProfileButtonConfirmLogOut;
+
+  String get textProfileButtonConfirmDeleteAccount;
+
+  String get textProfileButtonRequestNotification;
+
+  String get textProfileButtonDismissRequestNotification;
+
+  String get textProfileButtonOpenSetting;
 
 // *** End - Profile ***//
 
@@ -312,6 +324,8 @@ abstract class AppStrings {
   String get textSignInButtonSignIn;
 
   String get textSignInLabelOtherRegister;
+
+  String get textSignInErrorNotActive;
 
 // *** End - SIGNIN - LOGIN ***//
 

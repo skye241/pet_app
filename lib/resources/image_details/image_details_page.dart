@@ -74,91 +74,97 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
   }
 
   Widget _body(BuildContext context, ImageDetailsInitial state) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-              prefs!.getString(Constant.albumName)!.isNotEmpty
-                  ? prefs!.getString(Constant.albumName)!
-                  : AppStrings.of(context).textTitleAlbum,
-              style: Theme.of(context).appBarTheme.titleTextStyle),
-          leading: IconButton(
-              onPressed: () => Navigator.pop(context, state.media),
-              icon: const Icon(Icons.close)),
-          actions: <Widget>[
-            IconButton(
-                onPressed: () => showBottomSheet(context, state),
-                icon: const Icon(Icons.more_horiz))
-          ],
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: CustomScrollView(
-            slivers: <SliverList>[
-              SliverList(
-                delegate: SliverChildListDelegate(<Widget>[
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Hero(
-                    tag: 'media${state.media.id}',
-                    child: ComponentHelper.borderRadiusImage(
-                      image: Image.network(
-                        Url.baseURLImage + state.media.file!,
-                      ),
-                      borderRadius: 8.0,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      SvgPicture.asset(
-                        'assets/svgs/svg_comment.svg',
-                        color: AppThemeData.color_black_80,
-                        height: 20,
-                        width: 20,
-                      ),
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      Text(
-                        state.media.totalComment!.toString(),
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                      const SizedBox(
-                        width: 18,
-                      ),
-                      InkWell(
-                        onTap: () => cubit.likeMedia(state.media),
-                        child: state.media.isLiked!
-                            ? SvgPicture.asset(
-                                'assets/svgs/svg_heart.svg',
-                                height: 20,
-                                width: 20,
-                              )
-                            : SvgPicture.asset(
-                                'assets/svgs/svg_like.svg',
-                                height: 20,
-                                width: 20,
-                                color: AppThemeData.color_black_80,
-                              ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 27),
-                  ListCommentWidget(
-                    media: state.media,
-                    onChangedTotalComment: (int totalComment) =>
-                        cubit.updateMedia(
-                            state.media.copyWith(totalComment: totalComment)),
-                  ),
-                ]),
-              ),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context, state.media);
+        return true;
+      },
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+                prefs!.getString(Constant.albumName)!.isNotEmpty
+                    ? prefs!.getString(Constant.albumName)!
+                    : AppStrings.of(context).textTitleAlbum,
+                style: Theme.of(context).appBarTheme.titleTextStyle),
+            leading: IconButton(
+                onPressed: () => Navigator.pop(context, state.media),
+                icon: const Icon(Icons.close)),
+            actions: <Widget>[
+              IconButton(
+                  onPressed: () => showBottomSheet(context, state),
+                  icon: const Icon(Icons.more_horiz))
             ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: CustomScrollView(
+              slivers: <SliverList>[
+                SliverList(
+                  delegate: SliverChildListDelegate(<Widget>[
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Hero(
+                      tag: 'media${state.media.id}',
+                      child: ComponentHelper.borderRadiusImage(
+                        image: Image.network(
+                          Url.baseURLImage + state.media.file!,
+                        ),
+                        borderRadius: 8.0,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        SvgPicture.asset(
+                          'assets/svgs/svg_comment.svg',
+                          color: AppThemeData.color_black_80,
+                          height: 20,
+                          width: 20,
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          state.media.totalComment!.toString(),
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        const SizedBox(
+                          width: 18,
+                        ),
+                        InkWell(
+                          onTap: () => cubit.likeMedia(state.media),
+                          child: state.media.isLiked!
+                              ? SvgPicture.asset(
+                                  'assets/svgs/svg_heart.svg',
+                                  height: 20,
+                                  width: 20,
+                                )
+                              : SvgPicture.asset(
+                                  'assets/svgs/svg_like.svg',
+                                  height: 20,
+                                  width: 20,
+                                  color: AppThemeData.color_black_80,
+                                ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 27),
+                    ListCommentWidget(
+                      media: state.media,
+                      onChangedTotalComment: (int totalComment) =>
+                          cubit.updateMedia(
+                              state.media.copyWith(totalComment: totalComment)),
+                    ),
+                  ]),
+                ),
+              ],
+            ),
           ),
         ),
       ),

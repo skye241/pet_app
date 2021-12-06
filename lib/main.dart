@@ -7,6 +7,7 @@ import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/resources/add_a_picture/views/add_a_picture_page.dart';
 import 'package:family_pet/resources/default_page/default_page.dart';
+import 'package:family_pet/resources/edit_account/edit_account_view.dart';
 import 'package:family_pet/resources/fast_register_user/views/register_fast_user_page.dart';
 import 'package:family_pet/resources/image_details/image_details_page.dart';
 import 'package:family_pet/resources/interests/views/interests_page.dart';
@@ -239,6 +240,13 @@ class _MyAppState extends State<MyApp> {
       case RoutesName.signUpPage:
         return MaterialPageRoute<dynamic>(
           builder: (BuildContext context) => SignUpPage(
+            userInfo: data[Constant.userInfo] as UserInfo,
+          ),
+          settings: const RouteSettings(name: RoutesName.signUpPage),
+        );
+        case RoutesName.editAccountPage:
+        return MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) => EditAccountPage(
             userInfo: data[Constant.userInfo] as UserInfo,
           ),
           settings: const RouteSettings(name: RoutesName.signUpPage),

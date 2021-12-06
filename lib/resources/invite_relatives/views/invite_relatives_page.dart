@@ -56,89 +56,88 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
             },
           ),
         ),
-        body: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            width: double.maxFinite,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                const SizedBox(
-                  height: 40,
-                ),
-                Text(AppStrings.of(context).textInviteRelativesLabelMain,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline2),
-                const SizedBox(height: 24),
-                Text(
-                  AppStrings.of(context).textInvitationTitle,
-                  style: Theme.of(context).textTheme.headline3,
-                ),
-                const SizedBox(height: 24),
-                BlocBuilder<InviteRelativesCubit, InviteRelativesState>(
-                  bloc: cubit,
-                  buildWhen: (InviteRelativesState prev,
-                      InviteRelativesState current) {
-                    if (current is! InviteRelativesInitial &&
-                        current is! InviteRelativesLoaded &&
-                        current is! InviteRelativesStateFailed) {
-                      return false;
-                    } else
-                      return true;
-                  },
-                  builder: (BuildContext context, InviteRelativesState state) {
-                    if (state is InviteRelativesLoaded) {
-                      if (state.media.id == null) {
-                        return Container(
-                          height: 220,
-                          width: 220,
-                          child: Center(
-                            child: Text(
-                                AppStrings.of(context).textEmptyShareMedia),
-                          ),
-                        );
-                      }
-                      return _itemFirst(context, state.media);
-                    } else if (state is InviteRelativesInitial) {
-                      return const Center(
-                          child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                            AppThemeData.color_primary_90),
-                      ));
-                    } else if (state is InviteRelativesStateFailed) {
-                      return ElevatedButton(
-                          onPressed: () => cubit.getAlbumByType(),
-                          child: const Text('Thử lại'));
-                    } else
-                      return Container();
-                  },
-                ),
-                const SizedBox(height: 24),
-                PermissionPickerWidget(
-                    listPermission: const <String>[
-                      PermissionPickMedia.family,
-                      PermissionPickMedia.friend
-                    ],
-                    initPermission: PermissionPickMedia.family,
-                    onPermissionPicked: (String per) => cubit.sortAlbum(per)),
-                BlocBuilder<InviteRelativesCubit, InviteRelativesState>(
-                  bloc: cubit,
-                  builder: (BuildContext context, InviteRelativesState state) {
-                    return Column(
-                      children: <Widget>[
-                        Tooltip(
-                          message:
-                              AppStrings.of(context).textTooltip,
-                          padding: const EdgeInsets.all(16.0),
-                          margin: const EdgeInsets.symmetric(horizontal: 50.0),
-                          preferBelow: false,
-                          verticalOffset: 50,
-                          decoration: const BoxDecoration(
-                            color: AppThemeData.color_main,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8.0)),
-                          ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          // width: double.maxFinite,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(
+                height: 40,
+              ),
+              Text(AppStrings.of(context).textInviteRelativesLabelMain,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline2),
+              const SizedBox(height: 24),
+              Text(
+                AppStrings.of(context).textInvitationTitle,
+                style: Theme.of(context).textTheme.headline3,
+              ),
+              const SizedBox(height: 24),
+              BlocBuilder<InviteRelativesCubit, InviteRelativesState>(
+                bloc: cubit,
+                buildWhen:
+                    (InviteRelativesState prev, InviteRelativesState current) {
+                  if (current is! InviteRelativesInitial &&
+                      current is! InviteRelativesLoaded &&
+                      current is! InviteRelativesStateFailed) {
+                    return false;
+                  } else
+                    return true;
+                },
+                builder: (BuildContext context, InviteRelativesState state) {
+                  if (state is InviteRelativesLoaded) {
+                    if (state.media.id == null) {
+                      return Container(
+                        height: 220,
+                        width: 220,
+                        child: Center(
+                          child:
+                              Text(AppStrings.of(context).textEmptyShareMedia),
+                        ),
+                      );
+                    }
+                    return _itemFirst(context, state.media);
+                  } else if (state is InviteRelativesInitial) {
+                    return const Center(
+                        child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          AppThemeData.color_primary_90),
+                    ));
+                  } else if (state is InviteRelativesStateFailed) {
+                    return ElevatedButton(
+                        onPressed: () => cubit.getAlbumByType(),
+                        child: const Text('Thử lại'));
+                  } else
+                    return Container();
+                },
+              ),
+              const SizedBox(height: 24),
+              PermissionPickerWidget(
+                  listPermission: const <String>[
+                    PermissionPickMedia.family,
+                    PermissionPickMedia.friend
+                  ],
+                  initPermission: PermissionPickMedia.family,
+                  onPermissionPicked: (String per) => cubit.sortAlbum(per)),
+              Expanded(child: Container()),
+              BlocBuilder<InviteRelativesCubit, InviteRelativesState>(
+                bloc: cubit,
+                builder: (BuildContext context, InviteRelativesState state) {
+                  return Column(
+                    children: <Widget>[
+                      Tooltip(
+                        message: AppStrings.of(context).textTooltip,
+                        padding: const EdgeInsets.all(16.0),
+                        margin: const EdgeInsets.symmetric(horizontal: 50.0),
+                        preferBelow: false,
+                        verticalOffset: 50,
+                        decoration: const BoxDecoration(
+                          color: AppThemeData.color_main,
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                        child: SizedBox(
+                          height: 50,
                           child: ElevatedButton(
                             onPressed: cubit.media.id != null
                                 ? () async {
@@ -159,8 +158,14 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 8),
-                        ElevatedButton(
+                      ),
+                      const SizedBox(height: 8),
+                      SizedBox(
+                        height: 50,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: AppThemeData.color_black_40,
+                          ),
                           onPressed: cubit.media.id != null
                               ? () {
                                   Clipboard.setData(
@@ -173,20 +178,25 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                const Icon(Icons.copy),
+                                const Icon(Icons.copy, color: AppThemeData.color_black_80,),
                                 const SizedBox(width: 16),
-                                Text(AppStrings.of(context)
-                                    .textInviteRelativesButtonCopyUrl),
+                                Text(
+                                    AppStrings.of(context)
+                                        .textInviteRelativesButtonCopyUrl,
+                                    style: Theme.of(context).textTheme.button!.copyWith(color: AppThemeData.color_black_80)),
                               ],
                             ),
                           ),
                         ),
-                      ],
-                    );
-                  },
-                ),
-              ],
-            ),
+                      ),
+                      Container(
+                        height: 40,
+                      )
+                    ],
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),
@@ -220,7 +230,7 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
               width: 220,
               height: 220,
               child: Image.network(
-               Url.baseURLImage + media.file!,
+                Url.baseURLImage + media.file!,
                 fit: BoxFit.cover,
               ),
             )

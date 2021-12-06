@@ -395,7 +395,7 @@ class _AppStringsJp extends AppStrings {
   @override
   String get textErrorNoPermission => '権限の設定を変更するには、 デバイスの設定に移動してください';
   @override
-  String get textProfileNotActivate => 'Tài khoản chưa được xác thực';
+  String get textProfileNotActivate => '未登録のアカウント';
   @override
   String get textProfileButtonChangePassword => 'パスワードを変更';
   @override
@@ -408,7 +408,7 @@ class _AppStringsJp extends AppStrings {
   String get textProfilePopUpConfirmChangePassword => 'パスワードを変更してもよろしいですか';
 
   @override
-  String get textProfilePopUpConfirmDeleteAccount => 'アカウントを削除してもよろしいですか。削除すると、すべてのデータを復元できなくなります‘=';
+  String get textProfilePopUpConfirmDeleteAccount => 'アカウントを削除してもよろしいですか。削除すると、すべてのデータを復元できなくなります';
 
   @override
   String get textProfilePopUpConfirmSignOut => 'ファミペからログアウトしてもよろしいですか';
@@ -427,5 +427,27 @@ class _AppStringsJp extends AppStrings {
 
   @override
   String get day => '日前';
+
+  @override
+  String get albumName => 'アルバム名';
+
+  @override
+  String get textSignInErrorNotActive => 'このアカウントは確認されていません。登録したメールをアクセスして認証を完了させて下さい';
+
+  @override
+  String get textProfileButtonConfirmDeleteAccount => '削除';
+
+  @override
+  String get textProfileButtonConfirmLogOut => 'ログアウト';
+
+  @override
+  String get textProfileButtonDismissRequestNotification => throw UnimplementedError();
+
+  @override
+  String get textProfileButtonRequestNotification => throw UnimplementedError();
+
+  @override
+  // TODO: implement textProfileButtonOpenSetting
+  String get textProfileButtonOpenSetting => throw UnimplementedError();
 
 }

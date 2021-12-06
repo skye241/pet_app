@@ -215,7 +215,8 @@ class UserInfo {
     this.avatar,
     this.relationType,
     this.isActive,
-    this.status
+    this.status,
+    this.albumName
   });
 
   factory UserInfo.fromMap(Map<String, dynamic>? data) {
@@ -231,7 +232,8 @@ class UserInfo {
         avatar: getString(Constant.avatar, data),
         relationType: getString(Constant.relationType, data),
         isActive: getBool(Constant.isActive, data),
-        status: getString(Constant.status, data)
+        status: getString(Constant.status, data),
+        albumName: getString(Constant.albumName, data)
       );
   }
 
@@ -242,6 +244,7 @@ class UserInfo {
   final String? relationType;
   final bool? isActive;
   final String? status;
+  final String? albumName;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

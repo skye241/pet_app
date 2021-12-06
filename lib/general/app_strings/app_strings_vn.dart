@@ -445,4 +445,25 @@ class _AppStringsVn extends AppStrings {
   @override
   String get day => 'ngày trước';
 
+  @override
+  String get albumName => 'Tên Album';
+
+  @override
+  String get textSignInErrorNotActive => 'Tài khoản chưa được xác thực. Vui lòng vào địa chỉ email đã đăng ký để hoàn tất bước thiết lập tài khoản';
+
+  @override
+  String get textProfileButtonConfirmDeleteAccount => 'Xóa tài khoản';
+
+  @override
+  String get textProfileButtonConfirmLogOut => 'Đăng xuất';
+
+  @override
+  String get textProfileButtonDismissRequestNotification => 'Để tắt thông báo, vui lòng vào Cài đặt của thiết bị -> Thông báo';
+
+  @override
+  String get textProfileButtonRequestNotification => 'Để bật thông báo, vui lòng vào Cài đặt của thiết bị -> Thông báo';
+
+  @override
+  String get textProfileButtonOpenSetting => 'Mở cài đặt';
+
 }

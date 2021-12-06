@@ -3,9 +3,14 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:device_info/device_info.dart';
 import 'package:family_pet/general/api_handler.dart';
+import 'package:family_pet/general/app_strings/app_strings.dart';
+import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/repository/user_repository.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
+
+import '../../main.dart';
 
 part 'sign_in_state.dart';
 
@@ -19,7 +24,7 @@ class SignInCubit extends Cubit<SignInState> {
     emit(SignInInitial(showPass));
   }
 
-  Future<void> login(String email, String password) async {
+  Future<void> login(String email, String password, BuildContext context) async {
     try {
       emit(SignInShowPopUpLoading());
       final String deviceId = await _getId();
@@ -27,13 +32,15 @@ class SignInCubit extends Cubit<SignInState> {
       await _userRepository.updateUser(deviceId: deviceId);
       final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
       final String? token = await firebaseMessaging.getToken();
-      await _userRepository.updateUserFcmToken(deviceId, token ?? '',
+
+      prefs!.setString(Constant.registrationId, token??'');
+      await _userRepository.createUserFcmToken(deviceId, token ?? '',
           Platform.isAndroid ? 'android' : 'ios');
       emit(SignInShowDismissPopUpLoading());
       emit(SignInStateSuccess());
     } on APIException catch (e) {
       emit(SignInShowDismissPopUpLoading());
-      emit(SignInStateFail(e.message()));
+      emit(SignInStateFail(e.apiResponse.code == 406? AppStrings.of(context).textSignInErrorNotActive : e.message()));
     }
   }
 

@@ -184,15 +184,17 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
                   child: Container(
                     margin: const EdgeInsets.only(top: 6),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(name,
                             style: Theme.of(context).textTheme.headline3),
                         Container(
                           width: 8,
                         ),
-                        Text(comment,
-                            style: Theme.of(context).textTheme.bodyText2),
+                        Flexible(
+                          child: Text(comment,
+                              style: Theme.of(context).textTheme.bodyText2),
+                        ),
                       ],
                     ),
                   ),

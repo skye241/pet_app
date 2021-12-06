@@ -197,7 +197,7 @@ class _SignInPageState extends State<SignInPage> {
 
   void _eventSignIn() {
     if (formKey.currentState!.validate()) {
-      cubit.login(emailController.text, passwordController.text);
+      cubit.login(emailController.text, passwordController.text, context);
     }
   }
 
