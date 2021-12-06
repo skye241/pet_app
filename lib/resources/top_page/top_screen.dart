@@ -331,12 +331,12 @@ Future<void> onMessage(
       platformChannelSpecifics,
     );
   } catch (error) {
-    flutterLocalNotificationsPlugin.show(
-      0,
-      'Thông báo',
-      'Bạn vừa nhận được một thông báo mới',
-      platformChannelSpecifics,
-    );
+    // flutterLocalNotificationsPlugin.show(
+    //   0,
+    //   'Thông báo',
+    //   'Bạn vừa nhận được một thông báo mới',
+    //   platformChannelSpecifics,
+    // );
     print('Notification Error => $error ');
   }
 }

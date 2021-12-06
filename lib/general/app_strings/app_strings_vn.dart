@@ -416,7 +416,7 @@ class _AppStringsVn extends AppStrings {
   String get textProfileButtonDeleteAccount => 'Xóa tài khoản trên thiết bị';
 
   @override
-  String get textProfileButtonEditAccount => 'Cập nhật tài khoản';
+  String get textProfileButtonEditAccount => 'Cập nhật thông tin tài khoản';
 
   @override
   String get textProfileButtonSignOut => 'Đăng xuất';
@@ -465,5 +465,8 @@ class _AppStringsVn extends AppStrings {
 
   @override
   String get textProfileButtonOpenSetting => 'Mở cài đặt';
+
+  @override
+  String get textSignInErrorNotCorrectAccount => ' Thông tin đăng nhập chưa chính xác. Vui lòng kiểm tra lại';
 
 }

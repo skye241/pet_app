@@ -99,7 +99,7 @@ class _AppStringsJp extends AppStrings {
   String get textProfileButtonAddPet => 'ペットを追加する';
 
   @override
-  String get textProfileButtonAddAccount => 'アカウント登録';
+  String get textProfileButtonAddAccount => 'アカウントの登録';
 
   @override
   String get textProfileButtonAddRelatives => '家族・友人を招待する';
@@ -401,7 +401,7 @@ class _AppStringsJp extends AppStrings {
   @override
   String get textProfileButtonDeleteAccount => 'このデバイスからアカウントを削除';
   @override
-  String get textProfileButtonEditAccount => 'アカウントの更新';
+  String get textProfileButtonEditAccount => 'アカウント情報の変更';
   @override
   String get textProfileButtonSignOut => 'ログアウト';
   @override
@@ -441,13 +441,15 @@ class _AppStringsJp extends AppStrings {
   String get textProfileButtonConfirmLogOut => 'ログアウト';
 
   @override
-  String get textProfileButtonDismissRequestNotification => throw UnimplementedError();
+  String get textProfileButtonDismissRequestNotification => '通知をオフにするには、デバイスの [設定 > 通知] に移動してください';
 
   @override
-  String get textProfileButtonRequestNotification => throw UnimplementedError();
+  String get textProfileButtonRequestNotification => '通知をオンにするには、デバイスの [設定 > 通知] に移動してください';
 
   @override
-  // TODO: implement textProfileButtonOpenSetting
-  String get textProfileButtonOpenSetting => throw UnimplementedError();
+  String get textProfileButtonOpenSetting => '設定を開く';
+
+  @override
+  String get textSignInErrorNotCorrectAccount => 'ログイン情報が正しくありません。ご確認の上、再度入力してください';
 
 }

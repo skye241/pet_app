@@ -327,6 +327,8 @@ abstract class AppStrings {
 
   String get textSignInErrorNotActive;
 
+  String get textSignInErrorNotCorrectAccount;
+
 // *** End - SIGNIN - LOGIN ***//
 
 // *** Start - INVITATION***//

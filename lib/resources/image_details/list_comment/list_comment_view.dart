@@ -12,11 +12,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ListCommentWidget extends StatefulWidget {
   const ListCommentWidget(
-      {Key? key, required this.media, this.onChangedTotalComment})
+      {Key? key, required this.media, required this.onChangedTotalComment})
       : super(key: key);
 
   final Media media;
-  final ValueChanged<int>? onChangedTotalComment;
+  final ValueChanged<int> onChangedTotalComment;
 
   @override
   _ListCommentWidgetState createState() => _ListCommentWidgetState();
@@ -53,7 +53,7 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
           bloc: cubit,
           buildWhen: (ListCommentState prev, ListCommentState current) {
             if (current is ListCommentStateCallBack) {
-              widget.onChangedTotalComment!(current.totalComment);
+              widget.onChangedTotalComment(current.totalComment);
               return false;
             } else
               return true;
@@ -154,7 +154,7 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
     required Comment commentItem,
     required List<Comment> listComment,
   }) {
-    final String name = commentItem.userName!;
+    final String name = commentItem.userName ?? '';
     final String comment = commentItem.content ?? '';
     print(name);
     return Padding(

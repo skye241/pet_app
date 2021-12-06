@@ -29,7 +29,7 @@
 			<string>familypetcls.com</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>customscheme</string>
+				<string>famipe</string>
 			</array>
 		</dict>
 	</array>

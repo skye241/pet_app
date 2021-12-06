@@ -24,7 +24,8 @@ class SignInCubit extends Cubit<SignInState> {
     emit(SignInInitial(showPass));
   }
 
-  Future<void> login(String email, String password, BuildContext context) async {
+  Future<void> login(
+      String email, String password, BuildContext context) async {
     try {
       emit(SignInShowPopUpLoading());
       final String deviceId = await _getId();
@@ -33,14 +34,18 @@ class SignInCubit extends Cubit<SignInState> {
       final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
       final String? token = await firebaseMessaging.getToken();
 
-      prefs!.setString(Constant.registrationId, token??'');
-      await _userRepository.createUserFcmToken(deviceId, token ?? '',
-          Platform.isAndroid ? 'android' : 'ios');
+      prefs!.setString(Constant.registrationId, token ?? '');
+      await _userRepository.createUserFcmToken(
+          deviceId, token ?? '', Platform.isAndroid ? 'android' : 'ios');
       emit(SignInShowDismissPopUpLoading());
       emit(SignInStateSuccess());
     } on APIException catch (e) {
       emit(SignInShowDismissPopUpLoading());
-      emit(SignInStateFail(e.apiResponse.code == 406? AppStrings.of(context).textSignInErrorNotActive : e.message()));
+      emit(SignInStateFail(e.apiResponse.code == 406
+          ? AppStrings.of(context).textSignInErrorNotActive
+          : e.apiResponse.code == 404
+              ? AppStrings.of(context).textSignInErrorNotCorrectAccount
+              : e.message()));
     }
   }
 

@@ -89,7 +89,6 @@ class UserRepository {
     final APIResponse response =
         await networkService.callPOST(url: Url.deleteUser, body: body);
     if (response.isOK ?? false) {
-      prefs!.clear();
       return;
     } else
       throw APIException(response);
@@ -105,7 +104,7 @@ class UserRepository {
       body[Constant.password] = password;
     }
     if (deviceId != null) {
-      body[Constant.deviceId] = deviceId;
+      body[Constant.deviceKey] = deviceId;
     }
     body[Constant.userId] = prefs?.getInt(Constant.userId);
 
@@ -131,7 +130,7 @@ class UserRepository {
         url: Url.createFcm,
         body: body,
         header: <String, String>{Constant.cookie: ''});
-    if (response.code != 400) {
+    if (!response.isOK! && response.code != 400) {
       // Nếu code = 400 thì chỉ là registrationId đã tồn tại, ko có vấn đề gì
       throw APIException(response);
     } else
