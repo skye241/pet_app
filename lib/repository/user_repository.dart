@@ -95,7 +95,7 @@ class UserRepository {
   }
 
   Future<void> updateUser(
-      {String? email, String? password, String? deviceId}) async {
+      {String? email, String? password, String? deviceId, String? language}) async {
     final Map<String, dynamic> body = <String, dynamic>{};
     if (email != null) {
       body[Constant.email] = email;
@@ -105,6 +105,9 @@ class UserRepository {
     }
     if (deviceId != null) {
       body[Constant.deviceKey] = deviceId;
+    }
+    if (language != null) {
+      body[Constant.location] = language;
     }
     body[Constant.userId] = prefs?.getInt(Constant.userId);
 

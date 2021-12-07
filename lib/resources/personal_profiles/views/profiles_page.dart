@@ -326,6 +326,8 @@ class _ProfileViewPageState extends State<ProfileViewPage> with WidgetsBindingOb
           BlocProvider.of<LanguageCubit>(context).changeLocale(
               prefs!.getString(Constant.language) == 'vi' ? 'ja' : 'vi');
           BlocProvider.of<TopScreenCubit>(context).reload();
+          cubit.updateLocation();
+
         }, false, AppStrings.of(context).textProfileButtonChangeLanguages),
         const Divider(
             color: AppThemeData.color_black_10, height: 0, thickness: 1),

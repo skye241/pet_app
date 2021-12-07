@@ -17,7 +17,7 @@ class InviteRelativesCubit extends Cubit<InviteRelativesState> {
 
   final MediaRepository mediaRepository = MediaRepository();
   final ShareRepository shareRepository = ShareRepository();
-  String permission = PermissionPickMedia.family;
+  String defaultPermission = PermissionPickMedia.family;
   Media media = Media();
   List<Media> listMediaDefault = <Media>[];
   String urlDefault = '';
@@ -26,6 +26,7 @@ class InviteRelativesCubit extends Cubit<InviteRelativesState> {
     final List<Media> mediaByPer = listMediaDefault
         .where((Media media) => media.share! == permission)
         .toList();
+    defaultPermission = permission;
     if (mediaByPer.isNotEmpty) {
       mediaByPer.sort((Media a, Media b) =>
           DateTime.parse(a.createdAt!).compareTo(DateTime.parse(b.createdAt!)));
@@ -45,10 +46,10 @@ class InviteRelativesCubit extends Cubit<InviteRelativesState> {
           await mediaRepository.getAlbum(PermissionPickMedia.mine) ?? <Media>[];
       listMediaDefault.addAll(listMedia);
       if (listMedia.isNotEmpty) {
-        sortAlbum(PermissionPickMedia.family);
+        sortAlbum(defaultPermission);
       } else {
         media = Media();
-        emit(InviteRelativesLoaded(Media(), permission, ''));
+        emit(InviteRelativesLoaded(Media(), defaultPermission, ''));
       }
       // listMedia.indexWhere((Media media) => DateTime.parse(media.createdAt).);
     } on APIException {
@@ -59,7 +60,7 @@ class InviteRelativesCubit extends Cubit<InviteRelativesState> {
   String createLink() {
     return Url.baseURLShare +
         '/'+ RoutesName.invitationPage +
-        '/${prefs!.getInt(Constant.userId)}/$permission/${DateTime.now().millisecondsSinceEpoch}';
+        '/${prefs!.getInt(Constant.userId)}/$defaultPermission/${DateTime.now().millisecondsSinceEpoch}';
   }
 
   Future<void> saveLink(String url) async {

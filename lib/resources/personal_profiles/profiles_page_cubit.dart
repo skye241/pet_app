@@ -123,4 +123,16 @@ class ProfilesPageCubit extends Cubit<ProfilesPageState> {
       emit(ProfilesPageFailed(e.message()));
     }
   }
+  Future<void> updateLocation() async {
+    try {
+      emit(ProfilesShowPopUpLoading());
+    await userRepository.updateUser(language:  prefs!.getString(Constant.language) == 'ja'
+          ? Location.japan
+          : Location.vietnam);
+      emit(ProfilesPageDismissLoading());
+    } on APIException catch (e) {
+      emit(ProfilesPageDismissLoading());
+      emit(ProfilesPageFailed(e.message()));
+    }
+  }
 }

@@ -122,11 +122,11 @@ class NewsListDataFragment extends StatelessWidget {
   }
 
   String createString(BuildContext context, Duration time) {
-    if (time.inMinutes < 1) {
+    if (time.inMinutes >= 0 && time.inMinutes <= 1) {
       return AppStrings.of(context).recently;
     } else if (1 < time.inMinutes && time.inMinutes < 60) {
       return time.inMinutes.toString() + ' ' + AppStrings.of(context).minute;
-    } else if (time.inHours >= 1 && time.inHours < 24) {
+    } else if (time.inMinutes >= 60 && time.inMinutes < 24*60) {
       return time.inHours.toString() + ' ' + AppStrings.of(context).hour;
     } else
       return time.inDays.toString() + ' ' + AppStrings.of(context).day;
