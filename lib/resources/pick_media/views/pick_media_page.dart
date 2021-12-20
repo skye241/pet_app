@@ -52,15 +52,10 @@ class _PickMediaPageState extends State<PickMediaPage>
             Navigator.pop(context);
             return false;
           } else if (current is PickMediaStateSuccess) {
-            showMessage(context, AppStrings.of(context).notice,
-                AppStrings.of(context).textPopUpSuccessUpload,
-                actions: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.popAndPushNamed(context, RoutesName.topPage);
-                    },
-                    child:
-                        Text(AppStrings.of(context).textButtonReturnToMain)));
+            showSuccessMessage(context, AppStrings.of(context).notice,
+                AppStrings.of(context).textPopUpSuccessUpload, afterPop: () {
+              Navigator.popAndPushNamed(context, RoutesName.topPage);
+            });
             return false;
           } else if (current is PickMediaStateFail) {
             showMessage(

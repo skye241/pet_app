@@ -198,10 +198,10 @@ class _AppStringsJp extends AppStrings {
   String get textSignUpTitle => 'アカウント登録';
 
   @override
-  String get textPickMediaButtonFamily => '家族を招待';
+  String get textPickMediaButtonFamily => '家族';
 
   @override
-  String get textPickMediaButtonFriend => '友人を招待';
+  String get textPickMediaButtonFriend => '友人';
 
   @override
   String get textPickMediaContinue => '次へ';
@@ -399,7 +399,7 @@ class _AppStringsJp extends AppStrings {
   @override
   String get textProfileButtonChangePassword => 'パスワードを変更';
   @override
-  String get textProfileButtonDeleteAccount => 'このデバイスからアカウントを削除';
+  String get textProfileButtonDeleteAccount => '削除';
   @override
   String get textProfileButtonEditAccount => 'アカウント情報の変更';
   @override
@@ -408,7 +408,8 @@ class _AppStringsJp extends AppStrings {
   String get textProfilePopUpConfirmChangePassword => 'パスワードを変更してもよろしいですか';
 
   @override
-  String get textProfilePopUpConfirmDeleteAccount => 'アカウントを削除してもよろしいですか。削除すると、すべてのデータを復元できなくなります';
+  String get textProfilePopUpConfirmDeleteAccount =>
+      'アカウントを削除してもよろしいですか。削除すると、すべてのデータを復元できなくなります';
 
   @override
   String get textProfilePopUpConfirmSignOut => 'ファミペからログアウトしてもよろしいですか';
@@ -432,7 +433,8 @@ class _AppStringsJp extends AppStrings {
   String get albumName => 'アルバム名';
 
   @override
-  String get textSignInErrorNotActive => 'このアカウントは確認されていません。登録したメールをアクセスして認証を完了させて下さい';
+  String get textSignInErrorNotActive =>
+      'このアカウントは確認されていません。登録したメールをアクセスして認証を完了させて下さい';
 
   @override
   String get textProfileButtonConfirmDeleteAccount => '削除';
@@ -441,15 +443,17 @@ class _AppStringsJp extends AppStrings {
   String get textProfileButtonConfirmLogOut => 'ログアウト';
 
   @override
-  String get textProfileButtonDismissRequestNotification => '通知をオフにするには、デバイスの [設定 > 通知] に移動してください';
+  String get textProfileButtonDismissRequestNotification =>
+      '通知をオフにするには、デバイスの [設定 > 通知] に移動してください';
 
   @override
-  String get textProfileButtonRequestNotification => '通知をオンにするには、デバイスの [設定 > 通知] に移動してください';
+  String get textProfileButtonRequestNotification =>
+      '通知をオンにするには、デバイスの [設定 > 通知] に移動してください';
 
   @override
   String get textProfileButtonOpenSetting => '設定を開く';
 
   @override
-  String get textSignInErrorNotCorrectAccount => 'ログイン情報が正しくありません。ご確認の上、再度入力してください';
-
+  String get textSignInErrorNotCorrectAccount =>
+      'ログイン情報が正しくありません。ご確認の上、再度入力してください';
 }

@@ -15,21 +15,25 @@ class NewsListDataFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25.0),
-      child: ListView.separated(
-        itemBuilder: (BuildContext context, int index) {
-          return _itemNews(context, listNotification[index]);
-        },
-        separatorBuilder: (BuildContext context, int snapshot) {
-          return const Divider(
-            indent: 20,
-            endIndent: 20,
-            height: 22,
-          );
-        },
-        itemCount: listNotification.length,
-      ),
+    return Column(
+      children: <Widget>[
+        Expanded(
+          child: ListView.separated(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25.0),
+            itemBuilder: (BuildContext context, int index) {
+              return _itemNews(context, listNotification[index]);
+            },
+            separatorBuilder: (BuildContext context, int snapshot) {
+              return const Divider(
+                indent: 20,
+                endIndent: 20,
+                height: 22,
+              );
+            },
+            itemCount: listNotification.length,
+          ),
+        ),
+      ],
     );
   }
 
@@ -37,9 +41,9 @@ class NewsListDataFragment extends StatelessWidget {
     return InkWell(
       onTap: () => Navigator.pushNamed(context, RoutesName.imageDetails,
           arguments: <String, dynamic>{Constant.media: comment.media}),
-      child: Container(
-        height: 110,
+      child: IntrinsicHeight(
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
               width: 110,
@@ -65,7 +69,8 @@ class NewsListDataFragment extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          prefs!.getString(Constant.albumName) ?? '',
+                          prefs!.getString(Constant.albumName) ??
+                              AppStrings.of(context).textTitleAlbum,
                           style: Theme.of(context)
                               .textTheme
                               .headline3!
@@ -75,27 +80,24 @@ class NewsListDataFragment extends StatelessWidget {
                           height: 6,
                         ),
                         RichText(
+                          // crossAxisAlignment: CrossAxisAlignment.end,
                           text: TextSpan(
                             children: <TextSpan>[
                               TextSpan(
-                                text: comment.userName,
-                                style: const TextStyle(
-                                    color: AppThemeData.color_black_80,
-                                    fontSize: 18,
-                                    height: 1.5,
-                                    fontWeight: FontWeight.w500),
+                                text: comment.userName! + '  ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline3!
+                                    .copyWith(
+                                        color: AppThemeData.color_black_80),
                               ),
+                              // Container(width: 4,),
                               TextSpan(
-                                text: comment.content,
-                                style: const TextStyle(
-                                    color: AppThemeData.color_black_80,
-                                    fontSize: 16,
-                                    height: 1.5,
-                                    fontWeight: FontWeight.w400),
+                                text: comment.content ?? '',
+                                style: Theme.of(context).textTheme.bodyText1,
                               ),
                             ],
                           ),
-                          maxLines: 2,
                         ),
                       ],
                     ),
@@ -126,7 +128,7 @@ class NewsListDataFragment extends StatelessWidget {
       return AppStrings.of(context).recently;
     } else if (1 < time.inMinutes && time.inMinutes < 60) {
       return time.inMinutes.toString() + ' ' + AppStrings.of(context).minute;
-    } else if (time.inMinutes >= 60 && time.inMinutes < 24*60) {
+    } else if (time.inMinutes >= 60 && time.inMinutes < 24 * 60) {
       return time.inHours.toString() + ' ' + AppStrings.of(context).hour;
     } else
       return time.inDays.toString() + ' ' + AppStrings.of(context).day;

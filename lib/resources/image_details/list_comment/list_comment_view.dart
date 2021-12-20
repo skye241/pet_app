@@ -75,6 +75,9 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
                         style: Theme.of(context).textTheme.headline3,
                       ),
                     ),
+                    Container(
+                      height: 32,
+                    ),
                   ],
                 );
             } else if (state is ListCommentStateLoading) {
@@ -156,7 +159,6 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
   }) {
     final String name = commentItem.userName ?? '';
     final String comment = commentItem.content ?? '';
-    print(name);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -168,9 +170,11 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                if (commentItem.avatar!.isNotEmpty)
+                if (commentItem.avatar != null &&
+                    commentItem.avatar!.isNotEmpty)
                   CircleAvatar(
-                    backgroundImage: NetworkImage(Url.baseURLImage + commentItem.avatar!),
+                    backgroundImage:
+                        NetworkImage(Url.baseURLImage + commentItem.avatar!),
                     radius: 16,
                   )
                 else
@@ -212,10 +216,11 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
                       children: <Widget>[
                         Expanded(
                           child: ElevatedButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: Text(AppStrings.of(context)
-                                  .textPopUpCancelButtonDelete),
-                            style: ElevatedButton.styleFrom(primary: AppThemeData.color_black_40),
+                            onPressed: () => Navigator.pop(context),
+                            child: Text(AppStrings.of(context)
+                                .textPopUpCancelButtonDelete),
+                            style: ElevatedButton.styleFrom(
+                                primary: AppThemeData.color_black_40),
                           ),
                         ),
                         Container(

@@ -79,6 +79,24 @@ void showMessage(BuildContext context, String title, String message,
       });
 }
 
+void showSuccessMessage(BuildContext context, String title, String message,
+    {Widget? actions, VoidCallback? afterPop}) {
+  Future<dynamic>.delayed(const Duration(seconds: 1), () {
+    Navigator.pop(context);
+    if (afterPop != null) {
+      afterPop();
+    }
+  });
+  showDialog<dynamic>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            title: Text(title),
+            content: Text(message),
+            actions: <Widget>[actions ?? Container()]);
+      });
+}
+
 String permissionToText(BuildContext context, String permission) {
   switch (permission) {
     case PermissionPickMedia.family:

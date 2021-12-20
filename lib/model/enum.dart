@@ -23,6 +23,7 @@ class PermissionPickMedia{
   static const String friend = 'Friend';
   static const String onlyMe = 'Onlyme';
   static const String mine = 'Mine';
+  static const String all = 'Friend-Family';
  }
 class AccountStatus{
   static const String unlink = 'Unlink';

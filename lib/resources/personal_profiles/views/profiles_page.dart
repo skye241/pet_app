@@ -1,6 +1,5 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
-import 'package:family_pet/general/components/component_helpers.dart';
 import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/constant/url.dart';
@@ -23,7 +22,8 @@ class ProfileViewPage extends StatefulWidget {
   State<ProfileViewPage> createState() => _ProfileViewPageState();
 }
 
-class _ProfileViewPageState extends State<ProfileViewPage> with WidgetsBindingObserver{
+class _ProfileViewPageState extends State<ProfileViewPage>
+    with WidgetsBindingObserver {
   final ProfilesPageCubit cubit = ProfilesPageCubit();
 
   @override
@@ -32,8 +32,6 @@ class _ProfileViewPageState extends State<ProfileViewPage> with WidgetsBindingOb
     WidgetsBinding.instance!.addObserver(this);
     super.initState();
   }
-
-
 
   @override
   void dispose() {
@@ -46,12 +44,11 @@ class _ProfileViewPageState extends State<ProfileViewPage> with WidgetsBindingOb
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     // If user resumed to this app, check permission
-    if(state == AppLifecycleState.resumed) {
+    if (state == AppLifecycleState.resumed) {
       print('resumed');
       cubit.requestPermission();
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -327,7 +324,6 @@ class _ProfileViewPageState extends State<ProfileViewPage> with WidgetsBindingOb
               prefs!.getString(Constant.language) == 'vi' ? 'ja' : 'vi');
           BlocProvider.of<TopScreenCubit>(context).reload();
           cubit.updateLocation();
-
         }, false, AppStrings.of(context).textProfileButtonChangeLanguages),
         const Divider(
             color: AppThemeData.color_black_10, height: 0, thickness: 1),
@@ -407,7 +403,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> with WidgetsBindingOb
               style: Theme.of(context).textTheme.headline5,
             )
           : null,
-      trailing: ComponentHelper.radius(isSelect: true, size: 16),
+      // trailing: ComponentHelper.radius(isSelect: true, size: 16),
     );
   }
 

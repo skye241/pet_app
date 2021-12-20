@@ -59,128 +59,126 @@ class _AddAPicturePageState extends State<AddAPicturePage> {
 
   Widget _body(BuildContext context, AddPictureInitial state) {
     return Scaffold(
-      body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              vertical: MediaQuery.of(context).padding.top + 32,
-              horizontal: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                AppStrings.of(context).textTitleAddAPicture,
-                style: Theme.of(context).textTheme.headline4,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ComponentHelper.stepByStepHorizontal(
-                  children: <Widget>[
-                    ComponentHelper.itemStep(
-                        backgroundColor: AppThemeData.color_main,
+      appBar: AppBar(
+        title: Text(
+          AppStrings.of(context).textTitleAddAPicture,
+          style: Theme.of(context).textTheme.headline4,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            ComponentHelper.stepByStepHorizontal(
+                children: <Widget>[
+                  ComponentHelper.itemStep(
+                      backgroundColor: AppThemeData.color_main,
+                      child: const Icon(
+                        Icons.check,
+                        color: Colors.white,
+                        size: 20,
+                      )),
+                  ComponentHelper.itemStep(
+                      backgroundColor: AppThemeData.color_main,
+                      child: const Icon(
+                        Icons.check,
+                        color: Colors.white,
+                        size: 20,
+                      )),
+                  ComponentHelper.itemStep(
+                      backgroundColor: AppThemeData.color_main,
+                      child: const Icon(
+                        Icons.check,
+                        color: Colors.white,
+                        size: 20,
+                      )),
+                ],
+                currentStep: 4,
+                colorDone: AppThemeData.color_primary_30,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                colorWait: AppThemeData.color_neutral_25,
+                sizePen: 4),
+            const SizedBox(
+              height: 147,
+            ),
+            if (state.image == null)
+              Image.asset(
+                'assets/images/img_album.png',
+                // width: 198,
+                height: 198,
+              )
+            else
+              Stack(
+                children: <Widget>[
+                  Image.file(
+                    state.image!,
+                    height: 198,
+                  ),
+                  Positioned(
+                      right: 16,
+                      top: 5,
+                      child: GestureDetector(
                         child: const Icon(
-                          Icons.check,
-                          color: Colors.white,
-                          size: 20,
-                        )),
-                    ComponentHelper.itemStep(
-                        backgroundColor: AppThemeData.color_main,
-                        child: const Icon(
-                          Icons.check,
-                          color: Colors.white,
-                          size: 20,
-                        )),
-                    ComponentHelper.itemStep(
-                        backgroundColor: AppThemeData.color_main,
-                        child: const Icon(
-                          Icons.check,
-                          color: Colors.white,
-                          size: 20,
-                        )),
-                  ],
-                  currentStep: 4,
-                  colorDone: AppThemeData.color_primary_30,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  colorWait: AppThemeData.color_neutral_25,
-                  sizePen: 4),
-              const SizedBox(
-                height: 147,
+                          Icons.cancel_outlined,
+                          color: Colors.redAccent,
+                        ),
+                        onTap: () => cubit.update(null, state.permission),
+                      ))
+                ],
               ),
-              if (state.image == null)
-                Image.asset(
-                  'assets/images/img_album.png',
-                  width: 198,
-                  height: 198,
-                )
-              else
-                Stack(
-                  children: <Widget>[
-                    Image.file(state.image!),
-                    Positioned(
-                        right: 16,
-                        top: 5,
-                        child: GestureDetector(
-                          child: const Icon(
-                            Icons.cancel_outlined,
-                            color: Colors.redAccent,
-                          ),
-                          onTap: () => cubit.update(null, state.permission),
-                        ))
-                  ],
-                ),
-              Container(
-                height: 16,
-              ),
-              if (state.image == null)
-                TextButton(
-                    onPressed: () => getImageFromGallery(context, state),
-                    child: Text(
-                      AppStrings.of(context).textButtonAddMedia,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(color: AppThemeData.color_primary_90),
-                    ))
-              else
-                PermissionPickerWidget(
-                    initPermission: PermissionPickMedia.family,
-                    onPermissionPicked: (String per) =>
-                        cubit.update(state.image!, per)),
-              const SizedBox(
-                height: 126,
-              ),
-              ElevatedButton(
-                  onPressed: state.image != null
-                      ? () => cubit.createMedia(
-                          state.image!, state.permission, context)
-                      : null,
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: double.maxFinite,
-                    padding: const EdgeInsets.symmetric(vertical: 15.0),
-                    child:
-                        Text(AppStrings.of(context).textButtonChooseAPicture),
-                  )),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                  onPressed: () => Navigator.pushReplacementNamed(
-                      context, RoutesName.topPage),
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          AppThemeData.color_black_40)),
-                  child: Container(
-                    width: double.maxFinite,
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    alignment: Alignment.center,
-                    child: Text(
-                      AppStrings.of(context).textButtonSkipChooseAPicture,
-                    ),
-                  )),
-            ],
-          ),
+            Container(
+              height: 16,
+            ),
+            if (state.image == null)
+              TextButton(
+                  onPressed: () => getImageFromGallery(context, state),
+                  child: Text(
+                    AppStrings.of(context).textButtonAddMedia,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1!
+                        .copyWith(color: AppThemeData.color_primary_90),
+                  ))
+            else
+              PermissionPickerWidget(
+                  initPermission: PermissionPickMedia.family,
+                  onPermissionPicked: (String per) =>
+                      cubit.update(state.image!, per)),
+            Expanded(
+              child: Container(
+                  // height: double.infinity,
+                  ),
+            ),
+            ElevatedButton(
+                onPressed: state.image != null
+                    ? () => cubit.createMedia(
+                        state.image!, state.permission, context)
+                    : null,
+                child: Container(
+                  alignment: Alignment.center,
+                  width: double.maxFinite,
+                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  child: Text(AppStrings.of(context).textButtonChooseAPicture),
+                )),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+                onPressed: () =>
+                    Navigator.pushReplacementNamed(context, RoutesName.topPage),
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(AppThemeData.color_black_40)),
+                child: Container(
+                  width: double.maxFinite,
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  alignment: Alignment.center,
+                  child: Text(
+                    AppStrings.of(context).textButtonSkipChooseAPicture,
+                  ),
+                )),
+          ],
         ),
       ),
     );

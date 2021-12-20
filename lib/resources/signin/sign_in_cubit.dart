@@ -41,11 +41,7 @@ class SignInCubit extends Cubit<SignInState> {
       emit(SignInStateSuccess());
     } on APIException catch (e) {
       emit(SignInShowDismissPopUpLoading());
-      emit(SignInStateFail(e.apiResponse.code == 406
-          ? AppStrings.of(context).textSignInErrorNotActive
-          : e.apiResponse.code == 404
-              ? AppStrings.of(context).textSignInErrorNotCorrectAccount
-              : e.message()));
+      emit(SignInStateFail(getErrorMessage(context, e)));
     }
   }
 
@@ -57,6 +53,19 @@ class SignInCubit extends Cubit<SignInState> {
     } else {
       final AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
       return androidDeviceInfo.androidId; // unique ID on Android
+    }
+  }
+
+  String getErrorMessage(BuildContext context, APIException e) {
+    switch (e.apiResponse.code) {
+      case 406:
+        return AppStrings.of(context).textSignInErrorNotActive;
+      case 404:
+        return AppStrings.of(context).textSignInErrorNotCorrectAccount;
+      case 401:
+        return AppStrings.of(context).textSignInErrorNotCorrectAccount;
+      default:
+        return e.message();
     }
   }
 }

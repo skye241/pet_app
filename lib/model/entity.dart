@@ -428,7 +428,8 @@ class Comment {
       Constant.user: user?.toMap(),
       Constant.id: id,
       Constant.avatar: avatar,
-      Constant.createdAt: createdDate
+      Constant.createdAt: createdDate,
+      Constant.userName: userName
     };
   }
 

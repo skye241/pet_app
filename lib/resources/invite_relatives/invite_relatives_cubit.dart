@@ -24,7 +24,7 @@ class InviteRelativesCubit extends Cubit<InviteRelativesState> {
 
   Future<void> sortAlbum(String permission) async {
     final List<Media> mediaByPer = listMediaDefault
-        .where((Media media) => media.share! == permission)
+        .where((Media media) => media.share! == permission || media.share == PermissionPickMedia.all)
         .toList();
     defaultPermission = permission;
     if (mediaByPer.isNotEmpty) {

@@ -75,14 +75,13 @@ class _EditAccountPageState extends State<EditAccountPage> {
                           Navigator.pop(context);
                           return false;
                         } else if (state is EditAccountStateSuccess) {
-                          showMessage(context, AppStrings.of(context).notice,
+                          showSuccessMessage(
+                              context,
+                              AppStrings.of(context).notice,
                               AppStrings.of(context).successUpdate,
-                              actions: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text(AppStrings.of(context).close)));
+                              afterPop: () {
+                            Navigator.pop(context);
+                          });
                           return false;
                         } else if (state is EditAccountStateFail) {
                           showMessage(context, AppStrings.of(context).notice,
@@ -130,7 +129,7 @@ class _EditAccountPageState extends State<EditAccountPage> {
                       },
                     ),
                     Positioned(
-                      left: MediaQuery.of(context).size.width/2 - 43,
+                      left: MediaQuery.of(context).size.width / 2 - 43,
                       top: 17,
                       // alignment: Alignment.bottomCenter,
                       child: IconButton(
@@ -225,23 +224,24 @@ class _EditAccountPageState extends State<EditAccountPage> {
                 Container(
                   height: 40,
                 ),
-
-
               ],
             ),
           ),
         ),
         bottomNavigationBar: Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom + 20, left: 20, right: 20),
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+              left: 20,
+              right: 20),
           child: SizedBox(
             height: 50,
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () => onUpdate(context),
-                child: Text(
-                    AppStrings.of(context).textProfileButtonEditAccount)),
+                child:
+                    Text(AppStrings.of(context).textProfileButtonEditAccount)),
           ),
-        ) ,
+        ),
       ),
     );
   }

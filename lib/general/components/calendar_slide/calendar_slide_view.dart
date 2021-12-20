@@ -1,6 +1,8 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/calendar_slide/calendar_slide_cubit.dart';
+import 'package:family_pet/general/constant/constant.dart';
+import 'package:family_pet/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,7 +45,9 @@ class _MonthPickerWidgetState extends State<MonthPickerWidget> {
     return Container(
       height: 36,
       child: ListView.separated(
-        separatorBuilder: (BuildContext context, int index) => Container(width: 16,),
+          separatorBuilder: (BuildContext context, int index) => Container(
+                width: 16,
+              ),
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) => InkWell(
@@ -53,7 +57,11 @@ class _MonthPickerWidgetState extends State<MonthPickerWidget> {
                   widget.onMonthSelect!(state.listDateTime[index]);
                 },
                 child: Text(
-                  AppStrings.of(context).month + state.listDateTime[index].month.toString(),
+                  prefs!.getString(Constant.language) == 'vi'
+                      ? AppStrings.of(context).month +
+                          state.listDateTime[index].month.toString()
+                      : state.listDateTime[index].month.toString() +
+                          AppStrings.of(context).month,
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       color: state.dateTime.month ==
                               state.listDateTime[index].month

@@ -16,12 +16,13 @@ class PermissionPickerWidget extends StatefulWidget {
       {Key? key,
       required this.initPermission,
       required this.onPermissionPicked,
-      this.listPermission = defaultPermission})
+      this.listPermission = defaultPermission, this.chooseOne = false})
       : super(key: key);
 
   final String initPermission;
   final ValueChanged<String> onPermissionPicked;
   final List<String> listPermission;
+  final bool chooseOne;
 
   @override
   _PermissionPickerWidgetState createState() => _PermissionPickerWidgetState();
@@ -32,7 +33,7 @@ class _PermissionPickerWidgetState extends State<PermissionPickerWidget> {
 
   @override
   void initState() {
-    cubit.changeType(widget.initPermission);
+    cubit.changeType(widget.initPermission, <String>[widget.initPermission], widget.chooseOne);
     super.initState();
   }
 
@@ -44,14 +45,22 @@ class _PermissionPickerWidgetState extends State<PermissionPickerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PermissionPickerCubit, PermissionPickerState>(
-        bloc: cubit,
-        builder: (BuildContext context, PermissionPickerState state) {
-          if (state is PermissionPickerInitial) {
-            return _pickPermission(context, state);
-          } else
-            return Container();
-        });
+    return BlocListener<PermissionPickerCubit, PermissionPickerState>(
+      bloc: cubit,
+      listener: (BuildContext context, PermissionPickerState state) {
+        if (state is PermissionPickerCallBack) {
+          widget.onPermissionPicked(state.selectedPermission);
+        }
+      },
+      child: BlocBuilder<PermissionPickerCubit, PermissionPickerState>(
+          bloc: cubit,
+          builder: (BuildContext context, PermissionPickerState state) {
+            if (state is PermissionPickerInitial) {
+              return _pickPermission(context, state);
+            } else
+              return Container();
+          }),
+    );
   }
 
   Widget _pickPermission(BuildContext context, PermissionPickerInitial state) {
@@ -82,11 +91,12 @@ class _PermissionPickerWidgetState extends State<PermissionPickerWidget> {
 
   Widget _button(
       String permission, String content, PermissionPickerInitial state) {
-    final bool isSelected = state.selectedPermission == permission;
+    final bool isSelected = state.selectedPermission.contains(permission);
     return ElevatedButton(
       onPressed: () {
-        cubit.changeType(permission);
-        widget.onPermissionPicked(permission);
+        // state.selectedPermission.add(permission);
+        cubit.changeType(permission, state.selectedPermission, widget.chooseOne);
+        // widget.onPermissionPicked(permission);
       },
       child: Text(
         content,

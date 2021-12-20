@@ -45,23 +45,23 @@ class _AlbumPageState extends State<AlbumPage> {
       bloc: cubit,
       builder: (BuildContext context, AlbumState state) {
         return Scaffold(
-          appBar:  AppBar(
-          automaticallyImplyLeading: false,
-          title: Center(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  getTitleAlbum(context),
-                  style: Theme.of(context).appBarTheme.titleTextStyle,
-                ),
-                IconButton(
-                    onPressed: () => showListAlbum(context),
-                    icon: const Icon(Icons.keyboard_arrow_down_outlined))
-              ],
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    getTitleAlbum(context),
+                    style: Theme.of(context).appBarTheme.titleTextStyle,
+                  ),
+                  IconButton(
+                      onPressed: () => showListAlbum(context),
+                      icon: const Icon(Icons.keyboard_arrow_down_outlined))
+                ],
+              ),
             ),
           ),
-        ),
           body: BlocListener<AlbumCubit, AlbumState>(
             bloc: cubit,
             listener: (BuildContext context, AlbumState current) {
@@ -248,8 +248,14 @@ class _AlbumPageState extends State<AlbumPage> {
                                   .copyWith(color: Colors.white),
                             ),
                             Text(
-                              AppStrings.of(context).month +
-                                  DateFormat('MM.yyyy',
+                              prefs!.getString(Constant.language) == 'vi'
+                                  ? AppStrings.of(context).month +
+                                      DateFormat(
+                                              'MM.yyyy',
+                                              prefs!
+                                                  .getString(Constant.language))
+                                          .format(date)
+                                  : DateFormat('yyyy ${ AppStrings.of(context).year} MM ${ AppStrings.of(context).month}',
                                           prefs!.getString(Constant.language))
                                       .format(date),
                               style: Theme.of(context)

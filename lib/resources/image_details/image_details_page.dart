@@ -48,15 +48,12 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
           Navigator.pop(context);
           return false;
         } else if (current is ImageDetailsStateSuccess) {
-          showMessage(context, AppStrings.of(context).notice,
-              AppStrings.of(context).successDelete,
-              actions: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context, Media());
-                  },
-                  child: Text(AppStrings.of(context).close)));
+          showSuccessMessage(
+              context, AppStrings.of(context).notice, current.message,
+              afterPop: () {
+            // Navigator.pop(context);
+            current.afterPop();
+          });
           return false;
         } else if (current is ImageDetailsStateShowMessage) {
           showMessage(context, AppStrings.of(context).notice, current.message);
@@ -172,6 +169,7 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
   }
 
   void showBottomSheet(BuildContext context, ImageDetailsInitial state) {
+    print(state.permission + '== in bottom sheeet');
     showModalBottomSheet<dynamic>(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -215,7 +213,8 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
                         children: <Widget>[
                           Expanded(
                             child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(primary: AppThemeData.color_black_40),
+                                style: ElevatedButton.styleFrom(
+                                    primary: AppThemeData.color_black_40),
                                 onPressed: () => Navigator.pop(context),
                                 child: Text(AppStrings.of(context)
                                     .textPopUpCancelButtonDelete)),
@@ -227,7 +226,7 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
                             child: ElevatedButton(
                                 onPressed: () {
                                   Navigator.pop(context);
-                                  cubit.deleteMedia(state.media);
+                                  cubit.deleteMedia(state.media, context);
                                 },
                                 child: Text(AppStrings.of(context)
                                     .textPopUpConfirmButtonDelete)),
@@ -261,6 +260,7 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
                     child: ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context);
+                          print(state.permission + '=== very weird');
                           cubit.changePermission(
                               context, state.media, state.permission);
                         },

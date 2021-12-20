@@ -19,6 +19,10 @@ class ImageDetailsStateShowMessage extends ImageDetailsState {
 
   final String message;
 }
-class ImageDetailsStateSuccess extends ImageDetailsState {
-}
 
+class ImageDetailsStateSuccess extends ImageDetailsState {
+  ImageDetailsStateSuccess(this.afterPop, this.message);
+  final String message;
+
+  final VoidCallback afterPop;
+}

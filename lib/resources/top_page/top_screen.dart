@@ -119,7 +119,8 @@ class _TopScreenPageState extends State<TopScreenPage> {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.only(top: 5),
+          padding: EdgeInsets.only(
+              left: 8, right: 8, top: 8, bottom: Platform.isIOS ? 16 : 8),
           decoration: const BoxDecoration(
             color: Colors.white,
             boxShadow: <BoxShadow>[
@@ -286,9 +287,10 @@ class _TopScreenPageState extends State<TopScreenPage> {
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('A new onMessageOpenedApp event was published!');
-      Navigator.pushNamed(context, RoutesName.topPage, arguments: <String, dynamic>{
-        Constant.index : PageIndex.news,
-      });
+      Navigator.pushNamed(context, RoutesName.topPage,
+          arguments: <String, dynamic>{
+            Constant.index: PageIndex.news,
+          });
     });
   }
 }
@@ -305,15 +307,22 @@ Future<void> onMessage(
 
   try {
     // prefs!.setStringList(Constant.notificationList, <String>[]);
+    Map<String, dynamic> data = <String, dynamic>{};
+    if (msg.data[Constant.result].runtimeType == String) {
+      data = jsonDecode(msg.data[Constant.result] as String)
+          as Map<String, dynamic>;
+    } else
+      data = msg.data[Constant.result] as Map<String, dynamic>;
     Comment notification = Comment();
     if (Platform.isAndroid) {
-      notification = Comment.fromMap(msg.data);
+      notification = Comment.fromMap(data);
     } else if (Platform.isIOS) {
-      notification = Comment.fromMap(
-          jsonDecode(jsonEncode(msg.data)) as Map<String, dynamic>);
+      notification = Comment.fromMap(data);
     }
+    // print(getString(Constant.commenter, msg.data) + '==== commenter');
     notification = notification.copyWith(
-        createdDate: DateTime.now().millisecondsSinceEpoch);
+        createdDate: DateTime.now().millisecondsSinceEpoch,
+        userName: getString(Constant.commenter, msg.data));
     final List<Comment> listComment = notificationList
         .map((String noti) =>
             Comment.fromMap(jsonDecode(noti) as Map<String, dynamic>))
@@ -326,8 +335,8 @@ Future<void> onMessage(
 
     flutterLocalNotificationsPlugin.show(
       msg.hashCode,
-      msg.notification!.title,
-      msg.notification!.body,
+      msg.notification?.title ?? '',
+      msg.notification?.body ?? '',
       platformChannelSpecifics,
     );
   } catch (error) {

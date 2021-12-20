@@ -1,5 +1,6 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
+import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/general/tools/utils.dart';
@@ -8,6 +9,8 @@ import 'package:family_pet/resources/invitation_page/invitation_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+import '../../main.dart';
 
 class InvitationPage extends StatefulWidget {
   const InvitationPage(
@@ -228,8 +231,16 @@ class _InvitationPageState extends State<InvitationPage> {
                         .copyWith(color: Colors.white),
                   ),
                   Text(
-                    AppStrings.of(context).month +
-                        DateFormat('MM.yyyy', 'vi').format(date),
+                    prefs!.getString(Constant.language) == 'vi'
+                        ? AppStrings.of(context).month +
+                        DateFormat(
+                            'MM.yyyy',
+                            prefs!
+                                .getString(Constant.language))
+                            .format(date)
+                        : DateFormat('yyyy ${ AppStrings.of(context).year} MM ${ AppStrings.of(context).month}',
+                        prefs!.getString(Constant.language))
+                        .format(date),
                     style: Theme.of(context)
                         .textTheme
                         .headline2!

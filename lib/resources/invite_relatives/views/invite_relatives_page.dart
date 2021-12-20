@@ -1,8 +1,10 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/permission_picker/permission_picker.dart';
+import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/general/constant/url.dart';
 import 'package:family_pet/general/tools/utils.dart';
+import 'package:family_pet/main.dart';
 import 'package:family_pet/model/entity.dart';
 import 'package:family_pet/model/enum.dart';
 import 'package:family_pet/resources/invite_relatives/invite_relatives_cubit.dart';
@@ -119,6 +121,7 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
                     PermissionPickMedia.friend
                   ],
                   initPermission: PermissionPickMedia.family,
+                  chooseOne: true,
                   onPermissionPicked: (String per) => cubit.sortAlbum(per)),
               Expanded(child: Container()),
               BlocBuilder<InviteRelativesCubit, InviteRelativesState>(
@@ -254,8 +257,16 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
                         .copyWith(color: Colors.white),
                   ),
                   Text(
-                    AppStrings.of(context).month +
-                        DateFormat('MM.yyyy', 'vi').format(date),
+                    prefs!.getString(Constant.language) == 'vi'
+                        ? AppStrings.of(context).month +
+                        DateFormat(
+                            'MM.yyyy',
+                            prefs!
+                                .getString(Constant.language))
+                            .format(date)
+                        : DateFormat('yyyy ${ AppStrings.of(context).year} MM ${ AppStrings.of(context).month}',
+                        prefs!.getString(Constant.language))
+                        .format(date),
                     style: Theme.of(context)
                         .textTheme
                         .headline2!

@@ -51,17 +51,31 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage msg) async {
   //     ));
   final List<String> notificationList =
       prefs!.getStringList(Constant.notificationList) ?? <String>[];
+  Map<String, dynamic> data = <String, dynamic>{};
+  if (msg.data[Constant.result].runtimeType == String) {
+    data = jsonDecode(msg.data[Constant.result] as String)
+    as Map<String, dynamic>;
+  } else
+    data = msg.data[Constant.result] as Map<String, dynamic>;
   Comment notification = Comment();
   if (Platform.isAndroid) {
-    notification = Comment.fromMap(msg.data);
+    notification =
+        Comment.fromMap(data);
   } else if (Platform.isIOS) {
-    notification = Comment.fromMap(
-        jsonDecode(jsonEncode(msg.data)) as Map<String, dynamic>);
+    notification = Comment.fromMap(data);
   }
-  notification =
-      notification.copyWith(createdDate: DateTime.now().millisecondsSinceEpoch);
-  notificationList.add(jsonEncode(notification.toMap()));
-  prefs!.setStringList(Constant.notificationList, notificationList);
+  // print(getString(Constant.commenter, msg.data) + '==== commenter');
+  notification = notification.copyWith(
+      createdDate: DateTime.now().millisecondsSinceEpoch,
+      userName: getString(Constant.commenter, msg.data));
+  final List<Comment> listComment = notificationList
+      .map((String noti) =>
+      Comment.fromMap(jsonDecode(noti) as Map<String, dynamic>))
+      .toList();
+  listComment.removeWhere((Comment element) => element.id == notification.id);
+  listComment.add(notification);
+  prefs!.setStringList(Constant.notificationList,
+      listComment.map((Comment e) => jsonEncode(e.toMap())).toList());
   print('Handling a background message ${msg.messageId}');
 }
 

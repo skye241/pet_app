@@ -63,4 +63,5 @@ class Constant {
   static const String notificationList = 'notification_list';
   static const String status = 'status';
   static const String index = 'index';
+  static const String commenter = 'commenter';
 }
