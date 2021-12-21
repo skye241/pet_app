@@ -202,6 +202,7 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
             PermissionPickerWidget(
                 initPermission: state.media.share!,
                 onPermissionPicked: (String per) {
+                  print(per + '==== callback');
                   cubit.updatePermission(state.media, per);
                 }),
             Center(
@@ -258,12 +259,14 @@ class _ImageDetailsPageState extends State<ImageDetailsPage> {
               children: <Widget>[
                 Expanded(
                     child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          print(state.permission + '=== very weird');
-                          cubit.changePermission(
-                              context, state.media, state.permission);
-                        },
+                        onPressed: state.permission.isNotEmpty
+                            ? () {
+                                Navigator.pop(context);
+                                print(state.permission + '=== very weird');
+                                cubit.changePermission(
+                                    context, state.media, state.permission);
+                              }
+                            : null,
                         child: Container(
                             height: 50,
                             child: Center(

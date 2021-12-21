@@ -16,7 +16,8 @@ class PermissionPickerWidget extends StatefulWidget {
       {Key? key,
       required this.initPermission,
       required this.onPermissionPicked,
-      this.listPermission = defaultPermission, this.chooseOne = false})
+      this.listPermission = defaultPermission,
+      this.chooseOne = false})
       : super(key: key);
 
   final String initPermission;
@@ -33,7 +34,7 @@ class _PermissionPickerWidgetState extends State<PermissionPickerWidget> {
 
   @override
   void initState() {
-    cubit.changeType(widget.initPermission, <String>[widget.initPermission], widget.chooseOne);
+    cubit.initEvent(widget.initPermission);
     super.initState();
   }
 
@@ -95,7 +96,8 @@ class _PermissionPickerWidgetState extends State<PermissionPickerWidget> {
     return ElevatedButton(
       onPressed: () {
         // state.selectedPermission.add(permission);
-        cubit.changeType(permission, state.selectedPermission, widget.chooseOne);
+        cubit.changeType(
+            permission, state.selectedPermission, widget.chooseOne);
         // widget.onPermissionPicked(permission);
       },
       child: Text(

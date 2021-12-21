@@ -238,8 +238,8 @@ class _EditAccountPageState extends State<EditAccountPage> {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () => onUpdate(context),
-                child:
-                    Text(AppStrings.of(context).textProfileButtonEditAccount)),
+                child: Text(
+                    AppStrings.of(context).textProfileButtonTitleEditAccount)),
           ),
         ),
       ),

@@ -18,7 +18,11 @@ class AppLocalizationDelegate extends LocalizationsDelegate<AppStrings> {
   @override
   Future<AppStrings> load(Locale locale) async {
     if (prefs!.getString(Constant.language) == null) {
-      prefs!.setString(Constant.language, <String>['ja', 'vi'].contains(Platform.localeName.substring(0,2)) ? Platform.localeName.substring(0,2) : 'vi' );
+      prefs!.setString(
+          Constant.language,
+          <String>['ja', 'vi'].contains(Platform.localeName.substring(0, 2))
+              ? Platform.localeName.substring(0, 2)
+              : 'vi');
     }
     switch (locale.languageCode) {
       case 'ja':
@@ -229,7 +233,11 @@ abstract class AppStrings {
 
   String get textProfileButtonDeleteAccount;
 
+  String get textProfilePopUpButtonDeleteAccount;
+
   String get textProfileButtonEditAccount;
+
+  String get textProfileButtonTitleEditAccount;
 
   String get textProfileButtonChangePassword;
 

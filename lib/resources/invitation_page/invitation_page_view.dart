@@ -82,7 +82,8 @@ class _InvitationPageState extends State<InvitationPage> {
                 context,
                 cubit.defaultMedia,
                 AppStrings.of(context).invitationSuccess,
-                () => Navigator.pushReplacementNamed(context, RoutesName.topPage),
+                () =>
+                    Navigator.pushReplacementNamed(context, RoutesName.topPage),
                 AppStrings.of(context).invitationButtonSuccess,
                 state,
               );
@@ -207,7 +208,7 @@ class _InvitationPageState extends State<InvitationPage> {
               width: 220,
               height: 220,
               child: Image.network(
-               Url.baseURLImage +  media.file!,
+                Url.baseURLImage + media.file!,
                 fit: BoxFit.cover,
               ),
             )
@@ -224,7 +225,10 @@ class _InvitationPageState extends State<InvitationPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    date.year.toString(),
+                    date.year.toString() +
+                        (prefs!.getString(Constant.language) == 'ja'
+                            ? AppStrings.of(context).year
+                            : ''),
                     style: Theme.of(context)
                         .textTheme
                         .headline3!
@@ -233,14 +237,13 @@ class _InvitationPageState extends State<InvitationPage> {
                   Text(
                     prefs!.getString(Constant.language) == 'vi'
                         ? AppStrings.of(context).month +
-                        DateFormat(
-                            'MM.yyyy',
-                            prefs!
-                                .getString(Constant.language))
-                            .format(date)
-                        : DateFormat('yyyy ${ AppStrings.of(context).year} MM ${ AppStrings.of(context).month}',
-                        prefs!.getString(Constant.language))
-                        .format(date),
+                            DateFormat('MM.yyyy',
+                                    prefs!.getString(Constant.language))
+                                .format(date)
+                        : DateFormat(
+                                'yyyy ${AppStrings.of(context).year} MM ${AppStrings.of(context).month}',
+                                prefs!.getString(Constant.language))
+                            .format(date),
                     style: Theme.of(context)
                         .textTheme
                         .headline2!

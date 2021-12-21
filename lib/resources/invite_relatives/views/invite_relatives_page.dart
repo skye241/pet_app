@@ -181,12 +181,20 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                const Icon(Icons.copy, color: AppThemeData.color_black_80,),
+                                const Icon(
+                                  Icons.copy,
+                                  color: AppThemeData.color_black_80,
+                                ),
                                 const SizedBox(width: 16),
                                 Text(
                                     AppStrings.of(context)
                                         .textInviteRelativesButtonCopyUrl,
-                                    style: Theme.of(context).textTheme.button!.copyWith(color: AppThemeData.color_black_80)),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .button!
+                                        .copyWith(
+                                            color:
+                                                AppThemeData.color_black_80)),
                               ],
                             ),
                           ),
@@ -250,7 +258,10 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    date.year.toString(),
+                    date.year.toString() +
+                        (prefs!.getString(Constant.language) == 'ja'
+                            ? AppStrings.of(context).year
+                            : ''),
                     style: Theme.of(context)
                         .textTheme
                         .headline3!
@@ -259,14 +270,13 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
                   Text(
                     prefs!.getString(Constant.language) == 'vi'
                         ? AppStrings.of(context).month +
-                        DateFormat(
-                            'MM.yyyy',
-                            prefs!
-                                .getString(Constant.language))
-                            .format(date)
-                        : DateFormat('yyyy ${ AppStrings.of(context).year} MM ${ AppStrings.of(context).month}',
-                        prefs!.getString(Constant.language))
-                        .format(date),
+                            DateFormat('MM.yyyy',
+                                    prefs!.getString(Constant.language))
+                                .format(date)
+                        : DateFormat(
+                                'yyyy ${AppStrings.of(context).year} MM ${AppStrings.of(context).month}',
+                                prefs!.getString(Constant.language))
+                            .format(date),
                     style: Theme.of(context)
                         .textTheme
                         .headline2!

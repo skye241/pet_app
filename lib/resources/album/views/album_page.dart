@@ -1,6 +1,7 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/calendar_slide/calendar_slide_view.dart';
+import 'package:family_pet/general/components/permission_picker/permission_picker.dart';
 import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/constant/url.dart';
@@ -94,7 +95,10 @@ class _AlbumPageState extends State<AlbumPage> {
                   } else
                     return Center(
                       child: AlbumEmptyFragment(
-                        title: AppStrings.of(context).textLabelAlbumEmpty,
+                        title: AppStrings.of(context).textLabelAlbumEmpty +
+                            (cubit.defaultPermission == PermissionPickMedia.mine
+                                ? '\n${AppStrings.of(context).textSubLabelAlbumEmpty}'
+                                : ''),
                       ),
                     );
                 } else
@@ -138,7 +142,10 @@ class _AlbumPageState extends State<AlbumPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              DateTime.now().year.toString(),
+              DateTime.now().year.toString() +
+                  (prefs!.getString(Constant.language) == 'ja'
+                      ? AppStrings.of(context).year
+                      : ''),
               style: Theme.of(context).textTheme.headline3,
             ),
             const SizedBox(
@@ -241,7 +248,10 @@ class _AlbumPageState extends State<AlbumPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              date.year.toString(),
+                              date.year.toString() +
+                                  (prefs!.getString(Constant.language) == 'ja'
+                                      ? AppStrings.of(context).year
+                                      : ''),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline3!
@@ -255,7 +265,8 @@ class _AlbumPageState extends State<AlbumPage> {
                                               prefs!
                                                   .getString(Constant.language))
                                           .format(date)
-                                  : DateFormat('yyyy ${ AppStrings.of(context).year} MM ${ AppStrings.of(context).month}',
+                                  : DateFormat(
+                                          'yyyy ${AppStrings.of(context).year} MM ${AppStrings.of(context).month}',
                                           prefs!.getString(Constant.language))
                                       .format(date),
                               style: Theme.of(context)

@@ -368,7 +368,7 @@ class _ProfileViewPageState extends State<ProfileViewPage>
                           child: Text(isActive
                               ? AppStrings.of(context).textProfileButtonSignOut
                               : AppStrings.of(context)
-                                  .textProfileButtonDeleteAccount)),
+                                  .textProfilePopUpButtonDeleteAccount)),
                     ),
                   ],
                 )),

@@ -312,7 +312,7 @@ class _AppStringsJp extends AppStrings {
   String get textSignUpErrorWrongFormatEmail => 'メールアドレスを正しい形式で入力してください';
 
   @override
-  String get year => '歳';
+  String get year => '年';
 
   @override
   String get textButtonSend => '送信';
@@ -399,7 +399,7 @@ class _AppStringsJp extends AppStrings {
   @override
   String get textProfileButtonChangePassword => 'パスワードを変更';
   @override
-  String get textProfileButtonDeleteAccount => '削除';
+  String get textProfileButtonDeleteAccount => 'アカウントを削除する';
   @override
   String get textProfileButtonEditAccount => 'アカウント情報の変更';
   @override
@@ -456,4 +456,10 @@ class _AppStringsJp extends AppStrings {
   @override
   String get textSignInErrorNotCorrectAccount =>
       'ログイン情報が正しくありません。ご確認の上、再度入力してください';
+
+  @override
+  String get textProfileButtonTitleEditAccount => '保存する';
+
+  @override
+  String get textProfilePopUpButtonDeleteAccount => '削除';
 }

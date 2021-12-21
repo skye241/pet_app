@@ -21,22 +21,23 @@ class AlbumEmptyFragment extends StatelessWidget {
         const SizedBox(
           height: 16,
         ),
+
         Text(
           title,
+          textAlign: TextAlign.center,
           style: const TextStyle(
               fontWeight: FontWeight.w500,
-              fontSize: 24,
+              fontSize: 18,
               height: 1.5,
               color: AppThemeData.color_black_80),
         ),
-        Text(
-          AppStrings.of(context).textSubLabelAlbumEmpty,
-          style: const TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 16,
-              height: 1.5,
-              color: AppThemeData.color_black_80),
-        ),
+        // Text(
+        //   style: const TextStyle(
+        //       fontWeight: FontWeight.w400,
+        //       fontSize: 16,
+        //       height: 1.5,
+        //       color: AppThemeData.color_black_80),
+        // ),
       ],
     );
   }
