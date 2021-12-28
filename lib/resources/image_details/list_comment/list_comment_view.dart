@@ -112,8 +112,11 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
     return ComponentHelper.textField(
       controller: commentController,
       focusNode: commentNode,
-      onEditingComplete: () =>
-          cubit.postComment(widget.media, commentController.text, listComment),
+      onEditingComplete: () {
+        cubit.postComment(widget.media, commentController.text, listComment);
+        commentController.text = '';
+        FocusScope.of(context).unfocus();
+      },
       suffix: TextButton(
         onPressed: commentController.text.isEmpty
             ? null
@@ -187,19 +190,16 @@ class _ListCommentWidgetState extends State<ListCommentWidget> {
                 Expanded(
                   child: Container(
                     margin: const EdgeInsets.only(top: 6),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(name,
+                    child: RichText(
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      text: TextSpan(children: <TextSpan>[
+                        TextSpan(
+                            text: name + '  ',
                             style: Theme.of(context).textTheme.headline3),
-                        Container(
-                          width: 8,
-                        ),
-                        Flexible(
-                          child: Text(comment,
-                              style: Theme.of(context).textTheme.bodyText2),
-                        ),
-                      ],
+                        TextSpan(
+                            text: comment,
+                            style: Theme.of(context).textTheme.bodyText2)
+                      ]),
                     ),
                   ),
                 ),

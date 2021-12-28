@@ -1,7 +1,6 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/components/calendar_slide/calendar_slide_view.dart';
-import 'package:family_pet/general/components/permission_picker/permission_picker.dart';
 import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/constant/url.dart';
@@ -91,7 +90,16 @@ class _AlbumPageState extends State<AlbumPage> {
                   return _emptyWidget(context);
                 } else if (state is AlbumStateSuccess) {
                   if (state.images.isNotEmpty) {
-                    return _body(context, state);
+                    return PageView.builder(itemBuilder: (BuildContext context, int index) {
+                      final List<Media> qualifyMedia = state.images
+                          .where((Media media) =>
+                      DateTime.parse(media.createdAt!).month ==
+                          state.selectedDateTime.month &&
+                          DateTime.parse(media.createdAt!).year ==
+                              state.selectedDateTime.year)
+                          .toList();
+                      return _body(context, state, qualifyMedia);
+                    });
                   } else
                     return Center(
                       child: AlbumEmptyFragment(
@@ -124,14 +132,8 @@ class _AlbumPageState extends State<AlbumPage> {
         onRefresh: () async => cubit.initEvent());
   }
 
-  Widget _body(BuildContext context, AlbumStateSuccess state) {
-    final List<Media> qualifyMedia = state.images
-        .where((Media media) =>
-            DateTime.parse(media.createdAt!).month ==
-                state.selectedDateTime.month &&
-            DateTime.parse(media.createdAt!).year ==
-                state.selectedDateTime.year)
-        .toList();
+  Widget _body(BuildContext context, AlbumStateSuccess state, List<Media> qualifyMedia) {
+
     return RefreshIndicator(
       key: _refreshIndicatorKey,
       color: AppThemeData.color_primary_90,

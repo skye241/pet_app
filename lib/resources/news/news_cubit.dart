@@ -13,6 +13,7 @@ class NewsCubit extends Cubit<NewsState> {
   NewsCubit() : super(NewsInitial());
 
   Future<void> initEvent() async {
+    await prefs?.reload();
     final List<String> notiString =
         prefs!.getStringList(Constant.notificationList) ?? <String>[];
 

@@ -371,6 +371,8 @@ abstract class AppStrings {
 
   String get day;
 
+  String get age;
+
   String get hour;
 
   String get year;

@@ -267,7 +267,6 @@ class _TopScreenPageState extends State<TopScreenPage> {
         AndroidNotificationDetails(
       'FamiPet',
       'FamiPet',
-      'FamiPet',
       importance: Importance.max,
       priority: Priority.high,
       ticker: 'ticker',
@@ -283,6 +282,17 @@ class _TopScreenPageState extends State<TopScreenPage> {
 
     FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) {
       onMessage(remoteMessage, notificationDetails);
+    });
+
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) {
+      if (message != null) {
+        Navigator.pushNamed(context, RoutesName.topPage,
+            arguments: <String, dynamic>{
+              Constant.index: PageIndex.news,
+            });
+      }
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {

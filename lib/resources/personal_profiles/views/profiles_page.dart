@@ -118,16 +118,21 @@ class _ProfileViewPageState extends State<ProfileViewPage>
       Container(
         height: 32,
       ),
-      Container(
-        height: 80,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: AppThemeData.color_black_10,
-          image: state.user.avatar!.isNotEmpty
-              ? DecorationImage(
-                  image: NetworkImage(Url.baseURLImage + state.user.avatar!))
-              : const DecorationImage(
-                  image: AssetImage('assets/images/img_user.png')),
+      GestureDetector(
+        onTap: () => Navigator.pushNamed(context, RoutesName.editAccountPage,
+                arguments: <String, dynamic>{Constant.userInfo: state.user})
+            .then((_) => cubit.updateInfo()),
+        child: Container(
+          height: 80,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: AppThemeData.color_black_10,
+            image: state.user.avatar!.isNotEmpty
+                ? DecorationImage(
+                    image: NetworkImage(Url.baseURLImage + state.user.avatar!))
+                : const DecorationImage(
+                    image: AssetImage('assets/images/img_user.png')),
+          ),
         ),
       ),
       const SizedBox(
@@ -399,7 +404,7 @@ class _ProfileViewPageState extends State<ProfileViewPage>
       ),
       subtitle: pet.birthdate!.isNotEmpty
           ? Text(
-              '$year ${AppStrings.of(context).year} $month ${AppStrings.of(context).month}/ ${pet.birthdate}',
+              '$year ${AppStrings.of(context).age} $month ${AppStrings.of(context).month}/ ${pet.birthdate}',
               style: Theme.of(context).textTheme.headline5,
             )
           : null,

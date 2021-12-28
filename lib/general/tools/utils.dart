@@ -89,6 +89,7 @@ void showSuccessMessage(BuildContext context, String title, String message,
   });
   showDialog<dynamic>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
             title: Text(title),

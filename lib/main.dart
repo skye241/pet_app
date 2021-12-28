@@ -40,15 +40,8 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage msg) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  // await Firebase.initializeApp(
-  //     options: const FirebaseOptions(
-  //       apiKey: 'AIzaSyAHAsf51D0A407EklG1bs-5wA7EbyfNFg0',
-  //       appId: '1:448618578101:ios:2bc5c1fe2ec336f8ac3efc',
-  //       messagingSenderId: '448618578101',
-  //       projectId: 'react-native-firebase-testing',
-  //     ));
+  prefs = await SharedPreferences.getInstance();
+  await prefs?.reload();
   final List<String> notificationList =
       prefs!.getStringList(Constant.notificationList) ?? <String>[];
   Map<String, dynamic> data = <String, dynamic>{};
@@ -82,6 +75,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage msg) async {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
+  await prefs?.reload();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 

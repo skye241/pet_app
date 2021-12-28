@@ -485,4 +485,7 @@ class _AppStringsVn extends AppStrings {
 
   @override
   String get textProfilePopUpButtonDeleteAccount => 'Xóa tài khoản';
+
+  @override
+  String get age => 'Năm';
 }

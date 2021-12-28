@@ -462,4 +462,7 @@ class _AppStringsJp extends AppStrings {
 
   @override
   String get textProfilePopUpButtonDeleteAccount => '削除';
+
+  @override
+  String get age => '歳';
 }
