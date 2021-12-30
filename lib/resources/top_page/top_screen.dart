@@ -17,13 +17,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 
-const List<Condition> blockWidthConstraints = [
-  Condition<dynamic>.equals(name: MOBILE, value: BoxConstraints(maxWidth: 600)),
-  Condition<dynamic>.equals(name: TABLET, value: BoxConstraints(maxWidth: 700)),
-  Condition<dynamic>.largerThan(name: TABLET, value: BoxConstraints(maxWidth: 1280)),
-];
+// const List<Condition> blockWidthConstraints = [
+//   Condition<dynamic>.equals(name: MOBILE, value: BoxConstraints(maxWidth: 600)),
+//   Condition<dynamic>.equals(name: TABLET, value: BoxConstraints(maxWidth: 700)),
+//   Condition<dynamic>.largerThan(name: TABLET, value: BoxConstraints(maxWidth: 1280)),
+// ];
 
 
 class TopScreenPage extends StatefulWidget {
