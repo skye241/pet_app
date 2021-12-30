@@ -11,10 +11,14 @@ import 'package:family_pet/resources/album/album_cubit.dart';
 import 'package:family_pet/resources/album/views/album_empty_fragment.dart';
 import 'package:family_pet/resources/album/views/media_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:responsive_framework/responsive_framework.dart';
+
 
 const int TILE_WIDTH = 84;
+// Block Spacing
 
 class AlbumPage extends StatefulWidget {
   const AlbumPage({Key? key}) : super(key: key);
@@ -45,77 +49,79 @@ class _AlbumPageState extends State<AlbumPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AlbumCubit, AlbumState>(
-      bloc: cubit,
-      builder: (BuildContext context, AlbumState state) {
-        return Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: Center(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    getTitleAlbum(context),
-                    style: Theme.of(context).appBarTheme.titleTextStyle,
-                  ),
-                  IconButton(
-                      onPressed: () => showListAlbum(context),
-                      icon: const Icon(Icons.keyboard_arrow_down_outlined))
-                ],
+    return Center(
+      child: BlocBuilder<AlbumCubit, AlbumState>(
+        bloc: cubit,
+        builder: (BuildContext context, AlbumState state) {
+          return Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              title: Center(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      getTitleAlbum(context),
+                      style: Theme.of(context).appBarTheme.titleTextStyle,
+                    ),
+                    IconButton(
+                        onPressed: () => showListAlbum(context),
+                        icon: const Icon(Icons.keyboard_arrow_down_outlined))
+                  ],
+                ),
               ),
             ),
-          ),
-          body: BlocListener<AlbumCubit, AlbumState>(
-            bloc: cubit,
-            listener: (BuildContext context, AlbumState current) {
-              if (current is AlbumStateShowPopUpLoading) {
-                showPopUpLoading(context);
-              } else if (current is AlbumStateDismissLoading) {
-                Navigator.pop(context);
-              } else if (current is AlbumStateFail) {
-                showMessage(
-                    context, AppStrings.of(context).notice, current.message);
-              }
-            },
-            child: BlocBuilder<AlbumCubit, AlbumState>(
+            body: BlocListener<AlbumCubit, AlbumState>(
               bloc: cubit,
-              buildWhen: (AlbumState prev, AlbumState current) {
-                print(current);
-                if (current is AlbumStateSuccess ||
-                    current is AlbumInitial ||
-                    current is AlbumStateShowLoading) {
-                  return true;
-                } else
-                  return false;
+              listener: (BuildContext context, AlbumState current) {
+                if (current is AlbumStateShowPopUpLoading) {
+                  showPopUpLoading(context);
+                } else if (current is AlbumStateDismissLoading) {
+                  Navigator.pop(context);
+                } else if (current is AlbumStateFail) {
+                  showMessage(
+                      context, AppStrings.of(context).notice, current.message);
+                }
               },
-              builder: (BuildContext context, AlbumState state) {
-                if (state is AlbumInitial) {
-                  return _emptyWidget(context);
-                } else if (state is AlbumStateSuccess) {
-                  if (state.images.isNotEmpty) {
-                    return _body(context, state, state.images);
+              child: BlocBuilder<AlbumCubit, AlbumState>(
+                bloc: cubit,
+                buildWhen: (AlbumState prev, AlbumState current) {
+                  print(current);
+                  if (current is AlbumStateSuccess ||
+                      current is AlbumInitial ||
+                      current is AlbumStateShowLoading) {
+                    return true;
                   } else
-                    return Center(
-                      child: AlbumEmptyFragment(
-                        title: AppStrings.of(context).textLabelAlbumEmpty +
-                            (cubit.defaultPermission == PermissionPickMedia.mine
-                                ? '\n${AppStrings.of(context).textSubLabelAlbumEmpty}'
-                                : ''),
+                    return false;
+                },
+                builder: (BuildContext context, AlbumState state) {
+                  if (state is AlbumInitial) {
+                    return _emptyWidget(context);
+                  } else if (state is AlbumStateSuccess) {
+                    if (state.images.isNotEmpty) {
+                      return _body(context, state, state.images);
+                    } else
+                      return Center(
+                        child: AlbumEmptyFragment(
+                          title: AppStrings.of(context).textLabelAlbumEmpty +
+                              (cubit.defaultPermission == PermissionPickMedia.mine
+                                  ? '\n${AppStrings.of(context).textSubLabelAlbumEmpty}'
+                                  : ''),
+                        ),
+                      );
+                  } else
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            AppThemeData.color_primary_90),
                       ),
                     );
-                } else
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                          AppThemeData.color_primary_90),
-                    ),
-                  );
-              },
+                },
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
@@ -135,7 +141,7 @@ class _AlbumPageState extends State<AlbumPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            DateTime.now().year.toString() +
+            state.selectedDateTime.year.toString() +
                 (prefs!.getString(Constant.language) == 'ja'
                     ? AppStrings.of(context).year
                     : ''),
@@ -145,21 +151,22 @@ class _AlbumPageState extends State<AlbumPage> {
             height: 8,
           ),
           Container(
-            height: 36,
+            height: 48,
             child: ListView.separated(
-              controller: _scrollController,
+                controller: _scrollController,
                 separatorBuilder: (BuildContext context, int index) =>
                     Container(
                       width: 16,
                     ),
-
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) => InkWell(
                       onTap: () {
                         cubit.chooseMonth(
                             state.images, state.listDateTime.elementAt(index));
-                        _pageController!.animateToPage(index, duration: const Duration(milliseconds: 200), curve: Curves.easeIn);
+                        _pageController!.animateToPage(index,
+                            duration: const Duration(milliseconds: 200),
+                            curve: Curves.easeIn);
                         // cubit.chooseMonth(
                         //     state.listDateTime[index], state.listDateTime);
                         // widget.onMonthSelect!(state.listDateTime[index]);
@@ -167,22 +174,35 @@ class _AlbumPageState extends State<AlbumPage> {
                       child: Container(
                         width: TILE_WIDTH - 16,
                         child: Text(
-                          prefs!.getString(Constant.language) == 'vi'
-                              ? AppStrings.of(context).month +
-                                  state.listDateTime
-                                      .elementAt(index)
-                                      .month
-                                      .toString()
-                              : state.listDateTime
-                                      .elementAt(index)
-                                      .month
-                                      .toString() +
-                                  AppStrings.of(context).month,
-                          style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              color: state.selectedDateTime.month ==
-                                      state.listDateTime.elementAt(index).month
-                                  ? AppThemeData.color_primary_90
-                                  : AppThemeData.color_black_40),
+                          (prefs!.getString(Constant.language) == 'vi'
+                                  ? AppStrings.of(context).month +
+                                      state.listDateTime
+                                          .elementAt(index)
+                                          .month
+                                          .toString()
+                                  : state.listDateTime
+                                          .elementAt(index)
+                                          .month
+                                          .toString() +
+                                      AppStrings.of(context).month) +
+                              (state.listDateTime.elementAt(index).year ==
+                                      state.selectedDateTime.year
+                                  ? ''
+                                  : '/${state.listDateTime.elementAt(index).year}'),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                  color: (state.selectedDateTime.month ==
+                                              state.listDateTime
+                                                  .elementAt(index)
+                                                  .month) &&
+                                          (state.selectedDateTime.year ==
+                                              state.listDateTime
+                                                  .elementAt(index)
+                                                  .year)
+                                      ? AppThemeData.color_primary_90
+                                      : AppThemeData.color_black_40),
                         ),
                       ),
                     ),
@@ -195,8 +215,11 @@ class _AlbumPageState extends State<AlbumPage> {
             child: PageView.builder(
               controller: _pageController,
               onPageChanged: (int index) {
-                cubit.chooseMonth(state.images, state.listDateTime.elementAt(index));
-                _scrollController.animateTo(index * TILE_WIDTH.toDouble() - 32, curve: Curves.easeIn, duration: Duration(milliseconds: 200));
+                cubit.chooseMonth(
+                    state.images, state.listDateTime.elementAt(index));
+                _scrollController.animateTo(index * TILE_WIDTH.toDouble() - 32,
+                    curve: Curves.easeIn,
+                    duration: const Duration(milliseconds: 200));
               },
               allowImplicitScrolling: true,
               itemBuilder: (BuildContext context, int index) {
@@ -227,18 +250,27 @@ class _AlbumPageState extends State<AlbumPage> {
       BuildContext context, List<Media> qualifyMedia, AlbumStateSuccess state) {
     return ListView(
       children: <Widget>[
-        _itemFirst(context, qualifyMedia.first, state),
+        if (MediaQuery.of(context).size.width > 750)
+          Row(children: <Widget>[
+            Expanded(child: _itemFirst(context, qualifyMedia.first, state)),
+            Flexible(
+              child: _itemFirst(context, qualifyMedia[1], state)
+            )
+          ])
+        else
+          _itemFirst(context, qualifyMedia.first, state),
         Container(
           height: 8,
         ),
         GridView.count(
-            crossAxisCount: 2,
+            crossAxisCount: MediaQuery.of(context).size.width > 750 ? 4 : 2,
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             children: qualifyMedia
-                .sublist(1, qualifyMedia.length)
+                .sublist(MediaQuery.of(context).size.width > 750 ? 2 : 1,
+                    qualifyMedia.length)
                 .map((Media media) => MediaWidget(
                       media: media,
                       onMediaUpdate: (Media returnMedia) {
@@ -285,7 +317,7 @@ class _AlbumPageState extends State<AlbumPage> {
                     if (media.file != null && media.file!.isNotEmpty)
                       Image.network(
                         Url.baseURLImage + media.file!,
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                       )
                     else
                       Container(),

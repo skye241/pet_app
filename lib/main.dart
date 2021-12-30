@@ -32,10 +32,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:responsive_framework/responsive_framework.dart';
+import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'general/app_strings/app_strings.dart';
-import 'package:uni_links/uni_links.dart';
 
 SharedPreferences? prefs;
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -75,26 +76,14 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage msg) async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp,
+  ]);
   prefs = await SharedPreferences.getInstance();
   await prefs?.reload();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-// // Firebase local notification plugin
-//   await flutterLocalNotificationsPlugin
-//       .resolvePlatformSpecificImplementation<
-//           AndroidFlutterLocalNotificationsPlugin>()
-//       ?.createNotificationChannel(channel);
-//
-// //Firebase messaging
-//   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-//     alert: true,
-//     badge: true,
-//     sound: true,
-//   );
-
   runApp(MyApp());
 }
 
@@ -105,26 +94,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final LanguageCubit cubit = LanguageCubit();
-
-  Future<String?> initialLink() async {
-    try {
-      final String? initialLink = await getInitialLink();
-      print((initialLink??'') + '==== This is initial');
-      return initialLink;
-    } on PlatformException catch (exception) {
-      print(exception.message);
-    }
-  }
-
-  String deepLinkURL = '';
-
-  @override
-  void initState() {
-    initialLink().then((value) => setState(() {
-          deepLinkURL = value ?? '';
-        }));
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -170,6 +139,18 @@ class _MyAppState extends State<MyApp> {
                     }
                     return supportedLocales.last;
                   },
+                  // builder: (context, widget) => ResponsiveWrapper.builder(
+                  //   ClampingScrollWrapper.builder(context, widget!),
+                  //   defaultScale: true,
+                  //   minWidth: 480,
+                  //   defaultName: MOBILE,
+                  //   breakpoints: [
+                  //     ResponsiveBreakpoint.autoScale(480, name: MOBILE),
+                  //     ResponsiveBreakpoint.resize(600, name: MOBILE),
+                  //     ResponsiveBreakpoint.autoScale(850, name: TABLET),
+                  //     ResponsiveBreakpoint.resize(1080, name: DESKTOP),
+                  //   ],
+                  // ),
                   theme: AppThemeData.lightTheme,
                   // home: InvitationPage(
                   //   userId: 4,
@@ -186,6 +167,7 @@ class _MyAppState extends State<MyApp> {
   MaterialPageRoute<dynamic> routeSettings(RouteSettings settings) {
     final dynamic data = settings.arguments;
     final Uri uri = Uri.parse(settings.name!);
+    print(uri.path + ' ==== uri');
     if (uri.pathSegments.length == 4 &&
         uri.pathSegments.first == RoutesName.invitationPage) {
       final int id = int.parse(uri.pathSegments[1]);

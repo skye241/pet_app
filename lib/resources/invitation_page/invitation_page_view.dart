@@ -97,7 +97,16 @@ class _InvitationPageState extends State<InvitationPage> {
                 state,
               );
             } else
-              return Container();
+              return Scaffold(
+                appBar: AppBar(),
+                body: Center(
+                  child: Text(
+                    'Error',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+
+                ),
+              );
           },
         ),
       ),

@@ -48,12 +48,19 @@ class MediaWidget extends StatelessWidget {
             children: <Widget>[
               if (media.file != null && media.file!.isNotEmpty)
                 Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                    image: NetworkImage(Url.baseURLImage + media.file!),
-                    fit: BoxFit.cover,
-                  )),
-                )
+                  width: double.infinity,
+                    height: double.infinity,
+                    child: Image.network(
+                  Url.baseURLImage + media.file!,
+                  fit: BoxFit.cover,
+                ))
+              // Container(
+              //   decoration: BoxDecoration(
+              //       image: DecorationImage(
+              //     image: NetworkImage(Url.baseURLImage + media.file!),
+              //     fit: BoxFit.cover,
+              //   )),
+              // )
               else
                 Container(),
               if (media.totalComment! > 0 || media.isLiked!)

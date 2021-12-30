@@ -1,7 +1,7 @@
 class Url {
   static const String baseURL = 'http://34.146.118.100:8080/famipet/';
   static const String baseURLImage = 'http://34.146.118.100:8080/static/';
-  static const String baseURLShare = 'famipe://familypetcls.com';
+  static const String baseURLShare = '://familypetcls.com';
   // static const String baseURLShareAndroid = 'customscheme://familypetcls.com';
 
   // static const String baseURL = 'https://famipet-dot-sateraito-dronesearch-dev.an.r.appspot.com/famipet/';

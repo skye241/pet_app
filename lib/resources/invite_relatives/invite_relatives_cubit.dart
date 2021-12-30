@@ -21,23 +21,35 @@ class InviteRelativesCubit extends Cubit<InviteRelativesState> {
   Media media = Media();
   List<Media> listMediaDefault = <Media>[];
   String urlDefault = '';
+  bool defaultIsIos = true;
 
   Future<void> sortAlbum(String permission) async {
     final List<Media> mediaByPer = listMediaDefault
-        .where((Media media) => media.share! == permission || media.share == PermissionPickMedia.all)
+        .where((Media media) =>
+            media.share! == permission ||
+            media.share == PermissionPickMedia.all)
         .toList();
     defaultPermission = permission;
     if (mediaByPer.isNotEmpty) {
       mediaByPer.sort((Media a, Media b) =>
           DateTime.parse(a.createdAt!).compareTo(DateTime.parse(b.createdAt!)));
       media = mediaByPer.first;
-    urlDefault = createLink();
-      emit(InviteRelativesLoaded(mediaByPer.first, permission, urlDefault));
-      await saveLink(urlDefault );
+      urlDefault = createLink();
+      emit(InviteRelativesLoaded(
+          mediaByPer.first, permission, urlDefault, defaultIsIos));
+      await saveLink(urlDefault);
     } else {
       media = Media();
-      emit(InviteRelativesLoaded(Media(), permission, ''));
+      emit(InviteRelativesLoaded(Media(), permission, '', defaultIsIos));
     }
+  }
+
+  Future<void> changePlatform(bool isIos) async {
+    defaultIsIos = isIos;
+    urlDefault = createLink();
+    emit(InviteRelativesLoaded(
+        media, defaultPermission, urlDefault, isIos));
+    await saveLink(urlDefault);
   }
 
   Future<void> getAlbumByType() async {
@@ -49,7 +61,8 @@ class InviteRelativesCubit extends Cubit<InviteRelativesState> {
         sortAlbum(defaultPermission);
       } else {
         media = Media();
-        emit(InviteRelativesLoaded(Media(), defaultPermission, ''));
+        emit(InviteRelativesLoaded(
+            Media(), defaultPermission, '', defaultIsIos));
       }
       // listMedia.indexWhere((Media media) => DateTime.parse(media.createdAt).);
     } on APIException {
@@ -58,8 +71,10 @@ class InviteRelativesCubit extends Cubit<InviteRelativesState> {
   }
 
   String createLink() {
-    return Url.baseURLShare +
-        '/'+ RoutesName.invitationPage +
+    return (defaultIsIos ? 'famipe' : 'http') +
+        Url.baseURLShare +
+        '/' +
+        RoutesName.invitationPage +
         '/${prefs!.getInt(Constant.userId)}/$defaultPermission/${DateTime.now().millisecondsSinceEpoch}';
   }
 

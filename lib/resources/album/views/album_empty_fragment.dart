@@ -1,4 +1,3 @@
-import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:flutter/material.dart';
 

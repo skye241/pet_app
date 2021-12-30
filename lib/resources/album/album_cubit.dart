@@ -40,6 +40,7 @@ class AlbumCubit extends Cubit<AlbumState> {
       // final Set<DateTime> haveImageMonths = images.map((Media media) => DateTime(DateTime.parse(media.createdAt??'').year, DateTime.parse(media.createdAt??'').month, 1)).toSet();
       final Set<DateTime> haveImageMonths =  List<DateTime>.generate(12, (int index) =>
           DateTime(DateTime.now().year, DateTime.now().month - index, 1)).toSet();
+      haveImageMonths.add(DateTime(2020, 12, 1));
       defaultListDateTime.addAll(haveImageMonths);
       emit(AlbumStateSuccess(images, DateTime.now(), defaultPermission, haveImageMonths));
     } on APIException catch (e) {

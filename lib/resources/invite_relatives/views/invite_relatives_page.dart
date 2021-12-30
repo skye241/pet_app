@@ -123,89 +123,129 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
                   initPermission: PermissionPickMedia.family,
                   chooseOne: true,
                   onPermissionPicked: (String per) => cubit.sortAlbum(per)),
-              Expanded(child: Container()),
-              BlocBuilder<InviteRelativesCubit, InviteRelativesState>(
-                bloc: cubit,
-                builder: (BuildContext context, InviteRelativesState state) {
-                  return Column(
-                    children: <Widget>[
-                      Tooltip(
-                        message: AppStrings.of(context).textTooltip,
-                        padding: const EdgeInsets.all(16.0),
-                        margin: const EdgeInsets.symmetric(horizontal: 50.0),
-                        preferBelow: false,
-                        verticalOffset: 50,
-                        decoration: const BoxDecoration(
-                          color: AppThemeData.color_main,
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              Container(
+                height: 16,
+              ),
+
+              Expanded(
+                child: BlocBuilder<InviteRelativesCubit, InviteRelativesState>(
+                  bloc: cubit,
+                  builder: (BuildContext context, InviteRelativesState state) {
+                    return Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Text(
+                              'Hệ điều hành: ',
+                              style: Theme.of(context).textTheme.subtitle1,
+                            ),
+                            Expanded(
+                              child: Container(),
+                            ),
+                            ElevatedButton(
+                                onPressed: () {
+                                  cubit.changePlatform(true);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    primary: cubit.defaultIsIos ? AppThemeData.color_primary_90 : AppThemeData.color_black_40
+                                ),
+                                child: const Text('Ios')),
+                            Container(width: 8,),
+                            ElevatedButton(
+                              onPressed: () {
+                                cubit.changePlatform(false);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  primary: !cubit.defaultIsIos ? AppThemeData.color_primary_90 : AppThemeData.color_black_40
+                              ),
+                              child: const Text('Android'),
+                            ),
+                          ],
                         ),
-                        child: SizedBox(
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: cubit.media.id != null
-                                ? () async {
-                                    await Share.share(cubit.urlDefault);
-                                  }
-                                : null,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  const Icon(Icons.share),
-                                  const SizedBox(width: 16),
-                                  Text(AppStrings.of(context)
-                                      .textInviteRelativesButtonShare),
-                                ],
+                        Expanded(child: Container()),
+                        Column(
+                          children: <Widget>[
+
+                            Tooltip(
+                              message: AppStrings.of(context).textTooltip,
+                              padding: const EdgeInsets.all(16.0),
+                              margin: const EdgeInsets.symmetric(horizontal: 50.0),
+                              preferBelow: false,
+                              verticalOffset: 50,
+                              decoration: const BoxDecoration(
+                                color: AppThemeData.color_main,
+                                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                              ),
+                              child: SizedBox(
+                                height: 50,
+                                child: ElevatedButton(
+                                  onPressed: cubit.media.id != null
+                                      ? () async {
+                                          await Share.share(cubit.urlDefault);
+                                        }
+                                      : null,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        const Icon(Icons.share),
+                                        const SizedBox(width: 16),
+                                        Text(AppStrings.of(context)
+                                            .textInviteRelativesButtonShare),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      SizedBox(
-                        height: 50,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: AppThemeData.color_black_40,
-                          ),
-                          onPressed: cubit.media.id != null
-                              ? () {
-                                  Clipboard.setData(
-                                          ClipboardData(text: cubit.urlDefault))
-                                      .then((_) => showSnackBar(context));
-                                }
-                              : null,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                const Icon(
-                                  Icons.copy,
-                                  color: AppThemeData.color_black_80,
+                            const SizedBox(height: 8),
+                            SizedBox(
+                              height: 50,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: AppThemeData.color_black_40,
                                 ),
-                                const SizedBox(width: 16),
-                                Text(
-                                    AppStrings.of(context)
-                                        .textInviteRelativesButtonCopyUrl,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .button!
-                                        .copyWith(
-                                            color:
-                                                AppThemeData.color_black_80)),
-                              ],
+                                onPressed: cubit.media.id != null
+                                    ? () {
+                                        Clipboard.setData(
+                                                ClipboardData(text: cubit.urlDefault))
+                                            .then((_) => showSnackBar(context));
+                                      }
+                                    : null,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      const Icon(
+                                        Icons.copy,
+                                        color: AppThemeData.color_black_80,
+                                      ),
+                                      const SizedBox(width: 16),
+                                      Text(
+                                          AppStrings.of(context)
+                                              .textInviteRelativesButtonCopyUrl,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .button!
+                                              .copyWith(
+                                                  color:
+                                                      AppThemeData.color_black_80)),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
+                            Container(
+                              height: 40,
+                            )
+                          ],
                         ),
-                      ),
-                      Container(
-                        height: 40,
-                      )
-                    ],
-                  );
-                },
+                      ],
+                    );
+                  },
+                ),
               ),
             ],
           ),
