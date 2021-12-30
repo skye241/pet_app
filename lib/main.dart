@@ -28,12 +28,14 @@ import 'package:family_pet/resources/welcome/views/welcome_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'general/app_strings/app_strings.dart';
+import 'package:uni_links/uni_links.dart';
 
 SharedPreferences? prefs;
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -46,14 +48,13 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage msg) async {
       prefs!.getStringList(Constant.notificationList) ?? <String>[];
   Map<String, dynamic> data = <String, dynamic>{};
   if (msg.data[Constant.result].runtimeType == String) {
-    data = jsonDecode(msg.data[Constant.result] as String)
-    as Map<String, dynamic>;
+    data =
+        jsonDecode(msg.data[Constant.result] as String) as Map<String, dynamic>;
   } else
     data = msg.data[Constant.result] as Map<String, dynamic>;
   Comment notification = Comment();
   if (Platform.isAndroid) {
-    notification =
-        Comment.fromMap(data);
+    notification = Comment.fromMap(data);
   } else if (Platform.isIOS) {
     notification = Comment.fromMap(data);
   }
@@ -63,7 +64,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage msg) async {
       userName: getString(Constant.commenter, msg.data));
   final List<Comment> listComment = notificationList
       .map((String noti) =>
-      Comment.fromMap(jsonDecode(noti) as Map<String, dynamic>))
+          Comment.fromMap(jsonDecode(noti) as Map<String, dynamic>))
       .toList();
   listComment.removeWhere((Comment element) => element.id == notification.id);
   listComment.add(notification);
@@ -104,6 +105,26 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final LanguageCubit cubit = LanguageCubit();
+
+  Future<String?> initialLink() async {
+    try {
+      final String? initialLink = await getInitialLink();
+      print((initialLink??'') + '==== This is initial');
+      return initialLink;
+    } on PlatformException catch (exception) {
+      print(exception.message);
+    }
+  }
+
+  String deepLinkURL = '';
+
+  @override
+  void initState() {
+    initialLink().then((value) => setState(() {
+          deepLinkURL = value ?? '';
+        }));
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -252,7 +273,7 @@ class _MyAppState extends State<MyApp> {
           ),
           settings: const RouteSettings(name: RoutesName.signUpPage),
         );
-        case RoutesName.editAccountPage:
+      case RoutesName.editAccountPage:
         return MaterialPageRoute<dynamic>(
           builder: (BuildContext context) => EditAccountPage(
             userInfo: data[Constant.userInfo] as UserInfo,

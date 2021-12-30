@@ -160,6 +160,7 @@ class ComponentHelper {
       items: listData
           .map((T e) => DropdownMenuItem<T>(child: Text(e.toString())))
           .toList(),
+      onChanged: (T? t) {},
     );
   }
 

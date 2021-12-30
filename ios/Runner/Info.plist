@@ -26,10 +26,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>familypetcls.com</string>
+			<string>familypetcls001.com</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>famipe</string>
+				<string>http</string>
 			</array>
 		</dict>
 	</array>

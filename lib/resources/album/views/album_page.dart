@@ -1,6 +1,5 @@
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
-import 'package:family_pet/general/components/calendar_slide/calendar_slide_view.dart';
 import 'package:family_pet/general/constant/constant.dart';
 import 'package:family_pet/general/constant/routes_name.dart';
 import 'package:family_pet/general/constant/url.dart';
@@ -15,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+const int TILE_WIDTH = 84;
+
 class AlbumPage extends StatefulWidget {
   const AlbumPage({Key? key}) : super(key: key);
 
@@ -26,10 +27,13 @@ class _AlbumPageState extends State<AlbumPage> {
   final AlbumCubit cubit = AlbumCubit();
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
+  PageController? _pageController;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     cubit.initEvent();
+    _pageController = PageController(initialPage: 0);
     super.initState();
   }
 
@@ -90,16 +94,7 @@ class _AlbumPageState extends State<AlbumPage> {
                   return _emptyWidget(context);
                 } else if (state is AlbumStateSuccess) {
                   if (state.images.isNotEmpty) {
-                    return PageView.builder(itemBuilder: (BuildContext context, int index) {
-                      final List<Media> qualifyMedia = state.images
-                          .where((Media media) =>
-                      DateTime.parse(media.createdAt!).month ==
-                          state.selectedDateTime.month &&
-                          DateTime.parse(media.createdAt!).year ==
-                              state.selectedDateTime.year)
-                          .toList();
-                      return _body(context, state, qualifyMedia);
-                    });
+                    return _body(context, state, state.images);
                   } else
                     return Center(
                       child: AlbumEmptyFragment(
@@ -132,82 +127,137 @@ class _AlbumPageState extends State<AlbumPage> {
         onRefresh: () async => cubit.initEvent());
   }
 
-  Widget _body(BuildContext context, AlbumStateSuccess state, List<Media> qualifyMedia) {
-
-    return RefreshIndicator(
-      key: _refreshIndicatorKey,
-      color: AppThemeData.color_primary_90,
-      onRefresh: () async => cubit.initEvent(),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              DateTime.now().year.toString() +
-                  (prefs!.getString(Constant.language) == 'ja'
-                      ? AppStrings.of(context).year
-                      : ''),
-              style: Theme.of(context).textTheme.headline3,
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            MonthPickerWidget(
-              numberOfMonth: 12,
-              onMonthSelect: (DateTime date) =>
-                  cubit.chooseMonth(state.images, date),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            if (qualifyMedia.isNotEmpty)
-              Expanded(
-                child: ListView(
-                  children: <Widget>[
-                    _itemFirst(context, qualifyMedia.first, state),
+  Widget _body(
+      BuildContext context, AlbumStateSuccess state, List<Media> qualifyMedia) {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            DateTime.now().year.toString() +
+                (prefs!.getString(Constant.language) == 'ja'
+                    ? AppStrings.of(context).year
+                    : ''),
+            style: Theme.of(context).textTheme.headline3,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Container(
+            height: 36,
+            child: ListView.separated(
+              controller: _scrollController,
+                separatorBuilder: (BuildContext context, int index) =>
                     Container(
-                      height: 8,
+                      width: 16,
                     ),
-                    GridView.count(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 8,
-                        mainAxisSpacing: 8,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: qualifyMedia
-                            .sublist(1, qualifyMedia.length)
-                            .map((Media media) => MediaWidget(
-                                  media: media,
-                                  onMediaUpdate: (Media returnMedia) {
-                                    if (returnMedia.id == null) {
-                                      state.images.removeWhere(
-                                          (Media stateMedia) =>
-                                              stateMedia.id == media.id);
-                                      cubit.chooseMonth(
-                                          state.images, state.selectedDateTime);
-                                    } else {
-                                      final int index = state.images.indexWhere(
-                                          (Media stateMedia) =>
-                                              stateMedia.id == media.id);
-                                      state.images[index] = returnMedia;
-                                      cubit.chooseMonth(
-                                          state.images, state.selectedDateTime);
-                                    }
-                                  },
-                                ))
-                            .toList()),
-                  ],
-                ),
-              )
-            else
-              Center(
-                  child: AlbumEmptyFragment(
-                title: AppStrings.of(context).textLabelAlbumEmpty,
-              )),
-          ],
-        ),
+
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) => InkWell(
+                      onTap: () {
+                        cubit.chooseMonth(
+                            state.images, state.listDateTime.elementAt(index));
+                        _pageController!.animateToPage(index, duration: const Duration(milliseconds: 200), curve: Curves.easeIn);
+                        // cubit.chooseMonth(
+                        //     state.listDateTime[index], state.listDateTime);
+                        // widget.onMonthSelect!(state.listDateTime[index]);
+                      },
+                      child: Container(
+                        width: TILE_WIDTH - 16,
+                        child: Text(
+                          prefs!.getString(Constant.language) == 'vi'
+                              ? AppStrings.of(context).month +
+                                  state.listDateTime
+                                      .elementAt(index)
+                                      .month
+                                      .toString()
+                              : state.listDateTime
+                                      .elementAt(index)
+                                      .month
+                                      .toString() +
+                                  AppStrings.of(context).month,
+                          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                              color: state.selectedDateTime.month ==
+                                      state.listDateTime.elementAt(index).month
+                                  ? AppThemeData.color_primary_90
+                                  : AppThemeData.color_black_40),
+                        ),
+                      ),
+                    ),
+                itemCount: state.listDateTime.length),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Expanded(
+            child: PageView.builder(
+              controller: _pageController,
+              onPageChanged: (int index) {
+                cubit.chooseMonth(state.images, state.listDateTime.elementAt(index));
+                _scrollController.animateTo(index * TILE_WIDTH.toDouble() - 32, curve: Curves.easeIn, duration: Duration(milliseconds: 200));
+              },
+              allowImplicitScrolling: true,
+              itemBuilder: (BuildContext context, int index) {
+                final List<Media> images = state.images
+                    .where((Media e) =>
+                        DateTime.parse(e.createdAt!).month ==
+                            state.listDateTime.elementAt(index).month &&
+                        DateTime.parse(e.createdAt!).year ==
+                            state.listDateTime.elementAt(index).year)
+                    .toList();
+                if (images.isNotEmpty) {
+                  return listImage(context, images, state);
+                } else
+                  return Center(
+                      child: AlbumEmptyFragment(
+                    title: AppStrings.of(context).textLabelAlbumEmpty,
+                  ));
+              },
+              itemCount: state.listDateTime.length,
+            ),
+          ),
+        ],
       ),
+    );
+  }
+
+  Widget listImage(
+      BuildContext context, List<Media> qualifyMedia, AlbumStateSuccess state) {
+    return ListView(
+      children: <Widget>[
+        _itemFirst(context, qualifyMedia.first, state),
+        Container(
+          height: 8,
+        ),
+        GridView.count(
+            crossAxisCount: 2,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            children: qualifyMedia
+                .sublist(1, qualifyMedia.length)
+                .map((Media media) => MediaWidget(
+                      media: media,
+                      onMediaUpdate: (Media returnMedia) {
+                        if (returnMedia.id == null) {
+                          state.images.removeWhere(
+                              (Media stateMedia) => stateMedia.id == media.id);
+                          cubit.chooseMonth(
+                              state.images, state.selectedDateTime);
+                        } else {
+                          final int index = state.images.indexWhere(
+                              (Media stateMedia) => stateMedia.id == media.id);
+                          state.images[index] = returnMedia;
+                          cubit.chooseMonth(
+                              state.images, state.selectedDateTime);
+                        }
+                      },
+                    ))
+                .toList()),
+      ],
     );
   }
 

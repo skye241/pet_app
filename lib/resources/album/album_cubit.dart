@@ -13,11 +13,13 @@ part 'album_state.dart';
 class AlbumCubit extends Cubit<AlbumState> {
   AlbumCubit()
       : super(AlbumStateSuccess(
-            const <Media>[], DateTime.now(), PermissionPickMedia.mine));
+            const <Media>[], DateTime.now(), PermissionPickMedia.mine, List<DateTime>.generate(12, (int index) =>
+      DateTime(DateTime.now().year, DateTime.now().month - index, 1)).toSet()));
 
   final MediaRepository mediaRepository = MediaRepository();
   final PetRepository petRepository = PetRepository();
   String defaultPermission = PermissionPickMedia.mine;
+  Set<DateTime> defaultListDateTime = <DateTime>{};
 
   Future<void> initEvent() async {
     try {
@@ -35,7 +37,11 @@ class AlbumCubit extends Cubit<AlbumState> {
                 ? pets.map((Pet pet) => pet.name).toList().join('-')
                 : '');
       }
-      emit(AlbumStateSuccess(images, DateTime.now(), defaultPermission));
+      // final Set<DateTime> haveImageMonths = images.map((Media media) => DateTime(DateTime.parse(media.createdAt??'').year, DateTime.parse(media.createdAt??'').month, 1)).toSet();
+      final Set<DateTime> haveImageMonths =  List<DateTime>.generate(12, (int index) =>
+          DateTime(DateTime.now().year, DateTime.now().month - index, 1)).toSet();
+      defaultListDateTime.addAll(haveImageMonths);
+      emit(AlbumStateSuccess(images, DateTime.now(), defaultPermission, haveImageMonths));
     } on APIException catch (e) {
       emit(AlbumStateFail(e.message()));
     }
@@ -47,13 +53,13 @@ class AlbumCubit extends Cubit<AlbumState> {
       final List<Media> images = <Media>[];
       images.addAll(await mediaRepository.getAlbum(albumType) ?? <Media>[]);
       defaultPermission = albumType;
-      emit(AlbumStateSuccess(images, DateTime.now(), defaultPermission));
+      emit(AlbumStateSuccess(images, DateTime.now(), defaultPermission, defaultListDateTime));
     } on APIException catch (e) {
       emit(AlbumStateFail(e.message()));
     }
   }
 
   Future<void> chooseMonth(List<Media> images, DateTime date) async {
-    emit(AlbumStateSuccess(images, date, defaultPermission));
+    emit(AlbumStateSuccess(images, date, defaultPermission, defaultListDateTime));
   }
 }
