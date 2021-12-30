@@ -281,7 +281,18 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: ElevatedButton(
                           onPressed: () => Navigator.pushReplacementNamed(
                               context, RoutesName.signInPage),
-                          child: const Text('OK')))
+                          child: const Text('OK'))),
+                  Container(height: 16,),
+                  SizedBox(
+                      height: 50,
+                      width: double.maxFinite,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            cubit.resendEmail(emailController.text);
+                          },
+                          style: ElevatedButton.styleFrom(primary: AppThemeData.color_black_40),
+                          child: const Text('Gửi lại Email')))
                 ],
               ));
         });

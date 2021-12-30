@@ -38,4 +38,23 @@ class SignUpCubit extends Cubit<SignUpState> {
       emit(SignUpFail(e.message()));
     }
   }
+
+  Future<void> resendEmail(String email) async {
+    try {
+      emit(SignUpShowPopUpLoading());
+      // final UserInfo userInfo = UserInfo(
+      //     deviceKey: prefs!.getString(Constant.deviceKey),
+      //     fullName: prefs!.getString(Constant.fullName),
+      //     user: User(
+      //         id: prefs!.getInt(Constant.userId),
+      //         email: email,
+      //         password: password));
+      await _userRepository.sendEmail(email);
+      emit(SignUpDismissPopUpLoading());
+      emit(SignUpSuccess());
+    } on APIException catch (e) {
+      emit(SignUpDismissPopUpLoading());
+      emit(SignUpFail(e.message()));
+    }
+  }
 }

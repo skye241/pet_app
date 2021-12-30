@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:family_pet/general/app_strings/app_strings.dart';
 import 'package:family_pet/general/app_theme_date.dart';
 import 'package:family_pet/general/constant/constant.dart';
@@ -197,9 +198,11 @@ class _TopScreenPageState extends State<TopScreenPage> {
               const SizedBox(
                 height: 2,
               ),
-              Text(label ?? '',
+              AutoSizeText(label ?? '',
+                  minFontSize: 12,
+                  maxLines: 1,
                   style: TextStyle(
-                      fontSize: 12,
+                    fontSize: 18,
                       height: 1.5,
                       fontWeight: FontWeight.w400,
                       color: value == group

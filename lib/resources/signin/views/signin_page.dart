@@ -35,7 +35,34 @@ class _SignInPageState extends State<SignInPage> {
         } else if (state is SignInStateSuccess) {
           Navigator.pushReplacementNamed(context, RoutesName.topPage);
         } else if (state is SignInStateFail) {
-          showMessage(context, AppStrings.of(context).notice, state.message);
+          showMessage(context, AppStrings.of(context).notice, state.message,
+              actions: state.message ==
+                      AppStrings.of(context).textSignInErrorNotActive
+                  ? Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: AppThemeData.color_black_40),
+                              onPressed: () => Navigator.pop(context),
+                              child: Text(AppStrings.of(context)
+                                  .textPopUpCancelButtonDelete)),
+                        ),
+                        Container(
+                          width: 8,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                cubit.resendEmail(
+                                    context, emailController.text);
+                              },
+                              child: Text('Gửi lại email')),
+                        ),
+                      ],
+                    )
+                  : null);
         }
       },
       child: GestureDetector(

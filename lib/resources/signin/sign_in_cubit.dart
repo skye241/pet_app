@@ -44,7 +44,23 @@ class SignInCubit extends Cubit<SignInState> {
       emit(SignInStateFail(getErrorMessage(context, e)));
     }
   }
-
+  Future<void> resendEmail(BuildContext context, String email) async {
+    try {
+      emit(SignInShowPopUpLoading());
+      // final UserInfo userInfo = UserInfo(
+      //     deviceKey: prefs!.getString(Constant.deviceKey),
+      //     fullName: prefs!.getString(Constant.fullName),
+      //     user: User(
+      //         id: prefs!.getInt(Constant.userId),
+      //         email: email,
+      //         password: password));
+      await _userRepository.sendEmail(email);
+      emit(SignInShowDismissPopUpLoading());
+    } on APIException catch (e) {
+      emit(SignInShowDismissPopUpLoading());
+      emit(SignInStateFail(getErrorMessage(context, e)));
+    }
+  }
   Future<String> _getId() async {
     final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Platform.isIOS) {
