@@ -25,6 +25,7 @@ class _ListRelativesPageState extends State<ListRelativesPage>
 
   @override
   void initState() {
+    print(widget.familyMembers.length.toString() + 'in init');
     cubit.initEvent(widget.familyMembers, widget.friends);
     super.initState();
   }
@@ -62,84 +63,91 @@ class _ListRelativesPageState extends State<ListRelativesPage>
   }
 
   Widget _body(BuildContext context, ListOfRelativesInitial state) {
+
     return DefaultTabController(
       length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          toolbarHeight: 133,
-          title: Stack(
-            children: <Widget>[
-              Container(
-                height: 122,
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: AppThemeData.color_black_40, width: 4))),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        IconButton(
-                            onPressed: () => Navigator.pop(context),
-                            icon: const Icon(
-                              Icons.arrow_back_ios,
-                              size: 24,
-                            )),
-                        Expanded(
-                          child: Text(
-                            AppStrings.of(context).textListRelativesTitle,
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).appBarTheme.titleTextStyle,
+      child: WillPopScope(
+        onWillPop: () async {
+          Navigator.pop(context, <List<UserInfo>>[state.familyList, state.friendList]);
+          return true;
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            toolbarHeight: 133,
+            title: Stack(
+              children: <Widget>[
+                Container(
+                  height: 122,
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  decoration: const BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: AppThemeData.color_black_40, width: 4))),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          IconButton(
+                              onPressed: () => Navigator.pop(context, <List<UserInfo>>[state.familyList, state.friendList]),
+                              icon: const Icon(
+                                Icons.arrow_back_ios,
+                                size: 24,
+                              )),
+                          Expanded(
+                            child: Text(
+                              AppStrings.of(context).textListRelativesTitle,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).appBarTheme.titleTextStyle,
+                            ),
                           ),
-                        ),
-                        // Container(
-                        //   width: 24,
-                        // ),
-                      ],
-                    ),
-                    Container(
-                      height: 24,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: TabBar(
-                        padding: EdgeInsets.zero,
-                        // controller: _tabController,
-                        labelStyle: Theme.of(context).textTheme.bodyText1,
-                        labelColor: AppThemeData.color_primary_90,
-                        unselectedLabelColor: AppThemeData.color_black_40,
-                        indicatorColor: AppThemeData.color_primary_90,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        // automaticIndicatorColorAdjustment: true,
-                        indicatorWeight: 4,
-                        tabs: <Tab>[
-                          Tab(
-                            text: '${AppStrings.of(context).textTabFamily} (${state.familyList.length})',
-                          ),
-                          Tab(
-                            text: '${AppStrings.of(context).textTabFriend} (${state.friendList.length})',
-                          ),
+                          // Container(
+                          //   width: 24,
+                          // ),
                         ],
                       ),
-                    )
-                  ],
+                      Container(
+                        height: 24,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: TabBar(
+                          padding: EdgeInsets.zero,
+                          // controller: _tabController,
+                          labelStyle: Theme.of(context).textTheme.bodyText1,
+                          labelColor: AppThemeData.color_primary_90,
+                          unselectedLabelColor: AppThemeData.color_black_40,
+                          indicatorColor: AppThemeData.color_primary_90,
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          // automaticIndicatorColorAdjustment: true,
+                          indicatorWeight: 4,
+                          tabs: <Tab>[
+                            Tab(
+                              text: '${AppStrings.of(context).textTabFamily} (${state.familyList.length})',
+                            ),
+                            Tab(
+                              text: '${AppStrings.of(context).textTabFriend} (${state.friendList.length})',
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: <Widget>[
+              _listUser(context, state.familyList),
+              _listUser(context, state.friendList)
             ],
           ),
-        ),
-        body: TabBarView(
-          children: <Widget>[
-            _listUser(context, state.familyList),
-            _listUser(context, state.friendList)
-          ],
         ),
       ),
     );
@@ -164,7 +172,33 @@ class _ListRelativesPageState extends State<ListRelativesPage>
                 ),
           title: Text(user.fullName!),
           trailing: GestureDetector(
-              onTap: () => cubit.deleteRelation(user),
+              onTap: () {
+                showMessage(context, AppStrings.of(context).notice,
+                    AppStrings.of(context).textListRelativesConfirmDelete,
+                    actions: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: AppThemeData.color_black_40),
+                              onPressed: () => Navigator.pop(context),
+                              child: Text(AppStrings.of(context)
+                                  .textPopUpCancelButtonDelete)),
+                        ),
+                        Container(
+                          width: 8,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                cubit.deleteRelation(user);                              },
+                              child: Text(AppStrings.of(context)
+                                  .textPopUpConfirmButtonDelete)),
+                        ),
+                      ],
+                    ));
+              } ,
               child: Text(AppStrings.of(context).delete)),
         );
       },

@@ -134,6 +134,7 @@ class _AlbumPageState extends State<AlbumPage> {
 
   Widget _body(
       BuildContext context, AlbumStateSuccess state, List<Media> qualifyMedia) {
+
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -170,39 +171,33 @@ class _AlbumPageState extends State<AlbumPage> {
                         //     state.listDateTime[index], state.listDateTime);
                         // widget.onMonthSelect!(state.listDateTime[index]);
                       },
-                      child: Container(
-                        width: TILE_WIDTH - 16,
-                        child: Text(
-                          (prefs!.getString(Constant.language) == 'vi'
-                                  ? AppStrings.of(context).month +
-                                      state.listDateTime
-                                          .elementAt(index)
-                                          .month
-                                          .toString()
-                                  : state.listDateTime
-                                          .elementAt(index)
-                                          .month
-                                          .toString() +
-                                      AppStrings.of(context).month) +
-                              (state.listDateTime.elementAt(index).year ==
-                                      state.selectedDateTime.year
-                                  ? ''
-                                  : '/${state.listDateTime.elementAt(index).year}'),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(
-                                  color: (state.selectedDateTime.month ==
-                                              state.listDateTime
-                                                  .elementAt(index)
-                                                  .month) &&
-                                          (state.selectedDateTime.year ==
-                                              state.listDateTime
-                                                  .elementAt(index)
-                                                  .year)
-                                      ? AppThemeData.color_primary_90
-                                      : AppThemeData.color_black_40),
-                        ),
+                      child: Text(
+                        prefs!.getString(Constant.language) == 'vi'
+                                ? AppStrings.of(context).month +
+                                    state.listDateTime
+                                        .elementAt(index)
+                                        .month
+                                        .toString()
+                                : state.listDateTime
+                                        .elementAt(index)
+                                        .month
+                                        .toString() +
+                                    AppStrings.of(context).month
+                          ,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(
+                                color: (state.selectedDateTime.month ==
+                                            state.listDateTime
+                                                .elementAt(index)
+                                                .month) &&
+                                        (state.selectedDateTime.year ==
+                                            state.listDateTime
+                                                .elementAt(index)
+                                                .year)
+                                    ? AppThemeData.color_primary_90
+                                    : AppThemeData.color_black_40),
                       ),
                     ),
                 itemCount: state.listDateTime.length),

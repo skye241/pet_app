@@ -270,6 +270,11 @@ abstract class AppStrings {
 
   String get textListRelativesLabelFamily;
 
+  String get textListRelativesConfirmDelete;
+
+  String get textListRelativesSystem;
+
+
 // *** End - ListRelatives ***//
 
 // *** Start - InviteRelatives ***//
@@ -336,6 +341,8 @@ abstract class AppStrings {
   String get textSignInErrorNotActive;
 
   String get textSignInErrorNotCorrectAccount;
+
+  String get textSignInResendEmail;
 
 // *** End - SIGNIN - LOGIN ***//
 

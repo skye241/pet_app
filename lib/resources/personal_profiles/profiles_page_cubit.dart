@@ -22,8 +22,8 @@ class ProfilesPageCubit extends Cubit<ProfilesPageState> {
       RelationshipRepository();
   final PetRepository petRepository = PetRepository();
   final List<Pet> defaultListPet = <Pet>[];
-  final List<UserInfo> defaultListFamily = <UserInfo>[];
-  final List<UserInfo> defaultListFriend = <UserInfo>[];
+   List<UserInfo> defaultListFamily = <UserInfo>[];
+   List<UserInfo> defaultListFriend = <UserInfo>[];
   UserInfo defaultUserInfo = UserInfo();
   bool authorized = false;
   FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
@@ -60,8 +60,8 @@ class ProfilesPageCubit extends Cubit<ProfilesPageState> {
               userInfo.relationType == PermissionPickMedia.friend)
           .toList();
       defaultListPet.addAll(listPet);
-      defaultListFamily.addAll(listFamily);
-      defaultListFriend.addAll(listFriend);
+      defaultListFamily = listFamily;
+      defaultListFriend = listFriend;
       defaultUserInfo = userInfo;
 
       emit(ProfilesPageStateLoaded(listFamily, listFriend, userInfo, listPet));
@@ -123,6 +123,12 @@ class ProfilesPageCubit extends Cubit<ProfilesPageState> {
       emit(ProfilesPageFailed(e.message()));
     }
   }
+
+  Future<void> updateListRelative(List<UserInfo> familyList, List<UserInfo> friendList) async {
+        defaultListFamily = familyList;
+        defaultListFriend = friendList;
+        emit(ProfilesPageStateLoaded(familyList, friendList, defaultUserInfo, defaultListPet));
+  }
   Future<void> updateLocation() async {
     try {
       emit(ProfilesShowPopUpLoading());
@@ -130,6 +136,7 @@ class ProfilesPageCubit extends Cubit<ProfilesPageState> {
           ? Location.japan
           : Location.vietnam);
       emit(ProfilesPageDismissLoading());
+      emit(ProfilesPageStateLoaded(defaultListFamily, defaultListFriend, defaultUserInfo, defaultListPet));
     } on APIException catch (e) {
       emit(ProfilesPageDismissLoading());
       emit(ProfilesPageFailed(e.message()));

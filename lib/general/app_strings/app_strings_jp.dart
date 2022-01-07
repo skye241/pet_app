@@ -465,4 +465,13 @@ class _AppStringsJp extends AppStrings {
 
   @override
   String get age => '歳';
+
+  @override
+  String get textListRelativesConfirmDelete => 'この友達をリストから削除してもよろしいですか。';
+
+  @override
+  String get textSignInResendEmail => '電子メールを再送信する';
+
+  @override
+  String get textListRelativesSystem => 'オペレーティングシステム';
 }

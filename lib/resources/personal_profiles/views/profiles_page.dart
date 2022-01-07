@@ -224,12 +224,15 @@ class _ProfileViewPageState extends State<ProfileViewPage>
             ),
           ),
         ),
-        listTile(context, () {
-          Navigator.pushNamed(context, RoutesName.listRelativesPage,
+        listTile(context, () async {
+         final dynamic item = await Navigator.pushNamed(context, RoutesName.listRelativesPage,
               arguments: <String, dynamic>{
                 Constant.friends: state.friendList,
                 Constant.familyMembers: state.familyList
               });
+         final List<List<UserInfo>> returnList = item as List<List<UserInfo>>;
+         print(returnList);
+         cubit.updateListRelative(returnList.first, returnList.last);
         },
             false,
             AppStrings.of(context).textProfileListRelatives +

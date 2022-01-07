@@ -19,6 +19,8 @@ class ListOfRelativesCubit extends Cubit<ListOfRelativesState> {
 
   Future<void> initEvent(
       List<UserInfo> familyList, List<UserInfo> friendList) async {
+    defaultFamily.addAll(familyList);
+    defaultFriend.addAll(friendList);
     emit(ListOfRelativesInitial(familyList, friendList));
   }
 
@@ -34,7 +36,7 @@ class ListOfRelativesCubit extends Cubit<ListOfRelativesState> {
         defaultFriend
             .removeWhere((UserInfo user) => userInfo.user!.id == user.user!.id);
       emit(ListOfRelativesStateDismissLoading());
-      emit(ListOfRelativesInitial(defaultFamily, defaultFamily));
+      emit(ListOfRelativesInitial(defaultFamily, defaultFriend));
     } on APIException catch (e) {
       emit(ListOfRelativesStateDismissLoading());
       emit(ListOfRelativesStateShowMessage(e.message()));

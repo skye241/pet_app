@@ -135,13 +135,14 @@ class _InviteRelativePageState extends State<InviteRelativePage> {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            Text(
-                              'Hệ điều hành: ',
-                              style: Theme.of(context).textTheme.subtitle1,
-                            ),
                             Expanded(
-                              child: Container(),
+                              child: Text(
+                                '${AppStrings.of(context).textListRelativesSystem}: ',
+                                style: Theme.of(context).textTheme.subtitle1,
+                              ),
                             ),
+                            Container(width: 8,),
+
                             ElevatedButton(
                                 onPressed: () {
                                   cubit.changePlatform(true);

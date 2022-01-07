@@ -1,3 +1,6 @@
+
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:family_pet/general/api_handler.dart';
 import 'package:family_pet/general/constant/url.dart';
@@ -19,7 +22,7 @@ class InvitationCubit extends Cubit<InvitationState> {
   Future<void> initEvent(String url) async {
     try {
       final Media media =
-          await shareRepository.checkLink(Url.baseURLShare + url);
+          await shareRepository.checkLink(Platform.isIOS ? 'famipe' : 'http' + Url.baseURLShare + url);
       defaultMedia = media;
       emit(InvitationStateLoaded(media));
     } on APIException {
@@ -32,7 +35,7 @@ class InvitationCubit extends Cubit<InvitationState> {
     try {
       emit(InvitationStateShowPopUp());
       await relationshipRepository.setRelationship(
-          userId, relationType, Url.baseURLShare + url);
+          userId, relationType, Platform.isIOS ? 'famipe' : 'http'+ Url.baseURLShare + url);
       emit(InvitationStateDismissPopUp());
       emit(InvitationStateSuccessSetRela());
     } on APIException catch (e) {

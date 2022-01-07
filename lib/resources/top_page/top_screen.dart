@@ -100,7 +100,7 @@ class _TopScreenPageState extends State<TopScreenPage> {
 
   Widget _centerButton(BuildContext context, TopScreenInitial state) {
     return Transform(
-      transform: Matrix4.identity()..translate(0.0, -15.2),
+      transform: Matrix4.identity()..translate(0.0, -8),
       child: InkWell(
         onTap: () {
           Navigator.pushNamed(context, RoutesName.pickMediaPage);
@@ -127,8 +127,8 @@ class _TopScreenPageState extends State<TopScreenPage> {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Container(
-          padding: EdgeInsets.only(
-              left: 8, right: 8, top: 8, bottom: Platform.isIOS ? 16 : 8),
+          padding: const EdgeInsets.only(
+              left: 8, right: 8, bottom:16),
           decoration: const BoxDecoration(
             color: Colors.white,
             boxShadow: <BoxShadow>[
@@ -141,6 +141,7 @@ class _TopScreenPageState extends State<TopScreenPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               _itemNavbar(
                   value: PageIndex.album,
@@ -198,11 +199,10 @@ class _TopScreenPageState extends State<TopScreenPage> {
               const SizedBox(
                 height: 2,
               ),
-              AutoSizeText(label ?? '',
-                  minFontSize: 12,
+              Text(label ?? '',
                   maxLines: 1,
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: MediaQuery.of(context).size.width > 750 ? 18: 12,
                       height: 1.5,
                       fontWeight: FontWeight.w400,
                       color: value == group

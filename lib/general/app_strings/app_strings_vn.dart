@@ -488,4 +488,13 @@ class _AppStringsVn extends AppStrings {
 
   @override
   String get age => 'Năm';
+
+  @override
+  String get textListRelativesConfirmDelete => 'Bạn có muốn xóa người này khỏi danh sách người thân?';
+
+  @override
+  String get textSignInResendEmail => 'Gửi lại email';
+
+  @override
+  String get textListRelativesSystem => 'Hệ điều hành';
 }

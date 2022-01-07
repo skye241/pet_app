@@ -166,10 +166,20 @@ class _MyAppState extends State<MyApp> {
     final dynamic data = settings.arguments;
     final Uri uri = Uri.parse(settings.name!);
     print(uri.path + ' ==== uri');
+
+
     if (uri.pathSegments.length == 4 &&
         uri.pathSegments.first == RoutesName.invitationPage) {
       final int id = int.parse(uri.pathSegments[1]);
       final String permission = uri.pathSegments[2];
+      if (id == prefs!.getInt(Constant.userId)) {
+        return MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) => const TopScreenPage(
+           index: 0,
+          ),
+          settings: const RouteSettings(name: RoutesName.invitationPage),
+        );
+      }
       return MaterialPageRoute<dynamic>(
         builder: (BuildContext context) => InvitationPage(
           userId: id,

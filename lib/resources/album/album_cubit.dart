@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:bloc/bloc.dart';
 import 'package:family_pet/general/api_handler.dart';
 import 'package:family_pet/general/constant/constant.dart';
@@ -37,10 +39,11 @@ class AlbumCubit extends Cubit<AlbumState> {
                 ? pets.map((Pet pet) => pet.name).toList().join('-')
                 : '');
       }
-      // final Set<DateTime> haveImageMonths = images.map((Media media) => DateTime(DateTime.parse(media.createdAt??'').year, DateTime.parse(media.createdAt??'').month, 1)).toSet();
-      final Set<DateTime> haveImageMonths =  List<DateTime>.generate(12, (int index) =>
-          DateTime(DateTime.now().year, DateTime.now().month - index, 1)).toSet();
-      haveImageMonths.add(DateTime(2020, 12, 1));
+      Set<DateTime> haveImageMonths = images.map((Media media) => DateTime(DateTime.parse(media.createdAt??'').year, DateTime.parse(media.createdAt??'').month, 1)).toSet();
+
+      haveImageMonths = SplayTreeSet<DateTime>.from(haveImageMonths, (DateTime b, DateTime a) => a.millisecondsSinceEpoch.compareTo(b.millisecondsSinceEpoch));// final Set<DateTime> haveImageMonths =  List<DateTime>.generate(12, (int index) =>
+      //     DateTime(DateTime.now().year, DateTime.now().month - index, 1)).toSet();
+      print(haveImageMonths);
       defaultListDateTime.addAll(haveImageMonths);
       emit(AlbumStateSuccess(images, DateTime.now(), defaultPermission, haveImageMonths));
     } on APIException catch (e) {

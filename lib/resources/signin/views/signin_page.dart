@@ -58,7 +58,7 @@ class _SignInPageState extends State<SignInPage> {
                                 cubit.resendEmail(
                                     context, emailController.text);
                               },
-                              child: Text('Gửi lại email')),
+                              child: Text(AppStrings.of(context).textSignInResendEmail)),
                         ),
                       ],
                     )
